@@ -534,9 +534,19 @@ body {
 
 .stage-header { margin-bottom: 16px; }
 .stage-header h2 { font-size: 22px; font-weight: 800; }
-.stage-header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+.home-bottom-action {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 
-.home-bottom-action { margin-top: auto; padding-top: 16px; }
+#btn-start-refill {
+  margin: 0 auto;
+  min-width: 240px;
+}
 
 /* STAGE 1: VISUAL CYLINDER */
 .cylinder-visual-container { flex: 1; display: flex; align-items: center; justify-content: center; }
