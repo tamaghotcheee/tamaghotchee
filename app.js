@@ -48,8 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== i18n TRANSLATIONS ====================
   const translations = {
     ru: {
-      auth2faTitle: "Двухэтапный вход",
-      auth2faSub: "Безопасная авторизация (Пароль + СМС-код)",
+      auth2faTitle: "Вход",
       tabLogin: "Вход",
       tabRegister: "Регистрация",
       step1of2: "Шаг 1 из 2: Данные",
@@ -135,8 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cartTitle: "Корзина покупок"
     },
     uz: {
-      auth2faTitle: "Ikki bosqichli kirish",
-      auth2faSub: "Xavfsiz avtorizatsiya (Parol + SMS-kod)",
+      auth2faTitle: "Kirish",
       tabLogin: "Kirish",
       tabRegister: "Ro'yxatdan o'tish",
       step1of2: "1-bosqich: Ma'lumotlar",
@@ -222,8 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cartTitle: "Haridlar savatchasi"
     },
     en: {
-      auth2faTitle: "Two-Step Verification",
-      auth2faSub: "Secure Authentication (Password + SMS OTP)",
+      auth2faTitle: "Sign In",
       tabLogin: "Sign In",
       tabRegister: "Sign Up",
       step1of2: "Step 1 of 2: Credentials",
@@ -476,13 +473,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isLogin) {
       document.getElementById('login-step-credentials').classList.add('active');
       document.getElementById('login-step-otp').classList.remove('active');
-      authMainTitle.textContent = translations[currentLang].auth2faTitle || "Двухэтапный вход";
-      authMainSub.textContent = translations[currentLang].auth2faSub || "Безопасная авторизация (Пароль + СМС-код)";
+      authMainTitle.textContent = translations[currentLang].auth2faTitle || "Вход";
+      if (authMainSub) authMainSub.textContent = "";
     } else {
       document.getElementById('register-step-form').classList.add('active');
       document.getElementById('register-step-otp').classList.remove('active');
       authMainTitle.textContent = translations[currentLang].tabRegister || "Регистрация";
-      authMainSub.textContent = "Создание безопасного аккаунта с 2FA";
+      if (authMainSub) authMainSub.textContent = "";
     }
   }
 
