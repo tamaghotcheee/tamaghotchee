@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LPG GAS EXPRESS — COMPLETE INTERACTIVE ENGINE v3.1 (FULL PRODUCTION READY)
+   POYTUG GNS — COMPLETE INTERACTIVE ENGINE v3.1 (FULL PRODUCTION READY)
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1205,9 +1205,9 @@ document.addEventListener('DOMContentLoaded', () => {
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mainMap);
 
     const stations = [
-      { name: "🔥 АГЗС #1 LPG Express — Чиланзар", lat: 41.2850, lng: 69.2050, addr: "Ташкент, ул. Катартал, 28", price: "3 800 UZS / л" },
-      { name: "🔥 АГЗС #2 LPG Express — Сергели", lat: 41.2210, lng: 69.2230, addr: "Ташкент, Сергели 4, АГЗС-2", price: "3 750 UZS / л" },
-      { name: "🔥 АГЗС #3 LPG Express — Юнусабад", lat: 41.3520, lng: 69.2890, addr: "Ташкент, Юнусабад 12-квартал", price: "3 850 UZS / л" }
+      { name: "🔥 АГЗС #1 Poytug GNS — Чиланзар", lat: 41.2850, lng: 69.2050, addr: "Ташкент, ул. Катартал, 28", price: "3 800 UZS / л" },
+      { name: "🔥 АГЗС #2 Poytug GNS — Сергели", lat: 41.2210, lng: 69.2230, addr: "Ташкент, Сергели 4, АГЗС-2", price: "3 750 UZS / л" },
+      { name: "🔥 АГЗС #3 Poytug GNS — Юнусабад", lat: 41.3520, lng: 69.2890, addr: "Ташкент, Юнусабад 12-квартал", price: "3 850 UZS / л" }
     ];
 
     stations.forEach(st => {
