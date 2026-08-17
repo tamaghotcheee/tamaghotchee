@@ -992,15 +992,21 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lockIndicator) lockIndicator.setAttribute('fill', '#00e676');
       if (statusPillText) statusPillText.textContent = 'Шланг зафиксирован • Подача СУГ';
       if (gasStream) gasStream.classList.add('active-flow');
-      if (wavePath) wavePath.classList.add('active');
+      if (wavePath) {
+        wavePath.classList.add('active');
+        wavePath.setAttribute('opacity', '0.85');
+      }
+      if (fillRect) {
+        fillRect.setAttribute('opacity', '0.7');
+      }
       playGasFillingAudio();
       showToast('🔌 Газопровод подключен к штуцеру! Наполнение...');
 
       let percent = 0;
       const fillInterval = setInterval(() => {
         percent += 2;
-        const currentHeight = (percent / 100) * 180;
-        const currentY = 320 - currentHeight;
+        const currentHeight = (percent / 100) * 190;
+        const currentY = 325 - currentHeight;
         if (fillRect) {
           fillRect.setAttribute('height', currentHeight);
           fillRect.setAttribute('y', currentY);
