@@ -330,18 +330,189 @@
           <p data-i18n="refillGasSub">Быстрая заправка вашего баллона с доставкой</p>
         </div>
 
-        <!-- 3D Visual Cylinder Graphic -->
+        <!-- 3D Realistic Visual Cylinder Graphic & Gas Rig -->
         <div class="cylinder-visual-container">
-          <div class="empty-cylinder-graphic glow-effect">
-            <div class="cylinder-cap"></div>
-            <div class="cylinder-body">
-              <div class="cylinder-label-badge">
-                <i class="fa-solid fa-fire-flame-simple"></i> LPG GAS
-              </div>
-              <div class="empty-indicator-tag" data-i18n="statusEmpty">ПУСТОЙ</div>
-            </div>
-            <div class="cylinder-base"></div>
+          <div class="refuel-status-pill" id="refuel-live-status">
+            <span class="status-dot"></span>
+            <span id="refuel-status-text">Баллон готов к заправке</span>
           </div>
+
+          <svg class="realistic-cylinder-svg" id="home-cylinder-svg" viewBox="0 0 340 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Metallic Red Cylinder Body Gradient -->
+              <linearGradient id="cyl-body-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#7f1d1d"/>
+                <stop offset="12%" stop-color="#b91c1c"/>
+                <stop offset="26%" stop-color="#dc2626"/>
+                <stop offset="40%" stop-color="#ef4444"/>
+                <stop offset="52%" stop-color="#f87171"/>
+                <stop offset="68%" stop-color="#dc2626"/>
+                <stop offset="85%" stop-color="#991b1b"/>
+                <stop offset="100%" stop-color="#450a0a"/>
+              </linearGradient>
+
+              <!-- Cylinder Specular Highlight -->
+              <linearGradient id="cyl-gloss-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+                <stop offset="50%" stop-color="rgba(255,255,255,0.45)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+              </linearGradient>
+
+              <!-- Brass Valve Gradient -->
+              <linearGradient id="brass-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#b45309"/>
+                <stop offset="28%" stop-color="#f59e0b"/>
+                <stop offset="55%" stop-color="#fef08a"/>
+                <stop offset="80%" stop-color="#d97706"/>
+                <stop offset="100%" stop-color="#78350f"/>
+              </linearGradient>
+
+              <!-- Chrome / Steel Metal Gradient -->
+              <linearGradient id="chrome-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#334155"/>
+                <stop offset="30%" stop-color="#94a3b8"/>
+                <stop offset="55%" stop-color="#f1f5f9"/>
+                <stop offset="80%" stop-color="#64748b"/>
+                <stop offset="100%" stop-color="#1e293b"/>
+              </linearGradient>
+
+              <!-- Corrugated Hose Gradient -->
+              <linearGradient id="hose-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0f172a"/>
+                <stop offset="50%" stop-color="#334155"/>
+                <stop offset="100%" stop-color="#020617"/>
+              </linearGradient>
+
+              <!-- Gas Flow Pulse Gradient -->
+              <linearGradient id="gas-flow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f2fe"/>
+                <stop offset="50%" stop-color="#38bdf8"/>
+                <stop offset="100%" stop-color="#ff6b00"/>
+              </linearGradient>
+
+              <!-- Liquid Gas Fill Gradient -->
+              <linearGradient id="liquid-gas-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="rgba(0, 242, 254, 0.9)"/>
+                <stop offset="65%" stop-color="rgba(56, 189, 248, 0.75)"/>
+                <stop offset="100%" stop-color="rgba(255, 107, 0, 0.9)"/>
+              </linearGradient>
+
+              <!-- Clip Path for Inside Cylinder Liquid Level Fill -->
+              <clipPath id="cyl-inner-clip">
+                <rect x="110" y="115" width="140" height="205" rx="20"/>
+              </clipPath>
+            </defs>
+
+            <!-- Ground Contact Shadow -->
+            <ellipse cx="180" cy="365" rx="75" ry="12" fill="#000" opacity="0.6"/>
+
+            <!-- ==================== BASE SKIRT (Башмак) ==================== -->
+            <path d="M 125 320 L 128 352 Q 180 360 232 352 L 235 320 Z" fill="url(#cyl-body-grad)" stroke="#450a0a" stroke-width="1.5"/>
+            <ellipse cx="180" cy="350" rx="52" ry="7" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+
+            <!-- ==================== CYLINDER MAIN BODY ==================== -->
+            <!-- Bottom Dome -->
+            <path d="M 110 280 C 110 330 250 330 250 280 Z" fill="url(#cyl-body-grad)"/>
+
+            <!-- Main Cylinder Shell -->
+            <rect x="110" y="125" width="140" height="160" fill="url(#cyl-body-grad)"/>
+
+            <!-- Top Dome -->
+            <path d="M 110 135 C 110 75 250 75 250 135 Z" fill="url(#cyl-body-grad)"/>
+
+            <!-- Internal Liquid Fill Layer (Animated) -->
+            <g clip-path="url(#cyl-inner-clip)">
+              <!-- Gas Level Fill Rectangle -->
+              <rect id="svg-gas-fill-rect" x="110" y="320" width="140" height="0" fill="url(#liquid-gas-grad)" opacity="0.65"/>
+              <!-- Liquid Surface Wave / Froth -->
+              <path id="svg-gas-wave-path" d="M 110 320 Q 145 315 180 320 T 250 320 L 250 340 L 110 340 Z" fill="#00f2fe" opacity="0.8"/>
+            </g>
+
+            <!-- Specular Vertical Gloss Line -->
+            <path d="M 132 105 L 132 305" stroke="url(#cyl-gloss-grad)" stroke-width="12" stroke-linecap="round"/>
+
+            <!-- Weld Circumferential Seam (Шов по ГОСТ) -->
+            <ellipse cx="180" cy="205" rx="70" ry="4" fill="none" stroke="#7f1d1d" stroke-width="3"/>
+            <ellipse cx="180" cy="204" rx="70" ry="4" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+
+            <!-- Cylinder Stencils & Branding -->
+            <g id="cyl-stencils" opacity="0.95">
+              <!-- Flame Badge -->
+              <g transform="translate(180, 152)">
+                <polygon points="0,-16 16,0 0,16 -16,0" fill="#dc2626" stroke="#fff" stroke-width="1.5"/>
+                <path d="M 0 -8 C 0 -8 4 -2 4 2 C 4 6 2 8 0 8 C -2 8 -4 6 -4 2 C -4 -2 0 -8 0 -8 Z" fill="#ffb703"/>
+                <text x="0" y="13" font-size="5" font-weight="900" fill="#fff" text-anchor="middle">2</text>
+              </g>
+              <!-- Brand Title Stencil -->
+              <text x="180" y="184" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="14" fill="#ffffff" text-anchor="middle" letter-spacing="1">POYTUG GNS</text>
+              <text x="180" y="196" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="8.5" fill="#ffedd5" text-anchor="middle" letter-spacing="2">ПРОПАН-БУТАН</text>
+              
+              <!-- Specs Stencil -->
+              <text x="180" y="235" font-family="monospace" font-weight="600" font-size="7.5" fill="rgba(255,255,255,0.7)" text-anchor="middle">ГОСТ 15860-84 • 50L</text>
+              <text x="180" y="246" font-family="monospace" font-weight="600" font-size="7" fill="rgba(255,255,255,0.6)" text-anchor="middle">P раб: 1.6 МПа • МАССА: 22.0 кг</text>
+            </g>
+
+            <!-- Live Status Badge on Cylinder Body -->
+            <g id="cyl-status-badge-group" transform="translate(180, 272)">
+              <rect id="cyl-status-rect" x="-48" y="-12" width="96" height="24" rx="12" fill="rgba(0,0,0,0.75)" stroke="#ef4444" stroke-width="1.5"/>
+              <text id="cyl-status-text" x="0" y="4" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="800" fill="#ef4444" text-anchor="middle">ПУСТОЙ 0%</text>
+            </g>
+
+            <!-- ==================== TOP PROTECTIVE COLLAR (Воротник с ручками) ==================== -->
+            <g id="collar-assembly">
+              <!-- Collar Outer Shell -->
+              <path d="M 130 98 C 130 65 230 65 230 98 L 235 105 L 125 105 Z" fill="url(#cyl-body-grad)" stroke="#450a0a" stroke-width="1.5"/>
+              <!-- Left Hand Slot -->
+              <rect x="138" y="74" width="22" height="10" rx="5" fill="#090d16" stroke="#450a0a" stroke-width="1.5"/>
+              <!-- Right Hand Slot -->
+              <rect x="200" y="74" width="22" height="10" rx="5" fill="#090d16" stroke="#450a0a" stroke-width="1.5"/>
+            </g>
+
+            <!-- ==================== BRASS VALVE ASSEMBLY (Вентиль ВБ-2) ==================== -->
+            <g id="brass-valve" transform="translate(180, 78)">
+              <!-- Valve Base / Neck -->
+              <rect x="-6" y="-6" width="12" height="12" fill="url(#brass-grad)" stroke="#78350f" stroke-width="1"/>
+              <!-- Valve Body -->
+              <path d="M -8 -16 L 8 -16 L 6 -6 L -6 -6 Z" fill="url(#brass-grad)" stroke="#78350f" stroke-width="1"/>
+              <!-- Valve Left Outlet Spout (Штуцер заправки - target of hose nozzle) -->
+              <rect id="valve-outlet-spout" x="-22" y="-14" width="15" height="7" rx="2" fill="url(#brass-grad)" stroke="#78350f" stroke-width="1"/>
+              <ellipse cx="-22" cy="-10.5" rx="2" ry="3.5" fill="#451a03" stroke="#f59e0b" stroke-width="0.8"/>
+              <!-- Valve Handwheel / Knob -->
+              <rect x="-11" y="-22" width="22" height="6" rx="3" fill="#b91c1c" stroke="#450a0a" stroke-width="1"/>
+              <circle cx="0" cy="-19" r="2.5" fill="url(#brass-grad)"/>
+            </g>
+
+            <!-- ==================== GAS HOSE & FUELING NOZZLE RIG ==================== -->
+            <g id="hose-nozzle-rig" class="rig-idle">
+              <!-- Corrugated Gas Hose Path -->
+              <path id="hose-bg-shadow" d="M 0 10 Q 50 35 100 66" fill="none" stroke="#000" stroke-width="16" stroke-linecap="round" opacity="0.5"/>
+              <path id="hose-outer-path" d="M 0 10 Q 50 35 100 66" fill="none" stroke="url(#hose-grad)" stroke-width="13" stroke-linecap="round"/>
+              <path id="hose-ribs" d="M 0 10 Q 50 35 100 66" fill="none" stroke="#475569" stroke-width="13" stroke-linecap="round" stroke-dasharray="2 6" opacity="0.6"/>
+              
+              <!-- Animated Gas Stream Inside Hose (Pulsing neon flow) -->
+              <path id="gas-flow-stream" d="M 0 10 Q 50 35 100 66" fill="none" stroke="url(#gas-flow-grad)" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="8 6" opacity="0"/>
+
+              <!-- Fueling Gun / Nozzle Assembly -->
+              <g id="fuel-nozzle-gun" transform="translate(100, 66)">
+                <!-- Gun Body (Chrome/Steel) -->
+                <rect x="0" y="-8" width="28" height="16" rx="4" fill="url(#chrome-grad)" stroke="#0f172a" stroke-width="1.2"/>
+                <!-- Trigger / Handle Grips -->
+                <path d="M 6 8 L 8 26 L 16 26 L 14 8 Z" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+                <path d="M 14 10 L 22 18 L 18 20 L 12 12 Z" fill="#ff6b00" opacity="0.9"/>
+                <!-- Mini Pressure Gauge on Gun -->
+                <circle cx="14" cy="-8" r="6" fill="#fff" stroke="#334155" stroke-width="1.2"/>
+                <line id="gun-gauge-needle" x1="14" y1="-8" x2="17" y2="-11" stroke="#ef4444" stroke-width="1" stroke-linecap="round"/>
+                
+                <!-- Brass Docking Clamp Collar -->
+                <rect x="28" y="-6" width="14" height="12" rx="2" fill="url(#brass-grad)" stroke="#78350f" stroke-width="1"/>
+                <!-- Docking Nozzle Tip (Engages with valve-outlet-spout) -->
+                <rect id="nozzle-dock-tip" x="42" y="-4" width="16" height="8" rx="1.5" fill="url(#chrome-grad)" stroke="#1e293b" stroke-width="0.8"/>
+                
+                <!-- Connection Lock Glow Indicator -->
+                <circle id="dock-lock-indicator" cx="35" cy="-8" r="3.5" fill="#ef4444" stroke="#fff" stroke-width="0.8"/>
+              </g>
+            </g>
+          </svg>
         </div>
 
         <div class="home-bottom-action">

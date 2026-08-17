@@ -960,7 +960,88 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  btnStartRefill.addEventListener('click', () => switchHomeStage('select'));
+  let isHomeRefueling = false;
+
+  function runHomeRigRefuelingAnimation() {
+    isHomeRefueling = true;
+    const rig = document.getElementById('hose-nozzle-rig');
+    const lockIndicator = document.getElementById('dock-lock-indicator');
+    const gasStream = document.getElementById('gas-flow-stream');
+    const fillRect = document.getElementById('svg-gas-fill-rect');
+    const wavePath = document.getElementById('svg-gas-wave-path');
+    const statusPill = document.getElementById('refuel-live-status');
+    const statusPillText = document.getElementById('refuel-status-text');
+    const cylStatusText = document.getElementById('cyl-status-text');
+    const cylStatusRect = document.getElementById('cyl-status-rect');
+
+    // 1. Connection Phase (Docking nozzle to valve spout)
+    if (rig) {
+      rig.classList.remove('rig-idle');
+      rig.classList.add('rig-docked');
+    }
+    if (statusPill) statusPill.className = 'refuel-status-pill active-fueling';
+    if (statusPillText) statusPillText.textContent = 'Подключение газопровода...';
+    if (cylStatusText) {
+      cylStatusText.textContent = 'СТЫКОВКА...';
+      cylStatusText.setAttribute('fill', '#00f2fe');
+    }
+    if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#00f2fe');
+
+    setTimeout(() => {
+      // 2. Lock & Engage Valve
+      if (lockIndicator) lockIndicator.setAttribute('fill', '#00e676');
+      if (statusPillText) statusPillText.textContent = 'Шланг зафиксирован • Подача СУГ';
+      if (gasStream) gasStream.classList.add('active-flow');
+      if (wavePath) wavePath.classList.add('active');
+      playGasFillingAudio();
+      showToast('🔌 Газопровод подключен к штуцеру! Наполнение...');
+
+      let percent = 0;
+      const fillInterval = setInterval(() => {
+        percent += 2;
+        const currentHeight = (percent / 100) * 180;
+        const currentY = 320 - currentHeight;
+        if (fillRect) {
+          fillRect.setAttribute('height', currentHeight);
+          fillRect.setAttribute('y', currentY);
+        }
+        if (wavePath) {
+          wavePath.setAttribute('transform', `translate(0, ${-currentHeight})`);
+        }
+
+        if (cylStatusText) cylStatusText.textContent = `ЗАПРАВКА ${percent}%`;
+        updateAudioPitch(percent);
+
+        if (percent >= 100) {
+          clearInterval(fillInterval);
+          stopGasFillingAudio();
+          if (gasStream) gasStream.classList.remove('active-flow');
+          if (wavePath) wavePath.classList.remove('active');
+
+          // 3. Complete
+          if (statusPill) statusPill.className = 'refuel-status-pill success-fueling';
+          if (statusPillText) statusPillText.textContent = '✓ Баллон заправлен на 100%';
+          if (cylStatusText) {
+            cylStatusText.textContent = '✓ 100% ЗАПРАВЛЕН';
+            cylStatusText.setAttribute('fill', '#00e676');
+          }
+          if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#00e676');
+          launchConfettiCannon();
+          showToast('🎉 Баллон успешно заправлен (50L / 16.0 bar)!');
+
+          setTimeout(() => {
+            isHomeRefueling = false;
+            switchHomeStage('select');
+          }, 1400);
+        }
+      }, 40);
+    }, 700);
+  }
+
+  btnStartRefill.addEventListener('click', () => {
+    if (isHomeRefueling) return;
+    runHomeRigRefuelingAnimation();
+  });
 
   // Carousel
   const carouselTrack = document.getElementById('carousel-track');
