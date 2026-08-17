@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       passwordLabel: "Пароль",
       forgotPassword: "Забыли пароль?",
       btnContinue2fa: "Продолжить к СМС коду",
-      codeSentTo: "Код 2FA отправлен на",
+      codeSentTo: "СМС была отправлена на номер",
       otpSecuritySub: "Введите 4 цифры для подтверждения",
       confirmCodeAndEnter: "Подтвердить и Войти",
       resendCode: "Отправить код повторно",
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
       pwdStrong: "Надежный пароль",
       confirmPassword: "Повторите пароль",
       agreeTerms: "Согласен с правилами сервиса и безопасной доставки LPG",
-      btnGet2faCode: "Получить СМС код 2FA",
+      btnGet2faCode: "Получить СМС код",
       btnCompleteRegistration: "Завершить регистрацию",
       backToForm: "Вернуться к заполнению",
       skipAuthHint: "Или нажмите ✕ сверху чтобы войти позже в гостевом режиме",
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
       passwordLabel: "Parol",
       forgotPassword: "Parolni unutdingizmi?",
       btnContinue2fa: "SMS kodga o'tish",
-      codeSentTo: "2FA kodi yuborildi:",
+      codeSentTo: "SMS raqamga yuborildi:",
       otpSecuritySub: "Tasdiqlash uchun 4 raqamni kiriting",
       confirmCodeAndEnter: "Tasdiqlash va Kirish",
       resendCode: "Kodni qayta yuborish",
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
       pwdStrong: "Ishonchli parol",
       confirmPassword: "Parolni takrorlang",
       agreeTerms: "LPG xizmat ko'rsatish va xavfsiz yetkazish qoidalariga roziman",
-      btnGet2faCode: "2FA SMS kodini olish",
+      btnGet2faCode: "SMS kodini olish",
       btnCompleteRegistration: "Ro'yxatdan o'tishni yakunlash",
       backToForm: "Formaga qaytish",
       skipAuthHint: "Yoki keyinroq mehmon sifatida kirish uchun ✕ bosing",
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
       passwordLabel: "Password",
       forgotPassword: "Forgot password?",
       btnContinue2fa: "Continue to SMS OTP",
-      codeSentTo: "2FA OTP sent to",
+      codeSentTo: "SMS was sent to number",
       otpSecuritySub: "Enter 4 digits to verify",
       confirmCodeAndEnter: "Verify & Enter",
       resendCode: "Resend Code",
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
       pwdStrong: "Strong password",
       confirmPassword: "Confirm Password",
       agreeTerms: "I agree with LPG terms & safe gas delivery rules",
-      btnGet2faCode: "Get 2FA SMS Code",
+      btnGet2faCode: "Get SMS Code",
       btnCompleteRegistration: "Complete Registration",
       backToForm: "Back to Form",
       skipAuthHint: "Or tap ✕ above to skip and enter as Guest",
@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('drawer-user-phone').textContent = userPhone;
       document.getElementById('acc-user-name').textContent = currentUserName;
       document.getElementById('acc-user-phone').textContent = userPhone;
-      showToast(`Добро пожаловать, ${currentUserName}! 🛡️ 2FA подтвержден`);
+      showToast(`Добро пожаловать, ${currentUserName}!`);
       launchConfettiCannon();
     } else {
       showToast("Вход в гостевом режиме");
@@ -599,7 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstOtp = loginStepOtp.querySelector('.otp-login-digit');
     if (firstOtp) firstOtp.focus();
     startTimer('login-timer-sec', 30);
-    showToast("🔑 2FA СМС-код отправлен (Тестовый код: 1234)");
+    showToast("💬 СМС-код отправлен (Тестовый код: 1234)");
   });
 
   btnVerifyLoginOtp.addEventListener('click', () => {
@@ -670,7 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstOtp = regStepOtp.querySelector('.otp-reg-digit');
     if (firstOtp) firstOtp.focus();
     startTimer('reg-timer-sec', 30);
-    showToast("🛡️ 2FA СМС-код отправлен (Тестовый код: 1234)");
+    showToast("💬 СМС-код отправлен (Тестовый код: 1234)");
   });
 
   btnVerifyRegOtp.addEventListener('click', () => {
@@ -681,7 +681,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     localStorage.setItem('lpg_users', JSON.stringify(storedUsers));
     enterApp(false, pendingAuthData.name, pendingAuthData.phone);
-    showToast("Регистрация и 2FA верификация успешно завершены!");
+    showToast("Регистрация успешно завершена!");
   });
 
   btnResendRegOtp.addEventListener('click', () => {
