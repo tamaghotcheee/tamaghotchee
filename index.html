@@ -32,13 +32,18 @@
 
     <!-- ==================== HEADER / TOP BAR ==================== -->
     <header class="app-header" id="app-header">
-      <!-- Left Action Group: Menu + 104 Emergency -->
+      <!-- Left Action Group: Menu + 104 Emergency + Cart -->
       <div class="header-left-group">
         <button class="icon-btn menu-trigger" id="btn-side-menu" aria-label="Menu">
           <i class="fa-solid fa-bars-staggered"></i>
         </button>
         <button class="icon-btn emergency-badge-btn" id="btn-open-emergency" title="Служба газа 104">
           🚨 <span class="em-text">104</span>
+        </button>
+        <!-- Cart Badge Button -->
+        <button class="icon-btn cart-badge-btn" id="btn-open-cart" title="Корзина">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count-badge" id="cart-badge-count">0</span>
         </button>
       </div>
 
@@ -51,14 +56,8 @@
         <span class="brand-title">Poytug GNS</span>
       </div>
 
-      <!-- Header Right Action Group: Cart + Languages + Close 'X' -->
+      <!-- Header Right Action Group: Languages + Close 'X' -->
       <div class="header-right-group">
-        <!-- Cart Badge Button -->
-        <button class="icon-btn cart-badge-btn" id="btn-open-cart" title="Корзина">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span class="cart-count-badge" id="cart-badge-count">0</span>
-        </button>
-
         <!-- Language Switcher (3 buttons) -->
         <div class="lang-selector" id="lang-selector">
           <button class="lang-btn" data-lang="uz">UZ</button>
