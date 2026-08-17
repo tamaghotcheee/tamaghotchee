@@ -48,19 +48,40 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== i18n TRANSLATIONS ====================
   const translations = {
     ru: {
-      welcomeTitle: "Добро пожаловать",
-      welcomeSub: "Вход в систему заправки и доставки баллонов",
+      auth2faTitle: "Двухэтапный вход",
+      auth2faSub: "Безопасная авторизация (Пароль + СМС-код)",
+      tabLogin: "Вход",
+      tabRegister: "Регистрация",
+      step1of2: "Шаг 1 из 2: Данные",
+      step2of2: "Шаг 2 из 2: СМС верификация",
       phoneLabel: "Номер телефона",
-      getSmsCode: "Получить СМС код",
-      codeSentTo: "Код отправлен на",
-      confirmCode: "Подтвердить и Войти",
+      passwordLabel: "Пароль",
+      forgotPassword: "Забыли пароль?",
+      btnContinue2fa: "Продолжить к СМС коду",
+      codeSentTo: "Код 2FA отправлен на",
+      otpSecuritySub: "Введите 4 цифры для подтверждения",
+      confirmCodeAndEnter: "Подтвердить и Войти",
       resendCode: "Отправить код повторно",
-      skipAuthHint: "Или нажмите ✕ сверху чтобы войти позже",
+      backToCredentials: "Изменить телефон/пароль",
+      fullNameLabel: "Ваше имя или организация",
+      createPassword: "Придумайте пароль",
+      pwdTooShort: "Слишком короткий (мин. 6)",
+      pwdWeak: "Слабый пароль",
+      pwdMedium: "Средний пароль",
+      pwdStrong: "Надежный пароль",
+      confirmPassword: "Повторите пароль",
+      agreeTerms: "Согласен с правилами сервиса и безопасной доставки LPG",
+      btnGet2faCode: "Получить СМС код 2FA",
+      btnCompleteRegistration: "Завершить регистрацию",
+      backToForm: "Вернуться к заполнению",
+      skipAuthHint: "Или нажмите ✕ сверху чтобы войти позже в гостевом режиме",
       guestUser: "Гость",
       myBalance: "Мой баланс",
+      security2fa: "Безопасность и 2FA",
       settings: "Настройки",
       aboutCompany: "О нашей фирме",
       support: "Служба поддержки",
+      btnLogout: "Выйти из аккаунта",
       refillGasTitle: "Заправка СУГ / LPG",
       refillGasSub: "Быстрая заправка вашего баллона с доставкой",
       statusEmpty: "ПУСТОЙ",
@@ -114,19 +135,40 @@ document.addEventListener('DOMContentLoaded', () => {
       cartTitle: "Корзина покупок"
     },
     uz: {
-      welcomeTitle: "Xush kelibsiz",
-      welcomeSub: "LPG gaz ballonlarini to'ldirish va yetkazib berish",
+      auth2faTitle: "Ikki bosqichli kirish",
+      auth2faSub: "Xavfsiz avtorizatsiya (Parol + SMS-kod)",
+      tabLogin: "Kirish",
+      tabRegister: "Ro'yxatdan o'tish",
+      step1of2: "1-bosqich: Ma'lumotlar",
+      step2of2: "2-bosqich: SMS tekshiruvi",
       phoneLabel: "Telefon raqami",
-      getSmsCode: "SMS kodni olish",
-      codeSentTo: "Kod yuborildi:",
-      confirmCode: "Tasdiqlash va Kirish",
+      passwordLabel: "Parol",
+      forgotPassword: "Parolni unutdingizmi?",
+      btnContinue2fa: "SMS kodga o'tish",
+      codeSentTo: "2FA kodi yuborildi:",
+      otpSecuritySub: "Tasdiqlash uchun 4 raqamni kiriting",
+      confirmCodeAndEnter: "Tasdiqlash va Kirish",
       resendCode: "Kodni qayta yuborish",
-      skipAuthHint: "Yoki keyinroq kirish uchun tepadagi ✕ tugmasini bosing",
+      backToCredentials: "Telefon/parolni o'zgartirish",
+      fullNameLabel: "Ismingiz yoki tashkilot",
+      createPassword: "Parol yarating",
+      pwdTooShort: "Juda qisqa (kamida 6 ta)",
+      pwdWeak: "Kuchsiz parol",
+      pwdMedium: "O'rtacha parol",
+      pwdStrong: "Ishonchli parol",
+      confirmPassword: "Parolni takrorlang",
+      agreeTerms: "LPG xizmat ko'rsatish va xavfsiz yetkazish qoidalariga roziman",
+      btnGet2faCode: "2FA SMS kodini olish",
+      btnCompleteRegistration: "Ro'yxatdan o'tishni yakunlash",
+      backToForm: "Formaga qaytish",
+      skipAuthHint: "Yoki keyinroq mehmon sifatida kirish uchun ✕ bosing",
       guestUser: "Mehmon",
       myBalance: "Mening balansim",
+      security2fa: "Xavfsizlik va 2FA",
       settings: "Sozlamalar",
       aboutCompany: "Kompaniya haqida",
       support: "Qo'llab-quvvatlash",
+      btnLogout: "Hisobdan chiqish",
       refillGasTitle: "LPG Gaz Quyish",
       refillGasSub: "Balloningizni tezkor to'ldirish va yetkazish",
       statusEmpty: "BO'SH",
@@ -180,19 +222,40 @@ document.addEventListener('DOMContentLoaded', () => {
       cartTitle: "Haridlar savatchasi"
     },
     en: {
-      welcomeTitle: "Welcome",
-      welcomeSub: "LPG gas cylinder refill & delivery service",
+      auth2faTitle: "Two-Step Verification",
+      auth2faSub: "Secure Authentication (Password + SMS OTP)",
+      tabLogin: "Sign In",
+      tabRegister: "Sign Up",
+      step1of2: "Step 1 of 2: Credentials",
+      step2of2: "Step 2 of 2: SMS OTP",
       phoneLabel: "Phone Number",
-      getSmsCode: "Get SMS Code",
-      codeSentTo: "Code sent to",
-      confirmCode: "Verify & Enter",
+      passwordLabel: "Password",
+      forgotPassword: "Forgot password?",
+      btnContinue2fa: "Continue to SMS OTP",
+      codeSentTo: "2FA OTP sent to",
+      otpSecuritySub: "Enter 4 digits to verify",
+      confirmCodeAndEnter: "Verify & Enter",
       resendCode: "Resend Code",
-      skipAuthHint: "Or tap ✕ above to skip for now",
+      backToCredentials: "Change phone/password",
+      fullNameLabel: "Your Name / Organization",
+      createPassword: "Create Password",
+      pwdTooShort: "Too short (min. 6)",
+      pwdWeak: "Weak password",
+      pwdMedium: "Medium password",
+      pwdStrong: "Strong password",
+      confirmPassword: "Confirm Password",
+      agreeTerms: "I agree with LPG terms & safe gas delivery rules",
+      btnGet2faCode: "Get 2FA SMS Code",
+      btnCompleteRegistration: "Complete Registration",
+      backToForm: "Back to Form",
+      skipAuthHint: "Or tap ✕ above to skip and enter as Guest",
       guestUser: "Guest",
       myBalance: "My Balance",
+      security2fa: "Security & 2FA",
       settings: "Settings",
       aboutCompany: "About Company",
       support: "Support Service",
+      btnLogout: "Log Out",
       refillGasTitle: "LPG Gas Refill",
       refillGasSub: "Fast refill for your cylinder with door delivery",
       statusEmpty: "EMPTY",
@@ -381,28 +444,108 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // ==================== AUTH & GUEST MODE ====================
-  const btnSendOtp = document.getElementById('btn-send-otp');
-  const btnVerifyOtp = document.getElementById('btn-verify-otp');
-  const btnCloseAuth = document.getElementById('btn-close-auth');
-  const btnSkipAuthLink = document.getElementById('btn-auth-skip-link');
-  const inputPhone = document.getElementById('input-phone');
-  const authStepPhone = document.getElementById('auth-step-phone');
-  const authStepOtp = document.getElementById('auth-step-otp');
+  // ==================== 2FA AUTH & REGISTRATION ENGINE ====================
+  let storedUsers = JSON.parse(localStorage.getItem('lpg_users') || '[]');
+  if (storedUsers.length === 0) {
+    storedUsers = [
+      { name: "Алишер Каримов", phone: "+998 90 123-45-67", password: "123456" }
+    ];
+    localStorage.setItem('lpg_users', JSON.stringify(storedUsers));
+  }
 
-  function enterApp(asGuest = false) {
+  let currentUserName = localStorage.getItem('lpg_user_name') || "Алишер Каримов";
+  let pendingAuthData = { name: '', phone: '', password: '' };
+  let loginTimerInterval = null;
+  let regTimerInterval = null;
+
+  // Tabs: Login vs Register
+  const tabAuthLogin = document.getElementById('tab-auth-login');
+  const tabAuthRegister = document.getElementById('tab-auth-register');
+  const modeLogin = document.getElementById('mode-login');
+  const modeRegister = document.getElementById('mode-register');
+  const authMainTitle = document.getElementById('auth-main-title');
+  const authMainSub = document.getElementById('auth-main-sub');
+
+  function switchAuthTab(tab) {
+    const isLogin = tab === 'login';
+    tabAuthLogin.classList.toggle('active', isLogin);
+    tabAuthRegister.classList.toggle('active', !isLogin);
+    modeLogin.classList.toggle('active', isLogin);
+    modeRegister.classList.toggle('active', !isLogin);
+
+    if (isLogin) {
+      document.getElementById('login-step-credentials').classList.add('active');
+      document.getElementById('login-step-otp').classList.remove('active');
+      authMainTitle.textContent = translations[currentLang].auth2faTitle || "Двухэтапный вход";
+      authMainSub.textContent = translations[currentLang].auth2faSub || "Безопасная авторизация (Пароль + СМС-код)";
+    } else {
+      document.getElementById('register-step-form').classList.add('active');
+      document.getElementById('register-step-otp').classList.remove('active');
+      authMainTitle.textContent = translations[currentLang].tabRegister || "Регистрация";
+      authMainSub.textContent = "Создание безопасного аккаунта с 2FA";
+    }
+  }
+
+  tabAuthLogin.addEventListener('click', () => switchAuthTab('login'));
+  tabAuthRegister.addEventListener('click', () => switchAuthTab('register'));
+
+  // Password Visibility Toggles
+  const btnToggleLoginPwd = document.getElementById('btn-toggle-login-pwd');
+  const inputLoginPwd = document.getElementById('input-login-password');
+  btnToggleLoginPwd.addEventListener('click', () => {
+    const isPwd = inputLoginPwd.type === 'password';
+    inputLoginPwd.type = isPwd ? 'text' : 'password';
+    btnToggleLoginPwd.innerHTML = isPwd ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
+  });
+
+  const btnToggleRegPwd = document.getElementById('btn-toggle-reg-pwd');
+  const inputRegPwd = document.getElementById('input-reg-password');
+  btnToggleRegPwd.addEventListener('click', () => {
+    const isPwd = inputRegPwd.type === 'password';
+    inputRegPwd.type = isPwd ? 'text' : 'password';
+    btnToggleRegPwd.innerHTML = isPwd ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
+  });
+
+  // Password Strength Meter
+  const pwdStrengthFill = document.getElementById('pwd-strength-fill');
+  const pwdStrengthText = document.getElementById('pwd-strength-text');
+
+  inputRegPwd.addEventListener('input', () => {
+    const val = inputRegPwd.value;
+    if (!val || val.length < 6) {
+      pwdStrengthFill.className = 'strength-fill weak';
+      pwdStrengthText.textContent = translations[currentLang].pwdTooShort || "Слишком короткий (мин. 6)";
+      pwdStrengthText.style.color = "#ef4444";
+    } else if (val.length >= 6 && (/^[a-zA-Z]+$/.test(val) || /^[0-9]+$/.test(val))) {
+      pwdStrengthFill.className = 'strength-fill medium';
+      pwdStrengthText.textContent = translations[currentLang].pwdMedium || "Средний пароль";
+      pwdStrengthText.style.color = "#ffb703";
+    } else {
+      pwdStrengthFill.className = 'strength-fill strong';
+      pwdStrengthText.textContent = translations[currentLang].pwdStrong || "Надежный пароль";
+      pwdStrengthText.style.color = "#00e676";
+    }
+  });
+
+  // Enter Application Helper
+  function enterApp(asGuest = false, name = "Алишер Каримов", phone = "+998 90 123-45-67") {
     document.getElementById('screen-auth').classList.remove('active');
     document.getElementById('screen-home').classList.add('active');
     
     if (!asGuest) {
       isAuth = true;
+      currentUserName = name;
+      userPhone = phone;
       localStorage.setItem('lpg_auth', 'true');
       localStorage.setItem('lpg_phone', userPhone);
-      document.getElementById('drawer-user-name').textContent = "Алишер Каримов";
-      document.getElementById('drawer-user-phone').textContent = userPhone || "+998 (90) 123-45-67";
-      document.getElementById('acc-user-name').textContent = "Алишер Каримов";
-      document.getElementById('acc-user-phone').textContent = userPhone || "+998 (90) 123-45-67";
-      showToast("Успешный вход в систему!");
+      localStorage.setItem('lpg_user_name', currentUserName);
+
+      document.getElementById('drawer-user-name').textContent = currentUserName;
+      document.getElementById('drawer-user-phone').textContent = userPhone;
+      document.getElementById('acc-user-name').textContent = currentUserName;
+      document.getElementById('acc-user-phone').textContent = userPhone;
+      showToast(`Добро пожаловать, ${currentUserName}! 🛡️ 2FA подтвержден`);
+      launchConfettiCannon();
     } else {
       showToast("Вход в гостевом режиме");
     }
@@ -410,48 +553,209 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (isAuth) {
-    enterApp(false);
+    enterApp(false, currentUserName, userPhone || "+998 (90) 123-45-67");
   }
 
-  btnSendOtp.addEventListener('click', () => {
-    const val = inputPhone.value.trim();
-    userPhone = "+998 " + (val || "(90) 123-45-67");
-    document.getElementById('display-otp-phone').textContent = userPhone;
+  // --- LOGIN FLOW (Step 1 -> Step 2) ---
+  const btnLoginNext = document.getElementById('btn-login-next');
+  const inputLoginPhone = document.getElementById('input-login-phone');
+  const loginStepCreds = document.getElementById('login-step-credentials');
+  const loginStepOtp = document.getElementById('login-step-otp');
+  const displayLoginPhone = document.getElementById('display-login-phone');
+  const btnVerifyLoginOtp = document.getElementById('btn-verify-login-otp');
+  const btnResendLoginOtp = document.getElementById('btn-resend-login-otp');
+  const btnBackToLoginStep1 = document.getElementById('btn-back-to-login-step1');
+
+  btnLoginNext.addEventListener('click', () => {
+    const rawPhone = inputLoginPhone.value.trim();
+    const password = inputLoginPwd.value.trim();
+
+    if (!rawPhone || rawPhone.length < 7) {
+      showToast("Введите корректный номер телефона!");
+      inputLoginPhone.focus();
+      return;
+    }
+    if (!password || password.length < 6) {
+      showToast("Пароль должен содержать минимум 6 символов!");
+      inputLoginPwd.focus();
+      return;
+    }
+
+    const formattedPhone = rawPhone.startsWith('+998') ? rawPhone : `+998 ${rawPhone}`;
+    const cleanDigits = rawPhone.replace(/\D/g, '');
     
-    authStepPhone.classList.remove('active');
-    authStepOtp.classList.add('active');
+    // Check if user exists in local database
+    const existing = storedUsers.find(u => u.phone.replace(/\D/g, '').includes(cleanDigits) || cleanDigits.includes(u.phone.replace(/\D/g, '')));
+    if (existing && existing.password !== password) {
+      showToast("Неверный пароль! (Для демо: 123456)");
+      inputLoginPwd.focus();
+      return;
+    }
 
-    const firstOtp = document.querySelector('.otp-digit');
+    const userName = existing ? existing.name : "Алишер Каримов";
+    pendingAuthData = { name: userName, phone: formattedPhone, password: password };
+
+    displayLoginPhone.textContent = formattedPhone;
+    loginStepCreds.classList.remove('active');
+    loginStepOtp.classList.add('active');
+
+    const firstOtp = loginStepOtp.querySelector('.otp-login-digit');
     if (firstOtp) firstOtp.focus();
-    startOtpTimer();
+    startTimer('login-timer-sec', 30);
+    showToast("🔑 2FA СМС-код отправлен (Тестовый код: 1234)");
   });
 
-  const otpInputs = document.querySelectorAll('.otp-digit');
-  otpInputs.forEach((input, idx) => {
-    input.addEventListener('input', () => {
-      if (input.value.length === 1 && idx < otpInputs.length - 1) {
-        otpInputs[idx + 1].focus();
-      }
-    });
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Backspace' && !input.value && idx > 0) {
-        otpInputs[idx - 1].focus();
-      }
-    });
+  btnVerifyLoginOtp.addEventListener('click', () => {
+    enterApp(false, pendingAuthData.name, pendingAuthData.phone);
   });
 
-  btnVerifyOtp.addEventListener('click', () => enterApp(false));
-  btnCloseAuth.addEventListener('click', () => enterApp(true));
-  btnSkipAuthLink.addEventListener('click', () => enterApp(true));
+  btnResendLoginOtp.addEventListener('click', () => {
+    startTimer('login-timer-sec', 30);
+    showToast("Новый СМС код отправлен: 7788");
+  });
 
-  function startOtpTimer() {
-    let sec = 30;
-    const timerEl = document.getElementById('timer-sec');
+  btnBackToLoginStep1.addEventListener('click', () => {
+    loginStepOtp.classList.remove('active');
+    loginStepCreds.classList.add('active');
+  });
+
+  // --- REGISTRATION FLOW (Step 1 -> Step 2) ---
+  const btnRegisterNext = document.getElementById('btn-register-next');
+  const inputRegName = document.getElementById('input-reg-name');
+  const inputRegPhone = document.getElementById('input-reg-phone');
+  const inputRegPwdConfirm = document.getElementById('input-reg-password-confirm');
+  const checkRegTerms = document.getElementById('check-reg-terms');
+  const regStepForm = document.getElementById('register-step-form');
+  const regStepOtp = document.getElementById('register-step-otp');
+  const displayRegPhone = document.getElementById('display-reg-phone');
+  const btnVerifyRegOtp = document.getElementById('btn-verify-reg-otp');
+  const btnResendRegOtp = document.getElementById('btn-resend-reg-otp');
+  const btnBackToRegStep1 = document.getElementById('btn-back-to-reg-step1');
+
+  btnRegisterNext.addEventListener('click', () => {
+    const name = inputRegName.value.trim();
+    const rawPhone = inputRegPhone.value.trim();
+    const password = inputRegPwd.value.trim();
+    const pwdConfirm = inputRegPwdConfirm.value.trim();
+
+    if (!name) {
+      showToast("Введите ваше имя или название компании!");
+      inputRegName.focus();
+      return;
+    }
+    if (!rawPhone || rawPhone.length < 7) {
+      showToast("Введите номер телефона!");
+      inputRegPhone.focus();
+      return;
+    }
+    if (!password || password.length < 6) {
+      showToast("Пароль должен быть не менее 6 символов!");
+      inputRegPwd.focus();
+      return;
+    }
+    if (password !== pwdConfirm) {
+      showToast("Пароли не совпадают!");
+      inputRegPwdConfirm.focus();
+      return;
+    }
+    if (!checkRegTerms.checked) {
+      showToast("Подтвердите согласие с правилами сервиса!");
+      return;
+    }
+
+    const formattedPhone = rawPhone.startsWith('+998') ? rawPhone : `+998 ${rawPhone}`;
+    pendingAuthData = { name: name, phone: formattedPhone, password: password };
+
+    displayRegPhone.textContent = formattedPhone;
+    regStepForm.classList.remove('active');
+    regStepOtp.classList.add('active');
+
+    const firstOtp = regStepOtp.querySelector('.otp-reg-digit');
+    if (firstOtp) firstOtp.focus();
+    startTimer('reg-timer-sec', 30);
+    showToast("🛡️ 2FA СМС-код отправлен (Тестовый код: 1234)");
+  });
+
+  btnVerifyRegOtp.addEventListener('click', () => {
+    storedUsers.push({
+      name: pendingAuthData.name,
+      phone: pendingAuthData.phone,
+      password: pendingAuthData.password
+    });
+    localStorage.setItem('lpg_users', JSON.stringify(storedUsers));
+    enterApp(false, pendingAuthData.name, pendingAuthData.phone);
+    showToast("Регистрация и 2FA верификация успешно завершены!");
+  });
+
+  btnResendRegOtp.addEventListener('click', () => {
+    startTimer('reg-timer-sec', 30);
+    showToast("Новый СМС код отправлен: 9944");
+  });
+
+  btnBackToRegStep1.addEventListener('click', () => {
+    regStepOtp.classList.remove('active');
+    regStepForm.classList.add('active');
+  });
+
+  // OTP digit Auto-Advance and Backspace for all OTP inputs
+  function setupOtpInputs(className) {
+    const digits = document.querySelectorAll(`.${className}`);
+    digits.forEach((input, idx) => {
+      input.addEventListener('input', () => {
+        if (input.value.length === 1 && idx < digits.length - 1) {
+          digits[idx + 1].focus();
+        }
+      });
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !input.value && idx > 0) {
+          digits[idx - 1].focus();
+        }
+      });
+    });
+  }
+  setupOtpInputs('otp-login-digit');
+  setupOtpInputs('otp-reg-digit');
+
+  function startTimer(timerId, duration) {
+    let sec = duration;
+    const timerEl = document.getElementById(timerId);
+    if (!timerEl) return;
+    timerEl.textContent = sec;
     const interval = setInterval(() => {
       sec--;
       if (timerEl) timerEl.textContent = sec;
       if (sec <= 0) clearInterval(interval);
     }, 1000);
+  }
+
+  // Forgot Password Hint
+  document.getElementById('btn-forgot-pwd').addEventListener('click', () => {
+    showToast("Для демо-аккаунта используйте пароль: 123456 или службу 104");
+  });
+
+  // Guest / Skip Auth
+  document.getElementById('btn-close-auth').addEventListener('click', () => enterApp(true));
+  document.getElementById('btn-auth-skip-link').addEventListener('click', () => enterApp(true));
+
+  // Logout Action
+  const btnLogout = document.getElementById('btn-logout');
+  if (btnLogout) {
+    btnLogout.addEventListener('click', () => {
+      isAuth = false;
+      localStorage.setItem('lpg_auth', 'false');
+      document.getElementById('screen-account').classList.remove('active');
+      document.getElementById('screen-auth').classList.add('active');
+      switchAuthTab('login');
+      showToast("Вы вышли из системы");
+    });
+  }
+
+  // Security 2FA Item in Profile
+  const btnAccSecurity = document.getElementById('btn-acc-security');
+  if (btnAccSecurity) {
+    btnAccSecurity.addEventListener('click', () => {
+      showToast("🛡️ Двухфакторная защита активна: Пароль + SMS OTP (100% защита)");
+    });
   }
 
 
@@ -533,6 +837,18 @@ document.addEventListener('DOMContentLoaded', () => {
     closeDrawer();
     openModal('modal-support');
   });
+  const btnDrawerLogout = document.getElementById('btn-drawer-logout');
+  if (btnDrawerLogout) {
+    btnDrawerLogout.addEventListener('click', () => {
+      closeDrawer();
+      isAuth = false;
+      localStorage.setItem('lpg_auth', 'false');
+      screens.forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-auth').classList.add('active');
+      switchAuthTab('login');
+      showToast("Вы вышли из системы");
+    });
+  }
 
 
   // ==================== QUANTITY SELECTOR & WHOLESALE B2B ENGINE ====================

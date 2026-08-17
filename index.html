@@ -119,60 +119,204 @@
           <div class="link-icon"><i class="fa-solid fa-headset"></i></div>
           <span data-i18n="support">Служба поддержки</span>
         </button>
+
+        <button class="drawer-link" id="btn-drawer-logout" style="color:#ef4444;">
+          <div class="link-icon" style="background:rgba(239,68,68,0.15); color:#ef4444;"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+          <span data-i18n="btnLogout">Выйти из аккаунта</span>
+        </button>
       </nav>
 
       <div class="drawer-footer">
-        <p>LPG Express v3.1 • Tashkent</p>
+        <p>LPG Express v3.1 • 2FA Protected</p>
       </div>
     </aside>
 
-    <!-- ==================== SCREEN 0: AUTH & SMS OTP ==================== -->
+    <!-- ==================== SCREEN 0: AUTH (2FA: PASSWORD + SMS OTP) ==================== -->
     <section class="app-screen active" id="screen-auth">
       <div class="auth-card glass-panel">
+        
         <div class="auth-hero">
           <div class="lpg-logo-glow">
-            <i class="fa-solid fa-gas-pump"></i>
+            <i class="fa-solid fa-shield-halved"></i>
           </div>
-          <h2 data-i18n="welcomeTitle">Добро пожаловать</h2>
-          <p data-i18n="welcomeSub">Вход в систему заправки и доставки баллонов</p>
+          <h2 id="auth-main-title" data-i18n="auth2faTitle">Двухэтапный вход</h2>
+          <p id="auth-main-sub" data-i18n="auth2faSub">Безопасная авторизация (Пароль + СМС-код)</p>
         </div>
 
-        <!-- Phone Step -->
-        <div class="auth-step active" id="auth-step-phone">
-          <label for="input-phone" class="input-label" data-i18n="phoneLabel">Номер телефона</label>
-          <div class="phone-input-wrapper">
-            <span class="country-prefix">🇺🇿 +998</span>
-            <input type="tel" id="input-phone" placeholder="(90) 123-45-67" maxlength="14" autocomplete="tel">
-          </div>
-          <button class="primary-btn btn-full ripple-btn" id="btn-send-otp">
-            <span data-i18n="getSmsCode">Получить СМС код</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
+        <!-- Auth Mode Tabs: Login vs Register -->
+        <div class="auth-mode-switch" id="auth-mode-switch">
+          <button class="auth-tab-btn active" id="tab-auth-login" data-tab="login" data-i18n="tabLogin">Вход</button>
+          <button class="auth-tab-btn" id="tab-auth-register" data-tab="register" data-i18n="tabRegister">Регистрация</button>
         </div>
 
-        <!-- OTP Step (Hidden by default) -->
-        <div class="auth-step" id="auth-step-otp">
-          <p class="otp-sent-text"><span data-i18n="codeSentTo">Код отправлен на</span> <strong id="display-otp-phone">+998 90 123-45-67</strong></p>
+        <!-- ================= MODE 1: LOGIN ================= -->
+        <div class="auth-mode-content active" id="mode-login">
           
-          <div class="otp-boxes-wrapper">
-            <input type="text" maxlength="1" class="otp-digit" pattern="\d*">
-            <input type="text" maxlength="1" class="otp-digit" pattern="\d*">
-            <input type="text" maxlength="1" class="otp-digit" pattern="\d*">
-            <input type="text" maxlength="1" class="otp-digit" pattern="\d*">
+          <!-- Login Step 1: Phone + Password -->
+          <div class="auth-step active" id="login-step-credentials">
+            <div class="step-progress-badge">
+              <span class="badge-step-pill" data-i18n="step1of2">Шаг 1 из 2: Данные входа</span>
+            </div>
+
+            <label for="input-login-phone" class="input-label" data-i18n="phoneLabel">Номер телефона</label>
+            <div class="phone-input-wrapper">
+              <span class="country-prefix">🇺🇿 +998</span>
+              <input type="tel" id="input-login-phone" placeholder="(90) 123-45-67" maxlength="14" autocomplete="tel" value="90 123-45-67">
+            </div>
+
+            <label for="input-login-password" class="input-label" data-i18n="passwordLabel">Пароль</label>
+            <div class="password-input-wrapper">
+              <i class="fa-solid fa-lock input-icon-left"></i>
+              <input type="password" id="input-login-password" placeholder="Введите ваш пароль" autocomplete="current-password" value="123456">
+              <button type="button" class="btn-toggle-password" id="btn-toggle-login-pwd" aria-label="Показать пароль">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+
+            <div class="auth-helper-row">
+              <button type="button" class="link-btn-text" id="btn-forgot-pwd" data-i18n="forgotPassword">Забыли пароль?</button>
+              <span class="demo-hint-tag" title="Демо пароль">Демо: 123456</span>
+            </div>
+
+            <button class="primary-btn btn-full ripple-btn" id="btn-login-next">
+              <span data-i18n="btnContinue2fa">Продолжить к СМС коду</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
           </div>
 
-          <button class="primary-btn btn-full ripple-btn" id="btn-verify-otp">
-            <span data-i18n="confirmCode">Подтвердить и Войти</span>
-          </button>
+          <!-- Login Step 2: 2FA SMS Verification -->
+          <div class="auth-step" id="login-step-otp">
+            <div class="step-progress-badge">
+              <span class="badge-step-pill step-green" data-i18n="step2of2">Шаг 2 из 2: СМС верификация</span>
+            </div>
 
-          <button class="text-btn resend-btn" id="btn-resend-otp">
-            <span data-i18n="resendCode">Отправить код повторно</span> (<span id="timer-sec">30</span>s)
-          </button>
+            <div class="otp-security-notice">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+              <div>
+                <p class="otp-sent-text"><span data-i18n="codeSentTo">Код 2FA отправлен на</span> <strong id="display-login-phone">+998 90 123-45-67</strong></p>
+                <span class="otp-security-sub" data-i18n="otpSecuritySub">Введите 4 цифры для подтверждения</span>
+              </div>
+            </div>
+            
+            <div class="otp-boxes-wrapper">
+              <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*">
+              <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*">
+              <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*">
+              <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*">
+            </div>
+
+            <button class="primary-btn btn-full ripple-btn btn-success" id="btn-verify-login-otp">
+              <i class="fa-solid fa-shield-check"></i>
+              <span data-i18n="confirmCodeAndEnter">Подтвердить и Войти</span>
+            </button>
+
+            <div class="otp-actions-footer">
+              <button class="text-btn resend-btn" id="btn-resend-login-otp">
+                <span data-i18n="resendCode">Отправить код повторно</span> (<span id="login-timer-sec">30</span>s)
+              </button>
+              <button class="link-btn-text" id="btn-back-to-login-step1">
+                <i class="fa-solid fa-arrow-left"></i> <span data-i18n="backToCredentials">Изменить телефон/пароль</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ================= MODE 2: REGISTER ================= -->
+        <div class="auth-mode-content" id="mode-register">
+          
+          <!-- Register Step 1: Profile Info + New Password -->
+          <div class="auth-step active" id="register-step-form">
+            <div class="step-progress-badge">
+              <span class="badge-step-pill" data-i18n="step1of2">Шаг 1 из 2: Регистрация</span>
+            </div>
+
+            <label for="input-reg-name" class="input-label" data-i18n="fullNameLabel">Ваше имя или организация</label>
+            <div class="custom-input-wrapper">
+              <i class="fa-solid fa-user input-icon-left"></i>
+              <input type="text" id="input-reg-name" placeholder="Например: Алишер Каримов" autocomplete="name">
+            </div>
+
+            <label for="input-reg-phone" class="input-label" data-i18n="phoneLabel">Номер телефона</label>
+            <div class="phone-input-wrapper">
+              <span class="country-prefix">🇺🇿 +998</span>
+              <input type="tel" id="input-reg-phone" placeholder="(90) 123-45-67" maxlength="14" autocomplete="tel">
+            </div>
+
+            <label for="input-reg-password" class="input-label" data-i18n="createPassword">Придумайте пароль</label>
+            <div class="password-input-wrapper">
+              <i class="fa-solid fa-key input-icon-left"></i>
+              <input type="password" id="input-reg-password" placeholder="Минимум 6 символов" autocomplete="new-password">
+              <button type="button" class="btn-toggle-password" id="btn-toggle-reg-pwd" aria-label="Показать пароль">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+
+            <!-- Password Strength Bar -->
+            <div class="pwd-strength-container" id="reg-pwd-strength">
+              <div class="pwd-strength-bar"><div class="strength-fill" id="pwd-strength-fill"></div></div>
+              <span class="pwd-strength-text" id="pwd-strength-text" data-i18n="pwdTooShort">Слишком короткий</span>
+            </div>
+
+            <label for="input-reg-password-confirm" class="input-label" data-i18n="confirmPassword">Повторите пароль</label>
+            <div class="password-input-wrapper">
+              <i class="fa-solid fa-check-double input-icon-left"></i>
+              <input type="password" id="input-reg-password-confirm" placeholder="Повторите введенный пароль" autocomplete="new-password">
+            </div>
+
+            <div class="terms-checkbox-row">
+              <input type="checkbox" id="check-reg-terms" checked>
+              <label for="check-reg-terms" data-i18n="agreeTerms">Согласен с правилами сервиса и безопасной доставки LPG</label>
+            </div>
+
+            <button class="primary-btn btn-full ripple-btn" id="btn-register-next">
+              <span data-i18n="btnGet2faCode">Получить СМС код 2FA</span>
+              <i class="fa-solid fa-shield-halved"></i>
+            </button>
+          </div>
+
+          <!-- Register Step 2: 2FA SMS Verification -->
+          <div class="auth-step" id="register-step-otp">
+            <div class="step-progress-badge">
+              <span class="badge-step-pill step-green" data-i18n="step2of2">Шаг 2 из 2: Завершение 2FA</span>
+            </div>
+
+            <div class="otp-security-notice">
+              <i class="fa-solid fa-shield-check"></i>
+              <div>
+                <p class="otp-sent-text"><span data-i18n="codeSentTo">Код 2FA отправлен на</span> <strong id="display-reg-phone">+998 90 •••-••-••</strong></p>
+                <span class="otp-security-sub" data-i18n="otpSecuritySub">Введите 4 цифры для подтверждения аккаунта</span>
+              </div>
+            </div>
+            
+            <div class="otp-boxes-wrapper">
+              <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*">
+              <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*">
+              <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*">
+              <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*">
+            </div>
+
+            <button class="primary-btn btn-full ripple-btn btn-success" id="btn-verify-reg-otp">
+              <i class="fa-solid fa-user-check"></i>
+              <span data-i18n="btnCompleteRegistration">Завершить регистрацию</span>
+            </button>
+
+            <div class="otp-actions-footer">
+              <button class="text-btn resend-btn" id="btn-resend-reg-otp">
+                <span data-i18n="resendCode">Отправить код повторно</span> (<span id="reg-timer-sec">30</span>s)
+              </button>
+              <button class="link-btn-text" id="btn-back-to-reg-step1">
+                <i class="fa-solid fa-arrow-left"></i> <span data-i18n="backToForm">Вернуться к заполнению</span>
+              </button>
+            </div>
+          </div>
+
         </div>
 
         <div class="guest-action-hint">
-          <button class="link-btn" id="btn-auth-skip-link" data-i18n="skipAuthHint">Или нажмите ✕ сверху чтобы войти позже</button>
+          <button class="link-btn" id="btn-auth-skip-link" data-i18n="skipAuthHint">Или нажмите ✕ сверху чтобы войти позже в гостевом режиме</button>
         </div>
+
       </div>
     </section>
 
@@ -716,6 +860,15 @@
           <i class="fa-solid fa-chevron-right arr"></i>
         </div>
 
+        <div class="account-card-item clickable" id="btn-acc-security">
+          <div class="acc-icon red-bg"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="acc-text">
+            <h4 data-i18n="security2fa">Безопасность и 2FA</h4>
+            <p style="color:#00e676;"><i class="fa-solid fa-circle-check"></i> Пароль + СМС (Включено)</p>
+          </div>
+          <i class="fa-solid fa-chevron-right arr"></i>
+        </div>
+
         <div class="account-card-item clickable" id="btn-acc-about">
           <div class="acc-icon purple-bg"><i class="fa-solid fa-circle-info"></i></div>
           <div class="acc-text">
@@ -724,6 +877,12 @@
           </div>
           <i class="fa-solid fa-chevron-right arr"></i>
         </div>
+
+        <!-- Logout Action Button -->
+        <button class="secondary-btn btn-full" id="btn-logout" style="margin-top:14px; border-color:rgba(239,68,68,0.4); color:#ef4444;">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span data-i18n="btnLogout">Выйти из аккаунта</span>
+        </button>
       </div>
     </section>
 
