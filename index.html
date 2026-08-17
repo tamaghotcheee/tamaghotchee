@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>LPG Gas Express — Заказ и Заправка Газовых Баллонов</title>
+  
+  <!-- SEO Metadata -->
+  <meta name="description" content="LPG Gas Express — Экспресс заправка и оптовая доставка газовых баллонов (от 10 шт.) в Узбекистане. Онлайн оплата Click, Payme, Uzum, Е-фактура.">
+  <meta name="keywords" content="LPG gas, пропан бутан, заправка баллонов, оптовая доставка газа, Ташкент, Е-фактура">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Leaflet CSS for Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- App Styles -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body class="theme-dark">
+
+  <!-- Confetti Explosion Canvas overlay -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <div id="app-container" class="mobile-frame">
+
+    <!-- ==================== HEADER / TOP BAR ==================== -->
+    <header class="app-header" id="app-header">
+      <!-- Menu Button (Left) -->
+      <button class="icon-btn menu-trigger" id="btn-side-menu" aria-label="Menu">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+
+      <div class="brand-badge">
+        <svg class="animated-flame-svg" viewBox="0 0 32 32" width="24" height="24">
+          <path class="flame-outer" d="M16 2C16 2 22 9 22 17C22 23.6 19.3 27 16 27C12.7 27 10 23.6 10 17C10 9 16 2 16 2Z" fill="#ff4500"/>
+          <path class="flame-inner" d="M16 10C16 10 19 14 19 18C19 21 17.7 23 16 23C14.3 23 13 21 13 18C13 14 16 10 16 10Z" fill="#ffb703"/>
+        </svg>
+        <span class="brand-title">LPG Express</span>
+      </div>
+
+      <!-- Header Right Action Group: 104 Emergency + Cart + Languages + Close 'X' -->
+      <div class="header-right-group">
+        <!-- Emergency 104 Button -->
+        <button class="icon-btn emergency-badge-btn" id="btn-open-emergency" title="Служба газа 104">
+          🚨 <span class="em-text">104</span>
+        </button>
+
+        <!-- Cart Badge Button -->
+        <button class="icon-btn cart-badge-btn" id="btn-open-cart" title="Корзина">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count-badge" id="cart-badge-count">0</span>
+        </button>
+
+        <!-- Language Switcher (3 buttons) -->
+        <div class="lang-selector" id="lang-selector">
+          <button class="lang-btn" data-lang="uz">UZ</button>
+          <button class="lang-btn active" data-lang="ru">RU</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+
+        <!-- Guest / Exit 'X' Button -->
+        <button class="icon-btn close-guest-btn" id="btn-close-auth" title="Войти позже" aria-label="Skip Auth">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==================== SIDE DRAWER MENU ==================== -->
+    <div class="side-drawer-backdrop" id="menu-backdrop"></div>
+    <aside class="side-drawer" id="side-drawer">
+      <div class="drawer-header">
+        <div class="user-avatar-placeholder">
+          <i class="fa-solid fa-user-gear"></i>
+        </div>
+        <div class="drawer-user-info">
+          <h4 id="drawer-user-name" data-i18n="guestUser">Гость</h4>
+          <span id="drawer-user-phone">+998 (90) •••-••-••</span>
+        </div>
+        <button class="close-drawer-btn" id="btn-close-drawer">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <nav class="drawer-nav">
+        <button class="drawer-link" id="btn-menu-balance">
+          <div class="link-icon"><i class="fa-solid fa-wallet"></i></div>
+          <span data-i18n="myBalance">Мой баланс</span>
+          <strong class="balance-badge" id="menu-balance-amount">25 000 UZS</strong>
+        </button>
+
+        <button class="drawer-link" id="btn-menu-emergency">
+          <div class="link-icon red-bg"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <span style="color:#ef4444; font-weight:800;">Безопасность 104</span>
+        </button>
+
+        <button class="drawer-link" id="btn-menu-settings">
+          <div class="link-icon"><i class="fa-solid fa-sliders"></i></div>
+          <span data-i18n="settings">Настройки</span>
+        </button>
+
+        <button class="drawer-link" id="btn-menu-history">
+          <div class="link-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          <span data-i18n="orderHistory">История заказов</span>
+        </button>
+
+        <button class="drawer-link" id="btn-menu-about">
+          <div class="link-icon"><i class="fa-solid fa-building"></i></div>
+          <span data-i18n="aboutCompany">О нашей фирме</span>
+        </button>
+
+        <button class="drawer-link" id="btn-menu-support">
+          <div class="link-icon"><i class="fa-solid fa-headset"></i></div>
+          <span data-i18n="support">Служба поддержки</span>
+        </button>
+      </nav>
+
+      <div class="drawer-footer">
+        <p>LPG Express v3.1 • Tashkent</p>
+      </div>
+    </aside>
+
+    <!-- ==================== SCREEN 0: AUTH & SMS OTP ==================== -->
+    <section class="app-screen active" id="screen-auth">
+      <div class="auth-card glass-panel">
+        <div class="auth-hero">
+          <div class="lpg-logo-glow">
+            <i class="fa-solid fa-gas-pump"></i>
+          </div>
+          <h2 data-i18n="welcomeTitle">Добро пожаловать</h2>
+          <p data-i18n="welcomeSub">Вход в систему заправки и доставки баллонов</p>
+        </div>
+
+        <!-- Phone Step -->
+        <div class="auth-step active" id="auth-step-phone">
+          <label for="input-phone" class="input-label" data-i18n="phoneLabel">Номер телефона</label>
+          <div class="phone-input-wrapper">
+            <span class="country-prefix">🇺🇿 +998</span>
+            <input type="tel" id="input-phone" placeholder="(90) 123-45-67" maxlength="14" autocomplete="tel">
+          </div>
+          <button class="primary-btn btn-full ripple-btn" id="btn-send-otp">
+            <span data-i18n="getSmsCode">Получить СМС код</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- OTP Step (Hidden by default) -->
+        <div class="auth-step" id="auth-step-otp">
+          <p class="otp-sent-text"><span data-i18n="codeSentTo">Код отправлен на</span> <strong id="display-otp-phone">+998 90 123-45-67</strong></p>
+          
+          <div class="otp-boxes-wrapper">
+            <input type="text" maxlength="1" class="otp-digit" pattern="\d*">
+            <input type="text" maxlength="1" class="otp-digit" pattern="\d*">
+            <input type="text" maxlength="1" class="otp-digit" pattern="\d*">
+            <input type="text" maxlength="1" class="otp-digit" pattern="\d*">
+          </div>
+
+          <button class="primary-btn btn-full ripple-btn" id="btn-verify-otp">
+            <span data-i18n="confirmCode">Подтвердить и Войти</span>
+          </button>
+
+          <button class="text-btn resend-btn" id="btn-resend-otp">
+            <span data-i18n="resendCode">Отправить код повторно</span> (<span id="timer-sec">30</span>s)
+          </button>
+        </div>
+
+        <div class="guest-action-hint">
+          <button class="link-btn" id="btn-auth-skip-link" data-i18n="skipAuthHint">Или нажмите ✕ сверху чтобы войти позже</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== SCREEN 1: HOME (REFILL CYLINDER) ==================== -->
+    <section class="app-screen" id="screen-home">
+      
+      <!-- SUB-STAGE 1: INITIAL EMPTY CYLINDER -->
+      <div class="home-stage active" id="home-stage-initial">
+        <div class="stage-header">
+          <h2 data-i18n="refillGasTitle">Заправка СУГ / LPG</h2>
+          <p data-i18n="refillGasSub">Быстрая заправка вашего баллона с доставкой</p>
+        </div>
+
+        <!-- 3D Visual Cylinder Graphic -->
+        <div class="cylinder-visual-container">
+          <div class="empty-cylinder-graphic glow-effect">
+            <div class="cylinder-cap"></div>
+            <div class="cylinder-body">
+              <div class="cylinder-label-badge">
+                <i class="fa-solid fa-fire-flame-simple"></i> LPG GAS
+              </div>
+              <div class="empty-indicator-tag" data-i18n="statusEmpty">ПУСТОЙ</div>
+            </div>
+            <div class="cylinder-base"></div>
+          </div>
+        </div>
+
+        <div class="home-bottom-action">
+          <button class="primary-btn btn-large ripple-btn pulse-glow" id="btn-start-refill">
+            <i class="fa-solid fa-bolt"></i>
+            <span data-i18n="btnRefill">ЗАПРАВИТЬ</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB-STAGE 2: CYLINDER CAROUSEL SELECTOR & QUANTITY -->
+      <div class="home-stage" id="home-stage-select">
+        <div class="stage-header">
+          <h2 data-i18n="selectCylinderTitle">Выберите размер баллона</h2>
+          <p data-i18n="selectCylinderSub">Круговое переключение между баллонами</p>
+        </div>
+
+        <!-- Carousel -->
+        <div class="cylinder-carousel">
+          <button class="carousel-nav-btn prev-btn" id="carousel-prev"><i class="fa-solid fa-chevron-left"></i></button>
+
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="carousel-track">
+              <!-- Item 1: 20 kg -->
+              <div class="carousel-card active" data-type="20kg" data-price="75000" data-wholesale="65000">
+                <div class="card-badge">20 KG</div>
+                <div class="cylinder-illustration cyl-20">
+                  <div class="cyl-cap"></div>
+                  <div class="cyl-body">
+                    <span class="weight-label">20 KG</span>
+                    <span class="lpg-type">ПРОПАН-БУТАН</span>
+                  </div>
+                  <div class="cyl-bottom"></div>
+                </div>
+                <div class="card-details">
+                  <h3>Баллон 20 КГ</h3>
+                  <p class="price-tag" id="display-cyl-price">75 000 UZS</p>
+                  <span class="info-pill" data-i18n="pillBestHome">Для дома и кухни</span>
+                </div>
+              </div>
+
+              <!-- Item 2: 10 kg -->
+              <div class="carousel-card" data-type="10kg" data-price="45000" data-wholesale="38000">
+                <div class="card-badge orange">10 KG</div>
+                <div class="cylinder-illustration cyl-10">
+                  <div class="cyl-cap"></div>
+                  <div class="cyl-body">
+                    <span class="weight-label">10 KG</span>
+                    <span class="lpg-type">ПРОПАН</span>
+                  </div>
+                  <div class="cyl-bottom"></div>
+                </div>
+                <div class="card-details">
+                  <h3>Баллон 10 КГ</h3>
+                  <p class="price-tag">45 000 UZS</p>
+                  <span class="info-pill" data-i18n="pillCompact">Компактный / Дача</span>
+                </div>
+              </div>
+
+              <!-- Item 3: 50 kg -->
+              <div class="carousel-card" data-type="50kg" data-price="180000" data-wholesale="155000">
+                <div class="card-badge purple">50 KG</div>
+                <div class="cylinder-illustration cyl-50">
+                  <div class="cyl-cap"></div>
+                  <div class="cyl-body">
+                    <span class="weight-label">50 KG</span>
+                    <span class="lpg-type">ПРОМЫШЛЕННЫЙ</span>
+                  </div>
+                  <div class="cyl-bottom"></div>
+                </div>
+                <div class="card-details">
+                  <h3>Баллон 50 КГ</h3>
+                  <p class="price-tag">180 000 UZS</p>
+                  <span class="info-pill" data-i18n="pillIndustrial">Для кафе и отопления</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="carousel-nav-btn next-btn" id="carousel-next"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
+        <!-- Quantity Selector Widget for Bulk/Wholesale Order -->
+        <div class="cylinder-quantity-box glass-panel">
+          <div class="qty-row">
+            <span class="qty-title">Количество баллонов:</span>
+            <div class="qty-counter-control">
+              <button class="qty-counter-btn" id="btn-qty-minus">-</button>
+              <input type="number" id="input-cyl-qty" value="1" min="1" max="100">
+              <button class="qty-counter-btn" id="btn-qty-plus">+</button>
+            </div>
+          </div>
+          
+          <!-- B2B Wholesale Badge Notification -->
+          <div class="wholesale-discount-badge" id="wholesale-badge" style="display:none;">
+            🏷️ <strong>ОПТОВЫЙ ЗАКАЗ (от 10 шт.)</strong>
+            <p>Оптовая скидка до 15% + Доставка спец-транспортом + Е-Фактура</p>
+          </div>
+        </div>
+
+        <div class="home-bottom-action">
+          <button class="primary-btn btn-large ripple-btn" id="btn-confirm-cylinder">
+            <span data-i18n="btnConfirmSelection">Подтвердить выбор</span>
+            <i class="fa-solid fa-circle-check"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB-STAGE 3: GAS FILLING ANIMATION -->
+      <div class="home-stage" id="home-stage-filling">
+        <div class="stage-header">
+          <h2 data-i18n="fillingProgressTitle">Процесс заправки газа...</h2>
+          <p id="filling-cyl-name">Баллон 20 КГ (1 шт)</p>
+        </div>
+
+        <div class="filling-animation-container">
+          <div class="pressure-gauge-widget">
+            <svg class="gauge-svg" viewBox="0 0 100 60" width="120" height="72">
+              <path class="gauge-arc-bg" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#1e293b" stroke-width="8" stroke-linecap="round"/>
+              <path class="gauge-arc-fill" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="url(#gauge-grad)" stroke-width="8" stroke-linecap="round" stroke-dasharray="126" stroke-dashoffset="126" id="gauge-arc-path"/>
+              <defs>
+                <linearGradient id="gauge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#00f2fe"/>
+                  <stop offset="100%" stop-color="#ff6b00"/>
+                </linearGradient>
+              </defs>
+              <line x1="50" y1="50" x2="50" y2="18" stroke="#ff6b00" stroke-width="3" stroke-linecap="round" id="gauge-needle" transform="rotate(-90 50 50)"/>
+              <circle cx="50" cy="50" r="4" fill="#fff"/>
+            </svg>
+            <span class="gauge-value-text" id="gauge-bar-text">0.0 bar</span>
+          </div>
+
+          <div class="filling-cylinder-box">
+            <div class="gas-liquid-overlay" id="gas-liquid-fill">
+              <svg class="liquid-wave-svg" viewBox="0 0 120 20" preserveAspectRatio="none">
+                <path class="wave-path" d="M0,10 C30,18 60,2 90,10 C120,18 150,2 180,10 L180,20 L0,20 Z" fill="#00f2fe"></path>
+              </svg>
+            </div>
+            <div class="cylinder-glass-body">
+              <div class="gas-particles-container" id="gas-particles-box"></div>
+              <div class="filling-percentage-display">
+                <span id="fill-percent-counter">0</span>%
+              </div>
+              <div class="filling-status-text" id="fill-status-label">Наполнение под давлением...</div>
+            </div>
+          </div>
+
+          <div class="filling-metrics-bar">
+            <div class="metric-item">
+              <span class="metric-label" data-i18n="pressure">Давление</span>
+              <strong class="metric-value" id="fill-pressure-val">0.0 bar</strong>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label" data-i18n="gasVolume">Объем</span>
+              <strong class="metric-value" id="fill-volume-val">0.0 L</strong>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label" data-i18n="totalCost">Стоимость</span>
+              <strong class="metric-value highlight" id="fill-cost-val">0 UZS</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-STAGE 4: ADDRESS SELECTION -->
+      <div class="home-stage" id="home-stage-address">
+        <div class="stage-header">
+          <h2 data-i18n="addressSelectTitle">Адрес доставки</h2>
+          <p data-i18n="addressSelectSub">Укажите куда привезти заправленный баллон</p>
+        </div>
+
+        <div class="address-card-group" id="address-options-container">
+          <!-- Address items render dynamically -->
+        </div>
+
+        <div class="custom-address-box">
+          <label class="input-label" data-i18n="customAddressLabel">Или введите другой адрес:</label>
+          <div class="input-icon-wrapper">
+            <i class="fa-solid fa-location-dot"></i>
+            <input type="text" id="input-custom-address" placeholder="Район, улица, дом, ориентир...">
+          </div>
+        </div>
+
+        <div class="home-bottom-action">
+          <button class="primary-btn btn-large ripple-btn" id="btn-goto-payment">
+            <span data-i18n="btnProceedPayment">Перейти к оплате</span>
+            <i class="fa-solid fa-credit-card"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB-STAGE 5: PAYMENT METHOD SELECTION -->
+      <div class="home-stage" id="home-stage-payment">
+        <div class="stage-header">
+          <h2 data-i18n="paymentTitle">Оплата заказа</h2>
+          <p data-i18n="paymentSub">Выберите удобный способ оплаты</p>
+        </div>
+
+        <div class="order-summary-mini">
+          <div class="sum-row">
+            <span id="summary-cyl-type">Заправка баллона 20 кг (1 шт)</span>
+            <strong id="summary-cyl-price">75 000 UZS</strong>
+          </div>
+          <div class="sum-row">
+            <span data-i18n="deliveryFee">Доставка до двери</span>
+            <strong class="free-text" data-i18n="free">БЕСПЛАТНО</strong>
+          </div>
+          <hr>
+          <div class="sum-row total">
+            <span data-i18n="totalToPay">Итого к оплате:</span>
+            <strong id="summary-total-price">75 000 UZS</strong>
+          </div>
+        </div>
+
+        <div class="payment-methods-grid">
+          <div class="payment-option active" data-method="cash">
+            <div class="pm-icon cash-bg"><i class="fa-solid fa-money-bill-wave"></i></div>
+            <div class="pm-info">
+              <h4 data-i18n="payCash">Наличными при получении</h4>
+              <p data-i18n="payCashSub">Оплата курьеру при передаче баллона</p>
+            </div>
+            <div class="pm-check"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+
+          <div class="payment-option" data-method="click">
+            <div class="pm-icon click-bg">C</div>
+            <div class="pm-info">
+              <h4>Click Pass / Click.uz</h4>
+              <p data-i18n="payOnlineFast">Быстрая онлайн-оплата в 1 клик</p>
+            </div>
+            <div class="pm-check"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+
+          <div class="payment-option" data-method="payme">
+            <div class="pm-icon payme-bg">P</div>
+            <div class="pm-info">
+              <h4>Payme</h4>
+              <p data-i18n="payUzcardHumo">Оплата картами Uzcard / Humo</p>
+            </div>
+            <div class="pm-check"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+
+          <!-- B2B Wholesale Invoice Option -->
+          <div class="payment-option" data-method="b2b_invoice" id="pm-b2b-invoice">
+            <div class="pm-icon b2b-bg"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <div class="pm-info">
+              <h4>Перечислением (Е-Фактура)</h4>
+              <p>Для юрлиц и организаций с выпиской счета</p>
+            </div>
+            <div class="pm-check"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+        </div>
+
+        <!-- B2B INN Input Box -->
+        <div class="b2b-inn-box glass-panel" id="b2b-inn-container" style="display:none; margin-top:10px; padding:12px;">
+          <label class="input-label">ИНН Компании / Организации:</label>
+          <input type="text" id="input-company-inn" placeholder="Введите 9-значный ИНН (например: 305123456)" maxlength="9">
+        </div>
+
+        <div class="home-bottom-action">
+          <button class="primary-btn btn-large btn-success ripple-btn" id="btn-submit-order">
+            <i class="fa-solid fa-check"></i>
+            <span data-i18n="btnConfirmOrder">Подтвердить и Оплатить</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB-STAGE 6: ORDER CONFIRMED & LIVE TRACKING -->
+      <div class="home-stage" id="home-stage-tracking">
+        <div class="stage-header text-center">
+          <div class="success-checkmark-glow">
+            <i class="fa-solid fa-truck-ramp-box"></i>
+          </div>
+          <h2 data-i18n="orderProcessedTitle">Заказ взят в обработку!</h2>
+          <p data-i18n="orderProcessedSub">Курьер спешит к вам с заправленным баллоном</p>
+        </div>
+
+        <div class="tracking-map-wrapper">
+          <div id="tracking-map-container"></div>
+        </div>
+
+        <div class="countdown-widget-card glass-panel">
+          <span class="cd-label" data-i18n="estimatedWait">Примерное время ожидания</span>
+          <div class="countdown-timer-display" id="order-countdown-timer">
+            24:59
+          </div>
+          <div class="courier-tracker-status">
+            <div class="status-step completed">
+              <span class="step-dot"></span>
+              <span data-i18n="statusAccepted">Принят</span>
+            </div>
+            <div class="status-step active">
+              <span class="step-dot pulse"></span>
+              <span data-i18n="statusInTransit">В пути</span>
+            </div>
+            <div class="status-step">
+              <span class="step-dot"></span>
+              <span data-i18n="statusDelivered">Доставлен</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="receipt-action-bar">
+          <button class="secondary-btn btn-full btn-sm" id="btn-view-receipt">
+            <i class="fa-solid fa-receipt"></i> Электронный чек (Soliq.uz)
+          </button>
+        </div>
+
+        <div class="courier-info-card">
+          <div class="courier-avatar">
+            <i class="fa-solid fa-user-ninja"></i>
+          </div>
+          <div class="courier-text">
+            <h4>Фарход Рахимов</h4>
+            <p>🚚 Labo Auto • 01 A 777 AA</p>
+          </div>
+          <button class="icon-btn call-courier-btn" id="btn-call-courier">
+            <i class="fa-solid fa-phone"></i>
+          </button>
+        </div>
+
+        <div class="home-bottom-action">
+          <button class="secondary-btn btn-full" id="btn-new-order-reset">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span data-i18n="btnNewOrder">Сделать новый заказ</span>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ==================== SCREEN 2: MAP ==================== -->
+    <section class="app-screen" id="screen-map">
+      <div class="map-view-container">
+        <div id="interactive-map"></div>
+
+        <div class="map-top-overlay">
+          <div class="map-search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Поиск АГЗС и станций заправки..." id="input-map-search">
+            <button class="icon-btn locate-me-btn" id="btn-map-locate-me" title="Мое местоположение">
+              <i class="fa-solid fa-crosshairs"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="map-bottom-sheet glass-panel" id="map-station-sheet">
+          <div class="sheet-drag-handle"></div>
+          <div class="station-card-info">
+            <div class="station-header-row">
+              <h3 id="station-name-display">🔥 АГЗС #1 LPG Express — Чиланзар</h3>
+              <span class="badge-status open" data-i18n="openNow">Открыто</span>
+            </div>
+            <p class="station-address" id="station-address-display"><i class="fa-solid fa-location-dot"></i> Ташкент, ул. Катартал, 28 (1.2 км)</p>
+            <div class="station-metrics">
+              <span>⛽ Пропан: <strong id="station-price-display">3 800 UZS / л</strong></span>
+              <span>⭐ 4.9 (128 отзывов)</span>
+            </div>
+            <div class="station-btn-row">
+              <button class="primary-btn btn-sm ripple-btn" id="btn-build-route">
+                <i class="fa-solid fa-route"></i> <span data-i18n="btnBuildRoute">Маршрут</span>
+              </button>
+              <button class="primary-btn btn-sm btn-success ripple-btn" id="btn-order-from-station">
+                <i class="fa-solid fa-bolt"></i> Заказать отсюда
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== SCREEN 3: CYLINDER STORE WITH QUANTITY COUNTERS ==================== -->
+    <section class="app-screen" id="screen-store">
+      <div class="store-header">
+        <h2 data-i18n="storeTitle">Магазин газовых баллонов</h2>
+        <p data-i18n="storeSub">Новые пустые и заправленные баллоны с гарантией</p>
+      </div>
+
+      <div class="store-grid">
+        <!-- Product 1: 20kg Cylinder -->
+        <div class="product-card glass-panel" data-product-id="store-20kg">
+          <div class="product-img-wrapper">
+            <img src="assets/cylinder_20kg.jpg" alt="Баллон 20 кг">
+            <span class="p-badge">ХИТ</span>
+          </div>
+          <div class="product-body">
+            <h3>Газовый баллон 20 КГ (Новый)</h3>
+            <p class="p-desc">Высокопрочный стальной баллон с предохранительным клапаном.</p>
+            
+            <div class="product-qty-row">
+              <span class="qty-sublabel">Кол-во:</span>
+              <div class="qty-counter-control store-qty-ctrl">
+                <button class="qty-counter-btn btn-store-minus">-</button>
+                <input type="number" class="input-store-qty" value="1" min="1" max="50">
+                <button class="qty-counter-btn btn-store-plus">+</button>
+              </div>
+            </div>
+
+            <div class="p-footer">
+              <span class="p-price">480 000 UZS</span>
+              <button class="primary-btn btn-sm btn-buy-product" data-product="Баллон 20 кг" data-price="480000">
+                <i class="fa-solid fa-cart-plus"></i> <span data-i18n="btnBuy">Купить</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2: 10kg Cylinder -->
+        <div class="product-card glass-panel" data-product-id="store-10kg">
+          <div class="product-img-wrapper">
+            <img src="assets/cylinder_10kg.jpg" alt="Баллон 10 кг">
+            <span class="p-badge orange">Компакт</span>
+          </div>
+          <div class="product-body">
+            <h3>Газовый баллон 10 КГ (Новый)</h3>
+            <p class="p-desc">Удобный портативный баллон для дачи, гриля и походов.</p>
+
+            <div class="product-qty-row">
+              <span class="qty-sublabel">Кол-во:</span>
+              <div class="qty-counter-control store-qty-ctrl">
+                <button class="qty-counter-btn btn-store-minus">-</button>
+                <input type="number" class="input-store-qty" value="1" min="1" max="50">
+                <button class="qty-counter-btn btn-store-plus">+</button>
+              </div>
+            </div>
+
+            <div class="p-footer">
+              <span class="p-price">340 000 UZS</span>
+              <button class="primary-btn btn-sm btn-buy-product" data-product="Баллон 10 кг" data-price="340000">
+                <i class="fa-solid fa-cart-plus"></i> <span data-i18n="btnBuy">Купить</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3: Regulator & Hose -->
+        <div class="product-card glass-panel" data-product-id="store-regulator">
+          <div class="product-img-wrapper">
+            <img src="assets/regulator.jpg" alt="Редуктор и Шланг">
+          </div>
+          <div class="product-body">
+            <h3>Комплект: Редуктор + Шланг 2м</h3>
+            <p class="p-desc">Итальянский редуктор давления газа и армированный шланг с манометром.</p>
+
+            <div class="product-qty-row">
+              <span class="qty-sublabel">Кол-во:</span>
+              <div class="qty-counter-control store-qty-ctrl">
+                <button class="qty-counter-btn btn-store-minus">-</button>
+                <input type="number" class="input-store-qty" value="1" min="1" max="50">
+                <button class="qty-counter-btn btn-store-plus">+</button>
+              </div>
+            </div>
+
+            <div class="p-footer">
+              <span class="p-price">120 000 UZS</span>
+              <button class="primary-btn btn-sm btn-buy-product" data-product="Редуктор и шланг" data-price="120000">
+                <i class="fa-solid fa-cart-plus"></i> <span data-i18n="btnBuy">Купить</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== SCREEN 4: MY ACCOUNT ==================== -->
+    <section class="app-screen" id="screen-account">
+      <div class="account-profile-header glass-panel">
+        <div class="profile-avatar-large">
+          <i class="fa-solid fa-user-astronaut"></i>
+        </div>
+        <div class="profile-details">
+          <h3 id="acc-user-name">Алишер Каримов</h3>
+          <p id="acc-user-phone">+998 (90) 123-45-67</p>
+          <span class="status-pill-verified"><i class="fa-solid fa-shield-halved"></i> Подтвержденный клиент</span>
+        </div>
+      </div>
+
+      <div class="account-sections-list">
+        <div class="account-card-item clickable" id="btn-acc-balance-item">
+          <div class="acc-icon gold-bg"><i class="fa-solid fa-coins"></i></div>
+          <div class="acc-text">
+            <h4 data-i18n="myBalance">Мой баланс</h4>
+            <p>Бонусные баллы и кэшбэк</p>
+          </div>
+          <strong class="acc-val" id="acc-balance-display">25 000 UZS</strong>
+        </div>
+
+        <div class="account-card-item clickable" id="btn-acc-cards">
+          <div class="acc-icon blue-bg"><i class="fa-solid fa-credit-card"></i></div>
+          <div class="acc-text">
+            <h4 data-i18n="savedCards">Привязанные карты</h4>
+            <p id="acc-cards-preview">Uzcard •••• 4412, Humo •••• 9821</p>
+          </div>
+          <i class="fa-solid fa-chevron-right arr"></i>
+        </div>
+
+        <div class="account-card-item clickable" id="btn-acc-addresses">
+          <div class="acc-icon green-bg"><i class="fa-solid fa-map-location-dot"></i></div>
+          <div class="acc-text">
+            <h4 data-i18n="savedAddresses">Сохраненные адреса</h4>
+            <p id="acc-addresses-count">2 адреса доставки</p>
+          </div>
+          <i class="fa-solid fa-chevron-right arr"></i>
+        </div>
+
+        <div class="account-card-item clickable" id="btn-acc-history">
+          <div class="acc-icon orange-bg"><i class="fa-solid fa-receipt"></i></div>
+          <div class="acc-text">
+            <h4 data-i18n="orderHistory">История заказов</h4>
+            <p>Просмотр всех заправок</p>
+          </div>
+          <i class="fa-solid fa-chevron-right arr"></i>
+        </div>
+
+        <div class="account-card-item clickable" id="btn-acc-about">
+          <div class="acc-icon purple-bg"><i class="fa-solid fa-circle-info"></i></div>
+          <div class="acc-text">
+            <h4 data-i18n="aboutCompany">О нашей компании</h4>
+            <p>Лицензия, безопасность, контакты</p>
+          </div>
+          <i class="fa-solid fa-chevron-right arr"></i>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== BOTTOM NAVIGATION BAR ==================== -->
+    <nav class="bottom-nav-bar" id="bottom-nav">
+      <button class="nav-item active" data-target="screen-home">
+        <i class="fa-solid fa-gas-pump"></i>
+        <span data-i18n="navHome">Главная</span>
+      </button>
+
+      <button class="nav-item" data-target="screen-map">
+        <i class="fa-solid fa-map-location-dot"></i>
+        <span data-i18n="navMap">Карта</span>
+      </button>
+
+      <button class="nav-item" data-target="screen-store">
+        <i class="fa-solid fa-store"></i>
+        <span data-i18n="navStore">Баллоны</span>
+      </button>
+
+      <button class="nav-item" data-target="screen-account">
+        <i class="fa-solid fa-circle-user"></i>
+        <span data-i18n="navAccount">Аккаунт</span>
+      </button>
+    </nav>
+
+
+    <!-- ==================== MODALS & POPUPS ==================== -->
+
+    <!-- Emergency 104 Modal -->
+    <div class="modal-backdrop" id="modal-emergency">
+      <div class="modal-dialog glass-panel emergency-border">
+        <button class="modal-close" data-close="modal-emergency"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header red-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <h3 style="color:#ef4444; text-align:center;">Аварийная Газовая Служба 104</h3>
+          <p class="company-desc">Инструкция по безопасности при обнаружении запаха газа СУГ:</p>
+          
+          <div class="safety-steps-list">
+            <div class="safety-step-item">
+              <span class="step-num">1</span>
+              <span>Немедленно перекройте вентиль газового баллона.</span>
+            </div>
+            <div class="safety-step-item">
+              <span class="step-num">2</span>
+              <span>Откройте все окна и двери для проветривания.</span>
+            </div>
+            <div class="safety-step-item">
+              <span class="step-num">3</span>
+              <span>Не включайте выключатели света, выдерните приборы.</span>
+            </div>
+            <div class="safety-step-item">
+              <span class="step-num">4</span>
+              <span>Покиньте помещение и вызовите службу 104.</span>
+            </div>
+          </div>
+
+          <button class="primary-btn btn-full btn-danger-call ripple-btn" id="btn-call-104-direct">
+            <i class="fa-solid fa-phone"></i> Вызвать Аварийную 104
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fiscal Receipt Modal (Soliq.uz QR) -->
+    <div class="modal-backdrop" id="modal-receipt">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-receipt"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="fiscal-receipt-paper">
+            <div class="receipt-header-logo">🔥 LPG Gas Express</div>
+            <p class="receipt-sub">Электронный Фискальный Чек</p>
+            <hr class="dashed-hr">
+            
+            <div class="receipt-row"><span>Чек №:</span> <strong id="rec-code">LPG-9921</strong></div>
+            <div class="receipt-row"><span>Дата:</span> <span id="rec-date">17.08.2026 13:40</span></div>
+            <div class="receipt-row"><span>Клиент:</span> <span>Алишер Каримов</span></div>
+            <hr class="dashed-hr">
+
+            <div class="receipt-row"><span>Товар:</span> <strong id="rec-item">Заправка 20 кг</strong></div>
+            <div class="receipt-row"><span>НДС (12%):</span> <span>Включен</span></div>
+            <div class="receipt-row total-rec"><span>Итого к оплате:</span> <strong id="rec-total">75 000 UZS</strong></div>
+
+            <div class="receipt-qr-box">
+              <div class="fake-qr-code">
+                <i class="fa-solid fa-qrcode"></i>
+              </div>
+              <span>Soliq.uz Фискальный код</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 1: Shopping Cart -->
+    <div class="modal-backdrop" id="modal-cart">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-cart"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header"><i class="fa-solid fa-cart-shopping"></i></div>
+          <h3 data-i18n="cartTitle">Корзина покупок</h3>
+          
+          <div class="cart-items-list" id="cart-items-list">
+            <!-- Dynamic cart items -->
+          </div>
+
+          <div class="promo-box">
+            <input type="text" id="input-promocode" placeholder="Промокод (например: GAS2026)">
+            <button class="secondary-btn btn-sm" id="btn-apply-promo">Применить</button>
+          </div>
+
+          <div class="cart-total-bar">
+            <span>Итого к оплате:</span>
+            <strong id="cart-total-amount">0 UZS</strong>
+          </div>
+
+          <button class="primary-btn btn-full ripple-btn" id="btn-cart-checkout">
+            <span>Оформить покупку</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 2: Saved Cards Manager & Add Card -->
+    <div class="modal-backdrop" id="modal-cards">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-cards"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header"><i class="fa-solid fa-credit-card"></i></div>
+          <h3 data-i18n="savedCards">Банковские карты</h3>
+
+          <div class="cards-list-wrapper" id="cards-list-wrapper">
+            <!-- Dynamic cards -->
+          </div>
+
+          <div class="add-card-form glass-panel">
+            <h4>Добавить новую карту</h4>
+            <div class="interactive-card-preview" id="card-preview-box">
+              <div class="card-glare-overlay"></div>
+              <div class="card-chip"></div>
+              <span class="card-brand-logo" id="preview-card-logo">Uzcard</span>
+              <div class="card-number-display" id="preview-card-number">8600 •••• •••• ••••</div>
+              <div class="card-expiry-display" id="preview-card-expiry">12/28</div>
+            </div>
+            <input type="text" id="input-card-number" placeholder="Номер карты (8600... / 9860...)" maxlength="19">
+            <input type="text" id="input-card-expiry" placeholder="Срок действия (ММ/ГГ)" maxlength="5">
+            <button class="primary-btn btn-full btn-sm" id="btn-save-new-card">Сохранить карту</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 3: Address Manager -->
+    <div class="modal-backdrop" id="modal-addresses">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-addresses"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header"><i class="fa-solid fa-map-location-dot"></i></div>
+          <h3 data-i18n="savedAddresses">Адреса доставки</h3>
+
+          <div class="address-manager-list" id="address-manager-list">
+            <!-- Dynamic addresses -->
+          </div>
+
+          <div class="add-address-form">
+            <input type="text" id="input-new-addr-title" placeholder="Название (например: Работа)">
+            <input type="text" id="input-new-addr-text" placeholder="Полный адрес...">
+            <button class="primary-btn btn-full btn-sm" id="btn-save-new-address">Добавить адрес</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 4: Order History -->
+    <div class="modal-backdrop" id="modal-history">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-history"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          <h3 data-i18n="orderHistory">История заказов</h3>
+
+          <div class="history-list" id="history-items-list">
+            <!-- Dynamic history -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 5: Settings -->
+    <div class="modal-backdrop" id="modal-settings">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-settings"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header"><i class="fa-solid fa-sliders"></i></div>
+          <h3 data-i18n="settings">Настройки приложения</h3>
+
+          <div class="settings-toggle-row">
+            <span>Звуковые эффекты (шипение газа)</span>
+            <input type="checkbox" id="toggle-sound-fx" checked>
+          </div>
+
+          <div class="settings-toggle-row">
+            <span>Push-уведомления</span>
+            <input type="checkbox" id="toggle-push-notif" checked>
+          </div>
+
+          <div class="settings-toggle-row">
+            <span>Темная тема интерфейса</span>
+            <input type="checkbox" id="toggle-dark-theme" checked>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 6: About Company -->
+    <div class="modal-backdrop" id="modal-about">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-about"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header"><i class="fa-solid fa-building-shield"></i></div>
+          <h3>LPG Gas Express Uzbekistan</h3>
+          <p class="company-desc">
+            Официальный сертифицированный поставщик сжиженного углеводородного газа (СУГ / LPG) в Узбекистане. 
+            Мы обеспечиваем безопасную заправку, регулярную проверку баллонов и доставку до двери в течение 30 минут.
+          </p>
+          <div class="company-badges">
+            <span>🛡️ Сертификат ISO 9001</span>
+            <span>⚡ Доставка 24/7</span>
+            <span>📞 Колл-центр: +998 71 200-00-00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 7: Live Support Chat -->
+    <div class="modal-backdrop" id="modal-support">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-support"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header"><i class="fa-solid fa-headset"></i></div>
+          <h3 data-i18n="support">Служба поддержки</h3>
+
+          <div class="support-chat-box" id="support-chat-messages">
+            <div class="chat-msg bot">
+              Здравствуйте! Я онлайн-помощник LPG Express. Чем могу помочь по поводу заправки или доставки газа?
+            </div>
+          </div>
+
+          <div class="support-input-row">
+            <input type="text" id="input-support-msg" placeholder="Введите ваш вопрос...">
+            <button class="icon-btn" id="btn-send-support"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Toast Notification -->
+    <div class="toast-notification" id="toast-notif">
+      <i class="fa-solid fa-circle-check toast-icon"></i>
+      <span class="toast-message" id="toast-text">Действие выполнено</span>
+    </div>
+
+  </div> <!-- /mobile-frame -->
+
+  <!-- Leaflet JS for Map -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- App JS -->
+  <script src="app.js"></script>
+</body>
+</html>
