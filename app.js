@@ -529,6 +529,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('screen-auth').classList.remove('active');
     document.getElementById('screen-home').classList.add('active');
     
+    // Hide the 'X' button on all in-app screens
+    const btnCloseAuth = document.getElementById('btn-close-auth');
+    if (btnCloseAuth) btnCloseAuth.style.display = 'none';
+
     if (!asGuest) {
       isAuth = true;
       currentUserName = name;
@@ -551,6 +555,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (isAuth) {
     enterApp(false, currentUserName, userPhone || "+998 (90) 123-45-67");
+  } else {
+    const btnCloseAuth = document.getElementById('btn-close-auth');
+    if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
   }
 
   // --- LOGIN FLOW (Step 1 -> Step 2) ---
@@ -742,6 +749,8 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('lpg_auth', 'false');
       document.getElementById('screen-account').classList.remove('active');
       document.getElementById('screen-auth').classList.add('active');
+      const btnCloseAuth = document.getElementById('btn-close-auth');
+      if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
       switchAuthTab('login');
       showToast("Вы вышли из системы");
     });
@@ -842,6 +851,8 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('lpg_auth', 'false');
       screens.forEach(s => s.classList.remove('active'));
       document.getElementById('screen-auth').classList.add('active');
+      const btnCloseAuth = document.getElementById('btn-close-auth');
+      if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
       switchAuthTab('login');
       showToast("Вы вышли из системы");
     });
