@@ -57,6 +57,7 @@ body.theme-light .drawer-link { color: #0f172a; }
 
 /* Reset & Box Sizing */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); -webkit-tap-highlight-color: transparent; user-select: none; }
+button, input, select, textarea { font-family: inherit; }
 
 body {
   background-color: #030712; color: var(--text-main);
@@ -434,13 +435,36 @@ body {
 }
 .otp-digit:focus { border-color: var(--primary-flame); box-shadow: 0 0 15px var(--primary-glow); }
 
-.otp-actions-footer {
-  display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 4px;
+.text-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+.text-btn:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.06);
 }
 
-.resend-btn { text-align: center; margin-top: 2px; }
+.resend-btn {
+  text-align: center;
+  margin-top: 2px;
+  font-family: inherit;
+  color: var(--text-muted);
+}
+.resend-btn span#login-timer-sec,
+.resend-btn span#reg-timer-sec {
+  color: var(--primary-flame);
+  font-weight: 700;
+}
 .guest-action-hint { margin-top: 10px; }
-.link-btn { background: transparent; border: none; color: var(--text-muted); font-size: 12px; cursor: pointer; text-decoration: underline; }
+.link-btn { background: transparent; border: none; color: var(--text-muted); font-size: 12px; cursor: pointer; text-decoration: underline; font-family: inherit; }
 
 
 /* ==================== BUTTONS ==================== */
