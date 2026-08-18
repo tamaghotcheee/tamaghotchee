@@ -1301,17 +1301,28 @@
       <div class="modal-dialog glass-panel">
         <button class="modal-close" data-close="modal-addresses"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
-          <div class="modal-icon-header"><i class="fa-solid fa-map-location-dot"></i></div>
+          <div class="modal-icon-header red-icon"><i class="fa-solid fa-map-location-dot"></i></div>
           <h3 data-i18n="savedAddresses">Адреса доставки</h3>
+          <p class="modal-sub-desc">Список ваших сохраненных адресов</p>
 
           <div class="address-manager-list" id="address-manager-list">
             <!-- Dynamic addresses -->
           </div>
 
-          <div class="add-address-form">
-            <input type="text" id="input-new-addr-title" placeholder="Название (например: Работа)">
-            <input type="text" id="input-new-addr-text" placeholder="Полный адрес...">
-            <button class="primary-btn btn-full btn-sm" id="btn-save-new-address">Добавить адрес</button>
+          <!-- Add New Address Form Section -->
+          <div class="add-address-form-box" style="margin-top:14px; padding:14px; border-radius:14px; background:rgba(239,68,68,0.06); border:1.5px dashed rgba(239,68,68,0.35);">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; font-weight:700; font-size:13.5px; color:var(--text-main);">
+              <i class="fa-solid fa-circle-plus" style="color:var(--primary-flame);"></i>
+              <span>Добавить новый адрес</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <input type="text" id="input-new-addr-title" placeholder="Название (например: Дом, Работа, Дача)">
+              <input type="text" id="input-new-addr-text" placeholder="Улица, дом, ориентир...">
+              <button class="primary-btn btn-full btn-sm" id="btn-save-new-address" style="margin-top:4px;">
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>Сохранить адрес</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1363,7 +1374,7 @@
       <div class="modal-dialog glass-panel">
         <button class="modal-close" data-close="modal-about"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
-          <div class="modal-icon-header"><i class="fa-solid fa-building-shield"></i></div>
+          <div class="modal-icon-header red-icon"><i class="fa-solid fa-building-shield"></i></div>
           <h3>Poytug GNS Uzbekistan</h3>
           <p class="company-desc">
             Официальный сертифицированный поставщик сжиженного углеводородного газа (СУГ / LPG) в Узбекистане. 
@@ -1383,18 +1394,20 @@
       <div class="modal-dialog glass-panel">
         <button class="modal-close" data-close="modal-support"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
-          <div class="modal-icon-header"><i class="fa-solid fa-headset"></i></div>
+          <div class="modal-icon-header red-icon"><i class="fa-solid fa-headset"></i></div>
           <h3 data-i18n="support">Служба поддержки</h3>
+          <p class="modal-sub-desc">Онлайн-чат с оператором Poytug GNS</p>
 
           <div class="support-chat-box" id="support-chat-messages">
             <div class="chat-msg bot">
+              <div class="bot-badge-tag"><i class="fa-solid fa-robot"></i> Poytug Ассистент</div>
               Здравствуйте! Я онлайн-помощник Poytug GNS. Чем могу помочь по поводу заправки или доставки газа?
             </div>
           </div>
 
           <div class="support-input-row">
             <input type="text" id="input-support-msg" placeholder="Введите ваш вопрос...">
-            <button class="icon-btn" id="btn-send-support"><i class="fa-solid fa-paper-plane"></i></button>
+            <button class="support-send-btn" id="btn-send-support" title="Отправить"><i class="fa-solid fa-paper-plane"></i></button>
           </div>
         </div>
       </div>

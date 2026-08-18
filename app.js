@@ -776,6 +776,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // About Company in Profile
+  const btnAccAbout = document.getElementById('btn-acc-about');
+  if (btnAccAbout) {
+    btnAccAbout.addEventListener('click', () => {
+      openModal('modal-about');
+    });
+  }
+
 
   // ==================== NAVIGATION ROUTER ====================
   const navItems = document.querySelectorAll('.nav-item');
