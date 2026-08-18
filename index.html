@@ -386,16 +386,16 @@
 
               <!-- Gas Flow Pulse Gradient -->
               <linearGradient id="gas-flow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#00f2fe"/>
-                <stop offset="50%" stop-color="#38bdf8"/>
-                <stop offset="100%" stop-color="#ff6b00"/>
+                <stop offset="0%" stop-color="#ef4444"/>
+                <stop offset="50%" stop-color="#ffffff"/>
+                <stop offset="100%" stop-color="#dc2626"/>
               </linearGradient>
 
               <!-- Liquid Gas Fill Gradient -->
               <linearGradient id="liquid-gas-grad" x1="0%" y1="100%" x2="0%" y2="0%">
-                <stop offset="0%" stop-color="rgba(0, 242, 254, 0.95)"/>
-                <stop offset="65%" stop-color="rgba(56, 189, 248, 0.8)"/>
-                <stop offset="100%" stop-color="rgba(255, 107, 0, 0.9)"/>
+                <stop offset="0%" stop-color="rgba(153, 27, 27, 0.95)"/>
+                <stop offset="65%" stop-color="rgba(239, 68, 68, 0.9)"/>
+                <stop offset="100%" stop-color="rgba(255, 255, 255, 0.95)"/>
               </linearGradient>
 
               <!-- Seamless Internal Tank Mask for Liquid Fill -->
@@ -421,7 +421,7 @@
               <!-- Gas Level Fill Rectangle (starts empty with height 0 and opacity 0) -->
               <rect id="svg-gas-fill-rect" x="110" y="325" width="140" height="0" fill="url(#liquid-gas-grad)" opacity="0"/>
               <!-- Liquid Surface Wave (hidden by default) -->
-              <path id="svg-gas-wave-path" d="M 110 325 Q 145 320 180 325 T 250 325 L 250 345 L 110 345 Z" fill="#00f2fe" opacity="0"/>
+              <path id="svg-gas-wave-path" d="M 110 325 Q 145 320 180 325 T 250 325 L 250 345 L 110 345 Z" fill="#ffffff" opacity="0"/>
             </g>
 
             <!-- Specular Vertical Gloss Reflection -->
@@ -497,8 +497,8 @@
                 <rect x="7" y="12" width="6" height="3" rx="1.5" fill="#475569"/>
                 <rect x="8" y="17" width="6" height="3" rx="1.5" fill="#475569"/>
                 <rect x="9" y="22" width="6" height="3" rx="1.5" fill="#475569"/>
-                <!-- Orange Trigger Lever -->
-                <path d="M 14 10 L 22 18 L 18 20 L 12 12 Z" fill="#ff6b00" opacity="0.95"/>
+                <!-- Red Trigger Lever -->
+                <path d="M 14 10 L 22 18 L 18 20 L 12 12 Z" fill="#ef4444" opacity="0.95"/>
                 <!-- Mini Dial Pressure Gauge on Gun -->
                 <circle cx="14" cy="-8" r="6" fill="#fff" stroke="#334155" stroke-width="1.2"/>
                 <line id="gun-gauge-needle" x1="14" y1="-8" x2="17" y2="-11" stroke="#ef4444" stroke-width="1.2" stroke-linecap="round"/>

@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.height = window.innerHeight;
 
     const particles = [];
-    const colors = ['#ff6b00', '#00f2fe', '#00e676', '#ffb703', '#8b5cf6'];
+    const colors = ['#ef4444', '#dc2626', '#ffffff', '#e2e8f0', '#18181b', '#f87171'];
 
     for (let i = 0; i < 90; i++) {
       particles.push({
@@ -1540,7 +1540,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(tMap);
 
-    L.circleMarker([41.2995, 69.2401], { color: '#ff6b00', fillColor: '#ff6b00', fillOpacity: 0.9, radius: 8 }).addTo(tMap).bindPopup("Ваш адрес");
+    L.circleMarker([41.2995, 69.2401], { color: '#ef4444', fillColor: '#ffffff', fillOpacity: 1, radius: 8 }).addTo(tMap).bindPopup("Ваш адрес");
 
     let courierLat = 41.2850;
     let courierLng = 69.2050;
@@ -1548,7 +1548,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const destLng = 69.2401;
 
     const courierMarker = L.marker([courierLat, courierLng]).addTo(tMap).bindPopup("🚚 Курьер Фарход");
-    const routeLine = L.polyline([[courierLat, courierLng], [destLat, destLng]], { color: '#ff6b00', weight: 4, dashArray: '6, 8' }).addTo(tMap);
+    const routeLine = L.polyline([[courierLat, courierLng], [destLat, destLng]], { color: '#ef4444', weight: 4, dashArray: '6, 8' }).addTo(tMap);
     tMap.fitBounds(routeLine.getBounds(), { padding: [20, 20] });
 
     trackingCourierInterval = setInterval(() => {
@@ -1585,11 +1585,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    const userMarker = L.circleMarker([41.2995, 69.2401], { color: '#ff6b00', fillColor: '#ff8800', fillOpacity: 0.9, radius: 9 }).addTo(mainMap);
+    const userMarker = L.circleMarker([41.2995, 69.2401], { color: '#ef4444', fillColor: '#ffffff', fillOpacity: 1, radius: 9 }).addTo(mainMap);
     userMarker.bindPopup("<b>Вы здесь</b>").openPopup();
 
     document.getElementById('btn-build-route').addEventListener('click', () => {
-      L.polyline([[41.2995, 69.2401], [41.2850, 69.2050]], { color: '#00e676', weight: 5 }).addTo(mainMap);
+      L.polyline([[41.2995, 69.2401], [41.2850, 69.2050]], { color: '#ef4444', weight: 5 }).addTo(mainMap);
       showToast("Маршрут построен!");
     });
 
