@@ -791,7 +791,20 @@
           </div>
 
           <div class="payment-option" data-method="click">
-            <div class="pm-icon click-bg"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <div class="pm-icon click-bg" style="padding:0; overflow:hidden;">
+              <svg viewBox="0 0 48 48" width="44" height="44" style="display:block;">
+                <defs>
+                  <linearGradient id="click-btn-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0284c7"/>
+                    <stop offset="100%" stop-color="#0056b3"/>
+                  </linearGradient>
+                </defs>
+                <rect width="48" height="48" rx="13" fill="url(#click-btn-grad)"/>
+                <!-- Stylized Click logo -->
+                <text x="24" y="29" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="14.5" fill="#ffffff" text-anchor="middle" letter-spacing="-0.5">click</text>
+                <circle cx="28.8" cy="18.5" r="2.2" fill="#38bdf8"/>
+              </svg>
+            </div>
             <div class="pm-info">
               <h4>Click Pass / Click.uz</h4>
               <p data-i18n="payOnlineFast">Быстрая онлайн-оплата в 1 клик</p>
@@ -800,7 +813,19 @@
           </div>
 
           <div class="payment-option" data-method="payme">
-            <div class="pm-icon payme-bg"><i class="fa-solid fa-credit-card"></i></div>
+            <div class="pm-icon payme-bg" style="padding:0; overflow:hidden;">
+              <svg viewBox="0 0 48 48" width="44" height="44" style="display:block;">
+                <defs>
+                  <linearGradient id="payme-btn-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00cccc"/>
+                    <stop offset="100%" stop-color="#009999"/>
+                  </linearGradient>
+                </defs>
+                <rect width="48" height="48" rx="13" fill="url(#payme-btn-grad)"/>
+                <!-- Stylized Payme logo -->
+                <text x="24" y="28.5" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="12.5" fill="#ffffff" text-anchor="middle" letter-spacing="-0.3">payme</text>
+              </svg>
+            </div>
             <div class="pm-info">
               <h4>Payme</h4>
               <p data-i18n="payUzcardHumo">Оплата картами Uzcard / Humo</p>
