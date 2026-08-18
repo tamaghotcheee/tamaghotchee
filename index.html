@@ -34,11 +34,12 @@
     <header class="app-header" id="app-header">
       <!-- Left Action Group: Menu + 104 Emergency -->
       <div class="header-left-group">
-        <button class="icon-btn menu-trigger" id="btn-side-menu" aria-label="Menu">
-          <i class="fa-solid fa-bars-staggered"></i>
+        <button class="icon-btn menu-trigger" id="btn-side-menu" aria-label="Menu" title="Меню">
+          <i class="fa-solid fa-bars"></i>
         </button>
-        <button class="icon-btn emergency-badge-btn" id="btn-open-emergency" title="Служба газа 104">
-          🚨 <span class="em-text">104</span>
+        <button class="emergency-badge-btn" id="btn-open-emergency" title="Служба газа 104">
+          <i class="fa-solid fa-phone-volume"></i>
+          <span class="em-text">104</span>
         </button>
       </div>
 
@@ -790,7 +791,7 @@
           </div>
 
           <div class="payment-option" data-method="click">
-            <div class="pm-icon click-bg">C</div>
+            <div class="pm-icon click-bg"><i class="fa-solid fa-mobile-screen-button"></i></div>
             <div class="pm-info">
               <h4>Click Pass / Click.uz</h4>
               <p data-i18n="payOnlineFast">Быстрая онлайн-оплата в 1 клик</p>
@@ -799,7 +800,7 @@
           </div>
 
           <div class="payment-option" data-method="payme">
-            <div class="pm-icon payme-bg">P</div>
+            <div class="pm-icon payme-bg"><i class="fa-solid fa-credit-card"></i></div>
             <div class="pm-info">
               <h4>Payme</h4>
               <p data-i18n="payUzcardHumo">Оплата картами Uzcard / Humo</p>
