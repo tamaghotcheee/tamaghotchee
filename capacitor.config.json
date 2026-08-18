@@ -1,0 +1,10 @@
+{
+  "appId": "com.poytuggns.app",
+  "appName": "Poytug GNS",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "ios": {
+    "contentInset": "always",
+    "scrollEnabled": true
+  }
+}

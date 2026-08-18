@@ -1,0 +1,28 @@
+{
+  "name": "gaz",
+  "version": "1.0.0",
+  "description": "![Poytug GNS Platform](https://img.shields.io/badge/Platform-Web%20%2F%20Mobile%20SPA-orange) ![Version](https://img.shields.io/badge/Version-v3.2%20Production%20Ready-brightgreen) ![Localization](https://img.shields.io/badge/Languages-RU%20%7C%20UZ%20%7C%20EN-blue) ![Security](https://img.shields.io/badge/Security-2FA%20SMS%20%2B%20104%20Emergency-red)",
+  "main": "app.js",
+  "scripts": {
+    "build": "mkdir -p www && cp -R index.html index.css app.js assets www/",
+    "cap:add": "npm run build && npx cap add ios",
+    "cap:sync": "npm run build && npx cap sync ios",
+    "cap:open": "npx cap open ios"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tamaghotcheee/tamaghotchee.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tamaghotcheee/tamaghotchee/issues"
+  },
+  "homepage": "https://github.com/tamaghotcheee/tamaghotchee#readme",
+  "dependencies": {
+    "@capacitor/cli": "^8.5.0",
+    "@capacitor/core": "^8.5.0",
+    "@capacitor/ios": "^8.5.0"
+  }
+}
