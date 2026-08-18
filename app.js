@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let cylinderQuantity = 1;
   let isWholesale = false;
 
-  let selectedCylinder = { type: '20kg', price: 75000, wholesalePrice: 65000, name: 'Баллон 20 КГ' };
+  let selectedCylinder = { type: '10kg', price: 45000, wholesalePrice: 38000, name: 'Баллон 10 КГ' };
   let selectedAddress = 'г. Ташкент, ул. Амира Темура, 45, кв. 12';
   let selectedPayment = 'cash';
   let companyInn = '';
@@ -96,10 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
       gasVolume: "Объем",
       totalCost: "Стоимость",
       addressSelectTitle: "Адрес доставки",
-      addressSelectSub: "Укажите куда привезти заправленный баллон",
+      addressSelectSub: "Выберите сохраненный адрес или укажите новый",
       addrHome: "Дом",
       addrDacha: "Дача / Частный дом",
-      customAddressLabel: "Или введите другой адрес:",
+      btnAddAddress: "Добавить адрес / Указать на карте",
+      backToSavedAddresses: "Назад к списку",
+      newAddressTitle: "Новый адрес доставки",
+      newAddressSub: "Введите адрес или отметьте точку на карте",
+      btnSaveAndUseAddress: "Сохранить и продолжить",
       btnProceedPayment: "Перейти к оплате",
       paymentTitle: "Оплата заказа",
       paymentSub: "Выберите удобный способ оплаты",
@@ -182,10 +186,14 @@ document.addEventListener('DOMContentLoaded', () => {
       gasVolume: "Hajmi",
       totalCost: "Narxi",
       addressSelectTitle: "Yetkazib berish manzili",
-      addressSelectSub: "To'ldirilgan ballonni qayerga olib boraylik",
+      addressSelectSub: "Saqlangan manzilni tanlang yoki yangisini kiriting",
       addrHome: "Uy",
       addrDacha: "Dala hovli",
-      customAddressLabel: "Yoki boshqa manzil kiriting:",
+      btnAddAddress: "Manzil qo'shish / Xaritadan belgilash",
+      backToSavedAddresses: "Ro'yxatga qaytish",
+      newAddressTitle: "Yangi yetkazish manzili",
+      newAddressSub: "Manzilni yozing yoki xaritada belgilang",
+      btnSaveAndUseAddress: "Saqlash va davom etish",
       btnProceedPayment: "To'lovga o'tish",
       paymentTitle: "Buyurtma to'lovi",
       paymentSub: "Qulay to'lov usulini tanlang",
@@ -268,10 +276,14 @@ document.addEventListener('DOMContentLoaded', () => {
       gasVolume: "Volume",
       totalCost: "Total Cost",
       addressSelectTitle: "Delivery Address",
-      addressSelectSub: "Where should we deliver your refilled cylinder?",
+      addressSelectSub: "Choose a saved address or specify a new one",
       addrHome: "Home",
       addrDacha: "Summer House",
-      customAddressLabel: "Or enter another address:",
+      btnAddAddress: "Add Address / Pin on Map",
+      backToSavedAddresses: "Back to List",
+      newAddressTitle: "New Delivery Address",
+      newAddressSub: "Enter address or pinpoint location on map",
+      btnSaveAndUseAddress: "Save & Continue",
       btnProceedPayment: "Proceed to Payment",
       paymentTitle: "Order Payment",
       paymentSub: "Choose your payment method",
@@ -777,8 +789,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       screens.forEach(s => s.classList.toggle('active', s.id === targetId));
 
-      if (targetId === 'screen-map' && !mapInitialized) {
-        initLeafletMap();
+      if (targetId === 'screen-map') {
+        if (!mapInitialized) {
+          initLeafletMap();
+        } else if (mainMap) {
+          setTimeout(() => mainMap.invalidateSize(), 150);
+        }
       }
     });
   });
@@ -876,7 +892,14 @@ document.addEventListener('DOMContentLoaded', () => {
     wholesaleBadge.style.display = isWholesale ? 'block' : 'none';
 
     const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
-    displayCylPrice.textContent = `${unitPrice.toLocaleString()} UZS / шт`;
+    const cards = document.querySelectorAll('.carousel-card');
+    const activeCard = cards[currentCarouselIdx] || cards[0];
+    if (activeCard) {
+      const priceTag = activeCard.querySelector('.price-tag');
+      if (priceTag) {
+        priceTag.textContent = isWholesale ? `${unitPrice.toLocaleString()} UZS / шт` : `${unitPrice.toLocaleString()} UZS`;
+      }
+    }
 
     if (isWholesale) {
       showToast(`🏷️ Оптовый заказ (${cylinderQuantity} шт)! Оптовая цена: ${unitPrice.toLocaleString()} UZS`);
@@ -948,7 +971,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const homeStages = {
     initial: document.getElementById('home-stage-initial'),
     select: document.getElementById('home-stage-select'),
-    filling: document.getElementById('home-stage-filling'),
     address: document.getElementById('home-stage-address'),
     payment: document.getElementById('home-stage-payment'),
     tracking: document.getElementById('home-stage-tracking')
@@ -956,19 +978,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function switchHomeStage(stageKey) {
     Object.keys(homeStages).forEach(k => {
-      homeStages[k].classList.toggle('active', k === stageKey);
+      if (homeStages[k]) {
+        homeStages[k].classList.toggle('active', k === stageKey);
+      }
     });
+    if (stageKey === 'address') {
+      if (savedAddresses && savedAddresses.length > 0) {
+        switchAddressSubview('list');
+      } else {
+        switchAddressSubview('form');
+      }
+    }
   }
 
   let isHomeRefueling = false;
 
-  function runHomeRigRefuelingAnimation() {
+  // Step 1: Animate hose connection, then open cylinder selection
+  function runHomeRigDockingAnimation() {
+    if (isHomeRefueling) return;
     isHomeRefueling = true;
+
     const rig = document.getElementById('hose-nozzle-rig');
     const lockIndicator = document.getElementById('dock-lock-indicator');
-    const gasStream = document.getElementById('gas-flow-stream');
-    const fillRect = document.getElementById('svg-gas-fill-rect');
-    const wavePath = document.getElementById('svg-gas-wave-path');
     const statusPill = document.getElementById('refuel-live-status');
     const statusPillText = document.getElementById('refuel-status-text');
     const cylStatusText = document.getElementById('cyl-status-text');
@@ -980,7 +1011,7 @@ document.addEventListener('DOMContentLoaded', () => {
       rig.classList.add('rig-docked');
     }
     if (statusPill) statusPill.className = 'refuel-status-pill active-fueling';
-    if (statusPillText) statusPillText.textContent = 'Подключение газопровода...';
+    if (statusPillText) statusPillText.textContent = 'Подключение шланга...';
     if (cylStatusText) {
       cylStatusText.textContent = 'СТЫКОВКА...';
       cylStatusText.setAttribute('fill', '#00f2fe');
@@ -988,65 +1019,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#00f2fe');
 
     setTimeout(() => {
-      // 2. Lock & Engage Valve
+      // 2. Lock & Connected state
       if (lockIndicator) lockIndicator.setAttribute('fill', '#00e676');
-      if (statusPillText) statusPillText.textContent = 'Шланг зафиксирован • Подача СУГ';
-      if (gasStream) gasStream.classList.add('active-flow');
-      if (wavePath) {
-        wavePath.classList.add('active');
-        wavePath.setAttribute('opacity', '0.85');
+      if (statusPillText) statusPillText.textContent = 'Шланг подключен ✓';
+      if (cylStatusText) {
+        cylStatusText.textContent = 'ПОДКЛЮЧЕНО';
+        cylStatusText.setAttribute('fill', '#00e676');
       }
-      if (fillRect) {
-        fillRect.setAttribute('opacity', '0.7');
-      }
-      playGasFillingAudio();
-      showToast('🔌 Газопровод подключен к штуцеру! Наполнение...');
+      if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#00e676');
+      showToast('🔌 Шланг подключен! Выберите размер баллона');
 
-      let percent = 0;
-      const fillInterval = setInterval(() => {
-        percent += 2;
-        const currentHeight = (percent / 100) * 190;
-        const currentY = 325 - currentHeight;
-        if (fillRect) {
-          fillRect.setAttribute('height', currentHeight);
-          fillRect.setAttribute('y', currentY);
-        }
-        if (wavePath) {
-          wavePath.setAttribute('transform', `translate(0, ${-currentHeight})`);
-        }
-
-        if (cylStatusText) cylStatusText.textContent = `ЗАПРАВКА ${percent}%`;
-        updateAudioPitch(percent);
-
-        if (percent >= 100) {
-          clearInterval(fillInterval);
-          stopGasFillingAudio();
-          if (gasStream) gasStream.classList.remove('active-flow');
-          if (wavePath) wavePath.classList.remove('active');
-
-          // 3. Complete
-          if (statusPill) statusPill.className = 'refuel-status-pill success-fueling';
-          if (statusPillText) statusPillText.textContent = '✓ Баллон заправлен на 100%';
-          if (cylStatusText) {
-            cylStatusText.textContent = '✓ 100% ЗАПРАВЛЕН';
-            cylStatusText.setAttribute('fill', '#00e676');
-          }
-          if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#00e676');
-          launchConfettiCannon();
-          showToast('🎉 Баллон успешно заправлен (50L / 16.0 bar)!');
-
-          setTimeout(() => {
-            isHomeRefueling = false;
-            switchHomeStage('select');
-          }, 1400);
-        }
-      }, 40);
+      // 3. Move to cylinder selection stage
+      setTimeout(() => {
+        switchHomeStage('select');
+      }, 450);
     }, 700);
   }
 
   btnStartRefill.addEventListener('click', () => {
-    if (isHomeRefueling) return;
-    runHomeRigRefuelingAnimation();
+    runHomeRigDockingAnimation();
   });
 
   // Carousel
@@ -1084,87 +1075,137 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Filling Animation & Sound
+  // Step 2: After cylinder is selected, return to main cylinder and continue 1st animation
   btnConfirmCylinder.addEventListener('click', () => {
-    document.getElementById('filling-cyl-name').textContent = `${selectedCylinder.name} (${cylinderQuantity} шт)`;
-    switchHomeStage('filling');
-    runGasFillingAnimation();
+    switchHomeStage('initial');
+    if (btnStartRefill) btnStartRefill.style.display = 'none';
+    continueGasFillingOnRig();
   });
 
-  function runGasFillingAnimation() {
-    const liquidFill = document.getElementById('gas-liquid-fill');
-    const percentDisplay = document.getElementById('fill-percent-counter');
-    const pressureVal = document.getElementById('fill-pressure-val');
-    const volumeVal = document.getElementById('fill-volume-val');
-    const costVal = document.getElementById('fill-cost-val');
-    const gaugeNeedle = document.getElementById('gauge-needle');
-    const gaugeArcPath = document.getElementById('gauge-arc-path');
-    const gaugeBarText = document.getElementById('gauge-bar-text');
-    const particlesBox = document.getElementById('gas-particles-box');
+  function continueGasFillingOnRig() {
+    const gasStream = document.getElementById('gas-flow-stream');
+    const fillRect = document.getElementById('svg-gas-fill-rect');
+    const wavePath = document.getElementById('svg-gas-wave-path');
+    const statusPill = document.getElementById('refuel-live-status');
+    const statusPillText = document.getElementById('refuel-status-text');
+    const cylStatusText = document.getElementById('cyl-status-text');
+    const cylStatusRect = document.getElementById('cyl-status-rect');
+
+    if (statusPill) statusPill.className = 'refuel-status-pill active-fueling';
+    if (statusPillText) statusPillText.textContent = `Заправка СУГ: 0% • ${selectedCylinder.name}`;
+    if (gasStream) gasStream.classList.add('active-flow');
+    if (wavePath) {
+      wavePath.classList.add('active');
+      wavePath.setAttribute('opacity', '0.85');
+    }
+    if (fillRect) {
+      fillRect.setAttribute('opacity', '0.7');
+    }
+    if (cylStatusText) {
+      cylStatusText.textContent = 'ЗАПРАВКА 0%';
+      cylStatusText.setAttribute('fill', '#00f2fe');
+    }
+    if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#00f2fe');
+
+    playGasFillingAudio();
+    showToast(`⛽ Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)...`);
 
     let percent = 0;
-    const baseVolume = selectedCylinder.type === '50kg' ? 92.0 : (selectedCylinder.type === '20kg' ? 38.5 : 19.2);
-    const targetVolume = baseVolume * cylinderQuantity;
-    const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
-    const targetPrice = unitPrice * cylinderQuantity;
-
-    liquidFill.style.height = '0%';
-    playGasFillingAudio();
-
-    const bubbleInterval = setInterval(() => {
-      const b = document.createElement('div');
-      b.className = 'gas-bubble';
-      b.style.left = `${Math.random() * 80 + 10}%`;
-      b.style.width = `${Math.random() * 8 + 4}px`;
-      b.style.height = b.style.width;
-      particlesBox.appendChild(b);
-      setTimeout(() => b.remove(), 1500);
-    }, 150);
-
-    const interval = setInterval(() => {
+    const fillInterval = setInterval(() => {
       percent += 2;
-      liquidFill.style.height = `${percent}%`;
-      percentDisplay.textContent = percent;
+      const currentHeight = (percent / 100) * 190;
+      const currentY = 325 - currentHeight;
+      if (fillRect) {
+        fillRect.setAttribute('height', currentHeight);
+        fillRect.setAttribute('y', currentY);
+      }
+      if (wavePath) {
+        wavePath.setAttribute('transform', `translate(0, ${-currentHeight})`);
+      }
+
+      if (cylStatusText) cylStatusText.textContent = `ЗАПРАВКА ${percent}%`;
+      if (statusPillText) statusPillText.textContent = `Заправка: ${percent}% • ${selectedCylinder.name}`;
       updateAudioPitch(percent);
 
-      const currentPressure = ((percent / 100) * 16.5).toFixed(1);
-      const currentVolume = ((percent / 100) * targetVolume).toFixed(1);
-      const currentCost = Math.round((percent / 100) * targetPrice);
-
-      pressureVal.textContent = `${currentPressure} bar`;
-      volumeVal.textContent = `${currentVolume} L`;
-      costVal.textContent = `${currentCost.toLocaleString()} UZS`;
-      if (gaugeBarText) gaugeBarText.textContent = `${currentPressure} bar`;
-
-      const angle = -90 + (percent / 100) * 180;
-      if (gaugeNeedle) gaugeNeedle.setAttribute('transform', `rotate(${angle} 50 50)`);
-
-      const strokeOffset = 126 - (percent / 100) * 126;
-      if (gaugeArcPath) gaugeArcPath.style.strokeDashoffset = strokeOffset;
-
       if (percent >= 100) {
-        clearInterval(interval);
-        clearInterval(bubbleInterval);
+        clearInterval(fillInterval);
         stopGasFillingAudio();
+        if (gasStream) gasStream.classList.remove('active-flow');
+        if (wavePath) wavePath.classList.remove('active');
+
+        // Complete filling
+        if (statusPill) statusPill.className = 'refuel-status-pill success-fueling';
+        if (statusPillText) statusPillText.textContent = `✓ ${selectedCylinder.name} заправлен на 100%`;
+        if (cylStatusText) {
+          cylStatusText.textContent = '✓ 100% ЗАПРАВЛЕН';
+          cylStatusText.setAttribute('fill', '#00e676');
+        }
+        if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#00e676');
+        launchConfettiCannon();
+        showToast(`🎉 Баллон ${selectedCylinder.name} (${cylinderQuantity} шт) успешно заправлен!`);
+
         setTimeout(() => {
+          isHomeRefueling = false;
           renderAddressOptions();
           switchHomeStage('address');
-        }, 800);
+        }, 1200);
       }
-    }, 50);
+    }, 35);
+  }
+
+  // Address selection state & subviews
+  let selectedAddressTag = { title: 'Дом', icon: '🏠' };
+
+  function switchAddressSubview(subviewKey) {
+    const viewList = document.getElementById('address-view-list');
+    const viewForm = document.getElementById('address-view-form');
+    if (!viewList || !viewForm) return;
+
+    if (subviewKey === 'list') {
+      viewList.style.display = 'flex';
+      viewForm.style.display = 'none';
+      renderAddressOptions();
+    } else {
+      viewList.style.display = 'none';
+      viewForm.style.display = 'flex';
+      setTimeout(() => {
+        initOrRefreshEmbeddedAddressMap();
+      }, 150);
+    }
   }
 
   function renderAddressOptions() {
     const container = document.getElementById('address-options-container');
-    container.innerHTML = savedAddresses.map((addr, idx) => `
-      <div class="address-option ${idx === 0 ? 'active' : ''}" data-address="${addr.text}">
-        <div class="radio-circle"></div>
-        <div class="address-text">
-          <h4>${addr.icon} <span>${addr.title}</span></h4>
-          <p>${addr.text}</p>
+    const emptyState = document.getElementById('address-empty-state');
+    const bottomAction = document.getElementById('saved-address-bottom-action');
+
+    if (!savedAddresses || savedAddresses.length === 0) {
+      if (emptyState) emptyState.style.display = 'flex';
+      if (container) container.innerHTML = '';
+      if (bottomAction) bottomAction.style.display = 'none';
+      return;
+    }
+
+    if (emptyState) emptyState.style.display = 'none';
+    if (bottomAction) bottomAction.style.display = 'block';
+
+    if (!selectedAddress && savedAddresses.length > 0) {
+      selectedAddress = savedAddresses[0].text;
+    }
+
+    container.innerHTML = savedAddresses.map((addr, idx) => {
+      const isActive = selectedAddress === addr.text || (!selectedAddress && idx === 0);
+      if (isActive) selectedAddress = addr.text;
+      return `
+        <div class="address-option ${isActive ? 'active' : ''}" data-address="${addr.text}">
+          <div class="radio-circle"></div>
+          <div class="address-text">
+            <h4>${addr.icon} <span>${addr.title}</span></h4>
+            <p>${addr.text}</p>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
 
     container.querySelectorAll('.address-option').forEach(opt => {
       opt.addEventListener('click', () => {
@@ -1172,6 +1213,181 @@ document.addEventListener('DOMContentLoaded', () => {
         opt.classList.add('active');
         selectedAddress = opt.dataset.address;
       });
+    });
+  }
+
+  // Button to open "Add new address" form view
+  const btnShowAddAddress = document.getElementById('btn-show-add-address');
+  if (btnShowAddAddress) {
+    btnShowAddAddress.addEventListener('click', () => {
+      switchAddressSubview('form');
+    });
+  }
+
+  // Button to go back to saved addresses list
+  const btnBackToSavedAddresses = document.getElementById('btn-back-to-saved-addresses');
+  if (btnBackToSavedAddresses) {
+    btnBackToSavedAddresses.addEventListener('click', () => {
+      switchAddressSubview('list');
+    });
+  }
+
+  // Tag chips in address form (🏠 Дом, 🏡 Дача, 🏢 Работа, 📍 Другое)
+  const tagChips = document.querySelectorAll('#address-tag-chips .tag-chip');
+  tagChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      tagChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      selectedAddressTag = {
+        title: chip.dataset.title || 'Адрес',
+        icon: chip.dataset.icon || '📍'
+      };
+    });
+  });
+
+  // ==================== EMBEDDED DIRECT PINPOINT ADDRESS MAP ====================
+  let embeddedAddressMap = null;
+  let embeddedAddressMarker = null;
+  let currentPickedLocation = {
+    lat: 41.2995,
+    lng: 69.2401,
+    address: 'г. Ташкент, ул. Амира Темура'
+  };
+
+  const tashkentDistricts = [
+    { name: 'Мирзо-Улугбекский р-н, ул. Мустакиллик', lat: 41.3150, lng: 69.2850 },
+    { name: 'Юнусабадский р-н, ул. Амира Темура', lat: 41.3500, lng: 69.2800 },
+    { name: 'Чиланзарский р-н, пр-т Бунёдкор', lat: 41.2750, lng: 69.2000 },
+    { name: 'Яккасарайский р-н, ул. Шота Руставели', lat: 41.2850, lng: 69.2550 },
+    { name: 'Шайхантахурский р-н, ул. Навои', lat: 41.3200, lng: 69.2400 },
+    { name: 'Сергелийский р-н, ул. Янги Сергели', lat: 41.2200, lng: 69.2200 },
+    { name: 'Яшнабадский р-н, ул. Махтумкули', lat: 41.3000, lng: 69.3200 },
+    { name: 'Учтепинский р-н, ул. Лутфий', lat: 41.2800, lng: 69.1700 },
+    { name: 'Алмазарский р-н, ул. Фаробий', lat: 41.3400, lng: 69.2100 },
+    { name: 'Бектемирский р-н, ул. Хусейн Байкаро', lat: 41.2300, lng: 69.3300 }
+  ];
+
+  function getTashkentFriendlyAddress(lat, lng) {
+    let closest = tashkentDistricts[0];
+    let minDist = 999999;
+    tashkentDistricts.forEach(d => {
+      const dist = Math.hypot(d.lat - lat, d.lng - lng);
+      if (dist < minDist) {
+        minDist = dist;
+        closest = d;
+      }
+    });
+    return `г. Ташкент, ${closest.name} (GPS: ${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+  }
+
+  function initOrRefreshEmbeddedAddressMap() {
+    const mapContainer = document.getElementById('embedded-address-map');
+    if (!mapContainer) return;
+
+    if (!embeddedAddressMap) {
+      embeddedAddressMap = L.map('embedded-address-map', {
+        zoomControl: false,
+        attributionControl: false
+      }).setView([currentPickedLocation.lat, currentPickedLocation.lng], 13);
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(embeddedAddressMap);
+
+      const pinIcon = L.divIcon({
+        className: 'custom-map-pin',
+        html: '<div style="background:#ff6b00; color:#fff; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 15px rgba(255,107,0,0.85); border:2px solid #fff; font-size:15px; cursor:pointer;"><i class="fa-solid fa-location-dot"></i></div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32]
+      });
+
+      embeddedAddressMarker = L.marker([currentPickedLocation.lat, currentPickedLocation.lng], { icon: pinIcon, draggable: true }).addTo(embeddedAddressMap);
+
+      function updatePickedPosition(latlng) {
+        embeddedAddressMarker.setLatLng(latlng);
+        const friendlyAddr = getTashkentFriendlyAddress(latlng.lat, latlng.lng);
+        currentPickedLocation = {
+          lat: latlng.lat,
+          lng: latlng.lng,
+          address: friendlyAddr
+        };
+        
+        const inputCustom = document.getElementById('input-custom-address');
+        if (inputCustom) inputCustom.value = friendlyAddr;
+
+        const hintText = document.getElementById('embedded-map-status-text');
+        if (hintText) hintText.textContent = `📍 ${friendlyAddr}`;
+      }
+
+      embeddedAddressMap.on('click', (e) => {
+        updatePickedPosition(e.latlng);
+      });
+
+      embeddedAddressMarker.on('dragend', (e) => {
+        updatePickedPosition(e.target.getLatLng());
+      });
+
+      const btnGps = document.getElementById('btn-embedded-map-gps');
+      if (btnGps) {
+        btnGps.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (pos) => {
+                const lat = pos.coords.latitude;
+                const lng = pos.coords.longitude;
+                embeddedAddressMap.setView([lat, lng], 15);
+                updatePickedPosition({ lat, lng });
+                showToast("📍 Ваше местоположение определено!");
+              },
+              () => {
+                showToast("Используется центр Ташкента");
+              }
+            );
+          } else {
+            showToast("GPS недоступен в браузере");
+          }
+        });
+      }
+    } else {
+      embeddedAddressMap.invalidateSize();
+    }
+  }
+
+  // Save new address from form and proceed directly to payment
+  const btnSaveAndUseAddress = document.getElementById('btn-save-and-use-address');
+  if (btnSaveAndUseAddress) {
+    btnSaveAndUseAddress.addEventListener('click', () => {
+      const inputCustom = document.getElementById('input-custom-address');
+      const addrText = inputCustom ? inputCustom.value.trim() : '';
+      const finalAddress = addrText || currentPickedLocation.address;
+
+      if (!finalAddress) {
+        showToast("Укажите адрес на карте или введите текст!");
+        return;
+      }
+
+      // Add to saved addresses list
+      savedAddresses.push({
+        title: selectedAddressTag.title,
+        text: finalAddress,
+        icon: selectedAddressTag.icon
+      });
+
+      selectedAddress = finalAddress;
+
+      const accCount = document.getElementById('acc-addresses-count');
+      if (accCount) accCount.textContent = `${savedAddresses.length} адресов доставки`;
+
+      showToast(`📍 Адрес "${selectedAddressTag.title}" сохранен!`);
+
+      // Switch to payment stage
+      const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
+      const totalPrice = unitPrice * cylinderQuantity;
+
+      document.getElementById('summary-cyl-type').textContent = `Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)`;
+      document.getElementById('summary-cyl-price').textContent = `${totalPrice.toLocaleString()} UZS`;
+      document.getElementById('summary-total-price').textContent = `${totalPrice.toLocaleString()} UZS`;
+
+      switchHomeStage('payment');
     });
   }
 
@@ -1191,6 +1407,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const paymentOptions = document.querySelectorAll('.payment-option');
   const b2bInnContainer = document.getElementById('b2b-inn-container');
+  const inputCompanyInn = document.getElementById('input-company-inn');
+  const innBadgeStatus = document.getElementById('inn-badge-status');
+
+  if (inputCompanyInn && innBadgeStatus) {
+    inputCompanyInn.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, '').substring(0, 9);
+      e.target.value = val;
+      if (val.length === 9) {
+        innBadgeStatus.textContent = '✓ 9/9';
+        innBadgeStatus.classList.add('valid');
+      } else {
+        innBadgeStatus.textContent = `${val.length}/9`;
+        innBadgeStatus.classList.remove('valid');
+      }
+    });
+  }
 
   paymentOptions.forEach(pm => {
     pm.addEventListener('click', () => {
@@ -1239,9 +1471,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1000);
   }
 
+  function resetCylinderRigState() {
+    isHomeRefueling = false;
+    const rig = document.getElementById('hose-nozzle-rig');
+    const lockIndicator = document.getElementById('dock-lock-indicator');
+    const gasStream = document.getElementById('gas-flow-stream');
+    const fillRect = document.getElementById('svg-gas-fill-rect');
+    const wavePath = document.getElementById('svg-gas-wave-path');
+    const statusPill = document.getElementById('refuel-live-status');
+    const statusPillText = document.getElementById('refuel-status-text');
+    const cylStatusText = document.getElementById('cyl-status-text');
+    const cylStatusRect = document.getElementById('cyl-status-rect');
+
+    if (rig) {
+      rig.classList.remove('rig-docked');
+      rig.classList.add('rig-idle');
+    }
+    if (lockIndicator) lockIndicator.setAttribute('fill', '#ef4444');
+    if (gasStream) gasStream.classList.remove('active-flow');
+    if (fillRect) {
+      fillRect.setAttribute('height', 0);
+      fillRect.setAttribute('y', 325);
+      fillRect.setAttribute('opacity', 0);
+    }
+    if (wavePath) {
+      wavePath.setAttribute('transform', 'translate(0, 0)');
+      wavePath.setAttribute('opacity', 0);
+      wavePath.classList.remove('active');
+    }
+    if (statusPill) statusPill.className = 'refuel-status-pill';
+    if (statusPillText) statusPillText.textContent = 'Баллон готов к заправке';
+    if (cylStatusText) {
+      cylStatusText.textContent = 'ПУСТОЙ 0%';
+      cylStatusText.setAttribute('fill', '#ef4444');
+    }
+    if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#ef4444');
+    if (btnStartRefill) btnStartRefill.style.display = '';
+  }
+
   btnNewOrderReset.addEventListener('click', () => {
     if (countdownTimerInterval) clearInterval(countdownTimerInterval);
     if (trackingCourierInterval) clearInterval(trackingCourierInterval);
+    resetCylinderRigState();
     switchHomeStage('initial');
   });
 
@@ -1562,6 +1833,26 @@ document.addEventListener('DOMContentLoaded', () => {
       const modalId = btn.dataset.close;
       closeModal(modalId);
     });
+  });
+
+  // Close modals on clicking outside the modal content
+  document.querySelectorAll('.modal-backdrop').forEach(bd => {
+    bd.addEventListener('click', (e) => {
+      if (e.target === bd) {
+        bd.classList.remove('active');
+      }
+    });
+  });
+
+  // Keyboard accessibility: ESC closes any open modal or side drawer
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-backdrop.active').forEach(m => m.classList.remove('active'));
+      const sideDrawer = document.getElementById('side-drawer');
+      const menuBackdrop = document.getElementById('menu-backdrop');
+      if (sideDrawer) sideDrawer.classList.remove('active');
+      if (menuBackdrop) menuBackdrop.classList.remove('active');
+    }
   });
 
   function showToast(msg) {

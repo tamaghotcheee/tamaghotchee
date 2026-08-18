@@ -443,9 +443,6 @@
               <text x="180" y="182" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="14" fill="#ffffff" text-anchor="middle" letter-spacing="1">POYTUG GNS</text>
               <text x="180" y="194" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="8.5" fill="#ffedd5" text-anchor="middle" letter-spacing="2">ПРОПАН-БУТАН</text>
               
-              <!-- Specs Stencil -->
-              <text x="180" y="234" font-family="monospace" font-weight="600" font-size="7.5" fill="rgba(255,255,255,0.75)" text-anchor="middle">ГОСТ 15860-84 • 50L</text>
-              <text x="180" y="245" font-family="monospace" font-weight="600" font-size="7" fill="rgba(255,255,255,0.65)" text-anchor="middle">P раб: 1.6 МПа • МАССА: 22.0 кг</text>
             </g>
 
             <!-- Live Status Badge on Cylinder Body -->
@@ -539,34 +536,50 @@
 
           <div class="carousel-viewport">
             <div class="carousel-track" id="carousel-track">
-              <!-- Item 1: 20 kg -->
-              <div class="carousel-card active" data-type="20kg" data-price="75000" data-wholesale="65000">
-                <div class="card-badge">20 KG</div>
-                <div class="cylinder-illustration cyl-20">
-                  <div class="cyl-cap"></div>
-                  <div class="cyl-body">
-                    <span class="weight-label">20 KG</span>
-                    <span class="lpg-type">ПРОПАН-БУТАН</span>
-                  </div>
-                  <div class="cyl-bottom"></div>
-                </div>
-                <div class="card-details">
-                  <h3>Баллон 20 КГ</h3>
-                  <p class="price-tag" id="display-cyl-price">75 000 UZS</p>
-                  <span class="info-pill" data-i18n="pillBestHome">Для дома и кухни</span>
-                </div>
-              </div>
-
-              <!-- Item 2: 10 kg -->
-              <div class="carousel-card" data-type="10kg" data-price="45000" data-wholesale="38000">
+              <!-- Item 1: 10 kg (First in order) -->
+              <div class="carousel-card active" data-type="10kg" data-price="45000" data-wholesale="38000">
                 <div class="card-badge orange">10 KG</div>
-                <div class="cylinder-illustration cyl-10">
-                  <div class="cyl-cap"></div>
-                  <div class="cyl-body">
-                    <span class="weight-label">10 KG</span>
-                    <span class="lpg-type">ПРОПАН</span>
-                  </div>
-                  <div class="cyl-bottom"></div>
+                <div class="carousel-cylinder-wrapper">
+                  <svg class="carousel-cylinder-svg" viewBox="0 0 130 160" width="100" height="135" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="cyl10-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#7c2d12"/>
+                        <stop offset="12%" stop-color="#c2410c"/>
+                        <stop offset="30%" stop-color="#f97316"/>
+                        <stop offset="48%" stop-color="#ffedd5"/>
+                        <stop offset="62%" stop-color="#f97316"/>
+                        <stop offset="85%" stop-color="#ea580c"/>
+                        <stop offset="100%" stop-color="#7c2d12"/>
+                      </linearGradient>
+                      <linearGradient id="brass-grad-10" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#b45309"/>
+                        <stop offset="40%" stop-color="#fde047"/>
+                        <stop offset="100%" stop-color="#78350f"/>
+                      </linearGradient>
+                    </defs>
+                    <!-- Base Skirt -->
+                    <path d="M 44 136 L 45 148 Q 65 152 85 148 L 86 136 Q 65 140 44 136 Z" fill="url(#cyl10-grad)" stroke="#431407" stroke-width="1.2"/>
+                    <!-- Seamless Body (Squat 10 KG) -->
+                    <path d="M 38 60 C 38 32 92 32 92 60 L 92 130 C 92 146 38 146 38 130 Z" fill="url(#cyl10-grad)" stroke="#431407" stroke-width="1.5"/>
+                    <!-- Specular Highlight -->
+                    <path d="M 46 48 L 46 132" stroke="rgba(255,255,255,0.4)" stroke-width="5" stroke-linecap="round"/>
+                    <!-- Welded Seam Band -->
+                    <ellipse cx="65" cy="95" rx="27" ry="2" fill="none" stroke="#7c2d12" stroke-width="1.5"/>
+                    <ellipse cx="65" cy="94.5" rx="27" ry="2" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.7"/>
+                    <!-- Protective Collar with Hand Grips -->
+                    <path d="M 45 42 C 45 22 85 22 85 42 L 88 46 L 42 46 Z" fill="url(#cyl10-grad)" stroke="#431407" stroke-width="1.2"/>
+                    <rect x="48" y="28" width="9" height="5" rx="2.5" fill="#090d16" stroke="#431407" stroke-width="0.8"/>
+                    <rect x="73" y="28" width="9" height="5" rx="2.5" fill="#090d16" stroke="#431407" stroke-width="0.8"/>
+                    <!-- Brass Valve & Red Handwheel -->
+                    <rect x="62" y="30" width="6" height="7" fill="url(#brass-grad-10)" stroke="#78350f" stroke-width="0.5"/>
+                    <rect x="58" y="23" width="14" height="4" rx="2" fill="#dc2626" stroke="#7f1d1d" stroke-width="0.6"/>
+                    <!-- Stencil Badge & Typography -->
+                    <polygon points="65,65 73,73 65,81 57,73" fill="#dc2626" stroke="#fff" stroke-width="0.8"/>
+                    <text x="65" y="77" font-size="6" font-weight="900" fill="#fff" text-anchor="middle">🔥</text>
+                    <text x="65" y="90" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="8.5" fill="#ffffff" text-anchor="middle">POYTUG</text>
+                    <text x="65" y="112" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="8" fill="#ffedd5" text-anchor="middle" letter-spacing="1">10 KG</text>
+                    <text x="65" y="122" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="6" fill="#fed7aa" text-anchor="middle" letter-spacing="1.5">ПРОПАН</text>
+                  </svg>
                 </div>
                 <div class="card-details">
                   <h3>Баллон 10 КГ</h3>
@@ -575,21 +588,55 @@
                 </div>
               </div>
 
-              <!-- Item 3: 50 kg -->
-              <div class="carousel-card" data-type="50kg" data-price="180000" data-wholesale="155000">
-                <div class="card-badge purple">50 KG</div>
-                <div class="cylinder-illustration cyl-50">
-                  <div class="cyl-cap"></div>
-                  <div class="cyl-body">
-                    <span class="weight-label">50 KG</span>
-                    <span class="lpg-type">ПРОМЫШЛЕННЫЙ</span>
-                  </div>
-                  <div class="cyl-bottom"></div>
+              <!-- Item 2: 20 kg (Second in order) -->
+              <div class="carousel-card" data-type="20kg" data-price="75000" data-wholesale="65000">
+                <div class="card-badge">20 KG</div>
+                <div class="carousel-cylinder-wrapper">
+                  <svg class="carousel-cylinder-svg" viewBox="0 0 130 160" width="100" height="135" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="cyl20-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#5c0d0d"/>
+                        <stop offset="12%" stop-color="#991b1b"/>
+                        <stop offset="30%" stop-color="#dc2626"/>
+                        <stop offset="48%" stop-color="#fca5a5"/>
+                        <stop offset="62%" stop-color="#ef4444"/>
+                        <stop offset="85%" stop-color="#991b1b"/>
+                        <stop offset="100%" stop-color="#450a0a"/>
+                      </linearGradient>
+                      <linearGradient id="brass-grad-20" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#b45309"/>
+                        <stop offset="40%" stop-color="#fde047"/>
+                        <stop offset="100%" stop-color="#78350f"/>
+                      </linearGradient>
+                    </defs>
+                    <!-- Base Skirt -->
+                    <path d="M 42 138 L 43 152 Q 65 156 87 152 L 88 138 Q 65 142 42 138 Z" fill="url(#cyl20-grad)" stroke="#450a0a" stroke-width="1.2"/>
+                    <!-- Seamless Body (Standard 20 KG) -->
+                    <path d="M 36 50 C 36 20 94 20 94 50 L 94 134 C 94 150 36 150 36 134 Z" fill="url(#cyl20-grad)" stroke="#450a0a" stroke-width="1.5"/>
+                    <!-- Specular Highlight -->
+                    <path d="M 44 38 L 44 138" stroke="rgba(255,255,255,0.4)" stroke-width="6" stroke-linecap="round"/>
+                    <!-- Welded Seam Band -->
+                    <ellipse cx="65" cy="92" rx="29" ry="2" fill="none" stroke="#7f1d1d" stroke-width="1.5"/>
+                    <ellipse cx="65" cy="91.5" rx="29" ry="2" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.7"/>
+                    <!-- Protective Collar with Hand Grips -->
+                    <path d="M 43 32 C 43 12 87 12 87 32 L 90 36 L 40 36 Z" fill="url(#cyl20-grad)" stroke="#450a0a" stroke-width="1.2"/>
+                    <rect x="47" y="19" width="9" height="5" rx="2.5" fill="#090d16" stroke="#450a0a" stroke-width="0.8"/>
+                    <rect x="74" y="19" width="9" height="5" rx="2.5" fill="#090d16" stroke="#450a0a" stroke-width="0.8"/>
+                    <!-- Brass Valve & Red Handwheel -->
+                    <rect x="62" y="22" width="6" height="7" fill="url(#brass-grad-20)" stroke="#78350f" stroke-width="0.5"/>
+                    <rect x="58" y="15" width="14" height="4" rx="2" fill="#dc2626" stroke="#7f1d1d" stroke-width="0.6"/>
+                    <!-- Stencil Badge & Typography -->
+                    <polygon points="65,56 74,65 65,74 56,65" fill="#dc2626" stroke="#fff" stroke-width="0.8"/>
+                    <text x="65" y="68" font-size="6" font-weight="900" fill="#fff" text-anchor="middle">🔥</text>
+                    <text x="65" y="82" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="9" fill="#ffffff" text-anchor="middle">POYTUG</text>
+                    <text x="65" y="106" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="8.5" fill="#ffedd5" text-anchor="middle" letter-spacing="1">20 KG</text>
+                    <text x="65" y="118" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="6" fill="#fca5a5" text-anchor="middle" letter-spacing="1.5">ПРОПАН-БУТАН</text>
+                  </svg>
                 </div>
                 <div class="card-details">
-                  <h3>Баллон 50 КГ</h3>
-                  <p class="price-tag">180 000 UZS</p>
-                  <span class="info-pill" data-i18n="pillIndustrial">Для кафе и отопления</span>
+                  <h3>Баллон 20 КГ</h3>
+                  <p class="price-tag">75 000 UZS</p>
+                  <span class="info-pill" data-i18n="pillBestHome">Для дома и кухни</span>
                 </div>
               </div>
             </div>
@@ -624,87 +671,89 @@
         </div>
       </div>
 
-      <!-- SUB-STAGE 3: GAS FILLING ANIMATION -->
-      <div class="home-stage" id="home-stage-filling">
-        <div class="stage-header">
-          <h2 data-i18n="fillingProgressTitle">Процесс заправки газа...</h2>
-          <p id="filling-cyl-name">Баллон 20 КГ (1 шт)</p>
-        </div>
-
-        <div class="filling-animation-container">
-          <div class="pressure-gauge-widget">
-            <svg class="gauge-svg" viewBox="0 0 100 60" width="120" height="72">
-              <path class="gauge-arc-bg" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#1e293b" stroke-width="8" stroke-linecap="round"/>
-              <path class="gauge-arc-fill" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="url(#gauge-grad)" stroke-width="8" stroke-linecap="round" stroke-dasharray="126" stroke-dashoffset="126" id="gauge-arc-path"/>
-              <defs>
-                <linearGradient id="gauge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#00f2fe"/>
-                  <stop offset="100%" stop-color="#ff6b00"/>
-                </linearGradient>
-              </defs>
-              <line x1="50" y1="50" x2="50" y2="18" stroke="#ff6b00" stroke-width="3" stroke-linecap="round" id="gauge-needle" transform="rotate(-90 50 50)"/>
-              <circle cx="50" cy="50" r="4" fill="#fff"/>
-            </svg>
-            <span class="gauge-value-text" id="gauge-bar-text">0.0 bar</span>
-          </div>
-
-          <div class="filling-cylinder-box">
-            <div class="gas-liquid-overlay" id="gas-liquid-fill">
-              <svg class="liquid-wave-svg" viewBox="0 0 120 20" preserveAspectRatio="none">
-                <path class="wave-path" d="M0,10 C30,18 60,2 90,10 C120,18 150,2 180,10 L180,20 L0,20 Z" fill="#00f2fe"></path>
-              </svg>
-            </div>
-            <div class="cylinder-glass-body">
-              <div class="gas-particles-container" id="gas-particles-box"></div>
-              <div class="filling-percentage-display">
-                <span id="fill-percent-counter">0</span>%
-              </div>
-              <div class="filling-status-text" id="fill-status-label">Наполнение под давлением...</div>
-            </div>
-          </div>
-
-          <div class="filling-metrics-bar">
-            <div class="metric-item">
-              <span class="metric-label" data-i18n="pressure">Давление</span>
-              <strong class="metric-value" id="fill-pressure-val">0.0 bar</strong>
-            </div>
-            <div class="metric-item">
-              <span class="metric-label" data-i18n="gasVolume">Объем</span>
-              <strong class="metric-value" id="fill-volume-val">0.0 L</strong>
-            </div>
-            <div class="metric-item">
-              <span class="metric-label" data-i18n="totalCost">Стоимость</span>
-              <strong class="metric-value highlight" id="fill-cost-val">0 UZS</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SUB-STAGE 4: ADDRESS SELECTION -->
+      <!-- SUB-STAGE 3: ADDRESS SELECTION -->
       <div class="home-stage" id="home-stage-address">
-        <div class="stage-header">
-          <h2 data-i18n="addressSelectTitle">Адрес доставки</h2>
-          <p data-i18n="addressSelectSub">Укажите куда привезти заправленный баллон</p>
-        </div>
+        
+        <!-- SUB-VIEW 1: SAVED ADDRESSES LIST -->
+        <div id="address-view-list" class="address-subview">
+          <div class="stage-header">
+            <h2 data-i18n="addressSelectTitle">Адрес доставки</h2>
+            <p data-i18n="addressSelectSub">Выберите сохраненный адрес или укажите новый</p>
+          </div>
 
-        <div class="address-card-group" id="address-options-container">
-          <!-- Address items render dynamically -->
-        </div>
+          <div class="address-card-group" id="address-options-container">
+            <!-- Dynamic items -->
+          </div>
 
-        <div class="custom-address-box">
-          <label class="input-label" data-i18n="customAddressLabel">Или введите другой адрес:</label>
-          <div class="input-icon-wrapper">
-            <i class="fa-solid fa-location-dot"></i>
-            <input type="text" id="input-custom-address" placeholder="Район, улица, дом, ориентир...">
+          <!-- Empty state if 0 saved addresses -->
+          <div class="address-empty-card glass-panel" id="address-empty-state" style="display:none;">
+            <i class="fa-solid fa-map-location-dot empty-addr-icon"></i>
+            <h4>Нет сохраненных адресов</h4>
+            <p>Добавьте адрес доставки для быстрого заказа</p>
+          </div>
+
+          <button class="secondary-btn btn-full add-new-address-btn" id="btn-show-add-address" type="button">
+            <i class="fa-solid fa-circle-plus"></i>
+            <span data-i18n="btnAddAddress">Добавить адрес / Указать на карте</span>
+          </button>
+
+          <div class="home-bottom-action" id="saved-address-bottom-action">
+            <button class="primary-btn btn-large ripple-btn" id="btn-goto-payment">
+              <span data-i18n="btnProceedPayment">Перейти к оплате</span>
+              <i class="fa-solid fa-credit-card"></i>
+            </button>
           </div>
         </div>
 
-        <div class="home-bottom-action">
-          <button class="primary-btn btn-large ripple-btn" id="btn-goto-payment">
-            <span data-i18n="btnProceedPayment">Перейти к оплате</span>
-            <i class="fa-solid fa-credit-card"></i>
-          </button>
+        <!-- SUB-VIEW 2: ADD NEW ADDRESS WITH MAP & INPUT -->
+        <div id="address-view-form" class="address-subview" style="display:none;">
+          <div class="address-form-top-bar">
+            <button class="back-link-btn" id="btn-back-to-saved-addresses" type="button">
+              <i class="fa-solid fa-chevron-left"></i>
+              <span data-i18n="backToSavedAddresses">Назад к списку</span>
+            </button>
+          </div>
+
+          <div class="stage-header">
+            <h2 data-i18n="newAddressTitle">Новый адрес доставки</h2>
+            <p data-i18n="newAddressSub">Введите адрес или отметьте точку на карте</p>
+          </div>
+
+          <!-- Quick Address Tags -->
+          <div class="address-tag-chips" id="address-tag-chips">
+            <button type="button" class="tag-chip active" data-title="Дом" data-icon="🏠">🏠 Дом</button>
+            <button type="button" class="tag-chip" data-title="Дача" data-icon="🏡">🏡 Дача</button>
+            <button type="button" class="tag-chip" data-title="Работа" data-icon="🏢">🏢 Работа</button>
+            <button type="button" class="tag-chip" data-title="Другое" data-icon="📍">📍 Другое</button>
+          </div>
+
+          <div class="custom-address-box">
+            <div class="input-icon-wrapper">
+              <i class="fa-solid fa-location-dot"></i>
+              <input type="text" id="input-custom-address" placeholder="Район, улица, дом, ориентир...">
+            </div>
+
+            <!-- Embedded Direct Interactive Pinpoint Map -->
+            <div class="embedded-address-map-wrapper">
+              <div id="embedded-address-map"></div>
+              <button class="map-gps-btn" id="btn-embedded-map-gps" type="button" title="Мое местоположение">
+                <i class="fa-solid fa-crosshairs"></i>
+              </button>
+              <div class="map-overlay-hint">
+                <i class="fa-solid fa-hand-pointer"></i>
+                <span id="embedded-map-status-text">Нажмите на карту для выбора точки доставки</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-bottom-action">
+            <button class="primary-btn btn-large ripple-btn" id="btn-save-and-use-address" type="button">
+              <span data-i18n="btnSaveAndUseAddress">Сохранить и продолжить</span>
+              <i class="fa-solid fa-circle-check"></i>
+            </button>
+          </div>
         </div>
+
       </div>
 
       <!-- SUB-STAGE 5: PAYMENT METHOD SELECTION -->
@@ -770,9 +819,19 @@
         </div>
 
         <!-- B2B INN Input Box -->
-        <div class="b2b-inn-box glass-panel" id="b2b-inn-container" style="display:none; margin-top:10px; padding:12px;">
-          <label class="input-label">ИНН Компании / Организации:</label>
-          <input type="text" id="input-company-inn" placeholder="Введите 9-значный ИНН (например: 305123456)" maxlength="9">
+        <div class="b2b-inn-box glass-panel" id="b2b-inn-container" style="display:none;">
+          <div class="b2b-inn-header">
+            <div class="b2b-inn-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <div class="b2b-inn-text">
+              <label class="input-label" for="input-company-inn">ИНН Компании / Организации:</label>
+              <p class="b2b-inn-sub">Для автоматического выставления Е-Фактуры</p>
+            </div>
+          </div>
+          <div class="input-icon-wrapper">
+            <i class="fa-solid fa-hashtag"></i>
+            <input type="text" id="input-company-inn" placeholder="Введите 9-значный ИНН (например: 305123456)" maxlength="9" inputmode="numeric">
+            <span class="inn-badge-status" id="inn-badge-status">0/9</span>
+          </div>
         </div>
 
         <div class="home-bottom-action">
@@ -1092,30 +1151,31 @@
         <button class="modal-close" data-close="modal-emergency"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
           <div class="modal-icon-header red-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-          <h3 style="color:#ef4444; text-align:center;">Аварийная Газовая Служба 104</h3>
-          <p class="company-desc">Инструкция по безопасности при обнаружении запаха газа СУГ:</p>
+          <h3 class="emergency-modal-title">Аварийная Газовая Служба 104</h3>
+          <p class="modal-sub-desc">Инструкция по безопасности при обнаружении запаха газа СУГ:</p>
           
           <div class="safety-steps-list">
             <div class="safety-step-item">
               <span class="step-num">1</span>
-              <span>Немедленно перекройте вентиль газового баллона.</span>
+              <span class="step-text">Немедленно перекройте вентиль газового баллона.</span>
             </div>
             <div class="safety-step-item">
               <span class="step-num">2</span>
-              <span>Откройте все окна и двери для проветривания.</span>
+              <span class="step-text">Откройте все окна и двери для проветривания.</span>
             </div>
             <div class="safety-step-item">
               <span class="step-num">3</span>
-              <span>Не включайте выключатели света, выдерните приборы.</span>
+              <span class="step-text">Не включайте выключатели света, выдерните приборы.</span>
             </div>
             <div class="safety-step-item">
               <span class="step-num">4</span>
-              <span>Покиньте помещение и вызовите службу 104.</span>
+              <span class="step-text">Покиньте помещение и вызовите службу 104.</span>
             </div>
           </div>
 
           <button class="primary-btn btn-full btn-danger-call ripple-btn" id="btn-call-104-direct">
-            <i class="fa-solid fa-phone"></i> Вызвать Аварийную 104
+            <i class="fa-solid fa-phone"></i>
+            <span>Вызвать Аварийную 104</span>
           </button>
         </div>
       </div>
