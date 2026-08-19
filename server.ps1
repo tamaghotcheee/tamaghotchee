@@ -1,17 +1,9 @@
-$port = 8080
+$port = 8085
 $listener = New-Object System.Net.HttpListener
+$listener.Prefixes.Add("http://127.0.0.1:$port/")
+$listener.Start()
 
-try {
-    $listener.Prefixes.Add("http://*:$port/")
-    $listener.Start()
-} catch {
-    $listener = New-Object System.Net.HttpListener
-    $listener.Prefixes.Add("http://localhost:$port/")
-    $listener.Prefixes.Add("http://192.168.0.161:$port/")
-    $listener.Start()
-}
-
-Write-Host "HTTP Server active on http://192.168.0.161:$port/ and http://localhost:$port/"
+Write-Host "HTTP Server active on http://127.0.0.1:$port/"
 
 $root = $PSScriptRoot
 

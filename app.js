@@ -76,11 +76,16 @@ document.addEventListener('DOMContentLoaded', () => {
       skipAuthHint: "Или нажмите ✕ сверху чтобы войти позже в гостевом режиме",
       guestUser: "Гость",
       myBalance: "Мой баланс",
+      myBalanceModalTitle: "Мой баланс и баллы",
+      myBalanceModalSub: "Бонусная программа лояльности Poytug Club",
       security2fa: "Безопасность и 2FA",
       settings: "Настройки",
-      aboutCompany: "О нашей фирме",
+      aboutCompany: "О компании",
+      aboutCompanyTitle: "О компании «Poytug GNS»",
+      aboutCompanySub: "Официальный сертифицированный поставщик LPG в Узбекистане",
       support: "Служба поддержки",
       btnLogout: "Выйти из аккаунта",
+      heroServiceTag: "Экспресс-доставка газа",
       refillGasTitle: "Заправка СУГ / LPG",
       refillGasSub: "Быстрая заправка вашего баллона с доставкой",
       statusEmpty: "ПУСТОЙ",
@@ -130,12 +135,22 @@ document.addEventListener('DOMContentLoaded', () => {
       storeTitle: "Магазин газовых баллонов",
       storeSub: "Новые пустые и заправленные баллоны с гарантией",
       btnBuy: "Купить",
-      savedCards: "Привязанные карты",
-      savedAddresses: "Сохраненные адреса",
+      savedCards: "Мои карты",
+      savedCardsSub: "Управление привязанными картами Uzcard и Humo",
+      savedAddresses: "Мои адреса",
+      savedAddressesSub: "Список ваших сохраненных адресов доставки",
       orderHistory: "История заказов",
       openNow: "Открыто",
       btnBuildRoute: "Построить маршрут",
-      cartTitle: "Корзина покупок"
+      cartTitle: "Корзина покупок",
+      btnExploreCatalog: "Перейти в каталог",
+      emergencyTitle: "Аварийная служба газа",
+      emergencySub: "Инструкция по безопасности при обнаружении запаха газа СУГ:",
+      emergencyCallBtn: "Вызвать Аварийную 104",
+      safetyStep1: "Немедленно перекройте вентиль газового баллона.",
+      safetyStep2: "Откройте все окна и двери для проветривания.",
+      safetyStep3: "Не включайте выключатели света, выдерните приборы.",
+      safetyStep4: "Покиньте помещение и вызовите службу 104."
     },
     uz: {
       auth2faTitle: "Kirish",
@@ -166,11 +181,16 @@ document.addEventListener('DOMContentLoaded', () => {
       skipAuthHint: "Yoki keyinroq mehmon sifatida kirish uchun ✕ bosing",
       guestUser: "Mehmon",
       myBalance: "Mening balansim",
+      myBalanceModalTitle: "Mening balansim va ballarim",
+      myBalanceModalSub: "Poytug Club sodiqlik bonus dasturi",
       security2fa: "Xavfsizlik va 2FA",
       settings: "Sozlamalar",
       aboutCompany: "Kompaniya haqida",
+      aboutCompanyTitle: "«Poytug GNS» kompaniyasi haqida",
+      aboutCompanySub: "O'zbekistonda rasmiy sertifikatlangan LPG yetkazib beruvchi",
       support: "Qo'llab-quvvatlash",
       btnLogout: "Hisobdan chiqish",
+      heroServiceTag: "Tezkor gaz yetkazish",
       refillGasTitle: "LPG Gaz Quyish",
       refillGasSub: "Balloningizni tezkor to'ldirish va yetkazish",
       statusEmpty: "BO'SH",
@@ -220,12 +240,22 @@ document.addEventListener('DOMContentLoaded', () => {
       storeTitle: "Gaz ballonlari do'koni",
       storeSub: "Kafolatlangan yangi bo'sh va to'la ballonlar",
       btnBuy: "Sotib olish",
-      savedCards: "Ulangan kartalar",
-      savedAddresses: "Saqlangan manzillar",
+      savedCards: "Mening kartalarim",
+      savedCardsSub: "Ulangan Uzcard va Humo kartalarini boshqarish",
+      savedAddresses: "Mening manzillarim",
+      savedAddressesSub: "Yetkazib berish uchun saqlangan manzillar",
       orderHistory: "Buyurtmalar tarixi",
       openNow: "Ochiq",
       btnBuildRoute: "Yo'nalish tuzish",
-      cartTitle: "Haridlar savatchasi"
+      cartTitle: "Haridlar savatchasi",
+      btnExploreCatalog: "Katalogga o'tish",
+      emergencyTitle: "Fevqulodda gaz xizmati",
+      emergencySub: "Gaz hidi sezilganda xavfsizlik qoidalari:",
+      emergencyCallBtn: "104 Fevqulodda xizmatga qo'ng'iroq",
+      safetyStep1: "Darhol gaz balloni ventilini yoping.",
+      safetyStep2: "Xonani shamollatish uchun deraza va eshiklarni oching.",
+      safetyStep3: "Elektr chiroqlarini yoqmang, asboblarni tarmoqdan uzing.",
+      safetyStep4: "Binodan chiqing va 104 xizmatiga qo'ng'iroq qiling."
     },
     en: {
       auth2faTitle: "Sign In",
@@ -256,11 +286,16 @@ document.addEventListener('DOMContentLoaded', () => {
       skipAuthHint: "Or tap ✕ above to skip and enter as Guest",
       guestUser: "Guest",
       myBalance: "My Balance",
+      myBalanceModalTitle: "My Balance & Points",
+      myBalanceModalSub: "Poytug Club Loyalty Program",
       security2fa: "Security & 2FA",
       settings: "Settings",
       aboutCompany: "About Company",
+      aboutCompanyTitle: "About Poytug GNS",
+      aboutCompanySub: "Official certified LPG gas supplier in Uzbekistan",
       support: "Support Service",
       btnLogout: "Log Out",
+      heroServiceTag: "Express Gas Delivery",
       refillGasTitle: "LPG Gas Refill",
       refillGasSub: "Fast refill for your cylinder with door delivery",
       statusEmpty: "EMPTY",
@@ -310,12 +345,22 @@ document.addEventListener('DOMContentLoaded', () => {
       storeTitle: "Gas Cylinder Store",
       storeSub: "Brand new empty and refilled cylinders",
       btnBuy: "Buy Now",
-      savedCards: "Linked Cards",
-      savedAddresses: "Saved Addresses",
+      savedCards: "My Cards",
+      savedCardsSub: "Manage your linked Uzcard & Humo cards",
+      savedAddresses: "My Addresses",
+      savedAddressesSub: "List of saved delivery locations",
       orderHistory: "Order History",
       openNow: "Open Now",
       btnBuildRoute: "Get Directions",
-      cartTitle: "Shopping Cart"
+      cartTitle: "Shopping Cart",
+      btnExploreCatalog: "Browse Catalog",
+      emergencyTitle: "Emergency Gas Service",
+      emergencySub: "Safety instructions upon detecting LPG gas odor:",
+      emergencyCallBtn: "Call Emergency 104",
+      safetyStep1: "Immediately close the gas cylinder valve.",
+      safetyStep2: "Open all windows and doors for ventilation.",
+      safetyStep3: "Do not turn on light switches, unplug appliances.",
+      safetyStep4: "Evacuate the premises and call 104 emergency service."
     }
   };
 
@@ -788,22 +833,38 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== NAVIGATION ROUTER ====================
   const navItems = document.querySelectorAll('.nav-item');
   const screens = document.querySelectorAll('.app-screen');
+  let previousScreenId = 'screen-home';
+
+  function navigateToScreen(targetId) {
+    const currentActiveScreen = Array.from(screens).find(s => s.classList.contains('active'));
+    if (currentActiveScreen && currentActiveScreen.id !== targetId && currentActiveScreen.id !== 'screen-cart') {
+      previousScreenId = currentActiveScreen.id;
+    }
+
+    navItems.forEach(n => {
+      n.classList.toggle('active', n.dataset.target === targetId);
+    });
+
+    screens.forEach(s => s.classList.toggle('active', s.id === targetId));
+
+    if (targetId === 'screen-map') {
+      if (!mapInitialized) {
+        initLeafletMap();
+      } else if (mainMap) {
+        setTimeout(() => mainMap.invalidateSize(), 150);
+      }
+    }
+
+    if (targetId === 'screen-cart') {
+      updateCartUI();
+    }
+  }
+
+  window.navigateToScreen = navigateToScreen;
 
   navItems.forEach(item => {
     item.addEventListener('click', () => {
-      const targetId = item.dataset.target;
-      navItems.forEach(n => n.classList.remove('active'));
-      item.classList.add('active');
-
-      screens.forEach(s => s.classList.toggle('active', s.id === targetId));
-
-      if (targetId === 'screen-map') {
-        if (!mapInitialized) {
-          initLeafletMap();
-        } else if (mainMap) {
-          setTimeout(() => mainMap.invalidateSize(), 150);
-        }
-      }
+      navigateToScreen(item.dataset.target);
     });
   });
 
@@ -848,7 +909,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('btn-menu-balance').addEventListener('click', () => {
     closeDrawer();
-    showToast("Ваш баланс: 25 000 UZS (+2% кэшбэк за заправку)");
+    openModal('modal-balance');
   });
   document.getElementById('btn-menu-settings').addEventListener('click', () => {
     closeDrawer();
@@ -1617,32 +1678,77 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== SHOPPING CART ENGINE ====================
   const btnOpenCart = document.getElementById('btn-open-cart');
   const cartBadgeCount = document.getElementById('cart-badge-count');
+  const btnCartBackNav = document.getElementById('btn-cart-back-nav');
+  const btnClearCartAll = document.getElementById('btn-clear-cart-all');
 
   function updateCartUI() {
     localStorage.setItem('lpg_cart', JSON.stringify(cart));
     const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
-    cartBadgeCount.textContent = totalCount;
+    if (cartBadgeCount) cartBadgeCount.textContent = totalCount;
 
     const list = document.getElementById('cart-items-list');
+    const bottomActions = document.getElementById('cart-bottom-actions');
+    const subtotalAmount = document.getElementById('cart-subtotal-amount');
+    const discountRow = document.getElementById('cart-discount-row');
+    const discountAmount = document.getElementById('cart-discount-amount');
+    const totalAmount = document.getElementById('cart-total-amount');
+
+    if (!list) return;
+
     if (cart.length === 0) {
-      list.innerHTML = `<p style="text-align:center; color:#94a3b8; padding:20px 0;">Корзина пуста</p>`;
+      list.innerHTML = `
+        <div class="cart-empty-box">
+          <div class="cart-empty-icon-glow">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+          <h4 class="cart-empty-title">${translations[currentLang].cartEmptyTitle || "Ваша корзина пуста"}</h4>
+          <p class="cart-empty-desc">${translations[currentLang].cartEmptySub || "Выберите заправку газа или новые баллоны в каталоге"}</p>
+          <button class="btn-explore-catalog ripple-btn" id="btn-cart-goto-store">
+            <i class="fa-solid fa-fire-flame-curved"></i>
+            <span>${translations[currentLang].btnExploreCatalog || "Перейти в каталог"}</span>
+          </button>
+        </div>
+      `;
+      if (bottomActions) bottomActions.style.display = 'none';
+
+      const btnGotoStore = document.getElementById('btn-cart-goto-store');
+      if (btnGotoStore) {
+        btnGotoStore.addEventListener('click', () => {
+          navigateToScreen('screen-store');
+        });
+      }
     } else {
+      if (bottomActions) bottomActions.style.display = 'block';
+
       list.innerHTML = cart.map((item, i) => `
-        <div class="cart-item-row">
-          <span>${item.name}</span>
-          <div class="cart-qty-ctrl">
-            <button class="qty-btn" onclick="changeQty(${i}, -1)">-</button>
-            <strong>${item.qty}</strong>
-            <button class="qty-btn" onclick="changeQty(${i}, 1)">+</button>
-            <span style="color:#ff6b00; margin-left:8px;">${(item.price * item.qty).toLocaleString()} UZS</span>
+        <div class="cart-item-card">
+          <div class="cart-item-info">
+            <span class="cart-item-title">${item.name}</span>
+            <span class="cart-item-unit-price">${item.price.toLocaleString()} UZS / шт</span>
+          </div>
+          <div class="cart-item-right">
+            <div class="cart-qty-ctrl">
+              <button class="qty-btn" onclick="changeQty(${i}, -1)" aria-label="Уменьшить">-</button>
+              <span class="cart-qty-num">${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${i}, 1)" aria-label="Увеличить">+</button>
+            </div>
+            <strong class="cart-item-price">${(item.price * item.qty).toLocaleString()} UZS</strong>
+            <button class="cart-remove-btn" onclick="removeCartItem(${i})" title="Удалить"><i class="fa-regular fa-trash-can"></i></button>
           </div>
         </div>
       `).join('');
     }
 
     let rawTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    let finalTotal = Math.round(rawTotal * (1 - appliedPromoDiscount / 100));
-    document.getElementById('cart-total-amount').textContent = `${finalTotal.toLocaleString()} UZS`;
+    let discountVal = Math.round(rawTotal * (appliedPromoDiscount / 100));
+    let finalTotal = rawTotal - discountVal;
+
+    if (subtotalAmount) subtotalAmount.textContent = `${rawTotal.toLocaleString()} UZS`;
+    if (discountRow) {
+      discountRow.style.display = appliedPromoDiscount > 0 ? 'flex' : 'none';
+      if (discountAmount) discountAmount.textContent = `-${discountVal.toLocaleString()} UZS (${appliedPromoDiscount}%)`;
+    }
+    if (totalAmount) totalAmount.textContent = `${finalTotal.toLocaleString()} UZS`;
   }
 
   window.changeQty = function(idx, delta) {
@@ -1651,43 +1757,103 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
   };
 
-  btnOpenCart.addEventListener('click', () => {
+  window.removeCartItem = function(idx) {
+    cart.splice(idx, 1);
     updateCartUI();
-    openModal('modal-cart');
-  });
+    showToast("Товар удален из корзины");
+  };
 
-  document.getElementById('btn-apply-promo').addEventListener('click', () => {
-    const code = document.getElementById('input-promocode').value.trim().toUpperCase();
-    if (code === 'GAS2026') {
-      appliedPromoDiscount = 10;
-      showToast("Промокод применен! Скидка 10%");
+  if (btnOpenCart) {
+    btnOpenCart.addEventListener('click', () => {
+      navigateToScreen('screen-cart');
+    });
+  }
+
+  if (btnCartBackNav) {
+    btnCartBackNav.addEventListener('click', () => {
+      navigateToScreen(previousScreenId || 'screen-store');
+    });
+  }
+
+  if (btnClearCartAll) {
+    btnClearCartAll.addEventListener('click', () => {
+      if (cart.length === 0) {
+        showToast("Корзина уже пуста");
+        return;
+      }
+      cart = [];
+      appliedPromoDiscount = 0;
       updateCartUI();
-    } else {
-      showToast("Неверный промокод");
-    }
-  });
+      showToast("Корзина очищена");
+    });
+  }
 
-  document.getElementById('btn-cart-checkout').addEventListener('click', () => {
-    if (cart.length === 0) {
-      showToast("Корзина пуста!");
-      return;
-    }
-    closeModal('modal-cart');
-    cart = [];
-    updateCartUI();
-    launchConfettiCannon();
-    showToast("Покупка успешно оформлена!");
-  });
+  const btnApplyPromo = document.getElementById('btn-apply-promo');
+  if (btnApplyPromo) {
+    btnApplyPromo.addEventListener('click', () => {
+      const promoInput = document.getElementById('input-promocode');
+      const code = promoInput ? promoInput.value.trim().toUpperCase() : '';
+      if (code === 'GAS2026') {
+        appliedPromoDiscount = 10;
+        showToast("Промокод применен! Скидка 10%");
+        updateCartUI();
+      } else {
+        showToast("Неверный промокод (попробуйте GAS2026)");
+      }
+    });
+  }
+
+  const btnCartCheckout = document.getElementById('btn-cart-checkout');
+  if (btnCartCheckout) {
+    btnCartCheckout.addEventListener('click', () => {
+      if (cart.length === 0) {
+        showToast("Корзина пуста!");
+        return;
+      }
+      cart = [];
+      appliedPromoDiscount = 0;
+      updateCartUI();
+      launchConfettiCannon();
+      showToast("Заказ из корзины успешно оформлен!");
+      setTimeout(() => {
+        navigateToScreen('screen-home');
+      }, 1200);
+    });
+  }
 
 
-  // ==================== CARDS & ADDRESSES ====================
-  document.getElementById('btn-acc-cards').addEventListener('click', () => {
-    renderCards();
-    openModal('modal-cards');
-  });
+  // ==================== CARDS, ADDRESSES & BALANCE ====================
+  // Loyalty Balance in Account Screen
+  const btnAccBalanceItem = document.getElementById('btn-acc-balance-item');
+  if (btnAccBalanceItem) {
+    btnAccBalanceItem.addEventListener('click', () => {
+      openModal('modal-balance');
+    });
+  }
+
+  const btnUseBalanceNow = document.getElementById('btn-use-balance-now');
+  if (btnUseBalanceNow) {
+    btnUseBalanceNow.addEventListener('click', () => {
+      closeModal('modal-balance');
+      const homeNav = document.querySelector('[data-target="screen-home"]');
+      if (homeNav) homeNav.click();
+      if (btnStartRefill) btnStartRefill.click();
+      showToast("Бонусы 25 000 UZS будут применены к заказу!");
+    });
+  }
+
+  // Cards Manager
+  const btnAccCards = document.getElementById('btn-acc-cards');
+  if (btnAccCards) {
+    btnAccCards.addEventListener('click', () => {
+      renderCards();
+      openModal('modal-cards');
+    });
+  }
 
   function renderCards() {
     const wrapper = document.getElementById('cards-list-wrapper');
+    if (!wrapper) return;
     wrapper.innerHTML = savedCards.map(c => `
       <div class="account-card-item" style="margin-bottom:8px;">
         <div class="acc-icon blue-bg"><i class="fa-solid fa-credit-card"></i></div>
@@ -1705,41 +1871,54 @@ document.addEventListener('DOMContentLoaded', () => {
   const previewExp = document.getElementById('preview-card-expiry');
   const previewLogo = document.getElementById('preview-card-logo');
 
-  inputCardNum.addEventListener('input', (e) => {
-    let val = e.target.value.replace(/\D/g, '');
-    if (val.startsWith('8600')) previewLogo.textContent = 'Uzcard';
-    else if (val.startsWith('9860')) previewLogo.textContent = 'Humo';
-    else previewLogo.textContent = 'Visa';
+  if (inputCardNum) {
+    inputCardNum.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, '');
+      if (val.startsWith('8600')) previewLogo.textContent = 'Uzcard';
+      else if (val.startsWith('9860')) previewLogo.textContent = 'Humo';
+      else previewLogo.textContent = 'Visa';
 
-    previewNum.textContent = val.replace(/(.{4})/g, '$1 ').trim() || '8600 •••• •••• ••••';
-  });
+      previewNum.textContent = val.replace(/(.{4})/g, '$1 ').trim() || '8600 •••• •••• ••••';
+    });
+  }
 
-  inputCardExp.addEventListener('input', (e) => {
-    previewExp.textContent = e.target.value || '12/28';
-  });
+  if (inputCardExp) {
+    inputCardExp.addEventListener('input', (e) => {
+      previewExp.textContent = e.target.value || '12/28';
+    });
+  }
 
-  document.getElementById('btn-save-new-card').addEventListener('click', () => {
-    const rawPan = inputCardNum.value.replace(/\D/g, '');
-    if (rawPan.length < 16) {
-      showToast("Введите корректный 16-значный номер карты!");
-      return;
-    }
-    const masked = `${rawPan.substring(0, 4)} •••• •••• ${rawPan.substring(12)}`;
-    savedCards.push({ type: previewLogo.textContent.toUpperCase(), pan: masked, exp: inputCardExp.value || '12/28' });
-    renderCards();
-    document.getElementById('acc-cards-preview').textContent = `${savedCards.length} привязанные карты`;
-    showToast("Карта успешно привязана!");
-    inputCardNum.value = '';
-    inputCardExp.value = '';
-  });
+  const btnSaveNewCard = document.getElementById('btn-save-new-card');
+  if (btnSaveNewCard) {
+    btnSaveNewCard.addEventListener('click', () => {
+      const rawPan = inputCardNum.value.replace(/\D/g, '');
+      if (rawPan.length < 16) {
+        showToast("Введите корректный 16-значный номер карты!");
+        return;
+      }
+      const masked = `${rawPan.substring(0, 4)} •••• •••• ${rawPan.substring(12)}`;
+      savedCards.push({ type: previewLogo.textContent.toUpperCase(), pan: masked, exp: inputCardExp.value || '12/28' });
+      renderCards();
+      const cardsPreview = document.getElementById('acc-cards-preview');
+      if (cardsPreview) cardsPreview.textContent = `${savedCards.length} привязанные карты`;
+      showToast("Карта успешно привязана!");
+      inputCardNum.value = '';
+      inputCardExp.value = '';
+    });
+  }
 
-  document.getElementById('btn-acc-addresses').addEventListener('click', () => {
-    renderAddressManager();
-    openModal('modal-addresses');
-  });
+  // Address Manager
+  const btnAccAddresses = document.getElementById('btn-acc-addresses');
+  if (btnAccAddresses) {
+    btnAccAddresses.addEventListener('click', () => {
+      renderAddressManager();
+      openModal('modal-addresses');
+    });
+  }
 
   function renderAddressManager() {
     const list = document.getElementById('address-manager-list');
+    if (!list) return;
     list.innerHTML = savedAddresses.map(a => `
       <div class="account-card-item" style="margin-bottom:8px;">
         <div class="acc-icon green-bg">${a.icon}</div>
@@ -1751,18 +1930,27 @@ document.addEventListener('DOMContentLoaded', () => {
     `).join('');
   }
 
-  document.getElementById('btn-save-new-address').addEventListener('click', () => {
-    const title = document.getElementById('input-new-addr-title').value.trim();
-    const text = document.getElementById('input-new-addr-text').value.trim();
-    if (!text) {
-      showToast("Введите адрес!");
-      return;
-    }
-    savedAddresses.push({ title: title || 'Другой адрес', text: text, icon: '📍' });
-    renderAddressManager();
-    document.getElementById('acc-addresses-count').textContent = `${savedAddresses.length} адресов доставки`;
-    showToast("Адрес добавлен!");
-  });
+  const btnSaveNewAddr = document.getElementById('btn-save-new-address');
+  if (btnSaveNewAddr) {
+    btnSaveNewAddr.addEventListener('click', () => {
+      const titleInput = document.getElementById('input-new-addr-title');
+      const textInput = document.getElementById('input-new-addr-text');
+      const title = titleInput.value.trim();
+      const text = textInput.value.trim();
+      if (!text) {
+        showToast("Введите адрес!");
+        textInput.focus();
+        return;
+      }
+      savedAddresses.push({ title: title || 'Другой адрес', text: text, icon: '📍' });
+      renderAddressManager();
+      const countDisplay = document.getElementById('acc-addresses-count');
+      if (countDisplay) countDisplay.textContent = `${savedAddresses.length} адресов доставки`;
+      showToast("Адрес успешно сохранен!");
+      titleInput.value = '';
+      textInput.value = '';
+    });
+  }
 
 
   // ==================== HISTORY & SUPPORT CHAT ====================
@@ -1837,9 +2025,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.querySelectorAll('.modal-close, [data-close]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const modalId = btn.dataset.close;
-      closeModal(modalId);
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const modalId = btn.dataset.close || btn.closest('.modal-backdrop')?.id;
+      if (modalId) closeModal(modalId);
     });
   });
 

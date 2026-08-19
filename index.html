@@ -326,9 +326,13 @@
       
       <!-- SUB-STAGE 1: INITIAL EMPTY CYLINDER -->
       <div class="home-stage active" id="home-stage-initial">
-        <div class="stage-header">
-          <h2 data-i18n="refillGasTitle">Заправка СУГ / LPG</h2>
-          <p data-i18n="refillGasSub">Быстрая заправка вашего баллона с доставкой</p>
+        <div class="stage-header home-hero-header">
+          <div class="hero-chip-badge">
+            <span class="hero-chip-dot"></span>
+            <span data-i18n="heroServiceTag">Экспресс-доставка газа</span>
+          </div>
+          <h2 class="hero-main-title" data-i18n="refillGasTitle">Заправка СУГ / LPG</h2>
+          <p class="hero-sub-title" data-i18n="refillGasSub">Быстрая заправка вашего баллона с доставкой</p>
         </div>
 
         <!-- 3D Realistic Visual Cylinder Graphic & Gas Rig -->
@@ -1144,6 +1148,67 @@
       </div>
     </section>
 
+    <!-- SCREEN 5: FULL DEDICATED SHOPPING CART SCREEN -->
+    <section class="app-screen" id="screen-cart">
+      <div class="cart-screen-header">
+        <button class="cart-back-btn ripple-btn" id="btn-cart-back-nav" aria-label="Назад">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="cart-screen-title-box">
+          <h2 data-i18n="cartTitle">Корзина покупок</h2>
+          <p data-i18n="cartSub">Ваши выбранные товары и расчет доставки</p>
+        </div>
+        <button class="cart-clear-btn" id="btn-clear-cart-all" title="Очистить корзину" aria-label="Очистить корзину">
+          <i class="fa-regular fa-trash-can"></i>
+        </button>
+      </div>
+
+      <div class="cart-screen-body">
+        <!-- Dynamic Cart items or Empty State -->
+        <div class="cart-items-list" id="cart-items-list"></div>
+
+        <div class="cart-bottom-actions" id="cart-bottom-actions">
+          <div class="promo-box">
+            <div class="promo-input-wrapper">
+              <i class="fa-solid fa-ticket promo-icon"></i>
+              <input type="text" id="input-promocode" placeholder="Промокод (например: GAS2026)">
+            </div>
+            <button class="secondary-btn btn-sm" id="btn-apply-promo">Применить</button>
+          </div>
+
+          <div class="cart-breakdown-box glass-panel">
+            <div class="cart-breakdown-row">
+              <span>Стоимость товаров:</span>
+              <strong id="cart-subtotal-amount">0 UZS</strong>
+            </div>
+            <div class="cart-breakdown-row" id="cart-discount-row" style="display:none; color:#22c55e;">
+              <span>Скидка по промокоду:</span>
+              <strong id="cart-discount-amount">-0 UZS</strong>
+            </div>
+            <div class="cart-breakdown-row">
+              <span>Доставка до двери:</span>
+              <span class="badge-free">БЕСПЛАТНО</span>
+            </div>
+            <div class="cart-total-bar">
+              <span>Итого к оплате:</span>
+              <strong id="cart-total-amount">0 UZS</strong>
+            </div>
+          </div>
+
+          <div class="cart-trust-row">
+            <span class="trust-pill"><i class="fa-solid fa-shield-halved"></i> 100% Гарантия</span>
+            <span class="trust-pill"><i class="fa-solid fa-truck-fast"></i> 30 мин</span>
+            <span class="trust-pill"><i class="fa-solid fa-wallet"></i> Оплата при получении</span>
+          </div>
+
+          <button class="primary-btn btn-full ripple-btn" id="btn-cart-checkout">
+            <span>Оформить заказ</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
 
     <!-- ==================== BOTTOM NAVIGATION BAR ==================== -->
     <nav class="bottom-nav-bar" id="bottom-nav">
@@ -1174,34 +1239,41 @@
     <!-- Emergency 104 Modal -->
     <div class="modal-backdrop" id="modal-emergency">
       <div class="modal-dialog glass-panel emergency-border">
-        <button class="modal-close" data-close="modal-emergency"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" data-close="modal-emergency" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
-          <div class="modal-icon-header red-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-          <h3 class="emergency-modal-title">Аварийная Газовая Служба 104</h3>
-          <p class="modal-sub-desc">Инструкция по безопасности при обнаружении запаха газа СУГ:</p>
+          <div class="emergency-header-box">
+            <div class="emergency-icon-glow">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="emergency-title-row">
+              <h3 data-i18n="emergencyTitle">Аварийная служба газа</h3>
+              <span class="emergency-badge-104"><i class="fa-solid fa-phone"></i> 104</span>
+            </div>
+            <p class="modal-sub-desc" data-i18n="emergencySub">Инструкция по безопасности при обнаружении запаха газа СУГ:</p>
+          </div>
           
           <div class="safety-steps-list">
             <div class="safety-step-item">
               <span class="step-num">1</span>
-              <span class="step-text">Немедленно перекройте вентиль газового баллона.</span>
+              <span class="step-text" data-i18n="safetyStep1">Немедленно перекройте вентиль газового баллона.</span>
             </div>
             <div class="safety-step-item">
               <span class="step-num">2</span>
-              <span class="step-text">Откройте все окна и двери для проветривания.</span>
+              <span class="step-text" data-i18n="safetyStep2">Откройте все окна и двери для проветривания.</span>
             </div>
             <div class="safety-step-item">
               <span class="step-num">3</span>
-              <span class="step-text">Не включайте выключатели света, выдерните приборы.</span>
+              <span class="step-text" data-i18n="safetyStep3">Не включайте выключатели света, выдерните приборы.</span>
             </div>
             <div class="safety-step-item">
               <span class="step-num">4</span>
-              <span class="step-text">Покиньте помещение и вызовите службу 104.</span>
+              <span class="step-text" data-i18n="safetyStep4">Покиньте помещение и вызовите службу 104.</span>
             </div>
           </div>
 
           <button class="primary-btn btn-full btn-danger-call ripple-btn" id="btn-call-104-direct">
-            <i class="fa-solid fa-phone"></i>
-            <span>Вызвать Аварийную 104</span>
+            <i class="fa-solid fa-phone-volume"></i>
+            <span data-i18n="emergencyCallBtn">Вызвать Аварийную 104</span>
           </button>
         </div>
       </div>
@@ -1237,50 +1309,24 @@
       </div>
     </div>
 
-    <!-- Modal 1: Shopping Cart -->
-    <div class="modal-backdrop" id="modal-cart">
-      <div class="modal-dialog glass-panel">
-        <button class="modal-close" data-close="modal-cart"><i class="fa-solid fa-xmark"></i></button>
-        <div class="modal-body">
-          <div class="modal-icon-header"><i class="fa-solid fa-cart-shopping"></i></div>
-          <h3 data-i18n="cartTitle">Корзина покупок</h3>
-          
-          <div class="cart-items-list" id="cart-items-list">
-            <!-- Dynamic cart items -->
-          </div>
-
-          <div class="promo-box">
-            <input type="text" id="input-promocode" placeholder="Промокод (например: GAS2026)">
-            <button class="secondary-btn btn-sm" id="btn-apply-promo">Применить</button>
-          </div>
-
-          <div class="cart-total-bar">
-            <span>Итого к оплате:</span>
-            <strong id="cart-total-amount">0 UZS</strong>
-          </div>
-
-          <button class="primary-btn btn-full ripple-btn" id="btn-cart-checkout">
-            <span>Оформить покупку</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- Modal 2: Saved Cards Manager & Add Card -->
     <div class="modal-backdrop" id="modal-cards">
       <div class="modal-dialog glass-panel">
-        <button class="modal-close" data-close="modal-cards"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" data-close="modal-cards" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
           <div class="modal-icon-header"><i class="fa-solid fa-credit-card"></i></div>
-          <h3 data-i18n="savedCards">Банковские карты</h3>
+          <h3 data-i18n="savedCards">Мои карты</h3>
+          <p class="modal-sub-desc" data-i18n="savedCardsSub">Управление привязанными картами Uzcard и Humo</p>
 
           <div class="cards-list-wrapper" id="cards-list-wrapper">
             <!-- Dynamic cards -->
           </div>
 
           <div class="add-card-form glass-panel">
-            <h4>Добавить новую карту</h4>
+            <div class="form-section-header">
+              <i class="fa-solid fa-circle-plus"></i>
+              <h4>Добавить новую карту</h4>
+            </div>
             <div class="interactive-card-preview" id="card-preview-box">
               <div class="card-glare-overlay"></div>
               <div class="card-chip"></div>
@@ -1288,9 +1334,15 @@
               <div class="card-number-display" id="preview-card-number">8600 •••• •••• ••••</div>
               <div class="card-expiry-display" id="preview-card-expiry">12/28</div>
             </div>
-            <input type="text" id="input-card-number" placeholder="Номер карты (8600... / 9860...)" maxlength="19">
-            <input type="text" id="input-card-expiry" placeholder="Срок действия (ММ/ГГ)" maxlength="5">
-            <button class="primary-btn btn-full btn-sm" id="btn-save-new-card">Сохранить карту</button>
+            <div class="custom-input-wrapper">
+              <i class="fa-solid fa-credit-card input-field-icon"></i>
+              <input type="text" id="input-card-number" placeholder="Номер карты (8600... / 9860...)" maxlength="19">
+            </div>
+            <div class="custom-input-wrapper">
+              <i class="fa-regular fa-calendar-days input-field-icon"></i>
+              <input type="text" id="input-card-expiry" placeholder="Срок действия (ММ/ГГ)" maxlength="5">
+            </div>
+            <button class="primary-btn btn-full btn-sm ripple-btn" id="btn-save-new-card">Сохранить карту</button>
           </div>
         </div>
       </div>
@@ -1299,26 +1351,32 @@
     <!-- Modal 3: Address Manager -->
     <div class="modal-backdrop" id="modal-addresses">
       <div class="modal-dialog glass-panel">
-        <button class="modal-close" data-close="modal-addresses"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" data-close="modal-addresses" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
           <div class="modal-icon-header red-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-          <h3 data-i18n="savedAddresses">Адреса доставки</h3>
-          <p class="modal-sub-desc">Список ваших сохраненных адресов</p>
+          <h3 data-i18n="savedAddresses">Мои адреса</h3>
+          <p class="modal-sub-desc" data-i18n="savedAddressesSub">Список ваших сохраненных адресов доставки</p>
 
           <div class="address-manager-list" id="address-manager-list">
             <!-- Dynamic addresses -->
           </div>
 
           <!-- Add New Address Form Section -->
-          <div class="add-address-form-box" style="margin-top:14px; padding:14px; border-radius:14px; background:rgba(239,68,68,0.06); border:1.5px dashed rgba(239,68,68,0.35);">
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; font-weight:700; font-size:13.5px; color:var(--text-main);">
-              <i class="fa-solid fa-circle-plus" style="color:var(--primary-flame);"></i>
+          <div class="add-address-form-box glass-panel">
+            <div class="add-address-form-header">
+              <i class="fa-solid fa-circle-plus"></i>
               <span>Добавить новый адрес</span>
             </div>
-            <div style="display:flex; flex-direction:column; gap:8px;">
-              <input type="text" id="input-new-addr-title" placeholder="Название (например: Дом, Работа, Дача)">
-              <input type="text" id="input-new-addr-text" placeholder="Улица, дом, ориентир...">
-              <button class="primary-btn btn-full btn-sm" id="btn-save-new-address" style="margin-top:4px;">
+            <div class="add-address-fields">
+              <div class="custom-input-wrapper">
+                <i class="fa-solid fa-tag input-field-icon"></i>
+                <input type="text" id="input-new-addr-title" placeholder="Название (например: Дом, Работа, Дача)">
+              </div>
+              <div class="custom-input-wrapper">
+                <i class="fa-solid fa-location-dot input-field-icon"></i>
+                <input type="text" id="input-new-addr-text" placeholder="Улица, дом, ориентир...">
+              </div>
+              <button class="primary-btn btn-full btn-sm ripple-btn" id="btn-save-new-address">
                 <i class="fa-solid fa-floppy-disk"></i>
                 <span>Сохранить адрес</span>
               </button>
@@ -1328,13 +1386,72 @@
       </div>
     </div>
 
+    <!-- Modal: Loyalty Balance & Points -->
+    <div class="modal-backdrop" id="modal-balance">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-balance" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header gold-icon"><i class="fa-solid fa-coins"></i></div>
+          <h3 data-i18n="myBalanceModalTitle">Мой баланс и баллы</h3>
+          <p class="modal-sub-desc" data-i18n="myBalanceModalSub">Бонусная программа лояльности Poytug Club</p>
+
+          <div class="balance-card-showcase">
+            <div class="balance-badge-gold">
+              <i class="fa-solid fa-crown"></i>
+              <span>Золотой уровень • 2% Кэшбэк</span>
+            </div>
+            <div class="balance-main-amount">
+              <span class="balance-num" id="modal-balance-display">25 000</span>
+              <span class="balance-currency">UZS</span>
+            </div>
+            <p class="balance-hint">1 бонус = 1 сум. Оплачивайте бонусами до 50% стоимости заправки и покупки баллонов!</p>
+          </div>
+
+          <div class="bonus-history-box">
+            <h4 class="bonus-history-title"><i class="fa-solid fa-clock-rotate-left"></i> История начислений</h4>
+            <div class="bonus-history-list">
+              <div class="bonus-history-row">
+                <div class="bonus-row-info">
+                  <strong>Кэшбэк за заказ LPG-8821</strong>
+                  <span>14 Авг 2026 • 2% кэшбэк</span>
+                </div>
+                <span class="bonus-plus-tag">+1 500 UZS</span>
+              </div>
+              <div class="bonus-history-row">
+                <div class="bonus-row-info">
+                  <strong>Приветственный бонус</strong>
+                  <span>При регистрации в приложении</span>
+                </div>
+                <span class="bonus-plus-tag">+5 000 UZS</span>
+              </div>
+              <div class="bonus-history-row">
+                <div class="bonus-row-info">
+                  <strong>Пополнение счета</strong>
+                  <span>Через платежную систему Payme</span>
+                </div>
+                <span class="bonus-plus-tag">+18 500 UZS</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="balance-actions-row">
+            <button class="primary-btn btn-full ripple-btn" id="btn-use-balance-now">
+              <i class="fa-solid fa-gas-pump"></i>
+              <span>Заправить газ со скидкой</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Modal 4: Order History -->
     <div class="modal-backdrop" id="modal-history">
       <div class="modal-dialog glass-panel">
-        <button class="modal-close" data-close="modal-history"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" data-close="modal-history" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
           <div class="modal-icon-header"><i class="fa-solid fa-clock-rotate-left"></i></div>
           <h3 data-i18n="orderHistory">История заказов</h3>
+          <p class="modal-sub-desc">Список всех ваших предыдущих заказов</p>
 
           <div class="history-list" id="history-items-list">
             <!-- Dynamic history -->
@@ -1346,10 +1463,11 @@
     <!-- Modal 5: Settings -->
     <div class="modal-backdrop" id="modal-settings">
       <div class="modal-dialog glass-panel">
-        <button class="modal-close" data-close="modal-settings"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" data-close="modal-settings" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
           <div class="modal-icon-header"><i class="fa-solid fa-sliders"></i></div>
           <h3 data-i18n="settings">Настройки приложения</h3>
+          <p class="modal-sub-desc">Управление параметрами отображения и звука</p>
 
           <div class="settings-toggle-row">
             <span>Звуковые эффекты (шипение газа)</span>
@@ -1372,18 +1490,20 @@
     <!-- Modal 6: About Company -->
     <div class="modal-backdrop" id="modal-about">
       <div class="modal-dialog glass-panel">
-        <button class="modal-close" data-close="modal-about"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" data-close="modal-about" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
           <div class="modal-icon-header red-icon"><i class="fa-solid fa-building-shield"></i></div>
-          <h3>Poytug GNS Uzbekistan</h3>
+          <h3 data-i18n="aboutCompanyTitle">О компании «Poytug GNS»</h3>
+          <p class="modal-sub-desc" data-i18n="aboutCompanySub">Официальный сертифицированный поставщик LPG в Узбекистане</p>
           <p class="company-desc">
-            Официальный сертифицированный поставщик сжиженного углеводородного газа (СУГ / LPG) в Узбекистане. 
-            Мы обеспечиваем безопасную заправку, регулярную проверку баллонов и доставку до двери в течение 30 минут.
+            ООО «Poytug' GNS» — надежный поставщик сжиженного углеводородного газа (СУГ / Пропан-Бутан) для населения и предприятий Узбекистана. 
+            Мы гарантируем 100% точность заправки, регулярное освидетельствование баллонов и экспресс-доставку до двери в течение 30 минут.
           </p>
           <div class="company-badges">
-            <span>🛡️ Сертификат ISO 9001</span>
-            <span>⚡ Доставка 24/7</span>
-            <span>📞 Колл-центр: +998 71 200-00-00</span>
+            <span><i class="fa-solid fa-shield-halved" style="color:var(--accent-green);"></i> Государственный сертификат ISO 9001:2026</span>
+            <span><i class="fa-solid fa-bolt" style="color:var(--primary-flame);"></i> Круглосуточная заправка и доставка 24/7</span>
+            <span><i class="fa-solid fa-phone" style="color:var(--primary-flame);"></i> Единый колл-центр: +998 71 200-00-00</span>
+            <span><i class="fa-solid fa-location-dot" style="color:var(--primary-flame);"></i> Центральный офис: г. Ташкент, ул. Катартал, 28</span>
           </div>
         </div>
       </div>
@@ -1392,7 +1512,7 @@
     <!-- Modal 7: Live Support Chat -->
     <div class="modal-backdrop" id="modal-support">
       <div class="modal-dialog glass-panel">
-        <button class="modal-close" data-close="modal-support"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" data-close="modal-support" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
           <div class="modal-icon-header red-icon"><i class="fa-solid fa-headset"></i></div>
           <h3 data-i18n="support">Служба поддержки</h3>
