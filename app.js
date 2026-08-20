@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
   let userBalance = parseInt(localStorage.getItem('lpg_balance') || '25000', 10);
 
   function updateBalanceDisplay() {
-    const formatted = userBalance.toLocaleString().replace(/,/g, ' ') + ' UZS';
+    const formatted = isAuth ? (userBalance.toLocaleString().replace(/,/g, ' ') + ' UZS') : '0 UZS';
     const menuEl = document.getElementById('menu-balance-amount');
     const accEl = document.getElementById('acc-balance-display');
     const topupEl = document.getElementById('topup-current-balance');
     if (menuEl) menuEl.textContent = formatted;
     if (accEl) accEl.textContent = formatted;
     if (topupEl) topupEl.textContent = formatted;
-    localStorage.setItem('lpg_balance', userBalance.toString());
+    if (isAuth) localStorage.setItem('lpg_balance', userBalance.toString());
   }
   updateBalanceDisplay();
 
@@ -584,6 +584,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Helper to redirect guest to login screen for restricted actions (Uzum Tezkor style)
+  function redirectToAuth(msg) {
+    if (msg) showToast(msg);
+    document.querySelectorAll('.modal-backdrop.active').forEach(m => m.classList.remove('active'));
+    const sideDrawer = document.getElementById('side-drawer');
+    const menuBackdrop = document.getElementById('menu-backdrop');
+    if (sideDrawer) sideDrawer.classList.remove('active');
+    if (menuBackdrop) menuBackdrop.classList.remove('active');
+    screens.forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-auth').classList.add('active');
+    const btnCloseAuth = document.getElementById('btn-close-auth');
+    if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
+    const btnOpenCart = document.getElementById('btn-open-cart');
+    if (btnOpenCart) btnOpenCart.style.display = 'none';
+  }
+
   // Enter Application Helper
   function enterApp(asGuest = false, name = "Алишер Каримов", phone = "+998 90 123-45-67") {
     document.getElementById('screen-auth').classList.remove('active');
@@ -610,8 +626,15 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast(`Добро пожаловать, ${currentUserName}!`);
       launchConfettiCannon();
     } else {
-      showToast("Вход в гостевом режиме");
+      isAuth = false;
+      localStorage.setItem('lpg_auth', 'false');
+      document.getElementById('drawer-user-name').textContent = "Гостевой режим";
+      document.getElementById('drawer-user-phone').textContent = "Войдите для заказа и пополнения";
+      document.getElementById('acc-user-name').textContent = "Гостевой режим";
+      document.getElementById('acc-user-phone').textContent = "Нажмите, чтобы войти в аккаунт →";
+      showToast("👀 Режим просмотра (без авторизации нельзя заказывать и пополнять)");
     }
+    updateBalanceDisplay();
     renderAddressOptions();
   }
 
@@ -847,6 +870,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Profile Header click in Guest mode
+  const profileHeadEl = document.querySelector('.profile-head');
+  if (profileHeadEl) {
+    profileHeadEl.style.cursor = 'pointer';
+    profileHeadEl.addEventListener('click', () => {
+      if (!isAuth) {
+        redirectToAuth("Вход в аккаунт Poytug GNS");
+      }
+    });
+  }
+
   // Security 2FA Item in Profile
   const btnAccSecurity = document.getElementById('btn-acc-security');
   if (btnAccSecurity) {
@@ -881,6 +915,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==================== BALANCE TOP-UP MODAL ENGINE ====================
   function openTopupModal() {
+    if (!isAuth) {
+      redirectToAuth("🔒 Для пополнения баланса необходимо войти в аккаунт");
+      return;
+    }
     updateBalanceDisplay();
     openModal('modal-topup');
   }
@@ -1159,6 +1197,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (buyBtn) {
       buyBtn.addEventListener('click', () => {
+        if (!isAuth) {
+          redirectToAuth("🔒 Для покупки товаров и заказа войдите в аккаунт");
+          return;
+        }
         const pName = buyBtn.dataset.product;
         const pPrice = parseInt(buyBtn.dataset.price);
         const buyQty = currentQty;
@@ -1251,6 +1293,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   btnStartRefill.addEventListener('click', () => {
+    if (!isAuth) {
+      redirectToAuth("🔒 Для оформления заправки баллона войдите в аккаунт");
+      return;
+    }
     runHomeRigDockingAnimation();
   });
 
@@ -1903,6 +1949,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('btn-cart-checkout').addEventListener('click', () => {
+    if (!isAuth) {
+      redirectToAuth("🔒 Для оформления покупки из корзины войдите в аккаунт");
+      return;
+    }
     if (cart.length === 0) {
       showToast("Корзина пуста!");
       return;
