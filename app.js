@@ -1040,10 +1040,24 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-close-auth').addEventListener('click', () => enterApp(true));
   document.getElementById('btn-auth-skip-link').addEventListener('click', () => enterApp(true));
 
-  // Logout Action
+  // Logout Action (with confirmation dialog)
   const btnLogout = document.getElementById('btn-logout');
   if (btnLogout) {
-    btnLogout.addEventListener('click', handleLogout);
+    btnLogout.addEventListener('click', () => {
+      if (!isAuth) {
+        redirectToAuth("Вход в аккаунт Poytug GNS");
+        return;
+      }
+      openModal('modal-logout-confirm');
+    });
+  }
+
+  const btnConfirmLogoutAction = document.getElementById('btn-confirm-logout-action');
+  if (btnConfirmLogoutAction) {
+    btnConfirmLogoutAction.addEventListener('click', () => {
+      closeModal('modal-logout-confirm');
+      handleLogout();
+    });
   }
 
   // Profile Header click in Guest mode
@@ -1061,7 +1075,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnAccSecurity = document.getElementById('btn-acc-security');
   if (btnAccSecurity) {
     btnAccSecurity.addEventListener('click', () => {
-      showToast("🛡️ Двухфакторная защита активна: Пароль + SMS OTP (100% защита)");
+      if (!isAuth) {
+        redirectToAuth("🔒 Войдите в аккаунт для доступа к центру безопасности");
+        return;
+      }
+      openModal('modal-security');
     });
   }
 
@@ -1070,22 +1088,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnAccSettings) {
     btnAccSettings.addEventListener('click', () => {
       openModal('modal-settings');
-    });
-  }
-
-  // Support in Profile
-  const btnAccSupport = document.getElementById('btn-acc-support');
-  if (btnAccSupport) {
-    btnAccSupport.addEventListener('click', () => {
-      openModal('modal-support');
-    });
-  }
-
-  // Emergency 104 in Profile
-  const btnAccEmergency = document.getElementById('btn-acc-emergency');
-  if (btnAccEmergency) {
-    btnAccEmergency.addEventListener('click', () => {
-      openEmergencyModal();
     });
   }
 
@@ -1235,30 +1237,209 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  document.getElementById('btn-menu-balance').addEventListener('click', () => {
-    closeDrawer();
-    openLoyaltyModal();
+  // Side Drawer Services & Utilities
+  const btnMenuLoyaltyBanner = document.getElementById('btn-menu-loyalty-banner');
+  if (btnMenuLoyaltyBanner) {
+    btnMenuLoyaltyBanner.addEventListener('click', () => {
+      closeDrawer();
+      openLoyaltyModal();
+    });
+  }
+
+  const btnMenuLoyalty = document.getElementById('btn-menu-loyalty');
+  if (btnMenuLoyalty) {
+    btnMenuLoyalty.addEventListener('click', () => {
+      closeDrawer();
+      openLoyaltyModal();
+    });
+  }
+
+  const btnMenuReferral = document.getElementById('btn-menu-referral');
+  if (btnMenuReferral) {
+    btnMenuReferral.addEventListener('click', () => {
+      closeDrawer();
+      openModal('modal-referral');
+    });
+  }
+
+  const btnMenuPromocodes = document.getElementById('btn-menu-promocodes');
+  if (btnMenuPromocodes) {
+    btnMenuPromocodes.addEventListener('click', () => {
+      closeDrawer();
+      openModal('modal-promocodes');
+    });
+  }
+
+  const btnMenuCalculator = document.getElementById('btn-menu-calculator');
+  if (btnMenuCalculator) {
+    btnMenuCalculator.addEventListener('click', () => {
+      closeDrawer();
+      openModal('modal-gas-calculator');
+    });
+  }
+
+  const btnMenuInspection = document.getElementById('btn-menu-inspection');
+  if (btnMenuInspection) {
+    btnMenuInspection.addEventListener('click', () => {
+      closeDrawer();
+      openModal('modal-cylinder-inspection');
+    });
+  }
+
+  const btnMenuB2b = document.getElementById('btn-menu-b2b');
+  if (btnMenuB2b) {
+    btnMenuB2b.addEventListener('click', () => {
+      closeDrawer();
+      isWholesale = true;
+      if (inputCylQty) inputCylQty.value = 10;
+      updateQuantityAndWholesaleState();
+      switchScreen('screen-home');
+      showToast("🏢 Режим B2B оптовых поставок активирован (от 10 баллонов)");
+    });
+  }
+
+  const btnMenuSupport = document.getElementById('btn-menu-support');
+  if (btnMenuSupport) {
+    btnMenuSupport.addEventListener('click', () => {
+      closeDrawer();
+      openModal('modal-support');
+    });
+  }
+
+  const btnMenuAbout = document.getElementById('btn-menu-about');
+  if (btnMenuAbout) {
+    btnMenuAbout.addEventListener('click', () => {
+      closeDrawer();
+      openModal('modal-about');
+    });
+  }
+
+  const btnMenuSettings = document.getElementById('btn-menu-settings');
+  if (btnMenuSettings) {
+    btnMenuSettings.addEventListener('click', () => {
+      closeDrawer();
+      openModal('modal-settings');
+    });
+  }
+
+  // Copy Referral Code
+  const btnCopyRef = document.getElementById('btn-copy-ref-code');
+  if (btnCopyRef) {
+    btnCopyRef.addEventListener('click', () => {
+      navigator.clipboard?.writeText('POYTUG-7721');
+      showToast("🎁 Реферальный код POYTUG-7721 скопирован!");
+    });
+  }
+
+  window.copyPromoCode = function(code) {
+    navigator.clipboard?.writeText(code);
+    const promoInput = document.getElementById('input-promocode');
+    if (promoInput) promoInput.value = code;
+    closeModal('modal-promocodes');
+    showToast(`Промокод ${code} скопирован и применен!`);
+  };
+
+  // Gas Calculator Engine
+  let calcPeople = 2;
+  let calcPurpose = 'cook';
+
+  function updateGasCalcResult() {
+    const recCyl = document.getElementById('calc-rec-cylinder');
+    const recDur = document.getElementById('calc-rec-duration');
+    const orderBtn = document.getElementById('btn-calc-order-now');
+
+    let cylSize = '20 кг (50 литров)';
+    let days = '40-50 дней';
+    let targetIdx = 1; // 20kg
+
+    if (calcPurpose === 'heat') {
+      cylSize = '20 кг / 50 кг (Промышленный)';
+      days = calcPeople >= 4 ? '10-15 дней' : '15-25 дней';
+      targetIdx = 2; // 50kg
+    } else if (calcPurpose === 'water') {
+      cylSize = '20 кг (50 литров)';
+      days = calcPeople >= 4 ? '20-25 дней' : '30-40 дней';
+      targetIdx = 1;
+    } else {
+      if (calcPeople <= 2) {
+        cylSize = '10 кг (27 литров) / 20 кг';
+        days = '45-60 дней';
+        targetIdx = 0;
+      } else if (calcPeople <= 4) {
+        cylSize = '20 кг (50 литров)';
+        days = '35-45 дней';
+        targetIdx = 1;
+      } else {
+        cylSize = '20 кг (50 литров) x2 шт';
+        days = '45-60 дней';
+        targetIdx = 1;
+      }
+    }
+
+    if (recCyl) recCyl.textContent = `Рекомендуем: ${cylSize}`;
+    if (recDur) recDur.innerHTML = `Хватит примерно на <strong>${days}</strong>`;
+    if (orderBtn) {
+      orderBtn.onclick = function() {
+        closeModal('modal-gas-calculator');
+        currentCarouselIdx = targetIdx;
+        selectedCylinder = cylinderSizes[targetIdx];
+        updateCarousel();
+        updateQuantityAndWholesaleState();
+        switchScreen('screen-home');
+        showToast(`Выбран рекомендованный объем: ${selectedCylinder.name}`);
+      };
+    }
+  }
+
+  document.querySelectorAll('.calc-people-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.calc-people-btn').forEach(el => el.classList.remove('active'));
+      b.classList.add('active');
+      calcPeople = parseInt(b.dataset.people, 10) || 2;
+      updateGasCalcResult();
+    });
   });
-  document.getElementById('btn-menu-settings').addEventListener('click', () => {
-    closeDrawer();
-    openModal('modal-settings');
+
+  document.querySelectorAll('.calc-purpose-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.calc-purpose-btn').forEach(el => el.classList.remove('active'));
+      b.classList.add('active');
+      calcPurpose = b.dataset.purpose || 'cook';
+      updateGasCalcResult();
+    });
   });
-  document.getElementById('btn-menu-history').addEventListener('click', () => {
-    closeDrawer();
-    renderHistory();
-    openModal('modal-history');
-  });
-  document.getElementById('btn-menu-about').addEventListener('click', () => {
-    closeDrawer();
-    openModal('modal-about');
-  });
-  document.getElementById('btn-menu-support').addEventListener('click', () => {
-    closeDrawer();
-    openModal('modal-support');
-  });
-  const btnDrawerLogout = document.getElementById('btn-drawer-logout');
-  if (btnDrawerLogout) {
-    btnDrawerLogout.addEventListener('click', handleLogout);
+
+  updateGasCalcResult();
+
+  // Cylinder Inspection Request
+  const btnReqInspection = document.getElementById('btn-request-inspection');
+  if (btnReqInspection) {
+    btnReqInspection.addEventListener('click', () => {
+      closeModal('modal-cylinder-inspection');
+      showToast("🛠️ Заявка на техосмотр принята! Мастер свяжется с вами.");
+    });
+  }
+
+  // Change Password in Security
+  const btnSaveNewPass = document.getElementById('btn-save-new-password');
+  if (btnSaveNewPass) {
+    btnSaveNewPass.addEventListener('click', () => {
+      const newPass = document.getElementById('sec-new-pass');
+      if (newPass && newPass.value.length < 6) {
+        showToast("Новый пароль должен содержать минимум 6 символов!");
+        return;
+      }
+      closeModal('modal-security');
+      showToast("🛡️ Пароль успешно обновлен!");
+    });
+  }
+
+  const btnTermSessions = document.getElementById('btn-terminate-sessions');
+  if (btnTermSessions) {
+    btnTermSessions.addEventListener('click', () => {
+      closeModal('modal-security');
+      showToast("🔒 Все другие активные сессии успешно завершены.");
+    });
   }
 
 

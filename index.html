@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <!-- App Styles -->
-  <link rel="stylesheet" href="index.css?v=5.3">
+  <link rel="stylesheet" href="index.css?v=5.4">
 </head>
 <body class="theme-dark">
 
@@ -67,15 +67,14 @@
     <aside class="side-drawer" id="side-drawer">
       <div class="drawer-header">
         <div class="profile-head" style="padding:0; gap:12px;">
-          <div class="avatar" style="width:46px; height:46px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <circle cx="12" cy="8" r="4"/>
-              <path d="M4 21c1.5-4.5 5-7 8-7s6.5 2.5 8 7"/>
+          <div class="avatar" style="width:46px; height:46px; background:linear-gradient(135deg,#ff4438,#dc2626);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+              <path d="M12 2C12 2 19 8 19 14.5C19 18.5 16 22 12 22C8 22 5 18.5 5 14.5C5 8 12 2 12 2Z"/>
             </svg>
           </div>
           <div class="profile-meta">
-            <h4 id="drawer-user-name" data-i18n="guestUser" style="margin:0; font-size:16px; font-weight:700; color:var(--text-1);">Гость</h4>
-            <span id="drawer-user-phone" style="font-size:12.5px; color:var(--text-2);">+998 (90) •••-••-••</span>
+            <h4 style="margin:0; font-size:16px; font-weight:800; color:var(--text-1); letter-spacing:-0.2px;">Poytug GNS</h4>
+            <span style="font-size:12px; color:var(--brand); font-weight:600;">Сервисы и утилиты</span>
           </div>
         </div>
         <button class="nav-btn close-drawer-btn" id="btn-close-drawer" aria-label="Close Drawer">
@@ -86,17 +85,79 @@
       </div>
 
       <div class="drawer-content">
-        <!-- Balance Card -->
-        <div class="balance-card" id="btn-menu-balance" style="margin: 0 0 16px; padding: 14px 16px;">
-          <div>
-            <div class="l" data-i18n="myBalance" style="font-size:12px;">Мой баланс</div>
-            <div class="v" id="menu-balance-amount" style="font-size:18px;">25 000 UZS</div>
+        <!-- Poytug Club Gold Banner -->
+        <div class="drawer-club-card" id="btn-menu-loyalty-banner" style="cursor:pointer; margin-bottom:16px; padding:14px 16px; border-radius:16px; background:linear-gradient(135deg,rgba(255,214,10,0.18),rgba(255,68,56,0.12)); border:1.5px solid rgba(255,214,10,0.4); display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:38px; height:38px; border-radius:12px; background:rgba(255,214,10,0.22); display:flex; align-items:center; justify-content:center; color:#FFD60A; font-size:18px;">
+              <i class="fa-solid fa-crown"></i>
+            </div>
+            <div>
+              <div style="font-size:13.5px; font-weight:800; color:var(--text-1);">Poytug Club</div>
+              <div style="font-size:11.5px; color:var(--text-2);">2% Кэшбэк на заправку</div>
+            </div>
           </div>
-          <div class="top-up" style="padding:6px 12px; font-size:12px;">Пополнить</div>
+          <span style="font-size:12px; font-weight:700; color:#FFD60A; background:rgba(255,214,10,0.15); padding:4px 10px; border-radius:20px; border:1px solid rgba(255,214,10,0.3);">Бонусы ➔</span>
         </div>
 
-        <div class="section-label">Управление</div>
+        <!-- Section 1: Программа лояльности & Акции -->
+        <div class="section-label">Лояльность и акции</div>
         <div class="list" style="margin-bottom:14px;">
+          <div class="row" id="btn-menu-loyalty">
+            <div class="ic" style="color:#FFD60A; background:rgba(255,214,10,0.14);">
+              <i class="fa-solid fa-coins"></i>
+            </div>
+            <div class="label">Мои бонусы и кэшбэк</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-menu-referral">
+            <div class="ic" style="color:#10B981; background:rgba(16,185,129,0.14);">
+              <i class="fa-solid fa-gift"></i>
+            </div>
+            <div class="label">Пригласи друга (+15 000 сум)</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-menu-promocodes">
+            <div class="ic" style="color:#3B82F6; background:rgba(59,130,246,0.14);">
+              <i class="fa-solid fa-ticket"></i>
+            </div>
+            <div class="label">Промокоды и купоны</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        </div>
+
+        <!-- Section 2: Утилиты и инструменты -->
+        <div class="section-label">Утилиты и сервисы</div>
+        <div class="list" style="margin-bottom:14px;">
+          <div class="row" id="btn-menu-calculator">
+            <div class="ic" style="color:#F59E0B; background:rgba(245,158,11,0.14);">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <div class="label">Калькулятор расхода газа</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-menu-inspection">
+            <div class="ic" style="color:#8B5CF6; background:rgba(139,92,246,0.14);">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <div class="label">Освидетельствование баллонов</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-menu-b2b">
+            <div class="ic" style="color:#EC4899; background:rgba(236,72,153,0.14);">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <div class="label">Для бизнеса (B2B опт)</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        </div>
+
+        <!-- Section 3: Экстренная помощь & Инфо -->
+        <div class="section-label">Помощь и контакты</div>
+        <div class="list" style="margin-bottom:16px;">
           <div class="row" id="btn-menu-emergency">
             <div class="ic danger">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -105,7 +166,28 @@
                 <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
             </div>
-            <div class="label danger">Безопасность 104</div>
+            <div class="label danger">Аварийная служба 104</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-menu-support">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 11a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3M3 11v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H3"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="support">Служба поддержки 24/7</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-menu-about">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="2" width="16" height="20" rx="2"/>
+                <path d="M9 22v-4h6v4M9 6h.01M15 6h.01M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="aboutCompany">О компании «Poytug GNS»</div>
             <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
           </div>
 
@@ -116,53 +198,8 @@
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
               </svg>
             </div>
-            <div class="label" data-i18n="settings">Настройки</div>
+            <div class="label" data-i18n="settings">Настройки и язык</div>
             <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <div class="row" id="btn-menu-history">
-            <div class="ic">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 3v18h18M18 17V9M13 17V5M8 17v-4"/>
-              </svg>
-            </div>
-            <div class="label" data-i18n="orderHistory">История заказов</div>
-            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-        </div>
-
-        <div class="section-label">Информация</div>
-        <div class="list" style="margin-bottom:14px;">
-          <div class="row" id="btn-menu-about">
-            <div class="ic">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="4" y="2" width="16" height="20" rx="2"/>
-                <path d="M9 22v-4h6v4M9 6h.01M15 6h.01M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/>
-              </svg>
-            </div>
-            <div class="label" data-i18n="aboutCompany">О нашей фирме</div>
-            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <div class="row" id="btn-menu-support">
-            <div class="ic">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 11a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3M3 11v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H3"/>
-              </svg>
-            </div>
-            <div class="label" data-i18n="support">Служба поддержки</div>
-            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-        </div>
-
-        <div class="list" style="margin-bottom:16px;">
-          <div class="row" id="btn-drawer-logout" style="border-bottom:none;">
-            <div class="ic danger" id="btn-drawer-logout-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
-              </svg>
-            </div>
-            <div class="label danger" id="btn-drawer-logout-text" data-i18n="btnLogout">Выйти из аккаунта</div>
           </div>
         </div>
       </div>
@@ -1145,20 +1182,9 @@
           <div class="top-up" id="btn-topup-balance">Пополнить</div>
         </div>
 
-        <!-- Section: Управление -->
-        <div class="section-label">Управление</div>
-        <div class="list">
-          <div class="row" id="btn-acc-security">
-            <div class="ic danger">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
-              </svg>
-            </div>
-            <div class="label danger" data-i18n="security2fa">Безопасность</div>
-            <span class="row-sub-tag secure"><i class="fa-solid fa-circle-check"></i> 2FA Активна</span>
-            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
+        <!-- Section: Платежи и адреса -->
+        <div class="section-label">Платежи и адреса</div>
+        <div class="list" style="margin-bottom:14px;">
           <div class="row" id="btn-acc-cards">
             <div class="ic">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1183,6 +1209,31 @@
             <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
           </div>
 
+          <div class="row" id="btn-acc-history">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 3v18h18M18 17V9M13 17V5M8 17v-4"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="orderHistory">История заказов и чеки</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        </div>
+
+        <!-- Section: Безопасность и настройки -->
+        <div class="section-label">Безопасность и настройки</div>
+        <div class="list" style="margin-bottom:16px;">
+          <div class="row" id="btn-acc-security">
+            <div class="ic danger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
+              </svg>
+            </div>
+            <div class="label danger" data-i18n="security2fa">Безопасность и 2FA</div>
+            <span class="row-sub-tag secure"><i class="fa-solid fa-circle-check"></i> Защищено</span>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
           <div class="row" id="btn-acc-settings">
             <div class="ic">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1190,54 +1241,7 @@
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
               </svg>
             </div>
-            <div class="label" data-i18n="settings">Настройки</div>
-            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <div class="row" id="btn-acc-history">
-            <div class="ic">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 3v18h18M18 17V9M13 17V5M8 17v-4"/>
-              </svg>
-            </div>
-            <div class="label" data-i18n="orderHistory">История заказов</div>
-            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-        </div>
-
-        <!-- Section: Информация -->
-        <div class="section-label">Информация</div>
-        <div class="list">
-          <div class="row" id="btn-acc-about">
-            <div class="ic">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="4" y="2" width="16" height="20" rx="2"/>
-                <path d="M9 22v-4h6v4M9 6h.01M15 6h.01M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/>
-              </svg>
-            </div>
-            <div class="label" data-i18n="aboutCompany">О нашей фирме</div>
-            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <div class="row" id="btn-acc-support">
-            <div class="ic">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 11a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3M3 11v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H3"/>
-              </svg>
-            </div>
-            <div class="label" data-i18n="support">Служба поддержки</div>
-            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <div class="row" id="btn-acc-emergency">
-            <div class="ic danger">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                <line x1="12" y1="9" x2="12" y2="13"/>
-                <line x1="12" y1="17" x2="12.01" y2="17"/>
-              </svg>
-            </div>
-            <div class="label danger">Аварийная служба газа 104</div>
+            <div class="label" data-i18n="settings">Язык и параметры приложения</div>
             <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
           </div>
         </div>
@@ -1728,6 +1732,193 @@
       </div>
     </div>
 
+    <!-- Modal 8: Referral Program (Пригласи друга) -->
+    <div class="modal-backdrop" id="modal-referral">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-referral" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header" style="background:rgba(16,185,129,0.18); color:#10B981;"><i class="fa-solid fa-gift"></i></div>
+          <h3>Пригласи друга</h3>
+          <p class="modal-sub-desc">Получайте +15 000 UZS на баланс за каждого приглашенного друга, а друг получит скидку 10% на первую заправку!</p>
+
+          <div style="background:var(--bg-2); border:1px solid var(--sep); border-radius:16px; padding:16px; margin:14px 0; text-align:center;">
+            <span style="font-size:12px; color:var(--text-2); text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">Ваш персональный промокод</span>
+            <div style="font-size:24px; font-weight:900; color:var(--brand); letter-spacing:2px; margin:8px 0;" id="user-ref-code-display">POYTUG-7721</div>
+            <button class="primary-btn btn-full btn-sm" id="btn-copy-ref-code" type="button">
+              <i class="fa-solid fa-copy"></i>
+              <span>Скопировать код</span>
+            </button>
+          </div>
+
+          <div class="company-badges">
+            <span>👥 3 друга приглашено</span>
+            <span>💰 +45 000 UZS заработано</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 9: Gas Calculator (Калькулятор расхода газа) -->
+    <div class="modal-backdrop" id="modal-gas-calculator">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-gas-calculator" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header" style="background:rgba(245,158,11,0.18); color:#F59E0B;"><i class="fa-solid fa-calculator"></i></div>
+          <h3>Калькулятор расхода газа</h3>
+          <p class="modal-sub-desc">Рассчитайте оптимальный объем баллона и периодичность заправки</p>
+
+          <div style="display:flex; flex-direction:column; gap:12px; margin:14px 0;">
+            <div>
+              <label style="font-size:12px; font-weight:700; color:var(--text-2); display:block; margin-bottom:6px;">Количество человек в семье / кафе</label>
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+                <button type="button" class="topup-chip active calc-people-btn" data-people="2">1-2 чел</button>
+                <button type="button" class="topup-chip calc-people-btn" data-people="4">3-4 чел</button>
+                <button type="button" class="topup-chip calc-people-btn" data-people="6">5+ чел</button>
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size:12px; font-weight:700; color:var(--text-2); display:block; margin-bottom:6px;">Основное назначение</label>
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+                <button type="button" class="topup-chip active calc-purpose-btn" data-purpose="cook">Кухня</button>
+                <button type="button" class="topup-chip calc-purpose-btn" data-purpose="heat">Отопление</button>
+                <button type="button" class="topup-chip calc-purpose-btn" data-purpose="water">Вода</button>
+              </div>
+            </div>
+
+            <!-- Calculated Result Card -->
+            <div style="background:linear-gradient(135deg,rgba(255,68,56,0.12),rgba(245,158,11,0.12)); border:1.5px solid rgba(255,68,56,0.35); border-radius:16px; padding:14px; text-align:center;">
+              <div style="font-size:11.5px; font-weight:700; color:var(--brand); text-transform:uppercase;">Рекомендуемый баллон:</div>
+              <div style="font-size:20px; font-weight:800; color:var(--text-1); margin:4px 0;" id="calc-rec-cylinder">Баллон 20 кг (50 литров)</div>
+              <div style="font-size:12.5px; color:var(--text-2);" id="calc-rec-duration">Хватит примерно на <strong>40-50 дней</strong> готовки</div>
+            </div>
+
+            <button class="primary-btn btn-full" id="btn-calc-order-now" type="button">
+              <i class="fa-solid fa-gas-pump"></i>
+              <span>Заказать заправку 20 кг</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 10: Cylinder Inspection (Освидетельствование и поверка) -->
+    <div class="modal-backdrop" id="modal-cylinder-inspection">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-cylinder-inspection" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header" style="background:rgba(139,92,246,0.18); color:#8B5CF6;"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <h3>Освидетельствование баллонов</h3>
+          <p class="modal-sub-desc">Государственная аттестация, опрессовка и проверка безопасности по ГОСТ 15860</p>
+
+          <div style="display:flex; flex-direction:column; gap:10px; margin:14px 0;">
+            <div style="background:var(--bg-2); border:1px solid var(--sep); border-radius:12px; padding:12px; display:flex; gap:10px; align-items:flex-start;">
+              <i class="fa-solid fa-circle-check" style="color:var(--brand); margin-top:3px;"></i>
+              <div style="font-size:13px; color:var(--text-1); line-height:1.4;">Гидравлическое испытание давлением 25 атм</div>
+            </div>
+            <div style="background:var(--bg-2); border:1px solid var(--sep); border-radius:12px; padding:12px; display:flex; gap:10px; align-items:flex-start;">
+              <i class="fa-solid fa-circle-check" style="color:var(--brand); margin-top:3px;"></i>
+              <div style="font-size:13px; color:var(--text-1); line-height:1.4;">Замена изношенных клапанов и уплотнителей ВБ-2</div>
+            </div>
+            <div style="background:var(--bg-2); border:1px solid var(--sep); border-radius:12px; padding:12px; display:flex; gap:10px; align-items:flex-start;">
+              <i class="fa-solid fa-circle-check" style="color:var(--brand); margin-top:3px;"></i>
+              <div style="font-size:13px; color:var(--text-1); line-height:1.4;">Нанесение официального клейма проверки на 5 лет</div>
+            </div>
+
+            <button class="primary-btn btn-full" id="btn-request-inspection" type="button" style="margin-top:6px;">
+              <i class="fa-solid fa-phone"></i>
+              <span>Записаться на техосмотр (50 000 UZS)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 11: Promocodes & Coupons (Промокоды) -->
+    <div class="modal-backdrop" id="modal-promocodes">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-promocodes" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header" style="background:rgba(59,130,246,0.18); color:#3B82F6;"><i class="fa-solid fa-ticket"></i></div>
+          <h3>Промокоды и купоны</h3>
+          <p class="modal-sub-desc">Активируйте скидки при заказе или заправке баллонов</p>
+
+          <div style="display:flex; flex-direction:column; gap:10px; margin:14px 0;">
+            <div style="background:var(--bg-2); border:1.5px dashed var(--brand); border-radius:14px; padding:14px; display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <strong style="color:var(--brand); font-size:16px; letter-spacing:1px;">GAS2026</strong>
+                <p style="font-size:12px; color:var(--text-2); margin:2px 0 0;">Скидка 10% на любой заказ</p>
+              </div>
+              <button class="primary-btn btn-sm" onclick="copyPromoCode('GAS2026')" type="button">Копировать</button>
+            </div>
+
+            <div style="background:var(--bg-2); border:1.5px dashed rgba(255,214,10,0.5); border-radius:14px; padding:14px; display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <strong style="color:#FFD60A; font-size:16px; letter-spacing:1px;">WELCOME</strong>
+                <p style="font-size:12px; color:var(--text-2); margin:2px 0 0;">Бонус 5 000 UZS новичкам</p>
+              </div>
+              <button class="primary-btn btn-sm" onclick="copyPromoCode('WELCOME')" type="button">Копировать</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 12: Security Center & 2FA -->
+    <div class="modal-backdrop" id="modal-security">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-security" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header red-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3>Центр безопасности</h3>
+          <p class="modal-sub-desc">Управление двухфакторной аутентификацией и доступом</p>
+
+          <div class="list" style="margin:14px 0 10px;">
+            <div class="row" style="cursor:default;">
+              <div class="ic"><i class="fa-solid fa-mobile-screen"></i></div>
+              <div class="label" style="font-size:13.5px;">SMS 2FA подтверждение</div>
+              <input type="checkbox" class="apple-switch" checked>
+            </div>
+            <div class="row" style="cursor:default;">
+              <div class="ic"><i class="fa-solid fa-fingerprint"></i></div>
+              <div class="label" style="font-size:13.5px;">Биометрия / Face ID</div>
+              <input type="checkbox" class="apple-switch" checked>
+            </div>
+          </div>
+
+          <div style="background:var(--bg-2); border:1px solid var(--sep); border-radius:14px; padding:14px; margin-bottom:12px;">
+            <div style="font-size:13px; font-weight:700; color:var(--text-1); margin-bottom:8px;">Смена пароля</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <input type="password" id="sec-old-pass" placeholder="Текущий пароль">
+              <input type="password" id="sec-new-pass" placeholder="Новый пароль (мин. 6 знаков)">
+              <button class="primary-btn btn-full btn-sm" id="btn-save-new-password" type="button">Обновить пароль</button>
+            </div>
+          </div>
+
+          <button class="secondary-btn btn-full btn-danger" id="btn-terminate-sessions" type="button">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Завершить сессии на других устройствах</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 13: Logout Confirmation Dialog -->
+    <div class="modal-backdrop" id="modal-logout-confirm">
+      <div class="modal-dialog glass-panel" style="max-width:340px;">
+        <div class="modal-body" style="text-align:center; padding:22px 18px;">
+          <div class="modal-icon-header red-icon" style="margin:0 auto 12px;"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+          <h3 style="font-size:18px; margin-bottom:6px;">Выход из аккаунта</h3>
+          <p class="modal-sub-desc" style="font-size:13.5px;">Вы действительно хотите выйти из своего профиля?</p>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
+            <button class="secondary-btn btn-full" data-close="modal-logout-confirm" type="button">Отмена</button>
+            <button class="primary-btn btn-full btn-danger" id="btn-confirm-logout-action" type="button">Выйти</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Modal: Toast Notification -->
     <div class="toast-notification" id="toast-notif">
       <i class="fa-solid fa-circle-check toast-icon"></i>
@@ -1739,6 +1930,6 @@
   <!-- Leaflet JS for Map -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- App JS -->
-  <script src="app.js?v=5.3"></script>
+  <script src="app.js?v=5.4"></script>
 </body>
 </html>
