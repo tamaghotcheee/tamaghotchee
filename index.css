@@ -441,6 +441,15 @@ input, button, select, textarea {
   font-size: 13px;
 }
 
+/* Hide cart button on Auth / Login / Registration screen */
+#app-container:has(#screen-auth.active) #btn-open-cart {
+  display: none !important;
+}
+
+#app-container:not(:has(#screen-auth.active)) #btn-close-auth {
+  display: none !important;
+}
+
 
 /* Wholesale Quantity Control Widget */
 .cylinder-quantity-box {

@@ -576,9 +576,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('screen-auth').classList.remove('active');
     document.getElementById('screen-home').classList.add('active');
     
-    // Hide the 'X' button on all in-app screens
+    // Hide the 'X' button and show Cart button on all in-app screens
     const btnCloseAuth = document.getElementById('btn-close-auth');
     if (btnCloseAuth) btnCloseAuth.style.display = 'none';
+    const btnOpenCart = document.getElementById('btn-open-cart');
+    if (btnOpenCart) btnOpenCart.style.display = 'flex';
 
     if (!asGuest) {
       isAuth = true;
@@ -606,11 +608,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnAuthSkipLink) btnAuthSkipLink.addEventListener('click', () => enterApp(true));
   if (btnAuthSkipLinkReg) btnAuthSkipLinkReg.addEventListener('click', () => enterApp(true));
 
+  const btnOpenCartEl = document.getElementById('btn-open-cart');
+  const btnCloseAuthEl = document.getElementById('btn-close-auth');
+
   if (isAuth) {
     enterApp(false, currentUserName, userPhone || "+998 (90) 123-45-67");
   } else {
-    const btnCloseAuth = document.getElementById('btn-close-auth');
-    if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
+    if (btnCloseAuthEl) btnCloseAuthEl.style.display = 'flex';
+    if (btnOpenCartEl) btnOpenCartEl.style.display = 'none';
   }
 
   // --- LOGIN FLOW (Step 1 -> Step 2) ---
@@ -822,6 +827,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('screen-auth').classList.add('active');
       const btnCloseAuth = document.getElementById('btn-close-auth');
       if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
+      const btnOpenCart = document.getElementById('btn-open-cart');
+      if (btnOpenCart) btnOpenCart.style.display = 'none';
       switchAuthTab('login');
       showToast("Вы вышли из системы");
     });
