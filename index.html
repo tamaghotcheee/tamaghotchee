@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <!-- App Styles -->
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="index.css?v=4.0">
 </head>
 <body class="theme-dark">
 
@@ -32,14 +32,10 @@
 
     <!-- ==================== HEADER / TOP BAR ==================== -->
     <header class="app-header" id="app-header">
-      <!-- Left Action Group: Menu + 104 Emergency -->
+      <!-- Left Action Group: Menu -->
       <div class="header-left-group">
         <button class="icon-btn menu-trigger" id="btn-side-menu" aria-label="Menu" title="Меню">
           <i class="fa-solid fa-bars"></i>
-        </button>
-        <button class="emergency-badge-btn" id="btn-open-emergency" title="Служба газа 104">
-          <i class="fa-solid fa-phone-volume"></i>
-          <span class="em-text">104</span>
         </button>
       </div>
 
@@ -52,19 +48,12 @@
         <span class="brand-title">Poytug GNS</span>
       </div>
 
-      <!-- Header Right Action Group: Cart + Languages + Close 'X' -->
+      <!-- Header Right Action Group: Cart + Close 'X' -->
       <div class="header-right-group">
         <button class="icon-btn cart-badge-btn" id="btn-open-cart" title="Корзина">
           <i class="fa-solid fa-cart-shopping"></i>
           <span class="cart-count-badge" id="cart-badge-count">0</span>
         </button>
-
-        <!-- Language Switcher (3 buttons) -->
-        <div class="lang-selector" id="lang-selector">
-          <button class="lang-btn" data-lang="uz">UZ</button>
-          <button class="lang-btn active" data-lang="ru">RU</button>
-          <button class="lang-btn" data-lang="en">EN</button>
-        </div>
 
         <!-- Guest / Exit 'X' Button -->
         <button class="icon-btn close-guest-btn" id="btn-close-auth" title="Войти позже" aria-label="Skip Auth">
@@ -77,246 +66,314 @@
     <div class="side-drawer-backdrop" id="menu-backdrop"></div>
     <aside class="side-drawer" id="side-drawer">
       <div class="drawer-header">
-        <div class="user-avatar-placeholder">
-          <i class="fa-solid fa-user-gear"></i>
+        <div class="profile-head" style="padding:0; gap:12px;">
+          <div class="avatar" style="width:46px; height:46px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21c1.5-4.5 5-7 8-7s6.5 2.5 8 7"/>
+            </svg>
+          </div>
+          <div class="profile-meta">
+            <h4 id="drawer-user-name" data-i18n="guestUser" style="margin:0; font-size:16px; font-weight:700; color:var(--text-1);">Гость</h4>
+            <span id="drawer-user-phone" style="font-size:12.5px; color:var(--text-2);">+998 (90) •••-••-••</span>
+          </div>
         </div>
-        <div class="drawer-user-info">
-          <h4 id="drawer-user-name" data-i18n="guestUser">Гость</h4>
-          <span id="drawer-user-phone">+998 (90) •••-••-••</span>
-        </div>
-        <button class="close-drawer-btn" id="btn-close-drawer">
-          <i class="fa-solid fa-xmark"></i>
+        <button class="nav-btn close-drawer-btn" id="btn-close-drawer" aria-label="Close Drawer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
         </button>
       </div>
 
-      <nav class="drawer-nav">
-        <button class="drawer-link" id="btn-menu-balance">
-          <div class="link-icon"><i class="fa-solid fa-wallet"></i></div>
-          <span data-i18n="myBalance">Мой баланс</span>
-          <strong class="balance-badge" id="menu-balance-amount">25 000 UZS</strong>
-        </button>
+      <div class="drawer-content">
+        <!-- Balance Card -->
+        <div class="balance-card" id="btn-menu-balance" style="margin: 0 0 16px; padding: 14px 16px;">
+          <div>
+            <div class="l" data-i18n="myBalance" style="font-size:12px;">Мой баланс</div>
+            <div class="v" id="menu-balance-amount" style="font-size:18px;">25 000 UZS</div>
+          </div>
+          <div class="top-up" style="padding:6px 12px; font-size:12px;">Пополнить</div>
+        </div>
 
-        <button class="drawer-link" id="btn-menu-emergency">
-          <div class="link-icon red-bg"><i class="fa-solid fa-triangle-exclamation"></i></div>
-          <span style="color:#ef4444; font-weight:800;">Безопасность 104</span>
-        </button>
+        <div class="section-label">Управление</div>
+        <div class="list" style="margin-bottom:14px;">
+          <div class="row" id="btn-menu-emergency">
+            <div class="ic danger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <div class="label danger">Безопасность 104</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
 
-        <button class="drawer-link" id="btn-menu-settings">
-          <div class="link-icon"><i class="fa-solid fa-sliders"></i></div>
-          <span data-i18n="settings">Настройки</span>
-        </button>
+          <div class="row" id="btn-menu-settings">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="settings">Настройки</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
 
-        <button class="drawer-link" id="btn-menu-history">
-          <div class="link-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
-          <span data-i18n="orderHistory">История заказов</span>
-        </button>
+          <div class="row" id="btn-menu-history">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 3v18h18M18 17V9M13 17V5M8 17v-4"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="orderHistory">История заказов</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        </div>
 
-        <button class="drawer-link" id="btn-menu-about">
-          <div class="link-icon"><i class="fa-solid fa-building"></i></div>
-          <span data-i18n="aboutCompany">О нашей фирме</span>
-        </button>
+        <div class="section-label">Информация</div>
+        <div class="list" style="margin-bottom:14px;">
+          <div class="row" id="btn-menu-about">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="2" width="16" height="20" rx="2"/>
+                <path d="M9 22v-4h6v4M9 6h.01M15 6h.01M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="aboutCompany">О нашей фирме</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
 
-        <button class="drawer-link" id="btn-menu-support">
-          <div class="link-icon"><i class="fa-solid fa-headset"></i></div>
-          <span data-i18n="support">Служба поддержки</span>
-        </button>
+          <div class="row" id="btn-menu-support">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 11a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3M3 11v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H3"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="support">Служба поддержки</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        </div>
 
-        <button class="drawer-link" id="btn-drawer-logout" style="color:#ef4444;">
-          <div class="link-icon" style="background:rgba(239,68,68,0.15); color:#ef4444;"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
-          <span data-i18n="btnLogout">Выйти из аккаунта</span>
-        </button>
-      </nav>
+        <div class="list" style="margin-bottom:16px;">
+          <div class="row" id="btn-drawer-logout" style="border-bottom:none;">
+            <div class="ic danger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
+              </svg>
+            </div>
+            <div class="label danger" data-i18n="btnLogout">Выйти из аккаунта</div>
+          </div>
+        </div>
+      </div>
 
       <div class="drawer-footer">
-        <p>Poytug GNS v3.1 • 2FA Protected</p>
+        <p class="footnote" style="margin:0;">Poytug GNS v3.2 · 2FA Protected</p>
       </div>
     </aside>
 
-    <!-- ==================== SCREEN 0: AUTH (2FA: PASSWORD + SMS OTP) ==================== -->
+    <!-- ==================== SCREEN 0: AUTH (APPLE OLED LUXURY) ==================== -->
     <section class="app-screen active" id="screen-auth">
-      <div class="auth-card glass-panel">
-        
-        <div class="auth-hero">
-          <div class="lpg-logo-glow">
-            <i class="fa-solid fa-shield-halved"></i>
+      <div class="auth-screen-container">
+
+        <!-- Progress Track (Step 1 / Step 2) -->
+        <div class="progress-track">
+          <div class="progress-fill" id="auth-progress-fill" style="width: 50%;"></div>
+        </div>
+        <div class="progress-label" id="auth-progress-label">Шаг 1 из 2 · Данные</div>
+
+        <div class="auth-content">
+          <!-- Form Header with Mark Icon -->
+          <div class="form-header">
+            <div class="mark" id="auth-mark-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
+              </svg>
+            </div>
+            <h1 id="auth-main-title">Вход в аккаунт</h1>
+            <p id="auth-main-sub">Введите номер телефона и пароль</p>
           </div>
-          <h2 id="auth-main-title" data-i18n="auth2faTitle">Вход</h2>
-        </div>
 
-        <!-- Auth Mode Tabs: Login vs Register -->
-        <div class="auth-mode-switch" id="auth-mode-switch">
-          <button class="auth-tab-btn active" id="tab-auth-login" data-tab="login" data-i18n="tabLogin">Вход</button>
-          <button class="auth-tab-btn" id="tab-auth-register" data-tab="register" data-i18n="tabRegister">Регистрация</button>
-        </div>
+          <!-- Apple Segmented Control (Вход / Регистрация) -->
+          <div class="segment" id="auth-mode-switch">
+            <button class="active" type="button" id="tab-auth-login" data-tab="login" data-i18n="tabLogin">Вход</button>
+            <button type="button" id="tab-auth-register" data-tab="register" data-i18n="tabRegister">Регистрация</button>
+          </div>
 
-        <!-- ================= MODE 1: LOGIN ================= -->
-        <div class="auth-mode-content active" id="mode-login">
-          
-          <!-- Login Step 1: Phone + Password -->
-          <div class="auth-step active" id="login-step-credentials">
-            <div class="step-progress-badge">
-              <span class="badge-step-pill" data-i18n="step1of2">Шаг 1 из 2: Данные входа</span>
-            </div>
+          <!-- ================= MODE 1: LOGIN ================= -->
+          <div class="auth-mode-content active" id="mode-login">
 
-            <label for="input-login-phone" class="input-label" data-i18n="phoneLabel">Номер телефона</label>
-            <div class="phone-input-wrapper">
-              <span class="country-prefix">🇺🇿 +998</span>
-              <input type="tel" id="input-login-phone" placeholder="(90) 123-45-67" maxlength="14" autocomplete="tel" value="90 123-45-67">
-            </div>
+            <!-- Login Step 1: Phone + Password -->
+            <div class="auth-step active" id="login-step-credentials">
+              <div class="field">
+                <label data-i18n="phoneLabel">Номер телефона</label>
+                <div class="field-box">
+                  <span class="prefix">🇺🇿 +998</span>
+                  <input type="tel" id="input-login-phone" placeholder="90 123-45-67" maxlength="14" autocomplete="tel" value="90 123-45-67" inputmode="numeric">
+                </div>
+              </div>
 
-            <label for="input-login-password" class="input-label" data-i18n="passwordLabel">Пароль</label>
-            <div class="password-input-wrapper">
-              <i class="fa-solid fa-lock input-icon-left"></i>
-              <input type="password" id="input-login-password" placeholder="Введите ваш пароль" autocomplete="current-password" value="123456">
-              <button type="button" class="btn-toggle-password" id="btn-toggle-login-pwd" aria-label="Показать пароль">
-                <i class="fa-solid fa-eye"></i>
+              <div class="field">
+                <label data-i18n="passwordLabel">Пароль</label>
+                <div class="field-box">
+                  <span class="icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  </span>
+                  <input type="password" id="input-login-password" placeholder="Введите пароль" autocomplete="current-password" value="123456">
+                  <span class="icon toggle" id="btn-toggle-login-pwd" title="Показать пароль">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </span>
+                </div>
+              </div>
+
+              <div class="row-between">
+                <span class="forgot" id="btn-forgot-pwd" data-i18n="forgotPassword">Забыли пароль?</span>
+                <span style="font-size:12px; color:var(--text-3); font-weight:600;">Демо: 123456</span>
+              </div>
+
+              <button type="button" class="cta" id="btn-login-next">
+                <span data-i18n="btnContinue2fa">Продолжить к СМС коду</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </button>
+
+              <button type="button" class="guest-btn" id="btn-auth-skip-link">Продолжить без входа</button>
             </div>
 
-            <div class="auth-helper-row">
-              <button type="button" class="link-btn-text" id="btn-forgot-pwd" data-i18n="forgotPassword">Забыли пароль?</button>
-              <span class="demo-hint-tag" title="Демо пароль">Демо: 123456</span>
-            </div>
+            <!-- Login Step 2: 2FA SMS Verification -->
+            <div class="auth-step" id="login-step-otp">
+              <div class="otp-security-notice" style="margin-bottom:18px;">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <div>
+                  <p class="otp-sent-text"><span data-i18n="codeSentTo">СМС отправлена на номер</span> <strong id="display-login-phone">+998 90 123-45-67</strong></p>
+                  <span class="otp-security-sub" data-i18n="otpSecuritySub">Введите 4 цифры для подтверждения</span>
+                </div>
+              </div>
 
-            <button class="primary-btn btn-full ripple-btn" id="btn-login-next">
-              <span data-i18n="btnContinue2fa">Продолжить к СМС коду</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
+              <div class="otp-boxes-wrapper" style="margin-bottom:20px;">
+                <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*" inputmode="numeric">
+                <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*" inputmode="numeric">
+                <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*" inputmode="numeric">
+                <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*" inputmode="numeric">
+              </div>
 
-          <!-- Login Step 2: 2FA SMS Verification -->
-          <div class="auth-step" id="login-step-otp">
-            <div class="step-progress-badge">
-              <span class="badge-step-pill step-green" data-i18n="step2of2">Шаг 2 из 2: СМС верификация</span>
-            </div>
+              <button type="button" class="cta" id="btn-verify-login-otp">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><polyline points="9 12 11 14 15 10"/></svg>
+                <span data-i18n="confirmCodeAndEnter">Подтвердить и Войти</span>
+              </button>
 
-            <div class="otp-security-notice">
-              <i class="fa-solid fa-mobile-screen-button"></i>
-              <div>
-                <p class="otp-sent-text"><span data-i18n="codeSentTo">СМС была отправлена на номер</span> <strong id="display-login-phone">+998 90 123-45-67</strong></p>
-                <span class="otp-security-sub" data-i18n="otpSecuritySub">Введите 4 цифры для подтверждения</span>
+              <div class="otp-actions-footer" style="margin-top:16px;">
+                <button class="text-btn resend-btn" id="btn-resend-login-otp">
+                  <span data-i18n="resendCode">Отправить код повторно</span> (<span id="login-timer-sec">30</span>s)
+                </button>
+                <button class="link-btn-text" id="btn-back-to-login-step1" style="margin-top:8px;">
+                  <i class="fa-solid fa-arrow-left"></i> <span data-i18n="backToCredentials">Изменить номер / пароль</span>
+                </button>
               </div>
             </div>
-            
-            <div class="otp-boxes-wrapper">
-              <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*">
-              <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*">
-              <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*">
-              <input type="text" maxlength="1" class="otp-digit otp-login-digit" pattern="\d*">
-            </div>
 
-            <button class="primary-btn btn-full ripple-btn btn-success" id="btn-verify-login-otp">
-              <i class="fa-solid fa-shield-check"></i>
-              <span data-i18n="confirmCodeAndEnter">Подтвердить и Войти</span>
-            </button>
-
-            <div class="otp-actions-footer">
-              <button class="text-btn resend-btn" id="btn-resend-login-otp">
-                <span data-i18n="resendCode">Отправить код повторно</span> (<span id="login-timer-sec">30</span>s)
-              </button>
-              <button class="link-btn-text" id="btn-back-to-login-step1">
-                <i class="fa-solid fa-arrow-left"></i> <span data-i18n="backToCredentials">Изменить телефон/пароль</span>
-              </button>
-            </div>
           </div>
 
-        </div>
+          <!-- ================= MODE 2: REGISTER ================= -->
+          <div class="auth-mode-content" id="mode-register">
 
-        <!-- ================= MODE 2: REGISTER ================= -->
-        <div class="auth-mode-content" id="mode-register">
-          
-          <!-- Register Step 1: Profile Info + New Password -->
-          <div class="auth-step active" id="register-step-form">
-            <div class="step-progress-badge">
-              <span class="badge-step-pill" data-i18n="step1of2">Шаг 1 из 2: Регистрация</span>
-            </div>
+            <!-- Register Step 1: Profile Info + New Password -->
+            <div class="auth-step active" id="register-step-form">
+              <div class="field">
+                <label data-i18n="fullNameLabel">Ваше имя или организация</label>
+                <div class="field-box">
+                  <span class="icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </span>
+                  <input type="text" id="input-reg-name" placeholder="Например: Алишер Каримов" autocomplete="name">
+                </div>
+              </div>
 
-            <label for="input-reg-name" class="input-label" data-i18n="fullNameLabel">Ваше имя или организация</label>
-            <div class="custom-input-wrapper">
-              <i class="fa-solid fa-user input-icon-left"></i>
-              <input type="text" id="input-reg-name" placeholder="Например: Алишер Каримов" autocomplete="name">
-            </div>
+              <div class="field">
+                <label data-i18n="phoneLabel">Номер телефона</label>
+                <div class="field-box">
+                  <span class="prefix">🇺🇿 +998</span>
+                  <input type="tel" id="input-reg-phone" placeholder="90 123-45-67" maxlength="14" autocomplete="tel" inputmode="numeric">
+                </div>
+              </div>
 
-            <label for="input-reg-phone" class="input-label" data-i18n="phoneLabel">Номер телефона</label>
-            <div class="phone-input-wrapper">
-              <span class="country-prefix">🇺🇿 +998</span>
-              <input type="tel" id="input-reg-phone" placeholder="(90) 123-45-67" maxlength="14" autocomplete="tel">
-            </div>
+              <div class="field">
+                <label data-i18n="createPassword">Придумайте пароль</label>
+                <div class="field-box">
+                  <span class="icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  </span>
+                  <input type="password" id="input-reg-password" placeholder="Минимум 6 символов" autocomplete="new-password">
+                  <span class="icon toggle" id="btn-toggle-reg-pwd" title="Показать пароль">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </span>
+                </div>
+              </div>
 
-            <label for="input-reg-password" class="input-label" data-i18n="createPassword">Придумайте пароль</label>
-            <div class="password-input-wrapper">
-              <i class="fa-solid fa-key input-icon-left"></i>
-              <input type="password" id="input-reg-password" placeholder="Минимум 6 символов" autocomplete="new-password">
-              <button type="button" class="btn-toggle-password" id="btn-toggle-reg-pwd" aria-label="Показать пароль">
-                <i class="fa-solid fa-eye"></i>
+              <!-- Password Strength Bar -->
+              <div class="pwd-strength-container" id="reg-pwd-strength" style="margin-top:-6px; margin-bottom:14px;">
+                <div class="pwd-strength-bar"><div class="strength-fill" id="pwd-strength-fill"></div></div>
+                <span class="pwd-strength-text" id="pwd-strength-text" data-i18n="pwdTooShort">Слишком короткий</span>
+              </div>
+
+              <div class="field">
+                <label data-i18n="confirmPassword">Повторите пароль</label>
+                <div class="field-box">
+                  <span class="icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                  <input type="password" id="input-reg-password-confirm" placeholder="Повторите пароль" autocomplete="new-password">
+                </div>
+              </div>
+
+              <div class="terms-checkbox-row" style="margin-bottom:18px;">
+                <input type="checkbox" id="check-reg-terms" checked class="apple-switch" style="width:36px; height:20px; border-radius:10px;">
+                <label for="check-reg-terms" data-i18n="agreeTerms" style="font-size:12px; color:var(--text-2); cursor:pointer;">Согласен с правилами сервиса и безопасной доставки LPG</label>
+              </div>
+
+              <button type="button" class="cta" id="btn-register-next">
+                <span data-i18n="btnGet2faCode">Получить СМС код</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </button>
+
+              <button type="button" class="guest-btn" id="btn-auth-skip-link-reg">Продолжить без входа</button>
             </div>
 
-            <!-- Password Strength Bar -->
-            <div class="pwd-strength-container" id="reg-pwd-strength">
-              <div class="pwd-strength-bar"><div class="strength-fill" id="pwd-strength-fill"></div></div>
-              <span class="pwd-strength-text" id="pwd-strength-text" data-i18n="pwdTooShort">Слишком короткий</span>
-            </div>
+            <!-- Register Step 2: 2FA SMS Verification -->
+            <div class="auth-step" id="register-step-otp">
+              <div class="otp-security-notice" style="margin-bottom:18px;">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <div>
+                  <p class="otp-sent-text"><span data-i18n="codeSentTo">СМС отправлена на номер</span> <strong id="display-reg-phone">+998 90 •••-••-••</strong></p>
+                  <span class="otp-security-sub" data-i18n="otpSecuritySub">Введите 4 цифры для подтверждения</span>
+                </div>
+              </div>
 
-            <label for="input-reg-password-confirm" class="input-label" data-i18n="confirmPassword">Повторите пароль</label>
-            <div class="password-input-wrapper">
-              <i class="fa-solid fa-check-double input-icon-left"></i>
-              <input type="password" id="input-reg-password-confirm" placeholder="Повторите введенный пароль" autocomplete="new-password">
-            </div>
+              <div class="otp-boxes-wrapper" style="margin-bottom:20px;">
+                <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*" inputmode="numeric">
+                <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*" inputmode="numeric">
+                <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*" inputmode="numeric">
+                <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*" inputmode="numeric">
+              </div>
 
-            <div class="terms-checkbox-row">
-              <input type="checkbox" id="check-reg-terms" checked>
-              <label for="check-reg-terms" data-i18n="agreeTerms">Согласен с правилами сервиса и безопасной доставки LPG</label>
-            </div>
+              <button type="button" class="cta" id="btn-verify-reg-otp">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><polyline points="9 12 11 14 15 10"/></svg>
+                <span data-i18n="btnCompleteRegistration">Завершить регистрацию</span>
+              </button>
 
-            <button class="primary-btn btn-full ripple-btn" id="btn-register-next">
-              <span data-i18n="btnGet2faCode">Получить СМС код</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-
-          <!-- Register Step 2: 2FA SMS Verification -->
-          <div class="auth-step" id="register-step-otp">
-            <div class="step-progress-badge">
-              <span class="badge-step-pill step-green" data-i18n="step2of2">Шаг 2 из 2: СМС верификация</span>
-            </div>
-
-            <div class="otp-security-notice">
-              <i class="fa-solid fa-mobile-screen-button"></i>
-              <div>
-                <p class="otp-sent-text"><span data-i18n="codeSentTo">СМС была отправлена на номер</span> <strong id="display-reg-phone">+998 90 •••-••-••</strong></p>
-                <span class="otp-security-sub" data-i18n="otpSecuritySub">Введите 4 цифры для подтверждения аккаунта</span>
+              <div class="otp-actions-footer" style="margin-top:16px;">
+                <button class="text-btn resend-btn" id="btn-resend-reg-otp">
+                  <span data-i18n="resendCode">Отправить код повторно</span> (<span id="reg-timer-sec">30</span>s)
+                </button>
+                <button class="link-btn-text" id="btn-back-to-reg-step1" style="margin-top:8px;">
+                  <i class="fa-solid fa-arrow-left"></i> <span data-i18n="backToForm">Вернуться к заполнению</span>
+                </button>
               </div>
             </div>
-            
-            <div class="otp-boxes-wrapper">
-              <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*">
-              <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*">
-              <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*">
-              <input type="text" maxlength="1" class="otp-digit otp-reg-digit" pattern="\d*">
-            </div>
 
-            <button class="primary-btn btn-full ripple-btn btn-success" id="btn-verify-reg-otp">
-              <i class="fa-solid fa-user-check"></i>
-              <span data-i18n="btnCompleteRegistration">Завершить регистрацию</span>
-            </button>
-
-            <div class="otp-actions-footer">
-              <button class="text-btn resend-btn" id="btn-resend-reg-otp">
-                <span data-i18n="resendCode">Отправить код повторно</span> (<span id="reg-timer-sec">30</span>s)
-              </button>
-              <button class="link-btn-text" id="btn-back-to-reg-step1">
-                <i class="fa-solid fa-arrow-left"></i> <span data-i18n="backToForm">Вернуться к заполнению</span>
-              </button>
-            </div>
           </div>
 
+          <p class="footnote">Нажимая «Продолжить», вы соглашаетесь с правилами безопасности Poytug GNS</p>
         </div>
-
-        <div class="guest-action-hint">
-          <button class="link-btn" id="btn-auth-skip-link" data-i18n="skipAuthHint">Или нажмите ✕ сверху чтобы войти позже в гостевом режиме</button>
-        </div>
-
       </div>
     </section>
 
@@ -757,115 +814,101 @@
 
       </div>
 
-      <!-- SUB-STAGE 5: PAYMENT METHOD SELECTION -->
+      <!-- SUB-STAGE 5: PAYMENT METHOD SELECTION (EXACT POYTUG PAYMENT SCREEN) -->
       <div class="home-stage" id="home-stage-payment">
-        <div class="stage-header">
-          <h2 data-i18n="paymentTitle">Оплата заказа</h2>
+        <div class="page-header">
+          <h1 data-i18n="paymentTitle">Оплата заказа</h1>
           <p data-i18n="paymentSub">Выберите удобный способ оплаты</p>
         </div>
 
-        <div class="order-summary-mini">
-          <div class="sum-row">
-            <span id="summary-cyl-type">Заправка баллона 20 кг (1 шт)</span>
-            <strong id="summary-cyl-price">75 000 UZS</strong>
+        <!-- Order Summary Card -->
+        <div class="summary">
+          <div class="summary-row">
+            <span class="l" id="summary-cyl-type">Заправка: Баллон 20 КГ (1 шт)</span>
+            <span class="v" id="summary-cyl-price">75 000 UZS</span>
           </div>
-          <div class="sum-row">
-            <span data-i18n="deliveryFee">Доставка до двери</span>
-            <strong class="free-text" data-i18n="free">БЕСПЛАТНО</strong>
+          <div class="summary-row">
+            <span class="l" data-i18n="deliveryFee">Доставка до двери</span>
+            <span class="v free" data-i18n="free">Бесплатно</span>
           </div>
-          <hr>
-          <div class="sum-row total">
-            <span data-i18n="totalToPay">Итого к оплате:</span>
-            <strong id="summary-total-price">75 000 UZS</strong>
+          <div class="summary-div"></div>
+          <div class="summary-row summary-total">
+            <span class="l" data-i18n="totalToPay">Итого к оплате</span>
+            <span class="v" id="summary-total-price">75 000 UZS</span>
           </div>
         </div>
 
-        <div class="payment-methods-grid">
-          <div class="payment-option active" data-method="cash">
-            <div class="pm-icon cash-bg"><i class="fa-solid fa-money-bill-wave"></i></div>
-            <div class="pm-info">
-              <h4 data-i18n="payCash">Наличными при получении</h4>
+        <!-- Section Label -->
+        <div class="section-label">Способ оплаты</div>
+
+        <!-- Payment Methods List -->
+        <div class="methods">
+
+          <!-- Method 1: Cash -->
+          <div class="method selected" data-method="cash">
+            <div class="logo cash">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div class="info">
+              <h3 data-i18n="payCash">Наличными при получении</h3>
               <p data-i18n="payCashSub">Оплата курьеру при передаче баллона</p>
             </div>
-            <div class="pm-check"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="radio"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
           </div>
 
-          <div class="payment-option" data-method="click">
-            <div class="pm-icon click-bg" style="padding:0; overflow:hidden;">
-              <svg viewBox="0 0 48 48" width="44" height="44" style="display:block;">
-                <defs>
-                  <linearGradient id="click-btn-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#0284c7"/>
-                    <stop offset="100%" stop-color="#0056b3"/>
-                  </linearGradient>
-                </defs>
-                <rect width="48" height="48" rx="13" fill="url(#click-btn-grad)"/>
-                <!-- Stylized Click logo -->
-                <text x="24" y="29" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="14.5" fill="#ffffff" text-anchor="middle" letter-spacing="-0.5">click</text>
-                <circle cx="28.8" cy="18.5" r="2.2" fill="#38bdf8"/>
-              </svg>
-            </div>
-            <div class="pm-info">
-              <h4>Click Pass / Click.uz</h4>
+          <!-- Method 2: Click -->
+          <div class="method" data-method="click">
+            <div class="logo click">click</div>
+            <div class="info">
+              <h3>Click Pass / Click.uz</h3>
               <p data-i18n="payOnlineFast">Быстрая онлайн-оплата в 1 клик</p>
             </div>
-            <div class="pm-check"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="radio"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
           </div>
 
-          <div class="payment-option" data-method="payme">
-            <div class="pm-icon payme-bg" style="padding:0; overflow:hidden;">
-              <svg viewBox="0 0 48 48" width="44" height="44" style="display:block;">
-                <defs>
-                  <linearGradient id="payme-btn-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#00cccc"/>
-                    <stop offset="100%" stop-color="#009999"/>
-                  </linearGradient>
-                </defs>
-                <rect width="48" height="48" rx="13" fill="url(#payme-btn-grad)"/>
-                <!-- Stylized Payme logo -->
-                <text x="24" y="28.5" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="12.5" fill="#ffffff" text-anchor="middle" letter-spacing="-0.3">payme</text>
-              </svg>
-            </div>
-            <div class="pm-info">
-              <h4>Payme</h4>
+          <!-- Method 3: Payme -->
+          <div class="method" data-method="payme">
+            <div class="logo payme">payme</div>
+            <div class="info">
+              <h3>Payme</h3>
               <p data-i18n="payUzcardHumo">Оплата картами Uzcard / Humo</p>
             </div>
-            <div class="pm-check"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="radio"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
           </div>
 
-          <!-- B2B Wholesale Invoice Option -->
-          <div class="payment-option" data-method="b2b_invoice" id="pm-b2b-invoice">
-            <div class="pm-icon b2b-bg"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-            <div class="pm-info">
-              <h4>Перечислением (Е-Фактура)</h4>
-              <p>Для юрлиц и организаций с выпиской счета</p>
+          <!-- Method 4: B2B E-Factura -->
+          <div class="method" data-method="b2b_invoice" id="pm-b2b-invoice">
+            <div class="logo efact">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M9 15h6M9 11h2"/></svg>
             </div>
-            <div class="pm-check"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="info">
+              <h3>Перечислением (E-Фактура)</h3>
+              <p>Для юрлиц и организаций с выпиской счёта</p>
+            </div>
+            <div class="radio"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
           </div>
+
         </div>
 
-        <!-- B2B INN Input Box -->
-        <div class="b2b-inn-box glass-panel" id="b2b-inn-container" style="display:none;">
-          <div class="b2b-inn-header">
-            <div class="b2b-inn-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-            <div class="b2b-inn-text">
-              <label class="input-label" for="input-company-inn">ИНН Компании / Организации:</label>
-              <p class="b2b-inn-sub">Для автоматического выставления Е-Фактуры</p>
+        <!-- B2B INN Field Container -->
+        <div class="b2b-inn-container" id="b2b-inn-container" style="display:none; margin-bottom: 20px;">
+          <div class="field" style="margin-bottom:0;">
+            <label for="input-company-inn">ИНН Компании / Организации (9 цифр)</label>
+            <div class="field-box">
+              <span class="icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
+              </span>
+              <input type="text" id="input-company-inn" placeholder="Введите 9-значный ИНН" maxlength="9" inputmode="numeric">
+              <span class="inn-badge-status" id="inn-badge-status">0/9</span>
             </div>
           </div>
-          <div class="input-icon-wrapper">
-            <i class="fa-solid fa-hashtag"></i>
-            <input type="text" id="input-company-inn" placeholder="Введите 9-значный ИНН (например: 305123456)" maxlength="9" inputmode="numeric">
-            <span class="inn-badge-status" id="inn-badge-status">0/9</span>
-          </div>
         </div>
 
-        <div class="home-bottom-action">
-          <button class="primary-btn btn-large btn-success ripple-btn" id="btn-submit-order">
-            <i class="fa-solid fa-check"></i>
-            <span data-i18n="btnConfirmOrder">Подтвердить и Оплатить</span>
-          </button>
-        </div>
+        <!-- CTA Button -->
+        <button type="button" class="cta" id="btn-submit-order">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>
+          <span data-i18n="btnConfirmOrder">Подтвердить и оплатить</span>
+        </button>
       </div>
 
       <!-- SUB-STAGE 6: ORDER CONFIRMED & LIVE TRACKING -->
@@ -974,173 +1017,239 @@
     </section>
 
 
-    <!-- ==================== SCREEN 3: CYLINDER STORE WITH QUANTITY COUNTERS ==================== -->
+    <!-- ==================== SCREEN 3: CYLINDER STORE (APPLE OLED LUXURY - NO SCROLL) ==================== -->
     <section class="app-screen" id="screen-store">
-      <div class="store-header">
-        <h2 data-i18n="storeTitle">Магазин газовых баллонов</h2>
+      <div class="page-header">
+        <h1 data-i18n="storeTitle">Магазин газовых баллонов</h1>
         <p data-i18n="storeSub">Новые пустые и заправленные баллоны с гарантией</p>
       </div>
 
-      <div class="store-grid">
-        <!-- Product 1: 20kg Cylinder -->
-        <div class="product-card glass-panel" data-product-id="store-20kg">
-          <div class="product-img-wrapper">
-            <img src="assets/cylinder_20kg.jpg" alt="Баллон 20 кг">
-            <span class="p-badge">ХИТ</span>
-          </div>
-          <div class="product-body">
-            <h3>Газовый баллон 20 КГ (Новый)</h3>
-            <p class="p-desc">Высокопрочный стальной баллон с предохранительным клапаном.</p>
-            
-            <div class="product-qty-row">
-              <span class="qty-sublabel">Кол-во:</span>
-              <div class="qty-counter-control store-qty-ctrl">
-                <button class="qty-counter-btn btn-store-minus">-</button>
-                <input type="number" class="input-store-qty" value="1" min="1" max="50">
-                <button class="qty-counter-btn btn-store-plus">+</button>
-              </div>
-            </div>
+      <div class="products">
 
-            <div class="p-footer">
-              <span class="p-price">480 000 UZS</span>
-              <button class="primary-btn btn-sm btn-buy-product" data-product="Баллон 20 кг" data-price="480000">
-                <i class="fa-solid fa-cart-plus"></i> <span data-i18n="btnBuy">Купить</span>
+        <!-- Product 1: 20kg Cylinder -->
+        <div class="product" data-product-id="store-20kg">
+          <div class="product-top">
+            <div class="thumb">
+              <span class="badge">ХИТ</span>
+              <img src="assets/cylinder_20kg.jpg" alt="Баллон 20 кг" loading="lazy">
+            </div>
+            <div class="product-info">
+              <h3>Газовый баллон 20 КГ (Новый)</h3>
+              <p>Высокопрочный стальной баллон с предохранительным клапаном</p>
+            </div>
+          </div>
+          <div class="product-bottom">
+            <div class="price"><small>Цена</small>480 000 UZS</div>
+            <div class="buy-controls">
+              <div class="stepper">
+                <button type="button" class="btn-store-minus">−</button>
+                <span class="store-qty-val">1</span>
+                <button type="button" class="btn-store-plus">+</button>
+              </div>
+              <button type="button" class="buy-btn btn-buy-product" data-product="Газовый баллон 20 КГ (Новый)" data-price="480000">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                <span data-i18n="btnBuy">Купить</span>
               </button>
             </div>
           </div>
         </div>
 
         <!-- Product 2: 10kg Cylinder -->
-        <div class="product-card glass-panel" data-product-id="store-10kg">
-          <div class="product-img-wrapper">
-            <img src="assets/cylinder_10kg.jpg" alt="Баллон 10 кг">
-            <span class="p-badge orange">Компакт</span>
-          </div>
-          <div class="product-body">
-            <h3>Газовый баллон 10 КГ (Новый)</h3>
-            <p class="p-desc">Удобный портативный баллон для дачи, гриля и походов.</p>
-
-            <div class="product-qty-row">
-              <span class="qty-sublabel">Кол-во:</span>
-              <div class="qty-counter-control store-qty-ctrl">
-                <button class="qty-counter-btn btn-store-minus">-</button>
-                <input type="number" class="input-store-qty" value="1" min="1" max="50">
-                <button class="qty-counter-btn btn-store-plus">+</button>
-              </div>
+        <div class="product" data-product-id="store-10kg">
+          <div class="product-top">
+            <div class="thumb">
+              <span class="badge compact">Компакт</span>
+              <img src="assets/cylinder_10kg.jpg" alt="Баллон 10 кг" loading="lazy">
             </div>
-
-            <div class="p-footer">
-              <span class="p-price">340 000 UZS</span>
-              <button class="primary-btn btn-sm btn-buy-product" data-product="Баллон 10 кг" data-price="340000">
-                <i class="fa-solid fa-cart-plus"></i> <span data-i18n="btnBuy">Купить</span>
+            <div class="product-info">
+              <h3>Газовый баллон 10 КГ (Новый)</h3>
+              <p>Удобный портативный баллон для дачи, гриля и походов</p>
+            </div>
+          </div>
+          <div class="product-bottom">
+            <div class="price"><small>Цена</small>340 000 UZS</div>
+            <div class="buy-controls">
+              <div class="stepper">
+                <button type="button" class="btn-store-minus">−</button>
+                <span class="store-qty-val">1</span>
+                <button type="button" class="btn-store-plus">+</button>
+              </div>
+              <button type="button" class="buy-btn btn-buy-product" data-product="Газовый баллон 10 КГ (Новый)" data-price="340000">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                <span data-i18n="btnBuy">Купить</span>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Product 3: Regulator & Hose -->
-        <div class="product-card glass-panel" data-product-id="store-regulator">
-          <div class="product-img-wrapper">
-            <img src="assets/regulator.jpg" alt="Редуктор и Шланг">
-          </div>
-          <div class="product-body">
-            <h3>Комплект: Редуктор + Шланг 2м</h3>
-            <p class="p-desc">Итальянский редуктор давления газа и армированный шланг с манометром.</p>
-
-            <div class="product-qty-row">
-              <span class="qty-sublabel">Кол-во:</span>
-              <div class="qty-counter-control store-qty-ctrl">
-                <button class="qty-counter-btn btn-store-minus">-</button>
-                <input type="number" class="input-store-qty" value="1" min="1" max="50">
-                <button class="qty-counter-btn btn-store-plus">+</button>
-              </div>
+        <!-- Product 3: Regulator + Hose -->
+        <div class="product" data-product-id="store-regulator">
+          <div class="product-top">
+            <div class="thumb">
+              <img src="assets/regulator.jpg" alt="Редуктор и шланг" loading="lazy">
             </div>
-
-            <div class="p-footer">
-              <span class="p-price">120 000 UZS</span>
-              <button class="primary-btn btn-sm btn-buy-product" data-product="Редуктор и шланг" data-price="120000">
-                <i class="fa-solid fa-cart-plus"></i> <span data-i18n="btnBuy">Купить</span>
+            <div class="product-info">
+              <h3>Комплект: Редуктор + Шланг 2м</h3>
+              <p>Итальянский редуктор давления газа и армированный шланг с манометром</p>
+            </div>
+          </div>
+          <div class="product-bottom">
+            <div class="price"><small>Цена</small>120 000 UZS</div>
+            <div class="buy-controls">
+              <div class="stepper">
+                <button type="button" class="btn-store-minus">−</button>
+                <span class="store-qty-val">1</span>
+                <button type="button" class="btn-store-plus">+</button>
+              </div>
+              <button type="button" class="buy-btn btn-buy-product" data-product="Комплект: Редуктор + Шланг" data-price="120000">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                <span data-i18n="btnBuy">Купить</span>
               </button>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
 
-    <!-- ==================== SCREEN 4: MY ACCOUNT ==================== -->
+    <!-- ==================== SCREEN 4: MY ACCOUNT (APPLE OLED STYLE) ==================== -->
     <section class="app-screen" id="screen-account">
-      <div class="account-profile-header glass-panel">
-        <div class="profile-avatar-large">
-          <i class="fa-solid fa-user-astronaut"></i>
-        </div>
-        <div class="profile-details">
-          <h3 id="acc-user-name">Алишер Каримов</h3>
-          <p id="acc-user-phone">+998 (90) 123-45-67</p>
-          <span class="status-pill-verified"><i class="fa-solid fa-shield-halved"></i> Подтвержденный клиент</span>
-        </div>
-      </div>
+      <div class="account-screen-wrapper">
 
-      <div class="account-sections-list">
-        <div class="account-card-item clickable" id="btn-acc-balance-item">
-          <div class="acc-icon gold-bg"><i class="fa-solid fa-coins"></i></div>
-          <div class="acc-text">
-            <h4 data-i18n="myBalance">Мой баланс</h4>
-            <p>Бонусные баллы и кэшбэк</p>
+        <!-- Profile Head -->
+        <div class="profile-head">
+          <div class="avatar">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21c1.5-4.5 5-7 8-7s6.5 2.5 8 7"/>
+            </svg>
           </div>
-          <strong class="acc-val" id="acc-balance-display">25 000 UZS</strong>
-        </div>
-
-        <div class="account-card-item clickable" id="btn-acc-cards">
-          <div class="acc-icon blue-bg"><i class="fa-solid fa-credit-card"></i></div>
-          <div class="acc-text">
-            <h4 data-i18n="savedCards">Привязанные карты</h4>
-            <p id="acc-cards-preview">Uzcard •••• 4412, Humo •••• 9821</p>
+          <div class="profile-meta">
+            <h2 id="acc-user-name">Алишер Каримов</h2>
+            <p id="acc-user-phone">+998 (90) 123-45-67</p>
           </div>
-          <i class="fa-solid fa-chevron-right arr"></i>
         </div>
 
-        <div class="account-card-item clickable" id="btn-acc-addresses">
-          <div class="acc-icon green-bg"><i class="fa-solid fa-map-location-dot"></i></div>
-          <div class="acc-text">
-            <h4 data-i18n="savedAddresses">Сохраненные адреса</h4>
-            <p id="acc-addresses-count">2 адреса доставки</p>
+        <!-- Balance Card -->
+        <div class="balance-card" id="btn-acc-balance-item">
+          <div>
+            <div class="l" data-i18n="myBalance">Мой баланс</div>
+            <div class="v" id="acc-balance-display">25 000 UZS</div>
           </div>
-          <i class="fa-solid fa-chevron-right arr"></i>
+          <div class="top-up" id="btn-topup-balance">Пополнить</div>
         </div>
 
-        <div class="account-card-item clickable" id="btn-acc-history">
-          <div class="acc-icon orange-bg"><i class="fa-solid fa-receipt"></i></div>
-          <div class="acc-text">
-            <h4 data-i18n="orderHistory">История заказов</h4>
-            <p>Просмотр всех заправок</p>
+        <!-- Section: Управление -->
+        <div class="section-label">Управление</div>
+        <div class="list">
+          <div class="row" id="btn-acc-security">
+            <div class="ic danger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
+              </svg>
+            </div>
+            <div class="label danger" data-i18n="security2fa">Безопасность</div>
+            <span class="row-sub-tag secure"><i class="fa-solid fa-circle-check"></i> 2FA Активна</span>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
           </div>
-          <i class="fa-solid fa-chevron-right arr"></i>
-        </div>
 
-        <div class="account-card-item clickable" id="btn-acc-security">
-          <div class="acc-icon red-bg"><i class="fa-solid fa-shield-halved"></i></div>
-          <div class="acc-text">
-            <h4 data-i18n="security2fa">Безопасность и 2FA</h4>
-            <p style="color:#00e676;"><i class="fa-solid fa-circle-check"></i> Пароль + СМС (Включено)</p>
+          <div class="row" id="btn-acc-cards">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                <line x1="2" y1="10" x2="22" y2="10"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="savedCards">Привязанные карты</div>
+            <span class="row-sub-tag" id="acc-cards-preview">Uzcard, Humo</span>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
           </div>
-          <i class="fa-solid fa-chevron-right arr"></i>
-        </div>
 
-        <div class="account-card-item clickable" id="btn-acc-about">
-          <div class="acc-icon purple-bg"><i class="fa-solid fa-circle-info"></i></div>
-          <div class="acc-text">
-            <h4 data-i18n="aboutCompany">О нашей компании</h4>
-            <p>Лицензия, безопасность, контакты</p>
+          <div class="row" id="btn-acc-addresses">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="savedAddresses">Сохраненные адреса</div>
+            <span class="row-sub-tag" id="acc-addresses-count">2 адреса</span>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
           </div>
-          <i class="fa-solid fa-chevron-right arr"></i>
+
+          <div class="row" id="btn-acc-settings">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="settings">Настройки</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-acc-history">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 3v18h18M18 17V9M13 17V5M8 17v-4"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="orderHistory">История заказов</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
         </div>
 
-        <!-- Logout Action Button -->
-        <button class="secondary-btn btn-full" id="btn-logout" style="margin-top:14px; border-color:rgba(239,68,68,0.4); color:#ef4444;">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          <span data-i18n="btnLogout">Выйти из аккаунта</span>
-        </button>
+        <!-- Section: Информация -->
+        <div class="section-label">Информация</div>
+        <div class="list">
+          <div class="row" id="btn-acc-about">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="2" width="16" height="20" rx="2"/>
+                <path d="M9 22v-4h6v4M9 6h.01M15 6h.01M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="aboutCompany">О нашей фирме</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-acc-support">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 11a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3M3 11v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H3"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="support">Служба поддержки</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-acc-emergency">
+            <div class="ic danger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <div class="label danger">Аварийная служба газа 104</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        </div>
+
+        <!-- Section: Выход -->
+        <div class="list">
+          <div class="row" id="btn-logout" style="border-bottom:none;">
+            <div class="ic danger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
+              </svg>
+            </div>
+            <div class="label danger" data-i18n="btnLogout">Выйти из аккаунта</div>
+          </div>
+        </div>
+
+        <p class="footnote">Poytug GNS v3.2 · 2FA Protected</p>
       </div>
     </section>
 
@@ -1237,33 +1346,50 @@
       </div>
     </div>
 
-    <!-- Modal 1: Shopping Cart -->
+    <!-- Modal 1: Shopping Cart (Apple OLED Luxury from poytug_cart_screen.html) -->
     <div class="modal-backdrop" id="modal-cart">
-      <div class="modal-dialog glass-panel">
-        <button class="modal-close" data-close="modal-cart"><i class="fa-solid fa-xmark"></i></button>
-        <div class="modal-body">
-          <div class="modal-icon-header"><i class="fa-solid fa-cart-shopping"></i></div>
-          <h3 data-i18n="cartTitle">Корзина покупок</h3>
-          
-          <div class="cart-items-list" id="cart-items-list">
-            <!-- Dynamic cart items -->
-          </div>
+      <div class="modal-dialog sheet">
+        <button type="button" class="close-btn modal-close" data-close="modal-cart" aria-label="Закрыть">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
 
-          <div class="promo-box">
-            <input type="text" id="input-promocode" placeholder="Промокод (например: GAS2026)">
-            <button class="secondary-btn btn-sm" id="btn-apply-promo">Применить</button>
+        <div class="sheet-header">
+          <div class="cart-mark">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           </div>
-
-          <div class="cart-total-bar">
-            <span>Итого к оплате:</span>
-            <strong id="cart-total-amount">0 UZS</strong>
-          </div>
-
-          <button class="primary-btn btn-full ripple-btn" id="btn-cart-checkout">
-            <span>Оформить покупку</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
+          <h1 data-i18n="cartTitle">Корзина покупок</h1>
         </div>
+
+        <!-- Items list when cart is filled -->
+        <div class="items" id="cart-items-list">
+          <!-- Dynamic Cart Items injected here -->
+        </div>
+
+        <!-- Empty state when cart is empty -->
+        <div class="empty" id="cart-empty-state">
+          <h2>Корзина пуста</h2>
+          <p>Добавьте баллон или аксессуар из каталога — и он появится здесь</p>
+        </div>
+
+        <div class="promo-row" id="cart-promo-row">
+          <input type="text" class="promo-input" id="input-promocode" placeholder="Промокод (напр. GAS2026)">
+          <button type="button" class="promo-apply" id="btn-apply-promo">Применить</button>
+        </div>
+
+        <div class="total-row" id="cart-total-row">
+          <span class="l">Итого к оплате</span>
+          <span class="v" id="cart-total-amount">0 UZS</span>
+        </div>
+
+        <button type="button" class="cta" id="btn-cart-checkout">
+          <span>Оформить покупку</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+
+        <button type="button" class="browse-btn" id="btn-cart-browse">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>
+          <span>Перейти в каталог баллонов</span>
+        </button>
       </div>
     </div>
 
@@ -1343,27 +1469,53 @@
       </div>
     </div>
 
-    <!-- Modal 5: Settings -->
+    <!-- Modal 5: Settings (Apple OLED Style with Language Switcher) -->
     <div class="modal-backdrop" id="modal-settings">
       <div class="modal-dialog glass-panel">
         <button class="modal-close" data-close="modal-settings"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
           <div class="modal-icon-header"><i class="fa-solid fa-sliders"></i></div>
-          <h3 data-i18n="settings">Настройки приложения</h3>
+          <h3 data-i18n="settings">Настройки</h3>
+          <p class="modal-sub-desc">Язык интерфейса и параметры системы</p>
 
-          <div class="settings-toggle-row">
-            <span>Звуковые эффекты (шипение газа)</span>
-            <input type="checkbox" id="toggle-sound-fx" checked>
+          <!-- Language Selection Section -->
+          <div class="section-label" style="margin: 10px 4px 6px;">Язык приложения / Til / Language</div>
+          <div class="list" style="margin-bottom: 12px;">
+            <button class="row lang-btn" data-lang="uz" style="width:100%; border:none; background:transparent; font-family:inherit;">
+              <div class="ic" style="font-size:16px;">🇺🇿</div>
+              <div class="label" style="text-align:left;">O'zbek tili</div>
+              <i class="fa-solid fa-check lang-check-icon" style="color:var(--brand); display:none;"></i>
+            </button>
+            <button class="row lang-btn active" data-lang="ru" style="width:100%; border:none; background:transparent; font-family:inherit;">
+              <div class="ic" style="font-size:16px;">🇷🇺</div>
+              <div class="label" style="text-align:left;">Русский язык</div>
+              <i class="fa-solid fa-check lang-check-icon" style="color:var(--brand); display:inline-block;"></i>
+            </button>
+            <button class="row lang-btn" data-lang="en" style="width:100%; border:none; background:transparent; font-family:inherit;">
+              <div class="ic" style="font-size:16px;">🇬🇧</div>
+              <div class="label" style="text-align:left;">English</div>
+              <i class="fa-solid fa-check lang-check-icon" style="color:var(--brand); display:none;"></i>
+            </button>
           </div>
 
-          <div class="settings-toggle-row">
-            <span>Push-уведомления</span>
-            <input type="checkbox" id="toggle-push-notif" checked>
-          </div>
-
-          <div class="settings-toggle-row">
-            <span>Темная тема интерфейса</span>
-            <input type="checkbox" id="toggle-dark-theme" checked>
+          <!-- Preferences Section -->
+          <div class="section-label" style="margin: 4px 4px 6px;">Параметры</div>
+          <div class="list" style="margin-bottom: 4px;">
+            <div class="row" style="cursor:default;">
+              <div class="ic"><i class="fa-solid fa-volume-high"></i></div>
+              <div class="label" style="font-size:14px;">Звуковые эффекты</div>
+              <input type="checkbox" id="toggle-sound-fx" class="apple-switch" checked>
+            </div>
+            <div class="row" style="cursor:default;">
+              <div class="ic"><i class="fa-solid fa-bell"></i></div>
+              <div class="label" style="font-size:14px;">Push-уведомления</div>
+              <input type="checkbox" id="toggle-push-notif" class="apple-switch" checked>
+            </div>
+            <div class="row" style="cursor:default;">
+              <div class="ic"><i class="fa-solid fa-moon"></i></div>
+              <div class="label" style="font-size:14px;">Темная OLED тема</div>
+              <input type="checkbox" id="toggle-dark-theme" class="apple-switch" checked>
+            </div>
           </div>
         </div>
       </div>
@@ -1424,6 +1576,6 @@
   <!-- Leaflet JS for Map -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- App JS -->
-  <script src="app.js"></script>
+  <script src="app.js?v=4.0"></script>
 </body>
 </html>

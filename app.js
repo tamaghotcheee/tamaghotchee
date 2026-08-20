@@ -108,14 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
       paymentTitle: "Оплата заказа",
       paymentSub: "Выберите удобный способ оплаты",
       deliveryFee: "Доставка до двери",
-      free: "БЕСПЛАТНО",
-      totalToPay: "Итого к оплате:",
+      free: "Бесплатно",
+      totalToPay: "Итого к оплате",
       payCash: "Наличными при получении",
       payCashSub: "Оплата курьеру при передаче баллона",
       payOnlineFast: "Быстрая онлайн-оплата в 1 клик",
       payUzcardHumo: "Оплата картами Uzcard / Humo",
       payOnline: "Электронный кошелек / Рассрочка",
-      btnConfirmOrder: "Подтвердить и Оплатить",
+      btnConfirmOrder: "Подтвердить и оплатить",
       orderProcessedTitle: "Заказ взят в обработку!",
       orderProcessedSub: "Курьер спешит к вам с заправленным баллоном",
       estimatedWait: "Примерное время ожидания",
@@ -325,7 +325,12 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('lpg_lang', lang);
 
     document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.lang === lang);
+      const isActive = btn.dataset.lang === lang;
+      btn.classList.toggle('active', isActive);
+      const checkIcon = btn.querySelector('.lang-check-icon');
+      if (checkIcon) {
+        checkIcon.style.display = isActive ? 'inline-block' : 'none';
+      }
     });
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -340,8 +345,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      setLanguage(btn.dataset.lang);
-      showToast(`Language: ${btn.dataset.lang.toUpperCase()}`);
+      const targetLang = btn.dataset.lang;
+      setLanguage(targetLang);
+      const langNames = { ru: "Русский язык", uz: "O'zbek tili", en: "English" };
+      showToast(`Язык изменен: ${langNames[targetLang] || targetLang.toUpperCase()}`);
     });
   });
 
@@ -474,6 +481,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const modeRegister = document.getElementById('mode-register');
   const authMainTitle = document.getElementById('auth-main-title');
   const authMainSub = document.getElementById('auth-main-sub');
+  const authProgressFill = document.getElementById('auth-progress-fill');
+  const authProgressLabel = document.getElementById('auth-progress-label');
+  const authMarkIcon = document.getElementById('auth-mark-icon');
+
+  const SHIELD_ICON_SVG = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>';
+  const USER_ICON_SVG = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
 
   function switchAuthTab(tab) {
     const isLogin = tab === 'login';
@@ -482,16 +495,22 @@ document.addEventListener('DOMContentLoaded', () => {
     modeLogin.classList.toggle('active', isLogin);
     modeRegister.classList.toggle('active', !isLogin);
 
+    if (authProgressFill) authProgressFill.style.width = '50%';
+
     if (isLogin) {
       document.getElementById('login-step-credentials').classList.add('active');
       document.getElementById('login-step-otp').classList.remove('active');
-      authMainTitle.textContent = translations[currentLang].auth2faTitle || "Вход";
-      if (authMainSub) authMainSub.textContent = "";
+      if (authMainTitle) authMainTitle.textContent = "Вход в аккаунт";
+      if (authMainSub) authMainSub.textContent = "Введите номер телефона и пароль";
+      if (authProgressLabel) authProgressLabel.textContent = "Шаг 1 из 2 · Данные";
+      if (authMarkIcon) authMarkIcon.innerHTML = SHIELD_ICON_SVG;
     } else {
       document.getElementById('register-step-form').classList.add('active');
       document.getElementById('register-step-otp').classList.remove('active');
-      authMainTitle.textContent = translations[currentLang].tabRegister || "Регистрация";
-      if (authMainSub) authMainSub.textContent = "";
+      if (authMainTitle) authMainTitle.textContent = "Регистрация";
+      if (authMainSub) authMainSub.textContent = "Создайте аккаунт для заказа газа";
+      if (authProgressLabel) authProgressLabel.textContent = "Шаг 1 из 2 · Данные профиля";
+      if (authMarkIcon) authMarkIcon.innerHTML = USER_ICON_SVG;
     }
   }
 
@@ -501,40 +520,50 @@ document.addEventListener('DOMContentLoaded', () => {
   // Password Visibility Toggles
   const btnToggleLoginPwd = document.getElementById('btn-toggle-login-pwd');
   const inputLoginPwd = document.getElementById('input-login-password');
-  btnToggleLoginPwd.addEventListener('click', () => {
-    const isPwd = inputLoginPwd.type === 'password';
-    inputLoginPwd.type = isPwd ? 'text' : 'password';
-    btnToggleLoginPwd.innerHTML = isPwd ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
-  });
+  if (btnToggleLoginPwd && inputLoginPwd) {
+    btnToggleLoginPwd.addEventListener('click', () => {
+      const isPwd = inputLoginPwd.type === 'password';
+      inputLoginPwd.type = isPwd ? 'text' : 'password';
+      btnToggleLoginPwd.innerHTML = isPwd 
+        ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61M2 2l20 20"/></svg>'
+        : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+    });
+  }
 
   const btnToggleRegPwd = document.getElementById('btn-toggle-reg-pwd');
   const inputRegPwd = document.getElementById('input-reg-password');
-  btnToggleRegPwd.addEventListener('click', () => {
-    const isPwd = inputRegPwd.type === 'password';
-    inputRegPwd.type = isPwd ? 'text' : 'password';
-    btnToggleRegPwd.innerHTML = isPwd ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
-  });
+  if (btnToggleRegPwd && inputRegPwd) {
+    btnToggleRegPwd.addEventListener('click', () => {
+      const isPwd = inputRegPwd.type === 'password';
+      inputRegPwd.type = isPwd ? 'text' : 'password';
+      btnToggleRegPwd.innerHTML = isPwd 
+        ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61M2 2l20 20"/></svg>'
+        : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+    });
+  }
 
   // Password Strength Meter
   const pwdStrengthFill = document.getElementById('pwd-strength-fill');
   const pwdStrengthText = document.getElementById('pwd-strength-text');
 
-  inputRegPwd.addEventListener('input', () => {
-    const val = inputRegPwd.value;
-    if (!val || val.length < 6) {
-      pwdStrengthFill.className = 'strength-fill weak';
-      pwdStrengthText.textContent = translations[currentLang].pwdTooShort || "Слишком короткий (мин. 6)";
-      pwdStrengthText.style.color = "#ef4444";
-    } else if (val.length >= 6 && (/^[a-zA-Z]+$/.test(val) || /^[0-9]+$/.test(val))) {
-      pwdStrengthFill.className = 'strength-fill medium';
-      pwdStrengthText.textContent = translations[currentLang].pwdMedium || "Средний пароль";
-      pwdStrengthText.style.color = "#ffb703";
-    } else {
-      pwdStrengthFill.className = 'strength-fill strong';
-      pwdStrengthText.textContent = translations[currentLang].pwdStrong || "Надежный пароль";
-      pwdStrengthText.style.color = "#00e676";
-    }
-  });
+  if (inputRegPwd && pwdStrengthFill && pwdStrengthText) {
+    inputRegPwd.addEventListener('input', () => {
+      const val = inputRegPwd.value;
+      if (!val || val.length < 6) {
+        pwdStrengthFill.className = 'strength-fill weak';
+        pwdStrengthText.textContent = translations[currentLang].pwdTooShort || "Слишком короткий (мин. 6)";
+        pwdStrengthText.style.color = "#ef4444";
+      } else if (val.length >= 6 && (/^[a-zA-Z]+$/.test(val) || /^[0-9]+$/.test(val))) {
+        pwdStrengthFill.className = 'strength-fill medium';
+        pwdStrengthText.textContent = translations[currentLang].pwdMedium || "Средний пароль";
+        pwdStrengthText.style.color = "#ffb703";
+      } else {
+        pwdStrengthFill.className = 'strength-fill strong';
+        pwdStrengthText.textContent = translations[currentLang].pwdStrong || "Надежный пароль";
+        pwdStrengthText.style.color = "#30D158";
+      }
+    });
+  }
 
   // Enter Application Helper
   function enterApp(asGuest = false, name = "Алишер Каримов", phone = "+998 90 123-45-67") {
@@ -564,6 +593,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     renderAddressOptions();
   }
+
+  // Guest buttons
+  const btnAuthSkipLink = document.getElementById('btn-auth-skip-link');
+  const btnAuthSkipLinkReg = document.getElementById('btn-auth-skip-link-reg');
+  if (btnAuthSkipLink) btnAuthSkipLink.addEventListener('click', () => enterApp(true));
+  if (btnAuthSkipLinkReg) btnAuthSkipLinkReg.addEventListener('click', () => enterApp(true));
 
   if (isAuth) {
     enterApp(false, currentUserName, userPhone || "+998 (90) 123-45-67");
@@ -615,6 +650,11 @@ document.addEventListener('DOMContentLoaded', () => {
     loginStepCreds.classList.remove('active');
     loginStepOtp.classList.add('active');
 
+    if (authProgressFill) authProgressFill.style.width = '100%';
+    if (authProgressLabel) authProgressLabel.textContent = "Шаг 2 из 2 · СМС код";
+    if (authMainTitle) authMainTitle.textContent = "СМС верификация";
+    if (authMainSub) authMainSub.textContent = "Введите 4-значный код подтверждения";
+
     const firstOtp = loginStepOtp.querySelector('.otp-login-digit');
     if (firstOtp) firstOtp.focus();
     startTimer('login-timer-sec', 30);
@@ -633,6 +673,10 @@ document.addEventListener('DOMContentLoaded', () => {
   btnBackToLoginStep1.addEventListener('click', () => {
     loginStepOtp.classList.remove('active');
     loginStepCreds.classList.add('active');
+    if (authProgressFill) authProgressFill.style.width = '50%';
+    if (authProgressLabel) authProgressLabel.textContent = "Шаг 1 из 2 · Данные";
+    if (authMainTitle) authMainTitle.textContent = "Вход в аккаунт";
+    if (authMainSub) authMainSub.textContent = "Введите номер телефона и пароль";
   });
 
   // --- REGISTRATION FLOW (Step 1 -> Step 2) ---
@@ -674,7 +718,7 @@ document.addEventListener('DOMContentLoaded', () => {
       inputRegPwdConfirm.focus();
       return;
     }
-    if (!checkRegTerms.checked) {
+    if (checkRegTerms && !checkRegTerms.checked) {
       showToast("Подтвердите согласие с правилами сервиса!");
       return;
     }
@@ -685,6 +729,11 @@ document.addEventListener('DOMContentLoaded', () => {
     displayRegPhone.textContent = formattedPhone;
     regStepForm.classList.remove('active');
     regStepOtp.classList.add('active');
+
+    if (authProgressFill) authProgressFill.style.width = '100%';
+    if (authProgressLabel) authProgressLabel.textContent = "Шаг 2 из 2 · СМС код";
+    if (authMainTitle) authMainTitle.textContent = "Подтверждение номера";
+    if (authMainSub) authMainSub.textContent = "Введите 4-значный код из СМС";
 
     const firstOtp = regStepOtp.querySelector('.otp-reg-digit');
     if (firstOtp) firstOtp.focus();
@@ -711,6 +760,10 @@ document.addEventListener('DOMContentLoaded', () => {
   btnBackToRegStep1.addEventListener('click', () => {
     regStepOtp.classList.remove('active');
     regStepForm.classList.add('active');
+    if (authProgressFill) authProgressFill.style.width = '50%';
+    if (authProgressLabel) authProgressLabel.textContent = "Шаг 1 из 2 · Данные профиля";
+    if (authMainTitle) authMainTitle.textContent = "Регистрация";
+    if (authMainSub) authMainSub.textContent = "Создайте аккаунт для заказа газа";
   });
 
   // OTP digit Auto-Advance and Backspace for all OTP inputs
@@ -776,6 +829,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Settings in Profile
+  const btnAccSettings = document.getElementById('btn-acc-settings');
+  if (btnAccSettings) {
+    btnAccSettings.addEventListener('click', () => {
+      openModal('modal-settings');
+    });
+  }
+
+  // Support in Profile
+  const btnAccSupport = document.getElementById('btn-acc-support');
+  if (btnAccSupport) {
+    btnAccSupport.addEventListener('click', () => {
+      openModal('modal-support');
+    });
+  }
+
+  // Emergency 104 in Profile
+  const btnAccEmergency = document.getElementById('btn-acc-emergency');
+  if (btnAccEmergency) {
+    btnAccEmergency.addEventListener('click', () => {
+      openEmergencyModal();
+    });
+  }
+
+  // Balance Top-up in Profile & Drawer
+  const btnTopupBalance = document.getElementById('btn-topup-balance');
+  if (btnTopupBalance) {
+    btnTopupBalance.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openModal('modal-cards');
+    });
+  }
+
+  const btnAccBalanceItem = document.getElementById('btn-acc-balance-item');
+  if (btnAccBalanceItem) {
+    btnAccBalanceItem.addEventListener('click', () => {
+      openModal('modal-cards');
+    });
+  }
+
   // About Company in Profile
   const btnAccAbout = document.getElementById('btn-acc-about');
   if (btnAccAbout) {
@@ -789,21 +882,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const navItems = document.querySelectorAll('.nav-item');
   const screens = document.querySelectorAll('.app-screen');
 
+  function switchScreen(targetId) {
+    navItems.forEach(n => {
+      n.classList.toggle('active', n.dataset.target === targetId);
+    });
+
+    screens.forEach(s => {
+      const isTarget = s.id === targetId;
+      s.classList.toggle('active', isTarget);
+      if (isTarget) s.scrollTop = 0;
+    });
+
+    if (targetId === 'screen-map') {
+      if (!mapInitialized) {
+        initLeafletMap();
+      } else if (mainMap) {
+        setTimeout(() => mainMap.invalidateSize(), 150);
+      }
+    }
+  }
+
+  window.switchScreen = switchScreen;
+
   navItems.forEach(item => {
     item.addEventListener('click', () => {
-      const targetId = item.dataset.target;
-      navItems.forEach(n => n.classList.remove('active'));
-      item.classList.add('active');
-
-      screens.forEach(s => s.classList.toggle('active', s.id === targetId));
-
-      if (targetId === 'screen-map') {
-        if (!mapInitialized) {
-          initLeafletMap();
-        } else if (mainMap) {
-          setTimeout(() => mainMap.invalidateSize(), 150);
-        }
-      }
+      switchScreen(item.dataset.target);
     });
   });
 
@@ -817,7 +920,9 @@ document.addEventListener('DOMContentLoaded', () => {
     openModal('modal-emergency');
   }
 
-  btnOpenEmergency.addEventListener('click', openEmergencyModal);
+  if (btnOpenEmergency) {
+    btnOpenEmergency.addEventListener('click', openEmergencyModal);
+  }
   btnMenuEmergency.addEventListener('click', () => {
     closeDrawer();
     openEmergencyModal();
@@ -934,21 +1039,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==================== STORE PRODUCT QUANTITY COUNTERS ====================
-  document.querySelectorAll('.product-card').forEach(card => {
+  document.querySelectorAll('.product, .product-card').forEach(card => {
     const btnMinus = card.querySelector('.btn-store-minus');
     const btnPlus = card.querySelector('.btn-store-plus');
+    const qtySpan = card.querySelector('.store-qty-val');
     const inputQty = card.querySelector('.input-store-qty');
     const buyBtn = card.querySelector('.btn-buy-product');
 
-    if (btnMinus && btnPlus && inputQty) {
+    let currentQty = 1;
+
+    if (btnMinus && btnPlus) {
       btnMinus.addEventListener('click', () => {
-        let q = parseInt(inputQty.value) || 1;
-        if (q > 1) inputQty.value = q - 1;
+        if (currentQty > 1) {
+          currentQty--;
+          if (qtySpan) qtySpan.textContent = currentQty;
+          if (inputQty) inputQty.value = currentQty;
+        }
       });
 
       btnPlus.addEventListener('click', () => {
-        let q = parseInt(inputQty.value) || 1;
-        inputQty.value = q + 1;
+        if (currentQty < 50) {
+          currentQty++;
+          if (qtySpan) qtySpan.textContent = currentQty;
+          if (inputQty) inputQty.value = currentQty;
+        }
       });
     }
 
@@ -956,7 +1070,7 @@ document.addEventListener('DOMContentLoaded', () => {
       buyBtn.addEventListener('click', () => {
         const pName = buyBtn.dataset.product;
         const pPrice = parseInt(buyBtn.dataset.price);
-        const buyQty = inputQty ? (parseInt(inputQty.value) || 1) : 1;
+        const buyQty = currentQty;
 
         const existing = cart.find(x => x.name === pName);
         if (existing) existing.qty += buyQty;
@@ -964,6 +1078,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateCartUI();
         showToast(`Товар "${pName}" (${buyQty} шт) добавлен в корзину!`);
+        launchConfettiCannon();
       });
     }
   });
@@ -1413,7 +1528,7 @@ document.addEventListener('DOMContentLoaded', () => {
     switchHomeStage('payment');
   });
 
-  const paymentOptions = document.querySelectorAll('.payment-option');
+  const paymentMethods = document.querySelectorAll('.methods .method');
   const b2bInnContainer = document.getElementById('b2b-inn-container');
   const inputCompanyInn = document.getElementById('input-company-inn');
   const innBadgeStatus = document.getElementById('inn-badge-status');
@@ -1432,12 +1547,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  paymentOptions.forEach(pm => {
+  paymentMethods.forEach(pm => {
     pm.addEventListener('click', () => {
-      paymentOptions.forEach(p => p.classList.remove('active'));
-      pm.classList.add('active');
+      paymentMethods.forEach(p => p.classList.remove('selected'));
+      pm.classList.add('selected');
       selectedPayment = pm.dataset.method;
-      b2bInnContainer.style.display = selectedPayment === 'b2b_invoice' ? 'block' : 'none';
+      if (b2bInnContainer) {
+        b2bInnContainer.style.display = selectedPayment === 'b2b_invoice' ? 'block' : 'none';
+      }
     });
   });
 
@@ -1621,28 +1738,47 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateCartUI() {
     localStorage.setItem('lpg_cart', JSON.stringify(cart));
     const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
-    cartBadgeCount.textContent = totalCount;
+    if (cartBadgeCount) cartBadgeCount.textContent = totalCount;
 
+    const modalCart = document.getElementById('modal-cart');
     const list = document.getElementById('cart-items-list');
-    if (cart.length === 0) {
-      list.innerHTML = `<p style="text-align:center; color:#94a3b8; padding:20px 0;">Корзина пуста</p>`;
-    } else {
+    const emptyState = document.getElementById('cart-empty-state');
+    const browseBtn = document.getElementById('btn-cart-browse');
+    const checkoutBtn = document.getElementById('btn-cart-checkout');
+    const promoInput = document.getElementById('input-promocode');
+    const promoBtn = document.getElementById('btn-apply-promo');
+    const totalAmountEl = document.getElementById('cart-total-amount');
+
+    const isEmpty = cart.length === 0;
+
+    if (modalCart) {
+      modalCart.classList.toggle('empty-mode', isEmpty);
+    }
+
+    if (emptyState) emptyState.style.display = isEmpty ? 'flex' : 'none';
+    if (list) list.style.display = isEmpty ? 'none' : 'flex';
+    if (browseBtn) browseBtn.style.display = isEmpty ? 'flex' : 'none';
+    if (checkoutBtn) checkoutBtn.disabled = isEmpty;
+    if (promoInput) promoInput.disabled = isEmpty;
+    if (promoBtn) promoBtn.disabled = isEmpty;
+
+    if (!isEmpty && list) {
       list.innerHTML = cart.map((item, i) => `
-        <div class="cart-item-row">
-          <span>${item.name}</span>
-          <div class="cart-qty-ctrl">
-            <button class="qty-btn" onclick="changeQty(${i}, -1)">-</button>
-            <strong>${item.qty}</strong>
-            <button class="qty-btn" onclick="changeQty(${i}, 1)">+</button>
-            <span style="color:#ff6b00; margin-left:8px;">${(item.price * item.qty).toLocaleString()} UZS</span>
+        <div class="item">
+          <span class="name">${item.name}</span>
+          <div class="stepper">
+            <button type="button" onclick="changeQty(${i}, -1)">−</button>
+            <span>${item.qty}</span>
+            <button type="button" onclick="changeQty(${i}, 1)">+</button>
           </div>
+          <span class="price">${(item.price * item.qty).toLocaleString()} UZS</span>
         </div>
       `).join('');
     }
 
-    let rawTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    let rawTotal = isEmpty ? 0 : cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     let finalTotal = Math.round(rawTotal * (1 - appliedPromoDiscount / 100));
-    document.getElementById('cart-total-amount').textContent = `${finalTotal.toLocaleString()} UZS`;
+    if (totalAmountEl) totalAmountEl.textContent = `${finalTotal.toLocaleString()} UZS`;
   }
 
   window.changeQty = function(idx, delta) {
@@ -1655,6 +1791,14 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
     openModal('modal-cart');
   });
+
+  const btnCartBrowse = document.getElementById('btn-cart-browse');
+  if (btnCartBrowse) {
+    btnCartBrowse.addEventListener('click', () => {
+      closeModal('modal-cart');
+      switchScreen('screen-store');
+    });
+  }
 
   document.getElementById('btn-apply-promo').addEventListener('click', () => {
     const code = document.getElementById('input-promocode').value.trim().toUpperCase();

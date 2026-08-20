@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Poytug GNS — Дизайн-макет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gas-blue:#1E5F8C;
+    --gas-blue-light:#3E86BB;
+    --flame-orange:#E8622C;
+    --flame-orange-light:#FF8A5C;
+    --steel-gray:#3A3F47;
+    --steel-gray-light:#5B6270;
+    --warning-amber:#F4A623;
+    --safety-red:#D6392F;
+    --bg-dark:#12151A;
+    --panel-dark:#191D24;
+    --panel-dark-2:#20242C;
+    --hairline: rgba(255,255,255,0.08);
+    --text-hi: #F2F4F7;
+    --text-mid: #A8AEBB;
+    --text-lo: #6B7280;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(30,95,140,0.25), transparent 60%),
+      radial-gradient(900px 500px at 100% 10%, rgba(232,98,44,0.10), transparent 55%),
+      var(--bg-dark);
+    font-family:'Plus Jakarta Sans', sans-serif;
+    color:var(--text-hi);
+    min-height:100vh;
+    padding: 56px 24px 80px;
+  }
+  .page-head{
+    max-width:1180px;
+    margin:0 auto 48px;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--flame-orange-light);
+    padding:6px 12px;
+    border:1px solid rgba(232,98,44,0.35);
+    border-radius:100px;
+    background:rgba(232,98,44,0.08);
+    margin-bottom:20px;
+  }
+  .eyebrow span.dot{width:6px;height:6px;border-radius:50%;background:var(--flame-orange);}
+  h1{
+    font-size:clamp(28px, 4vw, 42px);
+    font-weight:800;
+    line-height:1.1;
+    margin:0 0 14px;
+    max-width:760px;
+    letter-spacing:-0.01em;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--flame-orange-light);
+  }
+  .page-head p{
+    color:var(--text-mid);
+    font-size:16px;
+    max-width:600px;
+    line-height:1.6;
+    margin:0;
+  }
+
+  .frames-row{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    gap:40px;
+    justify-content:center;
+    flex-wrap:wrap;
+    align-items:flex-start;
+  }
+  .frame-block{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+  }
+  .frame-label{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    color:var(--text-mid);
+    font-size:13px;
+  }
+  .frame-label b{color:var(--text-hi); font-size:14px; font-weight:700;}
+
+  .phone{
+    width:290px;
+    height:610px;
+    background:linear-gradient(160deg, #2A2F38, #191D24 40%);
+    border-radius:38px;
+    padding:12px;
+    box-shadow:
+      0 40px 80px -20px rgba(0,0,0,0.7),
+      0 0 0 1px rgba(255,255,255,0.04) inset;
+    position:relative;
+  }
+  .screen{
+    width:100%;
+    height:100%;
+    background:var(--panel-dark);
+    border-radius:28px;
+    overflow:hidden;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+  }
+  .notch{
+    position:absolute;
+    top:12px; left:50%; transform:translateX(-50%);
+    width:80px; height:18px;
+    background:#0d0f13;
+    border-radius:100px;
+    z-index:5;
+  }
+
+  /* ===== TOP BAR ===== */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:34px 18px 10px;
+  }
+  .topbar .greeting{font-size:11px; color:var(--text-lo); font-weight:600; letter-spacing:0.04em; text-transform:uppercase;}
+  .topbar .name{font-size:15px; font-weight:700; color:var(--text-hi);}
+  .icon-btn{
+    width:34px;height:34px;border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--panel-dark-2);
+    border:1px solid var(--hairline);
+    position:relative;
+  }
+  .icon-btn.sos{
+    border-color:rgba(214,57,47,0.45);
+    background:rgba(214,57,47,0.12);
+  }
+  .icon-btn.sos::after{
+    content:'104';
+    font-size:9px;font-weight:800;color:#FF6B60;
+  }
+  .icon-btn.sos::before{
+    content:'';position:absolute; top:5px; right:5px;
+    width:6px;height:6px;border-radius:50%;background:#FF453A;
+    box-shadow:0 0 8px 2px rgba(255,69,58,0.7);
+  }
+
+  /* ===== HOME / FILL SCREEN ===== */
+  .cylinder-select{
+    display:flex; gap:8px; padding:16px 18px 4px; overflow:hidden;
+  }
+  .cyl-chip{
+    flex:1;
+    padding:10px 8px;
+    border-radius:14px;
+    text-align:center;
+    border:1px solid var(--hairline);
+    background:var(--panel-dark-2);
+  }
+  .cyl-chip.active{
+    border-color:var(--flame-orange);
+    background:linear-gradient(160deg, rgba(232,98,44,0.18), rgba(232,98,44,0.04));
+  }
+  .cyl-chip .kg{font-size:15px;font-weight:800;color:var(--text-hi);}
+  .cyl-chip .price{font-size:10.5px;color:var(--text-mid); margin-top:2px;}
+
+  .stage{
+    flex:1;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px 0 0;
+  }
+  .stage::before{
+    content:'';
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(180deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 26px);
+    opacity:0.5;
+  }
+
+  .gauge{
+    position:absolute;
+    top:14px; right:22px;
+    width:56px; height:56px;
+    border-radius:50%;
+    background:var(--panel-dark-2);
+    border:1px solid var(--hairline);
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column;
+  }
+  .gauge .pct{font-size:13px; font-weight:800; color:var(--flame-orange-light);}
+  .gauge .lbl{font-size:7px; color:var(--text-lo); text-transform:uppercase; letter-spacing:0.05em;}
+
+  .hose{
+    position:absolute;
+    left:14px; top:46%;
+    width:58px; height:8px;
+    background:linear-gradient(90deg, var(--steel-gray-light), var(--steel-gray));
+    border-radius:6px;
+  }
+  .hose::after{
+    content:'';
+    position:absolute; right:-4px; top:-3px;
+    width:14px;height:14px;border-radius:4px;
+    background:var(--gas-blue-light);
+    box-shadow:0 0 10px 2px rgba(62,134,187,0.6);
+  }
+
+  .fill-status{
+    position:absolute;
+    bottom:14px; left:0; right:0;
+    text-align:center;
+    font-size:11px;
+    color:var(--gas-blue-light);
+    font-weight:700;
+    letter-spacing:0.03em;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+  }
+  .fill-status .led{width:6px;height:6px;border-radius:50%;background:#3DDC84; box-shadow:0 0 8px 2px rgba(61,220,132,0.6);}
+
+  .bottom-panel{
+    padding:14px 18px 16px;
+    border-top:1px solid var(--hairline);
+    background:linear-gradient(180deg, transparent, rgba(0,0,0,0.15));
+  }
+  .price-row{
+    display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;
+  }
+  .price-row .total-lbl{font-size:11px;color:var(--text-lo); text-transform:uppercase; letter-spacing:0.05em;}
+  .price-row .total-val{font-size:19px;font-weight:800;color:var(--text-hi);}
+  .cta{
+    width:100%;
+    padding:14px;
+    border-radius:16px;
+    background:linear-gradient(160deg, var(--flame-orange-light), var(--flame-orange));
+    color:#1A0D06;
+    font-weight:800;
+    font-size:14px;
+    text-align:center;
+    letter-spacing:0.02em;
+    box-shadow:0 12px 24px -8px rgba(232,98,44,0.55);
+  }
+
+  .navbar{
+    display:flex;
+    justify-content:space-around;
+    padding:10px 6px 14px;
+    border-top:1px solid var(--hairline);
+    background:var(--panel-dark);
+  }
+  .navitem{display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .navitem .ic{width:20px;height:20px;border-radius:6px;background:var(--panel-dark-2);}
+  .navitem.active .ic{background:var(--flame-orange);}
+  .navitem span{font-size:8.5px;color:var(--text-lo);}
+  .navitem.active span{color:var(--flame-orange-light); font-weight:700;}
+
+  /* ===== MAP SCREEN ===== */
+  .map-canvas{
+    flex:1; position:relative; overflow:hidden;
+    background:
+      linear-gradient(160deg, #171B22, #10131A);
+  }
+  .map-grid{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size:26px 26px;
+  }
+  .map-road{
+    position:absolute;
+    background:rgba(168,174,187,0.14);
+  }
+  .pin{
+    position:absolute;
+    width:30px;height:30px;
+    border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 16px -4px rgba(0,0,0,0.6);
+  }
+  .pin.station{background:linear-gradient(160deg, var(--gas-blue-light), var(--gas-blue));}
+  .pin.station::after{content:'●'; transform:rotate(45deg); color:white; font-size:9px;}
+  .pin.courier{background:linear-gradient(160deg, var(--flame-orange-light), var(--flame-orange)); width:24px;height:24px;}
+  .pin.courier::after{content:'▲'; transform:rotate(45deg); color:#1A0D06; font-size:8px;}
+  .filter-chips{
+    position:absolute; top:12px; left:14px; right:14px;
+    display:flex; gap:6px; overflow:hidden;
+  }
+  .fchip{
+    font-size:9.5px; padding:6px 10px; border-radius:100px;
+    background:rgba(25,29,36,0.85); backdrop-filter:blur(6px);
+    border:1px solid var(--hairline); color:var(--text-mid); white-space:nowrap;
+  }
+  .fchip.active{background:var(--gas-blue); color:white; border-color:var(--gas-blue-light); font-weight:700;}
+
+  .bottom-sheet{
+    position:absolute; left:10px; right:10px; bottom:10px;
+    background:var(--panel-dark-2);
+    border:1px solid var(--hairline);
+    border-radius:18px;
+    padding:14px;
+  }
+  .bs-handle{width:34px;height:3px;border-radius:2px;background:var(--hairline);margin:0 auto 10px;}
+  .bs-top{display:flex; justify-content:space-between; align-items:flex-start;}
+  .bs-title{font-size:13.5px;font-weight:800;color:var(--text-hi);}
+  .bs-sub{font-size:10.5px;color:var(--text-mid); margin-top:3px;}
+  .bs-status{
+    font-size:9px; font-weight:800; color:#3DDC84;
+    background:rgba(61,220,132,0.12);
+    padding:3px 8px; border-radius:100px;
+  }
+  .bs-route{
+    margin-top:12px; width:100%; padding:10px;
+    border-radius:12px; background:var(--gas-blue);
+    color:white; font-size:12px; font-weight:700; text-align:center;
+  }
+
+  /* ===== ACCOUNT SCREEN ===== */
+  .acc-body{padding:8px 18px 0; flex:1; overflow:hidden;}
+  .balance-card{
+    border-radius:18px;
+    padding:16px;
+    background:linear-gradient(150deg, #24303C, #1A222B);
+    border:1px solid var(--hairline);
+    margin-bottom:16px;
+  }
+  .balance-card .lbl{font-size:10px;color:var(--text-lo); text-transform:uppercase; letter-spacing:0.05em;}
+  .balance-card .val{font-size:22px;font-weight:800;color:var(--text-hi); margin:4px 0 8px;}
+  .balance-card .cb{
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:10.5px; color:var(--warning-amber); font-weight:700;
+    background:rgba(244,166,35,0.1); padding:4px 8px; border-radius:100px;
+  }
+  .settings-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:13px 2px;
+    border-bottom:1px solid var(--hairline);
+  }
+  .settings-row .left{display:flex; align-items:center; gap:11px;}
+  .settings-row .ic{width:30px;height:30px;border-radius:9px; background:var(--panel-dark-2); border:1px solid var(--hairline);}
+  .settings-row .t{font-size:13px; color:var(--text-hi); font-weight:600;}
+  .settings-row .t2{font-size:10px; color:var(--text-lo); margin-top:1px;}
+  .toggle{
+    width:36px;height:20px;border-radius:100px;
+    background:var(--flame-orange);
+    position:relative;
+  }
+  .toggle::after{content:''; position:absolute; top:2px; right:2px; width:16px;height:16px;border-radius:50%; background:white;}
+
+  /* ===== token legend ===== */
+  .legend{
+    max-width:1180px; margin:64px auto 0;
+    display:flex; gap:28px; flex-wrap:wrap;
+    padding-top:32px; border-top:1px solid var(--hairline);
+  }
+  .legend h3{font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-lo); margin:0 0 14px; width:100%;}
+  .swatch{display:flex; align-items:center; gap:10px;}
+  .swatch .sq{width:28px;height:28px;border-radius:8px; box-shadow:0 0 0 1px var(--hairline) inset;}
+  .swatch .info{font-size:11.5px;}
+  .swatch .info b{display:block; color:var(--text-hi); font-size:12.5px;}
+  .swatch .info span{color:var(--text-lo);}
+</style>
+</head>
+<body>
+
+  <div class="page-head">
+    <div class="eyebrow"><span class="dot"></span>Дизайн-макет · Poytug GNS</div>
+    <h1>Как приложение должно <em>выглядеть и ощущаться</em></h1>
+    <p>Тёмная тема как основная — премиальный, промышленно-точный вид, где баллон, вентиль и манометр читаются как настоящие объекты, а не иконки из библиотеки. Один фирменный момент — подключение и заполнение баллона — держит на себе всё внимание.</p>
+  </div>
+
+  <div class="frames-row">
+
+    <!-- HOME / FILL -->
+    <div class="frame-block">
+      <div class="frame-label"><b>Заправка СУГ</b> · главный экран</div>
+      <div class="phone">
+        <div class="screen">
+          <div class="notch"></div>
+          <div class="topbar">
+            <div>
+              <div class="greeting">Добрый день</div>
+              <div class="name">Азиз, Чиланзар</div>
+            </div>
+            <div class="icon-btn sos"></div>
+          </div>
+
+          <div class="cylinder-select">
+            <div class="cyl-chip"><div class="kg">10 кг</div><div class="price">45 000</div></div>
+            <div class="cyl-chip active"><div class="kg">20 кг</div><div class="price">75 000</div></div>
+            <div class="cyl-chip"><div class="kg">50 кг</div><div class="price">180 000</div></div>
+          </div>
+
+          <div class="stage">
+            <div class="gauge"><div class="pct">68%</div><div class="lbl">bar</div></div>
+            <div class="hose"></div>
+            <svg width="120" height="200" viewBox="0 0 120 200">
+              <defs>
+                <linearGradient id="cylBody" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#5B6270"/>
+                  <stop offset="45%" stop-color="#8B92A0"/>
+                  <stop offset="55%" stop-color="#6B7280"/>
+                  <stop offset="100%" stop-color="#3A3F47"/>
+                </linearGradient>
+                <linearGradient id="gasWave" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stop-color="#1E5F8C"/>
+                  <stop offset="100%" stop-color="#3E86BB"/>
+                </linearGradient>
+                <clipPath id="bodyClip">
+                  <rect x="22" y="46" width="76" height="140" rx="14"/>
+                </clipPath>
+              </defs>
+              <!-- collar -->
+              <rect x="38" y="10" width="44" height="16" rx="4" fill="#8B92A0"/>
+              <rect x="44" y="0" width="32" height="14" rx="3" fill="#B8C0CC"/>
+              <!-- valve -->
+              <circle cx="60" cy="34" r="9" fill="#C9A24B"/>
+              <rect x="56" y="26" width="8" height="10" fill="#B8933F"/>
+              <!-- body -->
+              <rect x="22" y="46" width="76" height="140" rx="14" fill="url(#cylBody)" stroke="#252932" stroke-width="1.5"/>
+              <!-- gas fill -->
+              <g clip-path="url(#bodyClip)">
+                <rect x="22" y="106" width="76" height="80" fill="url(#gasWave)" opacity="0.88"/>
+                <path d="M22,106 Q41,98 60,106 T98,106 V186 H22 Z" fill="#3E86BB" opacity="0.55"/>
+              </g>
+              <!-- base -->
+              <rect x="14" y="180" width="92" height="14" rx="6" fill="#2E323A"/>
+              <!-- label band -->
+              <rect x="22" y="82" width="76" height="20" fill="#E8622C" opacity="0.92"/>
+              <text x="60" y="96" text-anchor="middle" font-size="10" font-weight="800" fill="#1A0D06" font-family="Plus Jakarta Sans">POYTUG</text>
+            </svg>
+            <div class="fill-status"><div class="led"></div>Заправляется · 68%</div>
+          </div>
+
+          <div class="bottom-panel">
+            <div class="price-row">
+              <div><div class="total-lbl">К оплате</div><div class="total-val">75 000 UZS</div></div>
+              <div style="text-align:right"><div class="total-lbl">Доставка</div><div class="total-val" style="font-size:13px;color:var(--text-mid);">~25 мин</div></div>
+            </div>
+            <div class="cta">ЗАПРАВИТЬ</div>
+          </div>
+
+          <div class="navbar">
+            <div class="navitem active"><div class="ic"></div><span>Заправка</span></div>
+            <div class="navitem"><div class="ic"></div><span>Карта</span></div>
+            <div class="navitem"><div class="ic"></div><span>Магазин</span></div>
+            <div class="navitem"><div class="ic"></div><span>Кабинет</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAP -->
+    <div class="frame-block">
+      <div class="frame-label"><b>Карта</b> · станции и курьер</div>
+      <div class="phone">
+        <div class="screen">
+          <div class="notch"></div>
+          <div class="map-canvas">
+            <div class="map-grid"></div>
+            <div class="map-road" style="top:70px;left:0;right:0;height:10px;transform:skewY(-3deg);"></div>
+            <div class="map-road" style="top:0;bottom:0;left:120px;width:8px;transform:skewX(-6deg);"></div>
+            <div class="map-road" style="top:220px;left:0;right:0;height:7px;"></div>
+
+            <div class="filter-chips">
+              <div class="fchip active">Все</div>
+              <div class="fchip">ГНС склады</div>
+              <div class="fchip">Обмен</div>
+              <div class="fchip">АГЗС</div>
+            </div>
+
+            <div class="pin station" style="top:96px; left:60px;"></div>
+            <div class="pin station" style="top:180px; left:190px;"></div>
+            <div class="pin courier" style="top:150px; left:130px;"></div>
+            <div class="pin station" style="top:260px; left:70px;"></div>
+
+            <div class="bottom-sheet">
+              <div class="bs-handle"></div>
+              <div class="bs-top">
+                <div>
+                  <div class="bs-title">ГНС База · Чиланзар</div>
+                  <div class="bs-sub">ул. Бунёдкор, 24 · 1.2 км</div>
+                </div>
+                <div class="bs-status">Открыто</div>
+              </div>
+              <div class="bs-route">Построить маршрут</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT -->
+    <div class="frame-block">
+      <div class="frame-label"><b>Личный кабинет</b> · профиль</div>
+      <div class="phone">
+        <div class="screen">
+          <div class="notch"></div>
+          <div class="topbar">
+            <div>
+              <div class="greeting">Профиль</div>
+              <div class="name">+998 90 123-45-67</div>
+            </div>
+            <div class="icon-btn"></div>
+          </div>
+
+          <div class="acc-body">
+            <div class="balance-card">
+              <div class="lbl">Мой баланс</div>
+              <div class="val">128 400 UZS</div>
+              <div class="cb">+2% кэшбэк за заправку</div>
+            </div>
+
+            <div class="settings-row">
+              <div class="left"><div class="ic"></div>
+                <div><div class="t">2FA-защита</div><div class="t2">Пароль + SMS OTP</div></div>
+              </div>
+              <div class="bs-status" style="font-size:9px;">Активна</div>
+            </div>
+            <div class="settings-row">
+              <div class="left"><div class="ic"></div>
+                <div><div class="t">Карты</div><div class="t2">Uzcard •• 4821</div></div>
+              </div>
+              <div style="color:var(--text-lo);font-size:14px;">›</div>
+            </div>
+            <div class="settings-row">
+              <div class="left"><div class="ic"></div>
+                <div><div class="t">Адреса</div><div class="t2">Дом, Дача</div></div>
+              </div>
+              <div style="color:var(--text-lo);font-size:14px;">›</div>
+            </div>
+            <div class="settings-row" style="border-bottom:none;">
+              <div class="left"><div class="ic"></div>
+                <div><div class="t">Тёмная тема</div><div class="t2">Dark mode</div></div>
+              </div>
+              <div class="toggle"></div>
+            </div>
+          </div>
+
+          <div class="navbar">
+            <div class="navitem"><div class="ic"></div><span>Заправка</span></div>
+            <div class="navitem"><div class="ic"></div><span>Карта</span></div>
+            <div class="navitem"><div class="ic"></div><span>Магазин</span></div>
+            <div class="navitem active"><div class="ic"></div><span>Кабинет</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="legend">
+    <h3>Токены дизайн-системы</h3>
+    <div class="swatch"><div class="sq" style="background:#1E5F8C;"></div><div class="info"><b>Gas Blue</b><span>#1E5F8C — доверие, газ</span></div></div>
+    <div class="swatch"><div class="sq" style="background:#E8622C;"></div><div class="info"><b>Flame Orange</b><span>#E8622C — действие, CTA</span></div></div>
+    <div class="swatch"><div class="sq" style="background:#3A3F47;"></div><div class="info"><b>Steel Gray</b><span>#3A3F47 — металл, баллон</span></div></div>
+    <div class="swatch"><div class="sq" style="background:#F4A623;"></div><div class="info"><b>Warning Amber</b><span>#F4A623 — статус в пути</span></div></div>
+    <div class="swatch"><div class="sq" style="background:#D6392F;"></div><div class="info"><b>Safety Red</b><span>#D6392F — только 104</span></div></div>
+  </div>
+
+</body>
+</html>
