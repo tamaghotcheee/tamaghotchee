@@ -9,10 +9,10 @@
   <meta name="description" content="Poytug GNS — Экспресс заправка и оптовая доставка газовых баллонов (от 10 шт.) в Узбекистане. Онлайн оплата Click, Payme, Uzum, Е-фактура.">
   <meta name="keywords" content="Poytug GNS, LPG gas, пропан бутан, заправка баллонов, оптовая доставка газа, Ташкент, Е-фактура">
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Apple SF Pro equivalent for Cyrillic & Latin (Inter) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -78,7 +78,7 @@
             <span id="drawer-user-phone" style="font-size:12.5px; color:var(--text-2);">+998 (90) •••-••-••</span>
           </div>
         </div>
-        <button class="nav-btn close-drawer-btn" id="btn-close-drawer" aria-label="Close Drawer">
+        <button class="close-drawer-btn" id="btn-close-drawer" aria-label="Close Drawer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <path d="M18 6 6 18M6 6l12 12"/>
           </svg>
@@ -92,10 +92,10 @@
             <div class="l" data-i18n="myBalance" style="font-size:12px;">Мой баланс</div>
             <div class="v" id="menu-balance-amount" style="font-size:18px;">25 000 UZS</div>
           </div>
-          <div class="top-up" style="padding:6px 12px; font-size:12px;">Пополнить</div>
+          <div class="top-up" data-i18n="topUp" style="padding:6px 12px; font-size:12px;">Пополнить</div>
         </div>
 
-        <div class="section-label">Управление</div>
+        <div class="section-label" data-i18n="sectionManagement">Управление</div>
         <div class="list" style="margin-bottom:14px;">
           <div class="row" id="btn-menu-emergency">
             <div class="ic danger">
@@ -105,7 +105,7 @@
                 <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
             </div>
-            <div class="label danger">Безопасность 104</div>
+            <div class="label danger" data-i18n="menuSafety104">Безопасность 104</div>
             <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
           </div>
 
@@ -131,7 +131,7 @@
           </div>
         </div>
 
-        <div class="section-label">Информация</div>
+        <div class="section-label" data-i18n="sectionInfo">Информация</div>
         <div class="list" style="margin-bottom:14px;">
           <div class="row" id="btn-menu-about">
             <div class="ic">
@@ -168,7 +168,7 @@
       </div>
 
       <div class="drawer-footer">
-        <p class="footnote" style="margin:0;">Poytug GNS v3.2 · 2FA Protected</p>
+        <p class="footnote" style="margin:0;">Poytug GNS · 2FA Protected</p>
       </div>
     </aside>
 
@@ -180,7 +180,7 @@
         <div class="progress-track">
           <div class="progress-fill" id="auth-progress-fill" style="width: 50%;"></div>
         </div>
-        <div class="progress-label" id="auth-progress-label">Шаг 1 из 2 · Данные</div>
+        <div class="progress-label" id="auth-progress-label" data-i18n="step1of2">Шаг 1 из 2 · Данные</div>
 
         <div class="auth-content">
           <!-- Form Header with Mark Icon -->
@@ -190,8 +190,8 @@
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
               </svg>
             </div>
-            <h1 id="auth-main-title">Вход в аккаунт</h1>
-            <p id="auth-main-sub">Введите номер телефона и пароль</p>
+            <h1 id="auth-main-title" data-i18n="authMainTitle">Вход в аккаунт</h1>
+            <p id="auth-main-sub" data-i18n="authMainSub">Введите номер телефона и пароль</p>
           </div>
 
           <!-- Apple Segmented Control (Вход / Регистрация) -->
@@ -228,7 +228,7 @@
 
               <div class="row-between">
                 <span class="forgot" id="btn-forgot-pwd" data-i18n="forgotPassword">Забыли пароль?</span>
-                <span style="font-size:12px; color:var(--text-3); font-weight:600;">Демо: 123456</span>
+                <span style="font-size:12px; color:var(--text-3); font-weight:600;" data-i18n="demoHint">Демо: 123456</span>
               </div>
 
               <button type="button" class="cta" id="btn-login-next">
@@ -236,7 +236,7 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </button>
 
-              <button type="button" class="guest-btn" id="btn-auth-skip-link">Продолжить без входа</button>
+              <button type="button" class="guest-btn" id="btn-auth-skip-link" data-i18n="btnContinueGuest">Продолжить без входа</button>
             </div>
 
             <!-- Login Step 2: 2FA SMS Verification -->
@@ -335,7 +335,7 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </button>
 
-              <button type="button" class="guest-btn" id="btn-auth-skip-link-reg">Продолжить без входа</button>
+              <button type="button" class="guest-btn" id="btn-auth-skip-link-reg" data-i18n="btnContinueGuest">Продолжить без входа</button>
             </div>
 
             <!-- Register Step 2: 2FA SMS Verification -->
@@ -372,7 +372,7 @@
 
           </div>
 
-          <p class="footnote">Нажимая «Продолжить», вы соглашаетесь с правилами безопасности Poytug GNS</p>
+          <p class="footnote" data-i18n="authDisclaimer">Нажимая «Продолжить», вы соглашаетесь с правилами безопасности Poytug GNS</p>
         </div>
       </div>
     </section>
@@ -392,7 +392,7 @@
         <div class="cylinder-visual-container">
           <div class="refuel-status-pill" id="refuel-live-status">
             <span class="status-dot"></span>
-            <span id="refuel-status-text">Баллон готов к заправке</span>
+            <span id="refuel-status-text" data-i18n="refuelReady">Баллон готов к заправке</span>
           </div>
 
           <svg class="realistic-cylinder-svg" id="home-cylinder-svg" viewBox="0 0 340 400" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
@@ -498,15 +498,15 @@
                 <text x="0" y="12" font-size="5" font-weight="900" fill="#fff" text-anchor="middle">2</text>
               </g>
               <!-- Brand Title Stencil -->
-              <text x="180" y="182" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="14" fill="#ffffff" text-anchor="middle" letter-spacing="1">POYTUG GNS</text>
-              <text x="180" y="194" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="8.5" fill="#ffedd5" text-anchor="middle" letter-spacing="2">ПРОПАН-БУТАН</text>
+              <text x="180" y="182" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" font-weight="900" font-size="14" fill="#ffffff" text-anchor="middle" letter-spacing="1">POYTUG GNS</text>
+              <text x="180" y="194" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" font-weight="700" font-size="8.5" fill="#ffedd5" text-anchor="middle" letter-spacing="2">ПРОПАН-БУТАН</text>
               
             </g>
 
             <!-- Live Status Badge on Cylinder Body -->
             <g id="cyl-status-badge-group" transform="translate(180, 272)">
               <rect id="cyl-status-rect" x="-48" y="-12" width="96" height="24" rx="12" fill="rgba(0,0,0,0.75)" stroke="#ef4444" stroke-width="1.5"/>
-              <text id="cyl-status-text" x="0" y="4" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="800" fill="#ef4444" text-anchor="middle">ПУСТОЙ 0%</text>
+              <text id="cyl-status-text" x="0" y="4" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" font-size="10" font-weight="800" fill="#ef4444" text-anchor="middle">ПУСТОЙ 0%</text>
             </g>
 
             <!-- ==================== TOP PROTECTIVE COLLAR (Воротник с ручками) ==================== -->
@@ -634,13 +634,13 @@
                     <!-- Stencil Badge & Typography -->
                     <polygon points="65,65 73,73 65,81 57,73" fill="#dc2626" stroke="#fff" stroke-width="0.8"/>
                     <text x="65" y="77" font-size="6" font-weight="900" fill="#fff" text-anchor="middle">🔥</text>
-                    <text x="65" y="90" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="8.5" fill="#ffffff" text-anchor="middle">POYTUG</text>
-                    <text x="65" y="112" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="8" fill="#ffedd5" text-anchor="middle" letter-spacing="1">10 KG</text>
-                    <text x="65" y="122" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="6" fill="#fed7aa" text-anchor="middle" letter-spacing="1.5">ПРОПАН</text>
+                    <text x="65" y="90" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" font-weight="900" font-size="8.5" fill="#ffffff" text-anchor="middle">POYTUG</text>
+                    <text x="65" y="112" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" font-weight="800" font-size="8" fill="#ffedd5" text-anchor="middle" letter-spacing="1">10 KG</text>
+                    <text x="65" y="122" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" font-weight="700" font-size="6" fill="#fed7aa" text-anchor="middle" letter-spacing="1.5">ПРОПАН</text>
                   </svg>
                 </div>
                 <div class="card-details">
-                  <h3>Баллон 10 КГ</h3>
+                  <h3 data-i18n="cyl10Title">Баллон 10 КГ</h3>
                   <p class="price-tag">45 000 UZS</p>
                   <span class="info-pill" data-i18n="pillCompact">Компактный / Дача</span>
                 </div>
@@ -686,13 +686,13 @@
                     <!-- Stencil Badge & Typography -->
                     <polygon points="65,56 74,65 65,74 56,65" fill="#dc2626" stroke="#fff" stroke-width="0.8"/>
                     <text x="65" y="68" font-size="6" font-weight="900" fill="#fff" text-anchor="middle">🔥</text>
-                    <text x="65" y="82" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="9" fill="#ffffff" text-anchor="middle">POYTUG</text>
-                    <text x="65" y="106" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="8.5" fill="#ffedd5" text-anchor="middle" letter-spacing="1">20 KG</text>
-                    <text x="65" y="118" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="6" fill="#fca5a5" text-anchor="middle" letter-spacing="1.5">ПРОПАН-БУТАН</text>
+                    <text x="65" y="82" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" font-weight="900" font-size="9" fill="#ffffff" text-anchor="middle">POYTUG</text>
+                    <text x="65" y="106" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" font-weight="800" font-size="8.5" fill="#ffedd5" text-anchor="middle" letter-spacing="1">20 KG</text>
+                    <text x="65" y="118" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" font-weight="700" font-size="6" fill="#fca5a5" text-anchor="middle" letter-spacing="1.5">ПРОПАН-БУТАН</text>
                   </svg>
                 </div>
                 <div class="card-details">
-                  <h3>Баллон 20 КГ</h3>
+                  <h3 data-i18n="cyl20Title">Баллон 20 КГ</h3>
                   <p class="price-tag">75 000 UZS</p>
                   <span class="info-pill" data-i18n="pillBestHome">Для дома и кухни</span>
                 </div>
@@ -706,7 +706,7 @@
         <!-- Quantity Selector Widget for Bulk/Wholesale Order -->
         <div class="cylinder-quantity-box glass-panel">
           <div class="qty-row">
-            <span class="qty-title">Количество баллонов:</span>
+            <span class="qty-title" data-i18n="cylQuantityLabel">Количество баллонов:</span>
             <div class="qty-counter-control">
               <button class="qty-counter-btn" id="btn-qty-minus">-</button>
               <input type="number" id="input-cyl-qty" value="1" min="1" max="100">
@@ -716,8 +716,8 @@
           
           <!-- B2B Wholesale Badge Notification -->
           <div class="wholesale-discount-badge" id="wholesale-badge" style="display:none;">
-            🏷️ <strong>ОПТОВЫЙ ЗАКАЗ (от 10 шт.)</strong>
-            <p>Оптовая скидка до 15% + Доставка спец-транспортом + Е-Фактура</p>
+            🏷️ <strong data-i18n="wholesaleDiscountTitle">ОПТОВЫЙ ЗАКАЗ (от 10 шт.)</strong>
+            <p data-i18n="wholesaleDiscountDesc">Оптовая скидка от 15% + доставка спец-транспортом + Э-фактура</p>
           </div>
         </div>
 
@@ -739,7 +739,7 @@
             <p style="font-size: 14px; color: var(--text-2); margin: 0;" data-i18n="addressSelectSub">Выберите сохранённый адрес или укажите новый</p>
           </div>
 
-          <div class="section-label" style="margin-bottom: 12px;">СОХРАНЁННЫЕ АДРЕСА</div>
+          <div class="section-label" style="margin-bottom: 12px;" data-i18n="savedAddresses">СОХРАНЁННЫЕ АДРЕСА</div>
 
           <div class="address-card-group" id="address-options-container">
             <!-- Dynamic items matching the screenshot -->
@@ -748,8 +748,8 @@
           <!-- Empty state if 0 saved addresses -->
           <div class="address-empty-card glass-panel" id="address-empty-state" style="display:none;">
             <i class="fa-solid fa-map-location-dot empty-addr-icon"></i>
-            <h4>Нет сохраненных адресов</h4>
-            <p>Добавьте адрес доставки для быстрого заказа</p>
+            <h4 data-i18n="noSavedAddresses">Нет сохраненных адресов</h4>
+            <p data-i18n="addAddressPrompt">Добавьте адрес доставки для быстрого заказа</p>
           </div>
 
           <button class="add-address-dashed-btn" id="btn-show-add-address" type="button">
@@ -784,16 +784,16 @@
 
           <!-- Quick Address Tags -->
           <div class="address-tag-chips" id="address-tag-chips">
-            <button type="button" class="tag-chip active" data-title="Дом" data-icon="🏠">🏠 Дом</button>
-            <button type="button" class="tag-chip" data-title="Дача" data-icon="🏡">🏡 Дача</button>
-            <button type="button" class="tag-chip" data-title="Работа" data-icon="🏢">🏢 Работа</button>
-            <button type="button" class="tag-chip" data-title="Другое" data-icon="📍">📍 Другое</button>
+            <button type="button" class="tag-chip active" data-title="Дом" data-icon="🏠"><span data-i18n="addrHome">🏠 Дом</span></button>
+            <button type="button" class="tag-chip" data-title="Дача" data-icon="🏡"><span data-i18n="addrDacha">🏡 Дача</span></button>
+            <button type="button" class="tag-chip" data-title="Работа" data-icon="🏢"><span data-i18n="addrWork">🏢 Работа</span></button>
+            <button type="button" class="tag-chip" data-title="Другое" data-icon="📍"><span data-i18n="addrOther">📍 Другое</span></button>
           </div>
 
           <div class="custom-address-box">
             <div class="input-icon-wrapper">
               <i class="fa-solid fa-location-dot"></i>
-              <input type="text" id="input-custom-address" placeholder="Район, улица, дом, ориентир...">
+              <input type="text" id="input-custom-address" placeholder="Район, улица, дом, ориентир..." data-i18n-placeholder="mapSearchPlaceholder">
             </div>
 
             <!-- Embedded Direct Interactive Pinpoint Map -->
@@ -804,7 +804,7 @@
               </button>
               <div class="map-overlay-hint">
                 <i class="fa-solid fa-hand-pointer"></i>
-                <span id="embedded-map-status-text">Нажмите на карту для выбора точки доставки</span>
+                <span id="embedded-map-status-text" data-i18n="mapOverlayHint">Нажмите на карту для выбора точки доставки</span>
               </div>
             </div>
           </div>
@@ -844,7 +844,7 @@
         </div>
 
         <!-- Section Label -->
-        <div class="section-label">Способ оплаты</div>
+        <div class="section-label" data-i18n="paymentMethodSection">Способ оплаты</div>
 
         <!-- Payment Methods List -->
         <div class="methods">
@@ -887,8 +887,8 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M9 15h6M9 11h2"/></svg>
             </div>
             <div class="info">
-              <h3>Перечислением (E-Фактура)</h3>
-              <p>Для юрлиц и организаций с выпиской счёта</p>
+              <h3 data-i18n="payInvoice">Перечислением (E-Фактура)</h3>
+              <p data-i18n="payInvoiceSub">Для юрлиц и организаций с выпиской счёта</p>
             </div>
             <div class="radio"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
           </div>
@@ -898,7 +898,7 @@
         <!-- B2B INN Field Container -->
         <div class="b2b-inn-container" id="b2b-inn-container" style="display:none; margin-bottom: 20px;">
           <div class="field" style="margin-bottom:0;">
-            <label for="input-company-inn">ИНН Компании / Организации (9 цифр)</label>
+            <label for="input-company-inn" data-i18n="innLabel">ИНН Компании / Организации (9 цифр)</label>
             <div class="field-box">
               <span class="icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
@@ -989,7 +989,7 @@
         <div class="map-top-overlay">
           <div class="map-search-bar">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Поиск АГЗС и станций заправки..." id="input-map-search">
+            <input type="text" placeholder="Поиск станции ГНС в Ташкенте..." id="input-map-search" data-i18n-placeholder="mapSearchPlaceholder">
             <button class="icon-btn locate-me-btn" id="btn-map-locate-me" title="Мое местоположение">
               <i class="fa-solid fa-crosshairs"></i>
             </button>
@@ -1013,7 +1013,7 @@
                 <i class="fa-solid fa-route"></i> <span data-i18n="btnBuildRoute">Маршрут</span>
               </button>
               <button class="primary-btn btn-sm btn-success ripple-btn" id="btn-order-from-station">
-                <i class="fa-solid fa-bolt"></i> Заказать отсюда
+                <i class="fa-solid fa-bolt"></i> <span data-i18n="btnOrderHere">Заказать отсюда</span>
               </button>
             </div>
           </div>
@@ -1025,8 +1025,8 @@
     <!-- ==================== SCREEN 3: CYLINDER STORE (APPLE OLED LUXURY - NO SCROLL) ==================== -->
     <section class="app-screen" id="screen-store">
       <div class="page-header">
-        <h1 data-i18n="storeTitle">Магазин газовых баллонов</h1>
-        <p data-i18n="storeSub">Новые пустые и заправленные баллоны с гарантией</p>
+        <h1 data-i18n="storeTitle">Магазин газового оборудования</h1>
+        <p data-i18n="storeSub">Новые сертифицированные баллоны, плиты и аксессуары</p>
       </div>
 
       <div class="products">
@@ -1035,16 +1035,16 @@
         <div class="product" data-product-id="store-20kg">
           <div class="product-top">
             <div class="thumb">
-              <span class="badge">ХИТ</span>
+              <span class="badge" data-i18n="badgeHit">ХИТ</span>
               <img src="assets/cylinder_20kg.jpg" alt="Баллон 20 кг" loading="lazy">
             </div>
             <div class="product-info">
-              <h3>Газовый баллон 20 КГ (Новый)</h3>
-              <p>Высокопрочный стальной баллон с предохранительным клапаном</p>
+              <h3 data-i18n="prod1Title">Баллон металл 20 кг (Новый)</h3>
+              <p data-i18n="prod1Desc">Высокая прочность стали + предохранительный клапан</p>
             </div>
           </div>
           <div class="product-bottom">
-            <div class="price"><small>Цена</small>480 000 UZS</div>
+            <div class="price"><small data-i18n="priceLabel">Цена</small>480 000 UZS</div>
             <div class="buy-controls">
               <div class="stepper">
                 <button type="button" class="btn-store-minus">−</button>
@@ -1063,16 +1063,16 @@
         <div class="product" data-product-id="store-10kg">
           <div class="product-top">
             <div class="thumb">
-              <span class="badge compact">Компакт</span>
+              <span class="badge compact" data-i18n="badgeCompact">Компакт</span>
               <img src="assets/cylinder_10kg.jpg" alt="Баллон 10 кг" loading="lazy">
             </div>
             <div class="product-info">
-              <h3>Газовый баллон 10 КГ (Новый)</h3>
-              <p>Удобный портативный баллон для дачи, гриля и походов</p>
+              <h3 data-i18n="prod3Title">Баллон металл 10 кг (Новый)</h3>
+              <p data-i18n="prod3Desc">Компактный баллон для дачи, гриля и походов</p>
             </div>
           </div>
           <div class="product-bottom">
-            <div class="price"><small>Цена</small>340 000 UZS</div>
+            <div class="price"><small data-i18n="priceLabel">Цена</small>340 000 UZS</div>
             <div class="buy-controls">
               <div class="stepper">
                 <button type="button" class="btn-store-minus">−</button>
@@ -1094,12 +1094,12 @@
               <img src="assets/regulator.jpg" alt="Редуктор и шланг" loading="lazy">
             </div>
             <div class="product-info">
-              <h3>Комплект: Редуктор + Шланг 2м</h3>
-              <p>Итальянский редуктор давления газа и армированный шланг с манометром</p>
+              <h3 data-i18n="prod2Title">Комплект: Редуктор + Шланг 2м</h3>
+              <p data-i18n="prod2Desc">Металлический редуктор низкого давления + армированный шланг с хомутами</p>
             </div>
           </div>
           <div class="product-bottom">
-            <div class="price"><small>Цена</small>120 000 UZS</div>
+            <div class="price"><small data-i18n="priceLabel">Цена</small>120 000 UZS</div>
             <div class="buy-controls">
               <div class="stepper">
                 <button type="button" class="btn-store-minus">−</button>
@@ -1142,11 +1142,11 @@
             <div class="l" data-i18n="myBalance">Мой баланс</div>
             <div class="v" id="acc-balance-display">25 000 UZS</div>
           </div>
-          <div class="top-up" id="btn-topup-balance">Пополнить</div>
+          <div class="top-up" id="btn-topup-balance" data-i18n="topUp">Пополнить</div>
         </div>
 
         <!-- Section: Управление -->
-        <div class="section-label">Управление</div>
+        <div class="section-label" data-i18n="sectionManagement">Управление</div>
         <div class="list">
           <div class="row" id="btn-acc-security">
             <div class="ic danger">
@@ -1237,7 +1237,7 @@
                 <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
             </div>
-            <div class="label danger">Аварийная служба газа 104</div>
+            <div class="label danger" data-i18n="emergencyServiceTitle">Аварийная служба газа 104</div>
             <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
           </div>
         </div>
@@ -1254,7 +1254,7 @@
           </div>
         </div>
 
-        <p class="footnote">Poytug GNS v3.2 · 2FA Protected</p>
+        <p class="footnote">Poytug GNS · 2FA Protected</p>
       </div>
     </section>
 
@@ -1273,12 +1273,12 @@
 
       <button class="nav-item" data-target="screen-store">
         <i class="fa-solid fa-store"></i>
-        <span data-i18n="navStore">Баллоны</span>
+        <span data-i18n="navStore">Магазин</span>
       </button>
 
       <button class="nav-item" data-target="screen-account">
         <i class="fa-solid fa-circle-user"></i>
-        <span data-i18n="navAccount">Аккаунт</span>
+        <span data-i18n="navAccount">Профиль</span>
       </button>
     </nav>
 
@@ -1291,31 +1291,31 @@
         <button class="modal-close" data-close="modal-emergency"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
           <div class="modal-icon-header red-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-          <h3 class="emergency-modal-title">Аварийная Газовая Служба 104</h3>
-          <p class="modal-sub-desc">Инструкция по безопасности при обнаружении запаха газа СУГ:</p>
+          <h3 class="emergency-modal-title" data-i18n="emergencyServiceTitle">Аварийная служба газа 104</h3>
+          <p class="modal-sub-desc" data-i18n="emergencyServiceSub">Экстренные инструкции при обнаружении запаха газа</p>
           
           <div class="safety-steps-list">
             <div class="safety-step-item">
               <span class="step-num">1</span>
-              <span class="step-text">Немедленно перекройте вентиль газового баллона.</span>
+              <span class="step-text" data-i18n="safetyStep1">Немедленно перекройте вентиль на баллоне.</span>
             </div>
             <div class="safety-step-item">
               <span class="step-num">2</span>
-              <span class="step-text">Откройте все окна и двери для проветривания.</span>
+              <span class="step-text" data-i18n="safetyStep2">Откройте окна и двери для проветривания.</span>
             </div>
             <div class="safety-step-item">
               <span class="step-num">3</span>
-              <span class="step-text">Не включайте выключатели света, выдерните приборы.</span>
+              <span class="step-text" data-i18n="safetyStep3">Не включайте выключатели света, электроприборы и спички.</span>
             </div>
             <div class="safety-step-item">
               <span class="step-num">4</span>
-              <span class="step-text">Покиньте помещение и вызовите службу 104.</span>
+              <span class="step-text" data-i18n="safetyStep4">Выйдите из помещения и вызовите аварийную службу 104.</span>
             </div>
           </div>
 
           <button class="primary-btn btn-full btn-danger-call ripple-btn" id="btn-call-104-direct">
             <i class="fa-solid fa-phone"></i>
-            <span>Вызвать Аварийную 104</span>
+            <span data-i18n="btnCall104">Вызвать аварийную 104</span>
           </button>
         </div>
       </div>
@@ -1328,23 +1328,23 @@
         <div class="modal-body">
           <div class="fiscal-receipt-paper">
             <div class="receipt-header-logo">🔥 Poytug GNS</div>
-            <p class="receipt-sub">Электронный Фискальный Чек</p>
+            <p class="receipt-sub" data-i18n="fiscalReceiptTitle">Электронный фискальный чек</p>
             <hr class="dashed-hr">
             
-            <div class="receipt-row"><span>Чек №:</span> <strong id="rec-code">LPG-9921</strong></div>
+            <div class="receipt-row"><span data-i18n="orderHistory">Чек №:</span> <strong id="rec-code">LPG-9921</strong></div>
             <div class="receipt-row"><span>Дата:</span> <span id="rec-date">17.08.2026 13:40</span></div>
             <div class="receipt-row"><span>Клиент:</span> <span>Алишер Каримов</span></div>
             <hr class="dashed-hr">
 
-            <div class="receipt-row"><span>Товар:</span> <strong id="rec-item">Заправка 20 кг</strong></div>
+            <div class="receipt-row"><span data-i18n="receiptGoods">Товар:</span> <strong id="rec-item">Заправка 20 кг</strong></div>
             <div class="receipt-row"><span>НДС (12%):</span> <span>Включен</span></div>
-            <div class="receipt-row total-rec"><span>Итого к оплате:</span> <strong id="rec-total">75 000 UZS</strong></div>
+            <div class="receipt-row total-rec"><span data-i18n="receiptTotal">ИТОГО К ОПЛАТЕ:</span> <strong id="rec-total">75 000 UZS</strong></div>
 
             <div class="receipt-qr-box">
               <div class="fake-qr-code">
                 <i class="fa-solid fa-qrcode"></i>
               </div>
-              <span>Soliq.uz Фискальный код</span>
+              <span data-i18n="receiptQr">Soliq.uz фискальный QR-код</span>
             </div>
           </div>
         </div>
@@ -1378,40 +1378,40 @@
 
         <!-- Empty state when cart is empty -->
         <div class="empty" id="cart-empty-state">
-          <h2>Корзина пуста</h2>
-          <p>Добавьте баллон или аксессуар из каталога — и он появится здесь</p>
+          <h2 data-i18n="cartEmptyTitle">Корзина пуста</h2>
+          <p data-i18n="cartEmptyDesc">Добавьте баллон или аксессуар из каталога — и он появится здесь</p>
         </div>
 
         <div class="promo-row" id="cart-promo-row">
           <input type="text" class="promo-input" id="input-promocode" placeholder="Промокод (напр. GAS2026)">
-          <button type="button" class="promo-apply" id="btn-apply-promo">Применить</button>
+          <button type="button" class="promo-apply" id="btn-apply-promo" data-i18n="btnApplyPromo">Применить</button>
         </div>
 
         <!-- Detailed price breakdown -->
         <div class="cart-summary-breakdown" id="cart-summary-breakdown">
           <div class="summary-line" id="cart-subtotal-row">
-            <span class="l">Сумма товаров</span>
+            <span class="l" data-i18n="cartSubtotalLabel">Сумма товаров</span>
             <span class="v" id="cart-subtotal-amount">0 UZS</span>
           </div>
           <div class="summary-line" id="cart-discount-row" style="display:none;">
-            <span class="l" style="color:var(--success);">Скидка по промокоду</span>
+            <span class="l" style="color:var(--success);" data-i18n="cartDiscountLabel">Скидка по промокоду</span>
             <span class="v" id="cart-discount-amount" style="color:var(--success); font-weight:700;">-0 UZS</span>
           </div>
         </div>
 
         <div class="total-row" id="cart-total-row">
-          <span class="l">Итого к оплате</span>
+          <span class="l" data-i18n="cartTotalLabel">Итого к оплате</span>
           <span class="v" id="cart-total-amount">0 UZS</span>
         </div>
 
         <button type="button" class="cta" id="btn-cart-checkout">
-          <span>Оформить покупку</span>
+          <span data-i18n="btnCheckoutCart">Оформить покупку</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
 
         <button type="button" class="browse-btn" id="btn-cart-browse">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>
-          <span>Перейти в каталог баллонов</span>
+          <span data-i18n="btnBrowseCatalog">Перейти в каталог баллонов</span>
         </button>
       </div>
     </div>
@@ -1427,13 +1427,13 @@
           <div class="cart-mark" style="background: rgba(255, 68, 56, 0.14); color: #FF4438;">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
           </div>
-          <h1>Пополнение баланса</h1>
+          <h1 data-i18n="topupTitle">Пополнение баланса</h1>
           <p style="font-size: 13px; color: #8E8E93; margin: 4px 0 0;">Текущий баланс: <strong id="topup-current-balance" style="color:#FFF;">25 000 UZS</strong></p>
         </div>
 
         <!-- Amount Input Field -->
         <div class="topup-amount-box">
-          <label style="font-size: 12px; font-weight: 700; color: #8E8E93; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block;">Сумма пополнения (UZS)</label>
+          <label style="font-size: 12px; font-weight: 700; color: #8E8E93; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block;" data-i18n="topupAmountLabel">Сумма пополнения (UZS)</label>
           <div class="topup-input-wrap">
             <input type="text" id="input-topup-amount" class="topup-input" value="50 000" inputmode="numeric" placeholder="0">
             <span class="topup-currency">UZS</span>
@@ -1449,13 +1449,13 @@
         </div>
 
         <!-- Payment Method Source -->
-        <div class="topup-source-label">Способ оплаты</div>
+        <div class="topup-source-label" data-i18n="topupMethodLabel">Способ оплаты</div>
         <div class="topup-methods-list">
           <div class="topup-method-card selected" data-source="card-uzcard">
             <div class="topup-method-ic" style="background:#1877F2; color:#fff; font-size:10px; font-weight:800;">CARD</div>
             <div class="topup-method-info">
               <h4>UZCARD •••• 4412</h4>
-              <p>Основная карта</p>
+              <p data-i18n="topupPrimaryCard">Основная карта</p>
             </div>
             <div class="radio"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
           </div>
@@ -1464,7 +1464,7 @@
             <div class="topup-method-ic" style="background:#1877F2; color:#fff; font-size:11px; font-weight:800;">click</div>
             <div class="topup-method-info">
               <h4>Click Pass</h4>
-              <p>Оплата через приложение Click</p>
+              <p data-i18n="topupClickDesc">Оплата через приложение Click</p>
             </div>
             <div class="radio"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
           </div>
@@ -1473,7 +1473,7 @@
             <div class="topup-method-ic" style="background:#00CDBA; color:#fff; font-size:11px; font-weight:800;">payme</div>
             <div class="topup-method-info">
               <h4>Payme</h4>
-              <p>Оплата через Payme</p>
+              <p data-i18n="topupPaymeDesc">Оплата через Payme</p>
             </div>
             <div class="radio"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
           </div>
@@ -1482,7 +1482,7 @@
         <!-- Submit Button -->
         <button type="button" class="cta" id="btn-submit-topup" style="margin-top: 14px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5v14M5 12h14"/></svg>
-          <span id="btn-topup-label">Пополнить на 50 000 UZS</span>
+          <span id="btn-topup-label" data-i18n="btnTopupSubmit">Пополнить счет</span>
         </button>
       </div>
     </div>
@@ -1495,8 +1495,8 @@
         </button>
 
         <div class="sheet-header">
-          <div class="cart-mark" style="background: rgba(255, 214, 10, 0.16); color: #FFD60A;">
-            <i class="fa-solid fa-crown" style="font-size: 22px;"></i>
+          <div class="sheet-mark gold-mark">
+            <i class="fa-solid fa-crown"></i>
           </div>
           <h1 data-i18n="myBalanceModalTitle">Бонусы Poytug Club</h1>
           <p style="font-size: 13px; color: var(--text-2); margin: 4px 0 0;" data-i18n="myBalanceModalSub">Бонусная программа лояльности и кэшбэк</p>
@@ -1544,11 +1544,11 @@
         <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px;">
           <button class="cta" id="btn-use-balance-now" type="button">
             <i class="fa-solid fa-gas-pump" style="margin-right:6px;"></i>
-            <span>Заправить газ со скидкой</span>
+            <span data-i18n="btnRefillWithDiscount">Заправить газ со скидкой</span>
           </button>
-          <button class="add-address-dashed-btn" id="btn-open-topup-from-loyalty" type="button" style="margin-top:0; height:48px;">
-            <i class="fa-solid fa-plus-circle" style="color:var(--brand);"></i>
-            <span>Пополнить баланс</span>
+          <button class="guest-btn" id="btn-open-topup-from-loyalty" type="button" style="margin-top:0; height:48px;">
+            <i class="fa-solid fa-plus-circle" style="color:var(--brand); margin-right:8px;"></i>
+            <span data-i18n="btnTopUpBalance">Пополнить баланс</span>
           </button>
         </div>
       </div>
@@ -1566,8 +1566,11 @@
             <!-- Dynamic cards -->
           </div>
 
-          <div class="add-card-form glass-panel">
-            <h4>Добавить новую карту</h4>
+          <div class="add-card-form">
+            <div class="form-box-header">
+              <i class="fa-solid fa-circle-plus"></i>
+              <span data-i18n="addNewCardTitle">Добавить новую карту</span>
+            </div>
             <div class="interactive-card-preview" id="card-preview-box">
               <div class="card-glare-overlay"></div>
               <div class="card-chip"></div>
@@ -1575,9 +1578,11 @@
               <div class="card-number-display" id="preview-card-number">8600 •••• •••• ••••</div>
               <div class="card-expiry-display" id="preview-card-expiry">12/28</div>
             </div>
-            <input type="text" id="input-card-number" placeholder="Номер карты (8600... / 9860...)" maxlength="19">
-            <input type="text" id="input-card-expiry" placeholder="Срок действия (ММ/ГГ)" maxlength="5">
-            <button class="primary-btn btn-full btn-sm" id="btn-save-new-card">Сохранить карту</button>
+            <div class="form-inputs-stack">
+              <input type="text" id="input-card-number" class="custom-form-input" placeholder="Номер карты (8600... / 9860...)" maxlength="19">
+              <input type="text" id="input-card-expiry" class="custom-form-input" placeholder="Срок действия (ММ/ГГ)" maxlength="5">
+              <button class="primary-btn btn-full btn-sm" id="btn-save-new-card" data-i18n="btnSaveCard">Сохранить карту</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1590,24 +1595,24 @@
         <div class="modal-body">
           <div class="modal-icon-header red-icon"><i class="fa-solid fa-map-location-dot"></i></div>
           <h3 data-i18n="savedAddresses">Адреса доставки</h3>
-          <p class="modal-sub-desc">Список ваших сохраненных адресов</p>
+          <p class="modal-sub-desc" data-i18n="savedAddressesSub">Список ваших сохраненных адресов</p>
 
           <div class="address-manager-list" id="address-manager-list">
             <!-- Dynamic addresses -->
           </div>
 
           <!-- Add New Address Form Section -->
-          <div class="add-address-form-box" style="margin-top:14px; padding:14px; border-radius:14px; background:rgba(239,68,68,0.06); border:1.5px dashed rgba(239,68,68,0.35);">
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; font-weight:700; font-size:13.5px; color:var(--text-main);">
-              <i class="fa-solid fa-circle-plus" style="color:var(--primary-flame);"></i>
-              <span>Добавить новый адрес</span>
+          <div class="add-address-form-box">
+            <div class="form-box-header">
+              <i class="fa-solid fa-circle-plus"></i>
+              <span data-i18n="addNewAddressTitle">Добавить новый адрес</span>
             </div>
-            <div style="display:flex; flex-direction:column; gap:8px;">
-              <input type="text" id="input-new-addr-title" placeholder="Название (например: Дом, Работа, Дача)">
-              <input type="text" id="input-new-addr-text" placeholder="Улица, дом, ориентир...">
-              <button class="primary-btn btn-full btn-sm" id="btn-save-new-address" style="margin-top:4px;">
+            <div class="form-inputs-stack">
+              <input type="text" id="input-new-addr-title" class="custom-form-input" placeholder="Название (например: Дом, Работа, Дача)">
+              <input type="text" id="input-new-addr-text" class="custom-form-input" placeholder="Улица, дом, ориентир...">
+              <button class="primary-btn btn-full btn-sm" id="btn-save-new-address">
                 <i class="fa-solid fa-floppy-disk"></i>
-                <span>Сохранить адрес</span>
+                <span data-i18n="btnSaveAddress">Сохранить адрес</span>
               </button>
             </div>
           </div>
@@ -1637,10 +1642,10 @@
         <div class="modal-body">
           <div class="modal-icon-header"><i class="fa-solid fa-sliders"></i></div>
           <h3 data-i18n="settings">Настройки</h3>
-          <p class="modal-sub-desc">Язык интерфейса и параметры системы</p>
+          <p class="modal-sub-desc" data-i18n="settingsSub">Язык интерфейса и параметры системы</p>
 
           <!-- Language Selection Section -->
-          <div class="section-label" style="margin: 10px 4px 6px;">Язык приложения / Til / Language</div>
+          <div class="section-label" style="margin: 10px 4px 6px;" data-i18n="langSectionTitle">Язык приложения / Til / Language</div>
           <div class="list" style="margin-bottom: 12px;">
             <button class="row lang-btn" data-lang="uz" style="width:100%; border:none; background:transparent; font-family:inherit;">
               <div class="ic" style="font-size:16px;">🇺🇿</div>
@@ -1660,21 +1665,21 @@
           </div>
 
           <!-- Preferences Section -->
-          <div class="section-label" style="margin: 4px 4px 6px;">Параметры</div>
+          <div class="section-label" style="margin: 4px 4px 6px;" data-i18n="paramsSectionTitle">Параметры</div>
           <div class="list" style="margin-bottom: 4px;">
             <div class="row" style="cursor:default;">
               <div class="ic"><i class="fa-solid fa-volume-high"></i></div>
-              <div class="label" style="font-size:14px;">Звуковые эффекты</div>
+              <div class="label" style="font-size:14px;" data-i18n="soundEffects">Звуковые эффекты</div>
               <input type="checkbox" id="toggle-sound-fx" class="apple-switch" checked>
             </div>
             <div class="row" style="cursor:default;">
               <div class="ic"><i class="fa-solid fa-bell"></i></div>
-              <div class="label" style="font-size:14px;">Push-уведомления</div>
+              <div class="label" style="font-size:14px;" data-i18n="pushNotifications">Push-уведомления</div>
               <input type="checkbox" id="toggle-push-notif" class="apple-switch" checked>
             </div>
             <div class="row" style="cursor:default;">
               <div class="ic"><i class="fa-solid fa-moon"></i></div>
-              <div class="label" style="font-size:14px;">Темная OLED тема</div>
+              <div class="label" style="font-size:14px;" data-i18n="darkTheme">Темная тема</div>
               <input type="checkbox" id="toggle-dark-theme" class="apple-switch" checked>
             </div>
           </div>
@@ -1690,7 +1695,7 @@
           <div class="modal-icon-header red-icon"><i class="fa-solid fa-building-shield"></i></div>
           <h3 data-i18n="aboutCompanyTitle">О компании «Poytug GNS»</h3>
           <p class="modal-sub-desc" data-i18n="aboutCompanySub">Официальный сертифицированный поставщик LPG в Узбекистане</p>
-          <p class="company-desc">
+          <p class="company-desc" data-i18n="aboutCompanyText">
             ООО «Poytug' GNS» — надежный поставщик сжиженного углеводородного газа (СУГ / Пропан-Бутан) для населения и предприятий Узбекистана. 
             Мы гарантируем 100% точность заправки, регулярное освидетельствование баллонов и экспресс-доставку до двери в течение 30 минут.
           </p>
