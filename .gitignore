@@ -16,3 +16,4 @@ Thumbs.db
 .idea/
 *.swp
 *.code-workspace
+.vercel
