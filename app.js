@@ -588,28 +588,51 @@ document.addEventListener('DOMContentLoaded', () => {
   function redirectToAuth(msg) {
     if (msg) showToast(msg);
     document.querySelectorAll('.modal-backdrop.active').forEach(m => m.classList.remove('active'));
-    const sideDrawer = document.getElementById('side-drawer');
-    const menuBackdrop = document.getElementById('menu-backdrop');
-    if (sideDrawer) sideDrawer.classList.remove('active');
-    if (menuBackdrop) menuBackdrop.classList.remove('active');
-    screens.forEach(s => s.classList.remove('active'));
-    document.getElementById('screen-auth').classList.add('active');
-    const btnCloseAuth = document.getElementById('btn-close-auth');
-    if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
-    const btnOpenCart = document.getElementById('btn-open-cart');
-    if (btnOpenCart) btnOpenCart.style.display = 'none';
+    closeDrawer();
+    switchScreen('screen-auth');
+    switchAuthTab('login');
   }
+
+  // Unified Logout Engine
+  function handleLogout() {
+    isAuth = false;
+    localStorage.setItem('lpg_auth', 'false');
+
+    const drawerNameEl = document.getElementById('drawer-user-name');
+    const drawerPhoneEl = document.getElementById('drawer-user-phone');
+    const accNameEl = document.getElementById('acc-user-name');
+    const accPhoneEl = document.getElementById('acc-user-phone');
+    const drawerLogoutText = document.getElementById('btn-drawer-logout-text');
+    const accLogoutText = document.getElementById('btn-acc-logout-text');
+
+    if (drawerNameEl) drawerNameEl.textContent = "Гостевой режим";
+    if (drawerPhoneEl) drawerPhoneEl.textContent = "Войдите для заказа и пополнения";
+    if (accNameEl) accNameEl.textContent = "Гостевой режим";
+    if (accPhoneEl) accPhoneEl.textContent = "Нажмите, чтобы войти в аккаунт →";
+    if (drawerLogoutText) drawerLogoutText.textContent = "Войти в аккаунт";
+    if (accLogoutText) accLogoutText.textContent = "Войти в аккаунт";
+
+    updateBalanceDisplay();
+    closeDrawer();
+    document.querySelectorAll('.modal-backdrop.active').forEach(m => m.classList.remove('active'));
+
+    switchScreen('screen-auth');
+    switchAuthTab('login');
+    showToast("Вы вышли из аккаунта");
+  }
+
+  window.handleLogout = handleLogout;
 
   // Enter Application Helper
   function enterApp(asGuest = false, name = "Алишер Каримов", phone = "+998 90 123-45-67") {
-    document.getElementById('screen-auth').classList.remove('active');
-    document.getElementById('screen-home').classList.add('active');
-    
-    // Hide the 'X' button and show Cart button on all in-app screens
-    const btnCloseAuth = document.getElementById('btn-close-auth');
-    if (btnCloseAuth) btnCloseAuth.style.display = 'none';
-    const btnOpenCart = document.getElementById('btn-open-cart');
-    if (btnOpenCart) btnOpenCart.style.display = 'flex';
+    switchScreen('screen-home');
+
+    const drawerNameEl = document.getElementById('drawer-user-name');
+    const drawerPhoneEl = document.getElementById('drawer-user-phone');
+    const accNameEl = document.getElementById('acc-user-name');
+    const accPhoneEl = document.getElementById('acc-user-phone');
+    const drawerLogoutText = document.getElementById('btn-drawer-logout-text');
+    const accLogoutText = document.getElementById('btn-acc-logout-text');
 
     if (!asGuest) {
       isAuth = true;
@@ -619,19 +642,26 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('lpg_phone', userPhone);
       localStorage.setItem('lpg_user_name', currentUserName);
 
-      document.getElementById('drawer-user-name').textContent = currentUserName;
-      document.getElementById('drawer-user-phone').textContent = userPhone;
-      document.getElementById('acc-user-name').textContent = currentUserName;
-      document.getElementById('acc-user-phone').textContent = userPhone;
+      if (drawerNameEl) drawerNameEl.textContent = currentUserName;
+      if (drawerPhoneEl) drawerPhoneEl.textContent = userPhone;
+      if (accNameEl) accNameEl.textContent = currentUserName;
+      if (accPhoneEl) accPhoneEl.textContent = userPhone;
+      if (drawerLogoutText) drawerLogoutText.textContent = "Выйти из аккаунта";
+      if (accLogoutText) accLogoutText.textContent = "Выйти из аккаунта";
+
       showToast(`Добро пожаловать, ${currentUserName}!`);
       launchConfettiCannon();
     } else {
       isAuth = false;
       localStorage.setItem('lpg_auth', 'false');
-      document.getElementById('drawer-user-name').textContent = "Гостевой режим";
-      document.getElementById('drawer-user-phone').textContent = "Войдите для заказа и пополнения";
-      document.getElementById('acc-user-name').textContent = "Гостевой режим";
-      document.getElementById('acc-user-phone').textContent = "Нажмите, чтобы войти в аккаунт →";
+
+      if (drawerNameEl) drawerNameEl.textContent = "Гостевой режим";
+      if (drawerPhoneEl) drawerPhoneEl.textContent = "Войдите для заказа и пополнения";
+      if (accNameEl) accNameEl.textContent = "Гостевой режим";
+      if (accPhoneEl) accPhoneEl.textContent = "Нажмите, чтобы войти в аккаунт →";
+      if (drawerLogoutText) drawerLogoutText.textContent = "Войти в аккаунт";
+      if (accLogoutText) accLogoutText.textContent = "Войти в аккаунт";
+
       showToast("👀 Режим просмотра (без авторизации нельзя заказывать и пополнять)");
     }
     updateBalanceDisplay();
@@ -644,14 +674,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnAuthSkipLink) btnAuthSkipLink.addEventListener('click', () => enterApp(true));
   if (btnAuthSkipLinkReg) btnAuthSkipLinkReg.addEventListener('click', () => enterApp(true));
 
-  const btnOpenCartEl = document.getElementById('btn-open-cart');
-  const btnCloseAuthEl = document.getElementById('btn-close-auth');
-
   if (isAuth) {
-    enterApp(false, currentUserName, userPhone || "+998 (90) 123-45-67");
+    enterApp(false, currentUserName, userPhone || "+998 90 123-45-67");
   } else {
-    if (btnCloseAuthEl) btnCloseAuthEl.style.display = 'flex';
-    if (btnOpenCartEl) btnOpenCartEl.style.display = 'none';
+    switchScreen('screen-auth');
   }
 
   // --- LOGIN FLOW (Step 1 -> Step 2) ---
@@ -856,18 +882,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Logout Action
   const btnLogout = document.getElementById('btn-logout');
   if (btnLogout) {
-    btnLogout.addEventListener('click', () => {
-      isAuth = false;
-      localStorage.setItem('lpg_auth', 'false');
-      document.getElementById('screen-account').classList.remove('active');
-      document.getElementById('screen-auth').classList.add('active');
-      const btnCloseAuth = document.getElementById('btn-close-auth');
-      if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
-      const btnOpenCart = document.getElementById('btn-open-cart');
-      if (btnOpenCart) btnOpenCart.style.display = 'none';
-      switchAuthTab('login');
-      showToast("Вы вышли из системы");
-    });
+    btnLogout.addEventListener('click', handleLogout);
   }
 
   // Profile Header click in Guest mode
@@ -1013,6 +1028,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const screens = document.querySelectorAll('.app-screen');
 
   function switchScreen(targetId) {
+    const isAuthScreen = targetId === 'screen-auth';
+    const btnSideMenu = document.getElementById('btn-side-menu');
+    const btnOpenCart = document.getElementById('btn-open-cart');
+    const btnCloseAuth = document.getElementById('btn-close-auth');
+    const bottomNav = document.getElementById('bottom-nav');
+
+    if (btnSideMenu) btnSideMenu.style.display = isAuthScreen ? 'none' : 'flex';
+    if (btnOpenCart) btnOpenCart.style.display = isAuthScreen ? 'none' : 'flex';
+    if (bottomNav) bottomNav.style.display = isAuthScreen ? 'none' : 'flex';
+    if (btnCloseAuth) btnCloseAuth.style.display = isAuthScreen ? 'flex' : 'none';
+
     navItems.forEach(n => {
       n.classList.toggle('active', n.dataset.target === targetId);
     });
@@ -1104,17 +1130,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   const btnDrawerLogout = document.getElementById('btn-drawer-logout');
   if (btnDrawerLogout) {
-    btnDrawerLogout.addEventListener('click', () => {
-      closeDrawer();
-      isAuth = false;
-      localStorage.setItem('lpg_auth', 'false');
-      screens.forEach(s => s.classList.remove('active'));
-      document.getElementById('screen-auth').classList.add('active');
-      const btnCloseAuth = document.getElementById('btn-close-auth');
-      if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
-      switchAuthTab('login');
-      showToast("Вы вышли из системы");
-    });
+    btnDrawerLogout.addEventListener('click', handleLogout);
   }
 
 

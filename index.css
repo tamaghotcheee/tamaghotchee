@@ -441,11 +441,15 @@ input, button, select, textarea {
   font-size: 13px;
 }
 
-/* Hide cart button on Auth / Login / Registration screen */
-#app-container:has(#screen-auth.active) #btn-open-cart {
+/* ==================== AUTH SCREEN ISOLATION RULES ==================== */
+/* When Auth Screen is active: Hide Burger Menu, Cart Button, and Bottom Navigation */
+#app-container:has(#screen-auth.active) #btn-side-menu,
+#app-container:has(#screen-auth.active) #btn-open-cart,
+#app-container:has(#screen-auth.active) #bottom-nav {
   display: none !important;
 }
 
+/* When inside the App (any other screen): Hide the Close/Skip 'X' button in header */
 #app-container:not(:has(#screen-auth.active)) #btn-close-auth {
   display: none !important;
 }

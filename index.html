@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <!-- App Styles -->
-  <link rel="stylesheet" href="index.css?v=4.6">
+  <link rel="stylesheet" href="index.css?v=4.7">
 </head>
 <body class="theme-dark">
 
@@ -157,12 +157,12 @@
 
         <div class="list" style="margin-bottom:16px;">
           <div class="row" id="btn-drawer-logout" style="border-bottom:none;">
-            <div class="ic danger">
+            <div class="ic danger" id="btn-drawer-logout-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
               </svg>
             </div>
-            <div class="label danger" data-i18n="btnLogout">Выйти из аккаунта</div>
+            <div class="label danger" id="btn-drawer-logout-text" data-i18n="btnLogout">Выйти из аккаунта</div>
           </div>
         </div>
       </div>
@@ -1237,15 +1237,15 @@
           </div>
         </div>
 
-        <!-- Section: Выход -->
+        <!-- Section: Выход / Вход -->
         <div class="list">
           <div class="row" id="btn-logout" style="border-bottom:none;">
-            <div class="ic danger">
+            <div class="ic danger" id="btn-acc-logout-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
               </svg>
             </div>
-            <div class="label danger" data-i18n="btnLogout">Выйти из аккаунта</div>
+            <div class="label danger" id="btn-acc-logout-text" data-i18n="btnLogout">Выйти из аккаунта</div>
           </div>
         </div>
 
@@ -1647,6 +1647,6 @@
   <!-- Leaflet JS for Map -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- App JS -->
-  <script src="app.js?v=4.6"></script>
+  <script src="app.js?v=4.7"></script>
 </body>
 </html>
