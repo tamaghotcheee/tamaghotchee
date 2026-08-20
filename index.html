@@ -9,10 +9,10 @@
   <meta name="description" content="Poytug GNS — Экспресс заправка и оптовая доставка газовых баллонов (от 10 шт.) в Узбекистане. Онлайн оплата Click, Payme, Uzum, Е-фактура.">
   <meta name="keywords" content="Poytug GNS, LPG gas, пропан бутан, заправка баллонов, оптовая доставка газа, Ташкент, Е-фактура">
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts (Inter with full Cyrillic support + Plus Jakarta Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -34,10 +34,10 @@
     <header class="app-header" id="app-header">
       <!-- Left Action Group: Menu + 104 Emergency -->
       <div class="header-left-group">
-        <button class="icon-btn menu-trigger" id="btn-side-menu" aria-label="Menu" title="Меню">
+        <button class="icon-btn menu-trigger" id="btn-side-menu" aria-label="Меню">
           <i class="fa-solid fa-bars"></i>
         </button>
-        <button class="emergency-badge-btn" id="btn-open-emergency" title="Служба газа 104">
+        <button class="emergency-badge-btn" id="btn-open-emergency" aria-label="Служба газа 104">
           <i class="fa-solid fa-phone-volume"></i>
           <span class="em-text">104</span>
         </button>
@@ -82,7 +82,7 @@
         </div>
         <div class="drawer-user-info">
           <h4 id="drawer-user-name" data-i18n="guestUser">Гость</h4>
-          <span id="drawer-user-phone">+998 (90) •••-••-••</span>
+          <span id="drawer-user-phone">+998 90 123 45 67</span>
         </div>
         <button class="close-drawer-btn" id="btn-close-drawer">
           <i class="fa-solid fa-xmark"></i>
@@ -123,7 +123,7 @@
 
         <button class="drawer-link" id="btn-drawer-logout" style="color:#ef4444;">
           <div class="link-icon" style="background:rgba(239,68,68,0.15); color:#ef4444;"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
-          <span data-i18n="btnLogout">Выйти из аккаунта</span>
+          <span id="drawer-logout-text" data-i18n="btnLogout">Выйти из аккаунта</span>
         </button>
       </nav>
 
@@ -141,6 +141,7 @@
             <i class="fa-solid fa-shield-halved"></i>
           </div>
           <h2 id="auth-main-title" data-i18n="auth2faTitle">Вход</h2>
+          <p id="auth-main-sub" style="display:none;"></p>
         </div>
 
         <!-- Auth Mode Tabs: Login vs Register -->
@@ -160,8 +161,19 @@
 
             <label for="input-login-phone" class="input-label" data-i18n="phoneLabel">Номер телефона</label>
             <div class="phone-input-wrapper">
-              <span class="country-prefix">🇺🇿 +998</span>
-              <input type="tel" id="input-login-phone" placeholder="(90) 123-45-67" maxlength="14" autocomplete="tel" value="90 123-45-67">
+              <span class="country-prefix">
+                <svg class="flag-icon-uz" viewBox="0 0 32 20" width="20" height="13">
+                  <rect width="32" height="6.6" fill="#0099b5" y="0"/>
+                  <rect width="32" height="6.8" fill="#ffffff" y="6.6"/>
+                  <rect width="32" height="6.6" fill="#1eb53a" y="13.4"/>
+                  <rect width="32" height="0.5" fill="#d62612" y="6.1"/>
+                  <rect width="32" height="0.5" fill="#d62612" y="13.4"/>
+                  <circle cx="5" cy="3.3" r="2.2" fill="#ffffff"/>
+                  <circle cx="5.6" cy="3.3" r="2" fill="#0099b5"/>
+                </svg>
+                <span class="prefix-code">+998</span>
+              </span>
+              <input type="tel" id="input-login-phone" placeholder="90 123 45 67" maxlength="12" autocomplete="tel">
             </div>
 
             <label for="input-login-password" class="input-label" data-i18n="passwordLabel">Пароль</label>
@@ -193,7 +205,7 @@
             <div class="otp-security-notice">
               <i class="fa-solid fa-mobile-screen-button"></i>
               <div>
-                <p class="otp-sent-text"><span data-i18n="codeSentTo">СМС была отправлена на номер</span> <strong id="display-login-phone">+998 90 123-45-67</strong></p>
+                <p class="otp-sent-text"><span data-i18n="codeSentTo">СМС была отправлена на номер</span> <strong id="display-login-phone">+998 90 123 45 67</strong></p>
                 <span class="otp-security-sub" data-i18n="otpSecuritySub">Введите 4 цифры для подтверждения</span>
               </div>
             </div>
@@ -234,13 +246,24 @@
             <label for="input-reg-name" class="input-label" data-i18n="fullNameLabel">Ваше имя или организация</label>
             <div class="custom-input-wrapper">
               <i class="fa-solid fa-user input-icon-left"></i>
-              <input type="text" id="input-reg-name" placeholder="Например: Алишер Каримов" autocomplete="name">
+              <input type="text" id="input-reg-name" placeholder="Например: Алишер Алишеров" autocomplete="name">
             </div>
 
             <label for="input-reg-phone" class="input-label" data-i18n="phoneLabel">Номер телефона</label>
             <div class="phone-input-wrapper">
-              <span class="country-prefix">🇺🇿 +998</span>
-              <input type="tel" id="input-reg-phone" placeholder="(90) 123-45-67" maxlength="14" autocomplete="tel">
+              <span class="country-prefix">
+                <svg class="flag-icon-uz" viewBox="0 0 32 20" width="20" height="13">
+                  <rect width="32" height="6.6" fill="#0099b5" y="0"/>
+                  <rect width="32" height="6.8" fill="#ffffff" y="6.6"/>
+                  <rect width="32" height="6.6" fill="#1eb53a" y="13.4"/>
+                  <rect width="32" height="0.5" fill="#d62612" y="6.1"/>
+                  <rect width="32" height="0.5" fill="#d62612" y="13.4"/>
+                  <circle cx="5" cy="3.3" r="2.2" fill="#ffffff"/>
+                  <circle cx="5.6" cy="3.3" r="2" fill="#0099b5"/>
+                </svg>
+                <span class="prefix-code">+998</span>
+              </span>
+              <input type="tel" id="input-reg-phone" placeholder="90 123 45 67" maxlength="12" autocomplete="tel">
             </div>
 
             <label for="input-reg-password" class="input-label" data-i18n="createPassword">Придумайте пароль</label>
@@ -284,7 +307,7 @@
             <div class="otp-security-notice">
               <i class="fa-solid fa-mobile-screen-button"></i>
               <div>
-                <p class="otp-sent-text"><span data-i18n="codeSentTo">СМС была отправлена на номер</span> <strong id="display-reg-phone">+998 90 •••-••-••</strong></p>
+                <p class="otp-sent-text"><span data-i18n="codeSentTo">СМС была отправлена на номер</span> <strong id="display-reg-phone">+998 90 123 45 67</strong></p>
                 <span class="otp-security-sub" data-i18n="otpSecuritySub">Введите 4 цифры для подтверждения аккаунта</span>
               </div>
             </div>
@@ -639,7 +662,7 @@
                   </svg>
                 </div>
                 <div class="card-details">
-                  <h3>Баллон 20 КГ</h3>
+                  <h3 data-i18n="cyl20Title">Баллон 20 КГ</h3>
                   <p class="price-tag">75 000 UZS</p>
                   <span class="info-pill" data-i18n="pillBestHome">Для дома и кухни</span>
                 </div>
@@ -653,7 +676,7 @@
         <!-- Quantity Selector Widget for Bulk/Wholesale Order -->
         <div class="cylinder-quantity-box glass-panel">
           <div class="qty-row">
-            <span class="qty-title">Количество баллонов:</span>
+            <span class="qty-title" data-i18n="cylindersQtyLabel">Количество баллонов:</span>
             <div class="qty-counter-control">
               <button class="qty-counter-btn" id="btn-qty-minus">-</button>
               <input type="number" id="input-cyl-qty" value="1" min="1" max="100">
@@ -663,9 +686,10 @@
           
           <!-- B2B Wholesale Badge Notification -->
           <div class="wholesale-discount-badge" id="wholesale-badge" style="display:none;">
-            🏷️ <strong>ОПТОВЫЙ ЗАКАЗ (от 10 шт.)</strong>
-            <p>Оптовая скидка до 15% + Доставка спец-транспортом + Е-Фактура</p>
+            🏷️ <strong data-i18n="b2bWholesaleTitle">ОПТОВЫЙ ЗАКАЗ (от 10 шт.)</strong>
+            <p data-i18n="b2bWholesaleSub">Оптовая скидка до 15% + Доставка спец-транспортом + Е-Фактура</p>
           </div>
+          <span id="display-cyl-price" style="display:none;"></span>
         </div>
 
         <div class="home-bottom-action">
@@ -726,10 +750,10 @@
 
           <!-- Quick Address Tags -->
           <div class="address-tag-chips" id="address-tag-chips">
-            <button type="button" class="tag-chip active" data-title="Дом" data-icon="🏠">🏠 Дом</button>
-            <button type="button" class="tag-chip" data-title="Дача" data-icon="🏡">🏡 Дача</button>
-            <button type="button" class="tag-chip" data-title="Работа" data-icon="🏢">🏢 Работа</button>
-            <button type="button" class="tag-chip" data-title="Другое" data-icon="📍">📍 Другое</button>
+            <button type="button" class="tag-chip active" data-title="Дом" data-icon="🏠" data-i18n="tagHome">🏠 Дом</button>
+            <button type="button" class="tag-chip" data-title="Дача" data-icon="🏡" data-i18n="tagDacha">🏡 Дача</button>
+            <button type="button" class="tag-chip" data-title="Работа" data-icon="🏢" data-i18n="tagWork">🏢 Работа</button>
+            <button type="button" class="tag-chip" data-title="Другое" data-icon="📍" data-i18n="tagOther">📍 Другое</button>
           </div>
 
           <div class="custom-address-box">
@@ -776,6 +800,10 @@
           <div class="sum-row">
             <span data-i18n="deliveryFee">Доставка до двери</span>
             <strong class="free-text" data-i18n="free">БЕСПЛАТНО</strong>
+          </div>
+          <div class="sum-row" id="summary-bonus-row" style="display:none; color:#22c55e;">
+            <span data-i18n="cartBonusDiscount">Скидка бонусами клуба:</span>
+            <strong id="summary-bonus-amount">-25 000 UZS</strong>
           </div>
           <hr>
           <div class="sum-row total">
@@ -841,8 +869,8 @@
           <div class="payment-option" data-method="b2b_invoice" id="pm-b2b-invoice">
             <div class="pm-icon b2b-bg"><i class="fa-solid fa-file-invoice-dollar"></i></div>
             <div class="pm-info">
-              <h4>Перечислением (Е-Фактура)</h4>
-              <p>Для юрлиц и организаций с выпиской счета</p>
+              <h4 data-i18n="payB2BInvoice">Перечислением (Е-Фактура)</h4>
+              <p data-i18n="b2bInvoiceSub">Для юрлиц и организаций с выпиской счета</p>
             </div>
             <div class="pm-check"><i class="fa-solid fa-circle-check"></i></div>
           </div>
@@ -853,8 +881,8 @@
           <div class="b2b-inn-header">
             <div class="b2b-inn-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
             <div class="b2b-inn-text">
-              <label class="input-label" for="input-company-inn">ИНН Компании / Организации:</label>
-              <p class="b2b-inn-sub">Для автоматического выставления Е-Фактуры</p>
+              <label class="input-label" for="input-company-inn" data-i18n="companyInnLabel">ИНН Компании / Организации:</label>
+              <p class="b2b-inn-sub" data-i18n="companyInnSub">Для автоматического выставления Е-Фактуры</p>
             </div>
           </div>
           <div class="input-icon-wrapper">
@@ -909,19 +937,19 @@
 
         <div class="receipt-action-bar">
           <button class="secondary-btn btn-full btn-sm" id="btn-view-receipt">
-            <i class="fa-solid fa-receipt"></i> Электронный чек (Soliq.uz)
+            <i class="fa-solid fa-receipt"></i> <span data-i18n="btnViewReceipt">Электронный чек (Soliq.uz)</span>
           </button>
         </div>
 
-        <div class="courier-info-card">
-          <div class="courier-avatar">
+        <div class="courier-info-card" id="courier-info-card">
+          <div class="courier-avatar" id="courier-avatar">
             <i class="fa-solid fa-user-ninja"></i>
           </div>
           <div class="courier-text">
-            <h4>Фарход Рахимов</h4>
-            <p>🚚 Labo Auto • 01 A 777 AA</p>
+            <h4 id="courier-driver-name">Фарход Рахимов</h4>
+            <p id="courier-vehicle-info">🚚 Labo Auto • 01 A 777 AA</p>
           </div>
-          <button class="icon-btn call-courier-btn" id="btn-call-courier">
+          <button class="icon-btn call-courier-btn" id="btn-call-courier" aria-label="Позвонить курьеру">
             <i class="fa-solid fa-phone"></i>
           </button>
         </div>
@@ -969,7 +997,7 @@
                 <i class="fa-solid fa-route"></i> <span data-i18n="btnBuildRoute">Маршрут</span>
               </button>
               <button class="primary-btn btn-sm btn-success ripple-btn" id="btn-order-from-station">
-                <i class="fa-solid fa-bolt"></i> Заказать отсюда
+                <i class="fa-solid fa-bolt"></i> <span data-i18n="btnOrderHere">Заказать отсюда</span>
               </button>
             </div>
           </div>
@@ -993,11 +1021,11 @@
             <span class="p-badge">ХИТ</span>
           </div>
           <div class="product-body">
-            <h3>Газовый баллон 20 КГ (Новый)</h3>
-            <p class="p-desc">Высокопрочный стальной баллон с предохранительным клапаном.</p>
+            <h3 data-i18n="store20kgTitle">Газовый баллон 20 КГ (Новый)</h3>
+            <p class="p-desc" data-i18n="store20kgDesc">Высокопрочный стальной баллон с предохранительным клапаном.</p>
             
             <div class="product-qty-row">
-              <span class="qty-sublabel">Кол-во:</span>
+              <span class="qty-sublabel" data-i18n="qtySublabel">Кол-во:</span>
               <div class="qty-counter-control store-qty-ctrl">
                 <button class="qty-counter-btn btn-store-minus">-</button>
                 <input type="number" class="input-store-qty" value="1" min="1" max="50">
@@ -1021,11 +1049,11 @@
             <span class="p-badge orange">Компакт</span>
           </div>
           <div class="product-body">
-            <h3>Газовый баллон 10 КГ (Новый)</h3>
-            <p class="p-desc">Удобный портативный баллон для дачи, гриля и походов.</p>
+            <h3 data-i18n="store10kgTitle">Газовый баллон 10 КГ (Новый)</h3>
+            <p class="p-desc" data-i18n="store10kgDesc">Удобный портативный баллон для дачи, гриля и походов.</p>
 
             <div class="product-qty-row">
-              <span class="qty-sublabel">Кол-во:</span>
+              <span class="qty-sublabel" data-i18n="qtySublabel">Кол-во:</span>
               <div class="qty-counter-control store-qty-ctrl">
                 <button class="qty-counter-btn btn-store-minus">-</button>
                 <input type="number" class="input-store-qty" value="1" min="1" max="50">
@@ -1048,11 +1076,11 @@
             <img src="assets/regulator.jpg" alt="Редуктор и Шланг">
           </div>
           <div class="product-body">
-            <h3>Комплект: Редуктор + Шланг 2м</h3>
-            <p class="p-desc">Итальянский редуктор давления газа и армированный шланг с манометром.</p>
+            <h3 data-i18n="storeRegulatorTitle">Комплект: Редуктор + Шланг 2м</h3>
+            <p class="p-desc" data-i18n="storeRegulatorDesc">Итальянский редуктор давления газа и армированный шланг с манометром.</p>
 
             <div class="product-qty-row">
-              <span class="qty-sublabel">Кол-во:</span>
+              <span class="qty-sublabel" data-i18n="qtySublabel">Кол-во:</span>
               <div class="qty-counter-control store-qty-ctrl">
                 <button class="qty-counter-btn btn-store-minus">-</button>
                 <input type="number" class="input-store-qty" value="1" min="1" max="50">
@@ -1079,9 +1107,9 @@
           <i class="fa-solid fa-user-astronaut"></i>
         </div>
         <div class="profile-details">
-          <h3 id="acc-user-name">Алишер Каримов</h3>
-          <p id="acc-user-phone">+998 (90) 123-45-67</p>
-          <span class="status-pill-verified"><i class="fa-solid fa-shield-halved"></i> Подтвержденный клиент</span>
+          <h3 id="acc-user-name">Алишер Алишеров</h3>
+          <p id="acc-user-phone">+998 90 123 45 67</p>
+          <span class="status-pill-verified"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="verifiedClient">Подтвержденный клиент</span></span>
         </div>
       </div>
 
@@ -1090,7 +1118,7 @@
           <div class="acc-icon gold-bg"><i class="fa-solid fa-coins"></i></div>
           <div class="acc-text">
             <h4 data-i18n="myBalance">Мой баланс</h4>
-            <p>Бонусные баллы и кэшбэк</p>
+            <p data-i18n="bonusCashbackSub">Бонусные баллы и кэшбэк</p>
           </div>
           <strong class="acc-val" id="acc-balance-display">25 000 UZS</strong>
         </div>
@@ -1099,7 +1127,7 @@
           <div class="acc-icon blue-bg"><i class="fa-solid fa-credit-card"></i></div>
           <div class="acc-text">
             <h4 data-i18n="savedCards">Привязанные карты</h4>
-            <p id="acc-cards-preview">Uzcard •••• 4412, Humo •••• 9821</p>
+            <p id="acc-cards-preview">2 привязанные карты</p>
           </div>
           <i class="fa-solid fa-chevron-right arr"></i>
         </div>
@@ -1117,7 +1145,7 @@
           <div class="acc-icon orange-bg"><i class="fa-solid fa-receipt"></i></div>
           <div class="acc-text">
             <h4 data-i18n="orderHistory">История заказов</h4>
-            <p>Просмотр всех заправок</p>
+            <p data-i18n="orderHistorySub">Просмотр всех заправок</p>
           </div>
           <i class="fa-solid fa-chevron-right arr"></i>
         </div>
@@ -1126,7 +1154,16 @@
           <div class="acc-icon red-bg"><i class="fa-solid fa-shield-halved"></i></div>
           <div class="acc-text">
             <h4 data-i18n="security2fa">Безопасность и 2FA</h4>
-            <p style="color:#00e676;"><i class="fa-solid fa-circle-check"></i> Пароль + СМС (Включено)</p>
+            <p style="color:#00e676;"><i class="fa-solid fa-circle-check"></i> <span data-i18n="twoFaStatusActive">Пароль + СМС (Включено)</span></p>
+          </div>
+          <i class="fa-solid fa-chevron-right arr"></i>
+        </div>
+
+        <div class="account-card-item clickable" id="btn-acc-settings">
+          <div class="acc-icon gold-bg"><i class="fa-solid fa-sliders"></i></div>
+          <div class="acc-text">
+            <h4 data-i18n="settings">Настройки</h4>
+            <p data-i18n="settingsSubPreview">Язык, звуковые эффекты, тема</p>
           </div>
           <i class="fa-solid fa-chevron-right arr"></i>
         </div>
@@ -1135,7 +1172,7 @@
           <div class="acc-icon purple-bg"><i class="fa-solid fa-circle-info"></i></div>
           <div class="acc-text">
             <h4 data-i18n="aboutCompany">О нашей компании</h4>
-            <p>Лицензия, безопасность, контакты</p>
+            <p data-i18n="aboutSubText">Лицензия, безопасность, контакты</p>
           </div>
           <i class="fa-solid fa-chevron-right arr"></i>
         </div>
@@ -1143,7 +1180,7 @@
         <!-- Logout Action Button -->
         <button class="secondary-btn btn-full" id="btn-logout" style="margin-top:14px; border-color:rgba(239,68,68,0.4); color:#ef4444;">
           <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          <span data-i18n="btnLogout">Выйти из аккаунта</span>
+          <span id="account-logout-text" data-i18n="btnLogout">Выйти из аккаунта</span>
         </button>
       </div>
     </section>
@@ -1173,24 +1210,25 @@
               <i class="fa-solid fa-ticket promo-icon"></i>
               <input type="text" id="input-promocode" placeholder="Промокод (например: GAS2026)">
             </div>
-            <button class="secondary-btn btn-sm" id="btn-apply-promo">Применить</button>
+            <button class="secondary-btn btn-sm" id="btn-apply-promo"><span data-i18n="btnApply">Применить</span></button>
+            <button class="secondary-btn btn-sm" id="btn-remove-promo" style="display:none; color:#ef4444;"><i class="fa-solid fa-xmark"></i></button>
           </div>
 
           <div class="cart-breakdown-box glass-panel">
             <div class="cart-breakdown-row">
-              <span>Стоимость товаров:</span>
+              <span data-i18n="cartItemsCost">Стоимость товаров:</span>
               <strong id="cart-subtotal-amount">0 UZS</strong>
             </div>
             <div class="cart-breakdown-row" id="cart-discount-row" style="display:none; color:#22c55e;">
-              <span>Скидка по промокоду:</span>
+              <span data-i18n="cartPromoDiscount">Скидка по промокоду:</span>
               <strong id="cart-discount-amount">-0 UZS</strong>
             </div>
             <div class="cart-breakdown-row">
-              <span>Доставка до двери:</span>
-              <span class="badge-free">БЕСПЛАТНО</span>
+              <span data-i18n="deliveryFee">Доставка до двери:</span>
+              <span class="badge-free" data-i18n="free">БЕСПЛАТНО</span>
             </div>
             <div class="cart-total-bar">
-              <span>Итого к оплате:</span>
+              <span data-i18n="totalToPay">Итого к оплате:</span>
               <strong id="cart-total-amount">0 UZS</strong>
             </div>
           </div>
@@ -1202,7 +1240,7 @@
           </div>
 
           <button class="primary-btn btn-full ripple-btn" id="btn-cart-checkout">
-            <span>Оформить заказ</span>
+            <span data-i18n="btnCheckout">Оформить заказ</span>
             <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
@@ -1235,6 +1273,39 @@
 
 
     <!-- ==================== MODALS & POPUPS ==================== -->
+
+    <!-- Forgot Password Modal -->
+    <div class="modal-backdrop" id="modal-forgot-pwd">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-forgot-pwd" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header" style="text-align:center; margin-bottom:14px;">
+            <div class="modal-header-icon red-bg" style="width:52px; height:52px; border-radius:50%; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:22px;"><i class="fa-solid fa-key"></i></div>
+            <h3 data-i18n="resetPwdTitle">Восстановление пароля</h3>
+            <p class="modal-sub-desc" data-i18n="resetPwdSub">Введите ваш номер телефона для отправки кода сброса пароля</p>
+          </div>
+          <div class="phone-input-wrapper" style="margin: 16px 0;">
+            <span class="country-prefix">
+              <svg class="flag-icon-uz" viewBox="0 0 32 20" width="20" height="13">
+                <rect width="32" height="6.6" fill="#0099b5" y="0"/>
+                <rect width="32" height="6.8" fill="#ffffff" y="6.6"/>
+                <rect width="32" height="6.6" fill="#1eb53a" y="13.4"/>
+                <rect width="32" height="0.5" fill="#d62612" y="6.1"/>
+                <rect width="32" height="0.5" fill="#d62612" y="13.4"/>
+                <circle cx="5" cy="3.3" r="2.2" fill="#ffffff"/>
+                <circle cx="5.6" cy="3.3" r="2" fill="#0099b5"/>
+              </svg>
+              <span class="prefix-code">+998</span>
+            </span>
+            <input type="tel" id="input-reset-phone" placeholder="90 123 45 67" maxlength="12">
+          </div>
+          <button class="primary-btn btn-full ripple-btn" id="btn-send-reset-code">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span data-i18n="btnSendResetCode">Отправить СМС-код</span>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Emergency 104 Modal -->
     <div class="modal-backdrop" id="modal-emergency">
@@ -1286,12 +1357,13 @@
         <div class="modal-body">
           <div class="fiscal-receipt-paper">
             <div class="receipt-header-logo">🔥 Poytug GNS</div>
-            <p class="receipt-sub">Электронный Фискальный Чек</p>
+            <p class="receipt-sub" data-i18n="soliqReceiptTitle">Электронный Фискальный Чек</p>
             <hr class="dashed-hr">
             
             <div class="receipt-row"><span>Чек №:</span> <strong id="rec-code">LPG-9921</strong></div>
             <div class="receipt-row"><span>Дата:</span> <span id="rec-date">17.08.2026 13:40</span></div>
-            <div class="receipt-row"><span>Клиент:</span> <span>Алишер Каримов</span></div>
+            <div class="receipt-row"><span>Клиент:</span> <span id="rec-client">Алишер Алишеров</span></div>
+            <div class="receipt-row" id="rec-inn-row" style="display:none;"><span>ИНН Юрлица:</span> <strong id="rec-inn-val">-</strong></div>
             <hr class="dashed-hr">
 
             <div class="receipt-row"><span>Товар:</span> <strong id="rec-item">Заправка 20 кг</strong></div>
@@ -1302,7 +1374,7 @@
               <div class="fake-qr-code">
                 <i class="fa-solid fa-qrcode"></i>
               </div>
-              <span>Soliq.uz Фискальный код</span>
+              <span data-i18n="soliqReceiptCode">Soliq.uz Фискальный код</span>
             </div>
           </div>
         </div>
@@ -1325,7 +1397,7 @@
           <div class="add-card-form glass-panel">
             <div class="form-section-header">
               <i class="fa-solid fa-circle-plus"></i>
-              <h4>Добавить новую карту</h4>
+              <h4 data-i18n="addNewCardHeader">Добавить новую карту</h4>
             </div>
             <div class="interactive-card-preview" id="card-preview-box">
               <div class="card-glare-overlay"></div>
@@ -1342,7 +1414,9 @@
               <i class="fa-regular fa-calendar-days input-field-icon"></i>
               <input type="text" id="input-card-expiry" placeholder="Срок действия (ММ/ГГ)" maxlength="5">
             </div>
-            <button class="primary-btn btn-full btn-sm ripple-btn" id="btn-save-new-card">Сохранить карту</button>
+            <button class="primary-btn btn-full btn-sm ripple-btn" id="btn-save-new-card">
+              <span data-i18n="btnSaveCard">Сохранить карту</span>
+            </button>
           </div>
         </div>
       </div>
@@ -1365,7 +1439,7 @@
           <div class="add-address-form-box glass-panel">
             <div class="add-address-form-header">
               <i class="fa-solid fa-circle-plus"></i>
-              <span>Добавить новый адрес</span>
+              <span data-i18n="addNewAddressHeader">Добавить новый адрес</span>
             </div>
             <div class="add-address-fields">
               <div class="custom-input-wrapper">
@@ -1378,7 +1452,7 @@
               </div>
               <button class="primary-btn btn-full btn-sm ripple-btn" id="btn-save-new-address">
                 <i class="fa-solid fa-floppy-disk"></i>
-                <span>Сохранить адрес</span>
+                <span data-i18n="btnSaveAddress">Сохранить адрес</span>
               </button>
             </div>
           </div>
@@ -1398,17 +1472,17 @@
           <div class="balance-card-showcase">
             <div class="balance-badge-gold">
               <i class="fa-solid fa-crown"></i>
-              <span>Золотой уровень • 2% Кэшбэк</span>
+              <span data-i18n="goldLevelCashback">Золотой уровень • 2% Кэшбэк</span>
             </div>
             <div class="balance-main-amount">
               <span class="balance-num" id="modal-balance-display">25 000</span>
               <span class="balance-currency">UZS</span>
             </div>
-            <p class="balance-hint">1 бонус = 1 сум. Оплачивайте бонусами до 50% стоимости заправки и покупки баллонов!</p>
+            <p class="balance-hint" data-i18n="balanceHintText">1 бонус = 1 сум. Оплачивайте бонусами до 50% стоимости заправки и покупки баллонов!</p>
           </div>
 
           <div class="bonus-history-box">
-            <h4 class="bonus-history-title"><i class="fa-solid fa-clock-rotate-left"></i> История начислений</h4>
+            <h4 class="bonus-history-title"><i class="fa-solid fa-clock-rotate-left"></i> <span data-i18n="bonusHistoryTitle">История начислений</span></h4>
             <div class="bonus-history-list">
               <div class="bonus-history-row">
                 <div class="bonus-row-info">
@@ -1437,7 +1511,7 @@
           <div class="balance-actions-row">
             <button class="primary-btn btn-full ripple-btn" id="btn-use-balance-now">
               <i class="fa-solid fa-gas-pump"></i>
-              <span>Заправить газ со скидкой</span>
+              <span data-i18n="btnUseBonus">Заправить газ со скидкой</span>
             </button>
           </div>
         </div>
@@ -1451,7 +1525,7 @@
         <div class="modal-body">
           <div class="modal-icon-header"><i class="fa-solid fa-clock-rotate-left"></i></div>
           <h3 data-i18n="orderHistory">История заказов</h3>
-          <p class="modal-sub-desc">Список всех ваших предыдущих заказов</p>
+          <p class="modal-sub-desc" data-i18n="orderHistorySub">Список всех ваших предыдущих заказов</p>
 
           <div class="history-list" id="history-items-list">
             <!-- Dynamic history -->
@@ -1460,28 +1534,66 @@
       </div>
     </div>
 
-    <!-- Modal 5: Settings -->
+    <!-- Modal 5: Settings (with Language, Theme & Sound) -->
     <div class="modal-backdrop" id="modal-settings">
       <div class="modal-dialog glass-panel">
         <button class="modal-close" data-close="modal-settings" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
-          <div class="modal-icon-header"><i class="fa-solid fa-sliders"></i></div>
-          <h3 data-i18n="settings">Настройки приложения</h3>
-          <p class="modal-sub-desc">Управление параметрами отображения и звука</p>
-
-          <div class="settings-toggle-row">
-            <span>Звуковые эффекты (шипение газа)</span>
-            <input type="checkbox" id="toggle-sound-fx" checked>
+          <div class="modal-icon-header red-icon" style="text-align:center; margin-bottom:12px;">
+            <div style="width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg, #ef4444, #7f1d1d); margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:22px; color:#fff;"><i class="fa-solid fa-sliders"></i></div>
+            <h3 data-i18n="settings">Настройки</h3>
+            <p class="modal-sub-desc" data-i18n="settingsSub">Параметры языка, темы, звука и уведомлений</p>
           </div>
 
-          <div class="settings-toggle-row">
-            <span>Push-уведомления</span>
-            <input type="checkbox" id="toggle-push-notif" checked>
-          </div>
+          <div class="settings-list" style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px;">
+            <!-- Language Selector Item -->
+            <div class="setting-item-column" style="display:flex; flex-direction:column; gap:10px; padding:12px 14px; background:var(--bg-card); border:1px solid var(--border-glass); border-radius:var(--radius-md);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <i class="fa-solid fa-globe" style="color:var(--primary-flame);"></i>
+                <span data-i18n="appLanguage" style="font-weight:700; font-size:13.5px;">Язык приложения / Til</span>
+              </div>
+              <div class="settings-lang-group" id="settings-lang-group">
+                <button type="button" class="lang-btn" data-lang="uz">🇺🇿 O'zbekcha</button>
+                <button type="button" class="lang-btn active" data-lang="ru">🇷🇺 Русский</button>
+                <button type="button" class="lang-btn" data-lang="en">🇬🇧 English</button>
+              </div>
+            </div>
 
-          <div class="settings-toggle-row">
-            <span>Темная тема интерфейса</span>
-            <input type="checkbox" id="toggle-dark-theme" checked>
+            <!-- Dark Theme Toggle -->
+            <div class="setting-item" style="display:flex; justify-content:space-between; align-items:center; padding:12px 14px; background:var(--bg-card); border:1px solid var(--border-glass); border-radius:var(--radius-md);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <i class="fa-solid fa-moon" style="color:var(--primary-flame);"></i>
+                <span data-i18n="darkThemeSetting">Темная тема интерфейса</span>
+              </div>
+              <input type="checkbox" id="toggle-dark-theme" checked style="width:20px; height:20px; accent-color:var(--primary-flame); cursor:pointer;">
+            </div>
+
+            <!-- Sound Effects Toggle -->
+            <div class="setting-item" style="display:flex; justify-content:space-between; align-items:center; padding:12px 14px; background:var(--bg-card); border:1px solid var(--border-glass); border-radius:var(--radius-md);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <i class="fa-solid fa-volume-high" style="color:var(--primary-flame);"></i>
+                <span data-i18n="soundEffects">Звуковые эффекты (шипение)</span>
+              </div>
+              <input type="checkbox" id="toggle-sound-fx" checked style="width:20px; height:20px; accent-color:var(--primary-flame); cursor:pointer;">
+            </div>
+
+            <!-- Push Notifications Toggle -->
+            <div class="setting-item" style="display:flex; justify-content:space-between; align-items:center; padding:12px 14px; background:var(--bg-card); border:1px solid var(--border-glass); border-radius:var(--radius-md);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <i class="fa-solid fa-bell" style="color:var(--primary-flame);"></i>
+                <span data-i18n="pushNotifications">Push-уведомления</span>
+              </div>
+              <input type="checkbox" id="toggle-push-notif" checked style="width:20px; height:20px; accent-color:var(--primary-flame); cursor:pointer;">
+            </div>
+
+            <!-- Version -->
+            <div class="setting-item" style="display:flex; justify-content:space-between; align-items:center; padding:12px 14px; background:var(--bg-card); border:1px solid var(--border-glass); border-radius:var(--radius-md);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <i class="fa-solid fa-code-branch" style="color:var(--text-muted);"></i>
+                <span data-i18n="appVersion">Версия приложения</span>
+              </div>
+              <strong style="color:var(--accent-green); font-size:13px;">v3.2 Production</strong>
+            </div>
           </div>
         </div>
       </div>
@@ -1495,15 +1607,15 @@
           <div class="modal-icon-header red-icon"><i class="fa-solid fa-building-shield"></i></div>
           <h3 data-i18n="aboutCompanyTitle">О компании «Poytug GNS»</h3>
           <p class="modal-sub-desc" data-i18n="aboutCompanySub">Официальный сертифицированный поставщик LPG в Узбекистане</p>
-          <p class="company-desc">
+          <p class="company-desc" data-i18n="companyDesc">
             ООО «Poytug' GNS» — надежный поставщик сжиженного углеводородного газа (СУГ / Пропан-Бутан) для населения и предприятий Узбекистана. 
             Мы гарантируем 100% точность заправки, регулярное освидетельствование баллонов и экспресс-доставку до двери в течение 30 минут.
           </p>
           <div class="company-badges">
-            <span><i class="fa-solid fa-shield-halved" style="color:var(--accent-green);"></i> Государственный сертификат ISO 9001:2026</span>
-            <span><i class="fa-solid fa-bolt" style="color:var(--primary-flame);"></i> Круглосуточная заправка и доставка 24/7</span>
-            <span><i class="fa-solid fa-phone" style="color:var(--primary-flame);"></i> Единый колл-центр: +998 71 200-00-00</span>
-            <span><i class="fa-solid fa-location-dot" style="color:var(--primary-flame);"></i> Центральный офис: г. Ташкент, ул. Катартал, 28</span>
+            <span><i class="fa-solid fa-shield-halved" style="color:var(--accent-green);"></i> <span data-i18n="companyBadgeIso">Государственный сертификат ISO 9001:2026</span></span>
+            <span><i class="fa-solid fa-bolt" style="color:var(--primary-flame);"></i> <span data-i18n="companyBadge247">Круглосуточная заправка и доставка 24/7</span></span>
+            <span><i class="fa-solid fa-phone" style="color:var(--primary-flame);"></i> <span data-i18n="companyBadgeCallCenter">Единый колл-центр: +998 71 200-00-00</span></span>
+            <span><i class="fa-solid fa-location-dot" style="color:var(--primary-flame);"></i> <span data-i18n="companyBadgeOffice">Центральный офис: г. Ташкент, ул. Катартал, 28</span></span>
           </div>
         </div>
       </div>
@@ -1516,12 +1628,12 @@
         <div class="modal-body">
           <div class="modal-icon-header red-icon"><i class="fa-solid fa-headset"></i></div>
           <h3 data-i18n="support">Служба поддержки</h3>
-          <p class="modal-sub-desc">Онлайн-чат с оператором Poytug GNS</p>
+          <p class="modal-sub-desc" data-i18n="supportChatHeader">Онлайн-чат с оператором Poytug GNS</p>
 
           <div class="support-chat-box" id="support-chat-messages">
             <div class="chat-msg bot">
-              <div class="bot-badge-tag"><i class="fa-solid fa-robot"></i> Poytug Ассистент</div>
-              Здравствуйте! Я онлайн-помощник Poytug GNS. Чем могу помочь по поводу заправки или доставки газа?
+              <div class="bot-badge-tag"><i class="fa-solid fa-robot"></i> <span data-i18n="botBadgeTitle">Poytug Ассистент</span></div>
+              <span data-i18n="supportBotGreeting">Здравствуйте! Я онлайн-помощник Poytug GNS. Чем могу помочь по поводу заправки или доставки газа?</span>
             </div>
           </div>
 

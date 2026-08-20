@@ -8,11 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentLang = localStorage.getItem('lpg_lang') || 'ru';
   let isAuth = localStorage.getItem('lpg_auth') === 'true';
   let userPhone = localStorage.getItem('lpg_phone') || '';
+  let currentUserName = localStorage.getItem('lpg_user_name') || "Алишер Алишеров";
   let soundFxEnabled = localStorage.getItem('lpg_sound') !== 'false';
   let isDarkMode = localStorage.getItem('lpg_dark') !== 'false';
 
   let cylinderQuantity = 1;
   let isWholesale = false;
+  let appliedBonusDiscount = 0;
 
   let selectedCylinder = { type: '10kg', price: 45000, wholesalePrice: 38000, name: 'Баллон 10 КГ' };
   let selectedAddress = 'г. Ташкент, ул. Амира Темура, 45, кв. 12';
@@ -23,26 +25,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let cart = JSON.parse(localStorage.getItem('lpg_cart') || '[]');
   let appliedPromoDiscount = 0;
+  let loyaltyBalance = parseInt(localStorage.getItem('lpg_balance') || '25000', 10);
 
-  let savedCards = [
+  let savedCards = JSON.parse(localStorage.getItem('lpg_cards') || JSON.stringify([
     { type: 'UZCARD', pan: '8600 •••• •••• 4412', exp: '12/28' },
     { type: 'HUMO', pan: '9860 •••• •••• 9821', exp: '08/29' }
-  ];
+  ]));
 
-  let savedAddresses = [
+  let savedAddresses = JSON.parse(localStorage.getItem('lpg_addresses') || JSON.stringify([
     { title: 'Дом', text: 'г. Ташкент, ул. Амира Темура, 45, кв. 12', icon: '🏠' },
     { title: 'Дача / Частный дом', text: 'г. Ташкент, Сергели, Массив 4, д. 18', icon: '🏡' }
-  ];
+  ]));
 
-  let orderHistory = [
+  let orderHistory = JSON.parse(localStorage.getItem('lpg_orders') || JSON.stringify([
     { code: 'LPG-8821', date: '14 Авг 2026', title: 'Заправка баллона 20 кг (1 шт)', price: 75000, status: 'Доставлен' },
     { code: 'LPG-7104', date: '02 Июл 2026', title: 'Заправка баллона 10 кг (1 шт)', price: 45000, status: 'Доставлен' }
-  ];
+  ]));
+
+  function saveAppState() {
+    localStorage.setItem('lpg_cards', JSON.stringify(savedCards));
+    localStorage.setItem('lpg_addresses', JSON.stringify(savedAddresses));
+    localStorage.setItem('lpg_orders', JSON.stringify(orderHistory));
+    localStorage.setItem('lpg_balance', loyaltyBalance.toString());
+    localStorage.setItem('lpg_cart', JSON.stringify(cart));
+  }
+
+  function updateBalanceDisplay() {
+    const accBal = document.getElementById('acc-balance-display');
+    const modalBal = document.getElementById('modal-balance-display');
+    const menuBal = document.getElementById('menu-balance-amount');
+    if (accBal) accBal.textContent = `${loyaltyBalance.toLocaleString()} UZS`;
+    if (modalBal) modalBal.textContent = loyaltyBalance.toLocaleString();
+    if (menuBal) menuBal.textContent = `${loyaltyBalance.toLocaleString()} UZS`;
+  }
 
   // Apply Theme on load
   document.body.classList.toggle('theme-light', !isDarkMode);
-  document.getElementById('toggle-dark-theme').checked = isDarkMode;
-  document.getElementById('toggle-sound-fx').checked = soundFxEnabled;
+  const toggleDarkTheme = document.getElementById('toggle-dark-theme');
+  if (toggleDarkTheme) toggleDarkTheme.checked = isDarkMode;
+  const toggleSoundFx = document.getElementById('toggle-sound-fx');
+  if (toggleSoundFx) toggleSoundFx.checked = soundFxEnabled;
 
 
   // ==================== i18n TRANSLATIONS ====================
@@ -56,6 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
       phoneLabel: "Номер телефона",
       passwordLabel: "Пароль",
       forgotPassword: "Забыли пароль?",
+      resetPwdTitle: "Восстановление пароля",
+      resetPwdSub: "Введите ваш номер телефона для отправки кода сброса пароля",
+      btnSendResetCode: "Отправить СМС-код",
       btnContinue2fa: "Продолжить к СМС коду",
       codeSentTo: "СМС была отправлена на номер",
       otpSecuritySub: "Введите 4 цифры для подтверждения",
@@ -80,11 +105,14 @@ document.addEventListener('DOMContentLoaded', () => {
       myBalanceModalSub: "Бонусная программа лояльности Poytug Club",
       security2fa: "Безопасность и 2FA",
       settings: "Настройки",
+      appLanguage: "Язык приложения / Til",
+      settingsSubPreview: "Язык, звуковые эффекты, тема",
       aboutCompany: "О компании",
       aboutCompanyTitle: "О компании «Poytug GNS»",
       aboutCompanySub: "Официальный сертифицированный поставщик LPG в Узбекистане",
       support: "Служба поддержки",
       btnLogout: "Выйти из аккаунта",
+      btnSignIn: "Войти / Зарегистрироваться",
       heroServiceTag: "Экспресс-доставка газа",
       refillGasTitle: "Заправка СУГ / LPG",
       refillGasSub: "Быстрая заправка вашего баллона с доставкой",
@@ -92,9 +120,14 @@ document.addEventListener('DOMContentLoaded', () => {
       btnRefill: "ЗАПРАВИТЬ",
       selectCylinderTitle: "Выберите размер баллона",
       selectCylinderSub: "Круговое переключение между баллонами",
+      cyl10Title: "Баллон 10 КГ",
+      cyl20Title: "Баллон 20 КГ",
       pillBestHome: "Для дома и кухни",
       pillCompact: "Компактный / Дача",
       pillIndustrial: "Для кафе и отопления",
+      cylindersQtyLabel: "Количество баллонов:",
+      b2bWholesaleTitle: "ОПТОВЫЙ ЗАКАЗ (от 10 шт.)",
+      b2bWholesaleSub: "Оптовая скидка до 15% + Доставка спец-транспортом + Е-Фактура",
       btnConfirmSelection: "Подтвердить выбор",
       fillingProgressTitle: "Процесс заправки газа...",
       pressure: "Давление",
@@ -104,6 +137,10 @@ document.addEventListener('DOMContentLoaded', () => {
       addressSelectSub: "Выберите сохраненный адрес или укажите новый",
       addrHome: "Дом",
       addrDacha: "Дача / Частный дом",
+      tagHome: "🏠 Дом",
+      tagDacha: "🏡 Дача",
+      tagWork: "🏢 Работа",
+      tagOther: "📍 Другое",
       btnAddAddress: "Добавить адрес / Указать на карте",
       backToSavedAddresses: "Назад к списку",
       newAddressTitle: "Новый адрес доставки",
@@ -119,7 +156,10 @@ document.addEventListener('DOMContentLoaded', () => {
       payCashSub: "Оплата курьеру при передаче баллона",
       payOnlineFast: "Быстрая онлайн-оплата в 1 клик",
       payUzcardHumo: "Оплата картами Uzcard / Humo",
-      payOnline: "Электронный кошелек / Рассрочка",
+      payB2BInvoice: "Перечислением (Е-Фактура)",
+      b2bInvoiceSub: "Для юрлиц и организаций с выпиской счета",
+      companyInnLabel: "ИНН Компании / Организации:",
+      companyInnSub: "Для автоматического выставления Е-Фактуры",
       btnConfirmOrder: "Подтвердить и Оплатить",
       orderProcessedTitle: "Заказ взят в обработку!",
       orderProcessedSub: "Курьер спешит к вам с заправленным баллоном",
@@ -127,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
       statusAccepted: "Принят",
       statusInTransit: "В пути",
       statusDelivered: "Доставлен",
+      btnViewReceipt: "Электронный чек (Soliq.uz)",
       btnNewOrder: "Сделать новый заказ",
       navHome: "Главная",
       navMap: "Карта",
@@ -134,23 +175,66 @@ document.addEventListener('DOMContentLoaded', () => {
       navAccount: "Аккаунт",
       storeTitle: "Магазин газовых баллонов",
       storeSub: "Новые пустые и заправленные баллоны с гарантией",
+      store20kgTitle: "Газовый баллон 20 КГ (Новый)",
+      store20kgDesc: "Высокопрочный стальной баллон с предохранительным клапаном.",
+      store10kgTitle: "Газовый баллон 10 КГ (Новый)",
+      store10kgDesc: "Удобный портативный баллон для дачи, гриля и походов.",
+      storeRegulatorTitle: "Комплект: Редуктор + Шланг 2м",
+      storeRegulatorDesc: "Итальянский редуктор давления газа и армированный шланг с манометром.",
+      qtySublabel: "Кол-во:",
       btnBuy: "Купить",
+      verifiedClient: "Подтвержденный клиент",
+      bonusCashbackSub: "Бонусные баллы и кэшбэк",
       savedCards: "Мои карты",
       savedCardsSub: "Управление привязанными картами Uzcard и Humo",
       savedAddresses: "Мои адреса",
       savedAddressesSub: "Список ваших сохраненных адресов доставки",
       orderHistory: "История заказов",
-      openNow: "Открыто",
-      btnBuildRoute: "Построить маршрут",
+      orderHistorySub: "Просмотр всех заправок",
+      twoFaStatusActive: "Пароль + СМС (Включено)",
+      aboutSubText: "Лицензия, безопасность, контакты",
       cartTitle: "Корзина покупок",
+      cartSub: "Ваши выбранные товары и расчет доставки",
+      btnApply: "Применить",
+      cartItemsCost: "Стоимость товаров:",
+      cartPromoDiscount: "Скидка по промокоду:",
+      cartBonusDiscount: "Скидка бонусами клуба:",
+      btnCheckout: "Оформить заказ",
       btnExploreCatalog: "Перейти в каталог",
+      cartEmptyTitle: "Ваша корзина пуста",
+      cartEmptySub: "Выберите заправку газа или новые баллоны в каталоге",
+      openNow: "Открыто",
+      btnBuildRoute: "Маршрут",
+      btnOrderHere: "Заказать отсюда",
       emergencyTitle: "Аварийная служба газа",
       emergencySub: "Инструкция по безопасности при обнаружении запаха газа СУГ:",
       emergencyCallBtn: "Вызвать Аварийную 104",
       safetyStep1: "Немедленно перекройте вентиль газового баллона.",
       safetyStep2: "Откройте все окна и двери для проветривания.",
       safetyStep3: "Не включайте выключатели света, выдерните приборы.",
-      safetyStep4: "Покиньте помещение и вызовите службу 104."
+      safetyStep4: "Покиньте помещение и вызовите службу 104.",
+      soliqReceiptTitle: "Электронный Фискальный Чек",
+      soliqReceiptCode: "Soliq.uz Фискальный код",
+      addNewCardHeader: "Добавить новую карту",
+      btnSaveCard: "Сохранить карту",
+      addNewAddressHeader: "Добавить новый адрес",
+      btnSaveAddress: "Сохранить адрес",
+      goldLevelCashback: "Золотой уровень • 2% Кэшбэк",
+      balanceHintText: "1 бонус = 1 сум. Оплачивайте бонусами до 50% стоимости заправки и покупки баллонов!",
+      bonusHistoryTitle: "История начислений",
+      btnUseBonus: "Заправить газ со скидкой",
+      soundFxSetting: "Звуковые эффекты (шипение газа)",
+      pushNotifSetting: "Push-уведомления",
+      darkThemeSetting: "Темная тема интерфейса",
+      settingsSub: "Управление параметрами отображения и звука",
+      companyDesc: "ООО «Poytug' GNS» — надежный поставщик сжиженного углеводородного газа (СУГ / Пропан-Бутан) для населения и предприятий Узбекистана. Мы гарантируем 100% точность заправки, регулярное освидетельствование баллонов и экспресс-доставку до двери в течение 30 минут.",
+      companyBadgeIso: "Государственный сертификат ISO 9001:2026",
+      companyBadge247: "Круглосуточная заправка и доставка 24/7",
+      companyBadgeCallCenter: "Единый колл-центр: +998 71 200-00-00",
+      companyBadgeOffice: "Центральный офис: г. Ташкент, ул. Катартал, 28",
+      supportChatHeader: "Онлайн-чат с оператором Poytug GNS",
+      botBadgeTitle: "Poytug Ассистент",
+      supportBotGreeting: "Здравствуйте! Я онлайн-помощник Poytug GNS. Чем могу помочь по поводу заправки или доставки газа?"
     },
     uz: {
       auth2faTitle: "Kirish",
@@ -161,6 +245,9 @@ document.addEventListener('DOMContentLoaded', () => {
       phoneLabel: "Telefon raqami",
       passwordLabel: "Parol",
       forgotPassword: "Parolni unutdingizmi?",
+      resetPwdTitle: "Parolni tiklash",
+      resetPwdSub: "Parolni tiklash kodini olish uchun telefon raqamingizni kiriting",
+      btnSendResetCode: "SMS-kodni yuborish",
       btnContinue2fa: "SMS kodga o'tish",
       codeSentTo: "SMS raqamga yuborildi:",
       otpSecuritySub: "Tasdiqlash uchun 4 raqamni kiriting",
@@ -185,11 +272,14 @@ document.addEventListener('DOMContentLoaded', () => {
       myBalanceModalSub: "Poytug Club sodiqlik bonus dasturi",
       security2fa: "Xavfsizlik va 2FA",
       settings: "Sozlamalar",
+      appLanguage: "Ilova tili / Til",
+      settingsSubPreview: "Til, tovushlar, mavzu",
       aboutCompany: "Kompaniya haqida",
       aboutCompanyTitle: "«Poytug GNS» kompaniyasi haqida",
       aboutCompanySub: "O'zbekistonda rasmiy sertifikatlangan LPG yetkazib beruvchi",
       support: "Qo'llab-quvvatlash",
       btnLogout: "Hisobdan chiqish",
+      btnSignIn: "Kirish / Ro'yxatdan o'tish",
       heroServiceTag: "Tezkor gaz yetkazish",
       refillGasTitle: "LPG Gaz Quyish",
       refillGasSub: "Balloningizni tezkor to'ldirish va yetkazish",
@@ -197,9 +287,14 @@ document.addEventListener('DOMContentLoaded', () => {
       btnRefill: "GAZ QUYISH",
       selectCylinderTitle: "Ballon hajmini tanlang",
       selectCylinderSub: "Ballonlar o'rtasida aylanma almashtirish",
+      cyl10Title: "10 KG ballon",
+      cyl20Title: "20 KG ballon",
       pillBestHome: "Uy va oshxona uchun",
       pillCompact: "Ixcham / Dala hovli",
       pillIndustrial: "Kafe va isitish uchun",
+      cylindersQtyLabel: "Ballonlar soni:",
+      b2bWholesaleTitle: "ULGURJI BUYURTMA (10 tadan)",
+      b2bWholesaleSub: "15% gacha ulgurji chegirma + Maxsus transport + E-Faktura",
       btnConfirmSelection: "Tanlovni tasdiqlash",
       fillingProgressTitle: "Gaz to'ldirish jarayoni...",
       pressure: "Bosim",
@@ -209,6 +304,10 @@ document.addEventListener('DOMContentLoaded', () => {
       addressSelectSub: "Saqlangan manzilni tanlang yoki yangisini kiriting",
       addrHome: "Uy",
       addrDacha: "Dala hovli",
+      tagHome: "🏠 Uy",
+      tagDacha: "🏡 Dala hovli",
+      tagWork: "🏢 Ishxona",
+      tagOther: "📍 Boshqa",
       btnAddAddress: "Manzil qo'shish / Xaritadan belgilash",
       backToSavedAddresses: "Ro'yxatga qaytish",
       newAddressTitle: "Yangi yetkazish manzili",
@@ -224,7 +323,10 @@ document.addEventListener('DOMContentLoaded', () => {
       payCashSub: "Ballon topshirilganda kuryerga to'lash",
       payOnlineFast: "1 bosishda tezkor onlayn to'lov",
       payUzcardHumo: "Uzcard / Humo kartalari orqali",
-      payOnline: "Elektron hamyon / Bo'lib to'lash",
+      payB2BInvoice: "Bank o'tkazmasi (E-Faktura)",
+      b2bInvoiceSub: "Yuridik shaxslar va tashkilotlar uchun hisob-faktura",
+      companyInnLabel: "Tashkilot STIR (INN):",
+      companyInnSub: "E-Faktura avtomatik yuborilishi uchun",
       btnConfirmOrder: "Tasdiqlash va To'lash",
       orderProcessedTitle: "Buyurtma qabul qilindi!",
       orderProcessedSub: "Kuryer to'ldirilgan ballon bilan yo'lda",
@@ -232,6 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
       statusAccepted: "Qabul qilindi",
       statusInTransit: "Yo'lda",
       statusDelivered: "Yetkazildi",
+      btnViewReceipt: "Elektron chek (Soliq.uz)",
       btnNewOrder: "Yangi buyurtma berish",
       navHome: "Bosh sahifa",
       navMap: "Xarita",
@@ -239,23 +342,66 @@ document.addEventListener('DOMContentLoaded', () => {
       navAccount: "Kabinet",
       storeTitle: "Gaz ballonlari do'koni",
       storeSub: "Kafolatlangan yangi bo'sh va to'la ballonlar",
+      store20kgTitle: "20 KG Gaz balloni (Yangi)",
+      store20kgDesc: "Xavfsizlik klapanli yuqori mustahkam po'lat ballon.",
+      store10kgTitle: "10 KG Gaz balloni (Yangi)",
+      store10kgDesc: "Dala hovli, mangal va sayohatlar uchun qulay ixcham ballon.",
+      storeRegulatorTitle: "To'plam: Reduktor + 2m Shlang",
+      storeRegulatorDesc: "Italiya gaz bosim reduktori va manometrli mustahkamlangan shlang.",
+      qtySublabel: "Soni:",
       btnBuy: "Sotib olish",
+      verifiedClient: "Tasdiqlangan mijoz",
+      bonusCashbackSub: "Bonus ballari va keshbek",
       savedCards: "Mening kartalarim",
       savedCardsSub: "Ulangan Uzcard va Humo kartalarini boshqarish",
       savedAddresses: "Mening manzillarim",
       savedAddressesSub: "Yetkazib berish uchun saqlangan manzillar",
       orderHistory: "Buyurtmalar tarixi",
+      orderHistorySub: "Barcha to'ldirishlar ro'yxati",
+      twoFaStatusActive: "Parol + SMS (Faol)",
+      aboutSubText: "Litsenziya, xavfsizlik, aloqa",
+      cartTitle: "Haridlar savatchasi",
+      cartSub: "Tanlangan mahsulotlaringiz va yetkazish hisobi",
+      btnApply: "Qo'llash",
+      cartItemsCost: "Mahsulotlar narxi:",
+      cartPromoDiscount: "Promokod bo'yicha chegirma:",
+      cartBonusDiscount: "Bonus ballari bo'yicha chegirma:",
+      btnCheckout: "Buyurtmani rasmiylashtirish",
+      btnExploreCatalog: "Katalogga o'tish",
+      cartEmptyTitle: "Savatchangiz bo'sh",
+      cartEmptySub: "Katalogdan gaz quyish yoki yangi ballonlarni tanlang",
       openNow: "Ochiq",
       btnBuildRoute: "Yo'nalish tuzish",
-      cartTitle: "Haridlar savatchasi",
-      btnExploreCatalog: "Katalogga o'tish",
+      btnOrderHere: "Shu yerdan buyurtma",
       emergencyTitle: "Fevqulodda gaz xizmati",
       emergencySub: "Gaz hidi sezilganda xavfsizlik qoidalari:",
       emergencyCallBtn: "104 Fevqulodda xizmatga qo'ng'iroq",
       safetyStep1: "Darhol gaz balloni ventilini yoping.",
       safetyStep2: "Xonani shamollatish uchun deraza va eshiklarni oching.",
       safetyStep3: "Elektr chiroqlarini yoqmang, asboblarni tarmoqdan uzing.",
-      safetyStep4: "Binodan chiqing va 104 xizmatiga qo'ng'iroq qiling."
+      safetyStep4: "Binodan chiqing va 104 xizmatiga qo'ng'iroq qiling.",
+      soliqReceiptTitle: "Elektron Fiskal Chek",
+      soliqReceiptCode: "Soliq.uz Fiskal kodi",
+      addNewCardHeader: "Yangi karta qo'shish",
+      btnSaveCard: "Kartani saqlash",
+      addNewAddressHeader: "Yangi manzil qo'shish",
+      btnSaveAddress: "Manzilni saqlash",
+      goldLevelCashback: "Oltin daraja • 2% Keshbek",
+      balanceHintText: "1 bonus = 1 so'm. Bonuslar bilan gaz to'ldirish narxining 50% gacha to'lang!",
+      bonusHistoryTitle: "Hisoblanishlar tarixi",
+      btnUseBonus: "Chegirma bilan gaz quyish",
+      soundFxSetting: "Ovozli effektlar (gaz shivirlashi)",
+      pushNotifSetting: "Push-bildirishnomalar",
+      darkThemeSetting: "Qorong'u interfeys mavzusi",
+      settingsSub: "Ko'rinish va ovoz parametrlarini boshqarish",
+      companyDesc: "«Poytug' GNS» MChJ — O'zbekiston aholisi va korxonalari uchun suyultirilgan uglevodorod gazi (LPG / Propan-Butan) ishonchli yetkazib beruvchisi. Biz 100% to'g'ri quyish, muntazam ballon ko'rigi va 30 daqiqada yetkazib berishni kafolatlaymiz.",
+      companyBadgeIso: "Davlat standarti ISO 9001:2026 sertifikati",
+      companyBadge247: "Tunu-kun 24/7 gaz quyish va yetkazish",
+      companyBadgeCallCenter: "Yagona koll-markaz: +998 71 200-00-00",
+      companyBadgeOffice: "Bosh ofis: Toshkent sh., Qatortol ko'chasi, 28",
+      supportChatHeader: "Poytug GNS operatori bilan onlayn chat",
+      botBadgeTitle: "Poytug Yordamchisi",
+      supportBotGreeting: "Assalomu alaykum! Men Poytug GNS onlayn yordamchisiman. Gaz quyish yoki yetkazish bo'yicha qanday yordam bera olaman?"
     },
     en: {
       auth2faTitle: "Sign In",
@@ -266,6 +412,9 @@ document.addEventListener('DOMContentLoaded', () => {
       phoneLabel: "Phone Number",
       passwordLabel: "Password",
       forgotPassword: "Forgot password?",
+      resetPwdTitle: "Password Recovery",
+      resetPwdSub: "Enter your phone number to receive a password reset SMS code",
+      btnSendResetCode: "Send SMS Code",
       btnContinue2fa: "Continue to SMS OTP",
       codeSentTo: "SMS was sent to number",
       otpSecuritySub: "Enter 4 digits to verify",
@@ -290,11 +439,14 @@ document.addEventListener('DOMContentLoaded', () => {
       myBalanceModalSub: "Poytug Club Loyalty Program",
       security2fa: "Security & 2FA",
       settings: "Settings",
+      appLanguage: "App Language / Til",
+      settingsSubPreview: "Language, sound effects, theme",
       aboutCompany: "About Company",
       aboutCompanyTitle: "About Poytug GNS",
       aboutCompanySub: "Official certified LPG gas supplier in Uzbekistan",
       support: "Support Service",
       btnLogout: "Log Out",
+      btnSignIn: "Sign In / Register",
       heroServiceTag: "Express Gas Delivery",
       refillGasTitle: "LPG Gas Refill",
       refillGasSub: "Fast refill for your cylinder with door delivery",
@@ -302,9 +454,14 @@ document.addEventListener('DOMContentLoaded', () => {
       btnRefill: "REFILL GAS",
       selectCylinderTitle: "Select Cylinder Size",
       selectCylinderSub: "Swipe to switch between sizes",
+      cyl10Title: "10 KG Cylinder",
+      cyl20Title: "20 KG Cylinder",
       pillBestHome: "For Home & Kitchen",
       pillCompact: "Compact / Outdoor",
       pillIndustrial: "Commercial & Heating",
+      cylindersQtyLabel: "Number of cylinders:",
+      b2bWholesaleTitle: "WHOLESALE ORDER (10+ pcs)",
+      b2bWholesaleSub: "Up to 15% discount + Specialized freight + E-Invoice",
       btnConfirmSelection: "Confirm Selection",
       fillingProgressTitle: "Gas Refilling Process...",
       pressure: "Pressure",
@@ -314,6 +471,10 @@ document.addEventListener('DOMContentLoaded', () => {
       addressSelectSub: "Choose a saved address or specify a new one",
       addrHome: "Home",
       addrDacha: "Summer House",
+      tagHome: "🏠 Home",
+      tagDacha: "🏡 Summer House",
+      tagWork: "🏢 Office",
+      tagOther: "📍 Other",
       btnAddAddress: "Add Address / Pin on Map",
       backToSavedAddresses: "Back to List",
       newAddressTitle: "New Delivery Address",
@@ -329,7 +490,10 @@ document.addEventListener('DOMContentLoaded', () => {
       payCashSub: "Pay courier upon handover",
       payOnlineFast: "1-Click fast online payment",
       payUzcardHumo: "Pay via Uzcard / Humo cards",
-      payOnline: "Digital Wallet / Installments",
+      payB2BInvoice: "Bank Transfer (E-Invoice)",
+      b2bInvoiceSub: "For legal entities with tax invoice",
+      companyInnLabel: "Company Tax ID (INN):",
+      companyInnSub: "For automated E-Invoice issuance",
       btnConfirmOrder: "Confirm & Pay",
       orderProcessedTitle: "Order in Progress!",
       orderProcessedSub: "Courier is on the way with your filled cylinder",
@@ -337,6 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
       statusAccepted: "Accepted",
       statusInTransit: "In Transit",
       statusDelivered: "Delivered",
+      btnViewReceipt: "Electronic Receipt (Soliq.uz)",
       btnNewOrder: "Place New Order",
       navHome: "Home",
       navMap: "Map",
@@ -344,23 +509,66 @@ document.addEventListener('DOMContentLoaded', () => {
       navAccount: "Account",
       storeTitle: "Gas Cylinder Store",
       storeSub: "Brand new empty and refilled cylinders",
+      store20kgTitle: "20 KG Gas Cylinder (New)",
+      store20kgDesc: "High-strength steel cylinder with safety valve.",
+      store10kgTitle: "10 KG Gas Cylinder (New)",
+      store10kgDesc: "Convenient portable cylinder for summer houses, grill and camping.",
+      storeRegulatorTitle: "Kit: Regulator + 2m Hose",
+      storeRegulatorDesc: "Italian gas pressure regulator and reinforced hose with manometer.",
+      qtySublabel: "Qty:",
       btnBuy: "Buy Now",
+      verifiedClient: "Verified Client",
+      bonusCashbackSub: "Bonus points & cashback",
       savedCards: "My Cards",
       savedCardsSub: "Manage your linked Uzcard & Humo cards",
       savedAddresses: "My Addresses",
       savedAddressesSub: "List of saved delivery locations",
       orderHistory: "Order History",
+      orderHistorySub: "View all gas refills",
+      twoFaStatusActive: "Password + SMS (Enabled)",
+      aboutSubText: "License, safety & contacts",
+      cartTitle: "Shopping Cart",
+      cartSub: "Your selected items and delivery calculation",
+      btnApply: "Apply",
+      cartItemsCost: "Items Subtotal:",
+      cartPromoDiscount: "Promo Discount:",
+      cartBonusDiscount: "Loyalty Points Discount:",
+      btnCheckout: "Proceed to Checkout",
+      btnExploreCatalog: "Browse Catalog",
+      cartEmptyTitle: "Your cart is empty",
+      cartEmptySub: "Select gas refills or new cylinders from the catalog",
       openNow: "Open Now",
       btnBuildRoute: "Get Directions",
-      cartTitle: "Shopping Cart",
-      btnExploreCatalog: "Browse Catalog",
+      btnOrderHere: "Order from Here",
       emergencyTitle: "Emergency Gas Service",
       emergencySub: "Safety instructions upon detecting LPG gas odor:",
       emergencyCallBtn: "Call Emergency 104",
       safetyStep1: "Immediately close the gas cylinder valve.",
       safetyStep2: "Open all windows and doors for ventilation.",
       safetyStep3: "Do not turn on light switches, unplug appliances.",
-      safetyStep4: "Evacuate the premises and call 104 emergency service."
+      safetyStep4: "Evacuate the premises and call 104 emergency service.",
+      soliqReceiptTitle: "Electronic Fiscal Receipt",
+      soliqReceiptCode: "Soliq.uz Fiscal Code",
+      addNewCardHeader: "Add New Card",
+      btnSaveCard: "Save Card",
+      addNewAddressHeader: "Add New Address",
+      btnSaveAddress: "Save Address",
+      goldLevelCashback: "Gold Tier • 2% Cashback",
+      balanceHintText: "1 bonus = 1 UZS. Pay up to 50% of gas refill cost with bonus points!",
+      bonusHistoryTitle: "Accrual History",
+      btnUseBonus: "Refill Gas with Discount",
+      soundFxSetting: "Sound Effects (Gas Hissing)",
+      pushNotifSetting: "Push Notifications",
+      darkThemeSetting: "Dark Interface Theme",
+      settingsSub: "Manage display and sound settings",
+      companyDesc: "Poytug GNS LLC is a certified LPG supplier in Uzbekistan. We guarantee 100% filling precision, regular cylinder safety inspection, and express door delivery within 30 minutes.",
+      companyBadgeIso: "State Certified ISO 9001:2026",
+      companyBadge247: "24/7 Round-the-clock Gas Delivery",
+      companyBadgeCallCenter: "Unified Call Center: +998 71 200-00-00",
+      companyBadgeOffice: "Head Office: Tashkent, Katartal str., 28",
+      supportChatHeader: "Online chat with Poytug GNS operator",
+      botBadgeTitle: "Poytug Assistant",
+      supportBotGreeting: "Hello! I am Poytug GNS online assistant. How can I help you with gas refill or delivery?"
     }
   };
 
@@ -379,6 +587,63 @@ document.addEventListener('DOMContentLoaded', () => {
         el.textContent = translations[lang][key];
       }
     });
+
+    // Update guest vs auth text in drawer and profile
+    updateAuthUI();
+  }
+
+  function formatFullPhone(phoneStr) {
+    if (!phoneStr) return "+998 90 123 45 67";
+    const digits = phoneStr.toString().replace(/\D/g, '');
+    let raw = digits.startsWith('998') && digits.length > 3 ? digits.substring(3) : digits;
+    raw = raw.substring(0, 9);
+    let res = '';
+    if (raw.length > 0) res = raw.substring(0, 2);
+    if (raw.length > 2) res += ' ' + raw.substring(2, 5);
+    if (raw.length > 5) res += ' ' + raw.substring(5, 7);
+    if (raw.length > 7) res += ' ' + raw.substring(7, 9);
+    return res ? `+998 ${res}` : "+998 90 123 45 67";
+  }
+
+  function updateAuthUI() {
+    const drawerName = document.getElementById('drawer-user-name');
+    const drawerPhone = document.getElementById('drawer-user-phone');
+    const drawerLogoutText = document.getElementById('drawer-logout-text');
+    const accountLogoutText = document.getElementById('account-logout-text');
+    const accName = document.getElementById('acc-user-name');
+    const accPhone = document.getElementById('acc-user-phone');
+
+    if (isAuth) {
+      if (drawerName) drawerName.textContent = currentUserName;
+      if (drawerPhone) drawerPhone.textContent = formatFullPhone(userPhone);
+      if (drawerLogoutText) drawerLogoutText.textContent = translations[currentLang].btnLogout;
+      if (accountLogoutText) accountLogoutText.textContent = translations[currentLang].btnLogout;
+      if (accName) accName.textContent = currentUserName;
+      if (accPhone) accPhone.textContent = formatFullPhone(userPhone);
+    } else {
+      if (drawerName) drawerName.textContent = translations[currentLang].guestUser;
+      if (drawerPhone) drawerPhone.textContent = "+998 90 123 45 67";
+      if (drawerLogoutText) drawerLogoutText.textContent = translations[currentLang].btnSignIn;
+      if (accountLogoutText) accountLogoutText.textContent = translations[currentLang].btnSignIn;
+    }
+    updateBalanceDisplay();
+  }
+
+  function updateHeaderControls(screenId) {
+    const isAuthScreen = (screenId === 'screen-auth') || (document.getElementById('screen-auth') && document.getElementById('screen-auth').classList.contains('active'));
+    const langSelector = document.getElementById('lang-selector');
+    const btnCloseAuth = document.getElementById('btn-close-auth');
+    const btnOpenCart = document.getElementById('btn-open-cart');
+
+    if (isAuthScreen) {
+      if (langSelector) langSelector.style.display = 'flex';
+      if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
+      if (btnOpenCart) btnOpenCart.style.display = 'none';
+    } else {
+      if (langSelector) langSelector.style.display = 'none';
+      if (btnCloseAuth) btnCloseAuth.style.display = 'none';
+      if (btnOpenCart) btnOpenCart.style.display = 'flex';
+    }
   }
 
   setLanguage(currentLang);
@@ -499,18 +764,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==================== 2FA AUTH & REGISTRATION ENGINE ====================
-  let storedUsers = JSON.parse(localStorage.getItem('lpg_users') || '[]');
-  if (storedUsers.length === 0) {
-    storedUsers = [
-      { name: "Алишер Каримов", phone: "+998 90 123-45-67", password: "123456" }
-    ];
-    localStorage.setItem('lpg_users', JSON.stringify(storedUsers));
+  // Uzbekistan Phone Formatter (+998 90 123 45 67)
+  function formatUzbekPhone(value) {
+    if (!value) return '';
+    let digits = value.toString().replace(/\D/g, '');
+    
+    // Strip leading country code 998 if entered/pasted
+    if (digits.startsWith('998') && digits.length > 3) {
+      digits = digits.substring(3);
+    }
+    
+    // Max 9 national digits (e.g. 90 123 45 67)
+    digits = digits.substring(0, 9);
+    
+    let res = '';
+    if (digits.length > 0) res = digits.substring(0, 2);
+    if (digits.length > 2) res += ' ' + digits.substring(2, 5);
+    if (digits.length > 5) res += ' ' + digits.substring(5, 7);
+    if (digits.length > 7) res += ' ' + digits.substring(7, 9);
+    return res;
   }
 
-  let currentUserName = localStorage.getItem('lpg_user_name') || "Алишер Каримов";
-  let pendingAuthData = { name: '', phone: '', password: '' };
-  let loginTimerInterval = null;
-  let regTimerInterval = null;
+  function setupPhoneInput(input) {
+    if (!input) return;
+    input.addEventListener('input', () => {
+      input.value = formatUzbekPhone(input.value);
+    });
+    input.addEventListener('paste', () => {
+      setTimeout(() => {
+        input.value = formatUzbekPhone(input.value);
+      }, 0);
+    });
+  }
+
+  let storedUsers = JSON.parse(localStorage.getItem('lpg_users') || JSON.stringify([
+    { name: "Алишер Алишеров", phone: "+998 90 123 45 67", password: "123456" }
+  ]));
+  let pendingAuthData = { name: 'Алишер Алишеров', phone: '+998 90 123 45 67', password: '123456' };
+  let authTimers = {};
+
+  function startTimer(elemId, seconds) {
+    if (authTimers[elemId]) clearInterval(authTimers[elemId]);
+    const el = document.getElementById(elemId);
+    let rem = seconds;
+    if (el) el.textContent = rem;
+    authTimers[elemId] = setInterval(() => {
+      rem--;
+      if (el) el.textContent = rem;
+      if (rem <= 0) clearInterval(authTimers[elemId]);
+    }, 1000);
+  }
 
   // Tabs: Login vs Register
   const tabAuthLogin = document.getElementById('tab-auth-login');
@@ -542,6 +845,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   tabAuthLogin.addEventListener('click', () => switchAuthTab('login'));
   tabAuthRegister.addEventListener('click', () => switchAuthTab('register'));
+
+  // Forgot Password Modal
+  const btnForgotPwd = document.getElementById('btn-forgot-pwd');
+  if (btnForgotPwd) {
+    btnForgotPwd.addEventListener('click', () => {
+      openModal('modal-forgot-pwd');
+    });
+  }
+
+  const btnSendResetCode = document.getElementById('btn-send-reset-code');
+  if (btnSendResetCode) {
+    btnSendResetCode.addEventListener('click', () => {
+      closeModal('modal-forgot-pwd');
+      showToast("💬 СМС с кодом восстановления отправлено!");
+    });
+  }
 
   // Password Visibility Toggles
   const btnToggleLoginPwd = document.getElementById('btn-toggle-login-pwd');
@@ -582,14 +901,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Enter Application Helper
-  function enterApp(asGuest = false, name = "Алишер Каримов", phone = "+998 90 123-45-67") {
+  function enterApp(asGuest = false, name = "Алишер Алишеров", phone = "+998 90 123 45 67") {
     document.getElementById('screen-auth').classList.remove('active');
     document.getElementById('screen-home').classList.add('active');
+    updateHeaderControls('screen-home');
     
-    // Hide the 'X' button on all in-app screens
-    const btnCloseAuth = document.getElementById('btn-close-auth');
-    if (btnCloseAuth) btnCloseAuth.style.display = 'none';
-
     if (!asGuest) {
       isAuth = true;
       currentUserName = name;
@@ -598,20 +914,25 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('lpg_phone', userPhone);
       localStorage.setItem('lpg_user_name', currentUserName);
 
-      document.getElementById('drawer-user-name').textContent = currentUserName;
-      document.getElementById('drawer-user-phone').textContent = userPhone;
-      document.getElementById('acc-user-name').textContent = currentUserName;
-      document.getElementById('acc-user-phone').textContent = userPhone;
+      const drawerName = document.getElementById('drawer-user-name');
+      const drawerPhone = document.getElementById('drawer-user-phone');
+      const accName = document.getElementById('acc-user-name');
+      const accPhone = document.getElementById('acc-user-phone');
+
+      if (drawerName) drawerName.textContent = currentUserName;
+      if (drawerPhone) drawerPhone.textContent = formatFullPhone(userPhone);
+      if (accName) accName.textContent = currentUserName;
+      if (accPhone) accPhone.textContent = formatFullPhone(userPhone);
       showToast(`Добро пожаловать, ${currentUserName}!`);
       launchConfettiCannon();
     } else {
       showToast("Вход в гостевом режиме");
     }
-    renderAddressOptions();
+    updateAuthUI();
   }
 
   if (isAuth) {
-    enterApp(false, currentUserName, userPhone || "+998 (90) 123-45-67");
+    enterApp(false, currentUserName, userPhone || "+998 90 123 45 67");
   } else {
     const btnCloseAuth = document.getElementById('btn-close-auth');
     if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
@@ -627,11 +948,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnResendLoginOtp = document.getElementById('btn-resend-login-otp');
   const btnBackToLoginStep1 = document.getElementById('btn-back-to-login-step1');
 
+  setupPhoneInput(inputLoginPhone);
+
   btnLoginNext.addEventListener('click', () => {
     const rawPhone = inputLoginPhone.value.trim();
     const password = inputLoginPwd.value.trim();
 
-    if (!rawPhone || rawPhone.length < 7) {
+    if (!rawPhone || rawPhone.replace(/\D/g, '').length < 7) {
       showToast("Введите корректный номер телефона!");
       inputLoginPhone.focus();
       return;
@@ -642,7 +965,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const formattedPhone = rawPhone.startsWith('+998') ? rawPhone : `+998 ${rawPhone}`;
+    const formattedPhone = `+998 ${formatUzbekPhone(rawPhone)}`;
     const cleanDigits = rawPhone.replace(/\D/g, '');
     
     // Check if user exists in local database
@@ -653,7 +976,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const userName = existing ? existing.name : "Алишер Каримов";
+    const userName = existing ? existing.name : "Алишер Алишеров";
     pendingAuthData = { name: userName, phone: formattedPhone, password: password };
 
     displayLoginPhone.textContent = formattedPhone;
@@ -693,6 +1016,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnResendRegOtp = document.getElementById('btn-resend-reg-otp');
   const btnBackToRegStep1 = document.getElementById('btn-back-to-reg-step1');
 
+  setupPhoneInput(inputRegPhone);
+
+  const inputResetPhone = document.getElementById('input-reset-phone');
+  setupPhoneInput(inputResetPhone);
+
   btnRegisterNext.addEventListener('click', () => {
     const name = inputRegName.value.trim();
     const rawPhone = inputRegPhone.value.trim();
@@ -704,7 +1032,7 @@ document.addEventListener('DOMContentLoaded', () => {
       inputRegName.focus();
       return;
     }
-    if (!rawPhone || rawPhone.length < 7) {
+    if (!rawPhone || rawPhone.replace(/\D/g, '').length < 7) {
       showToast("Введите номер телефона!");
       inputRegPhone.focus();
       return;
@@ -724,7 +1052,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const formattedPhone = rawPhone.startsWith('+998') ? rawPhone : `+998 ${rawPhone}`;
+    const formattedPhone = `+998 ${formatUzbekPhone(rawPhone)}`;
     pendingAuthData = { name: name, phone: formattedPhone, password: password };
 
     displayRegPhone.textContent = formattedPhone;
@@ -806,8 +1134,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('lpg_auth', 'false');
       document.getElementById('screen-account').classList.remove('active');
       document.getElementById('screen-auth').classList.add('active');
-      const btnCloseAuth = document.getElementById('btn-close-auth');
-      if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
+      updateHeaderControls('screen-auth');
       switchAuthTab('login');
       showToast("Вы вышли из системы");
     });
@@ -846,6 +1173,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     screens.forEach(s => s.classList.toggle('active', s.id === targetId));
+
+    updateHeaderControls(targetId);
 
     if (targetId === 'screen-map') {
       if (!mapInitialized) {
@@ -936,8 +1265,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('lpg_auth', 'false');
       screens.forEach(s => s.classList.remove('active'));
       document.getElementById('screen-auth').classList.add('active');
-      const btnCloseAuth = document.getElementById('btn-close-auth');
-      if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
+      updateHeaderControls('screen-auth');
       switchAuthTab('login');
       showToast("Вы вышли из системы");
     });
@@ -1450,27 +1778,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Switch to payment stage
       const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
-      const totalPrice = unitPrice * cylinderQuantity;
+      const rawTotal = unitPrice * cylinderQuantity;
+      const finalToPay = Math.max(0, rawTotal - appliedBonusDiscount);
 
       document.getElementById('summary-cyl-type').textContent = `Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)`;
-      document.getElementById('summary-cyl-price').textContent = `${totalPrice.toLocaleString()} UZS`;
-      document.getElementById('summary-total-price').textContent = `${totalPrice.toLocaleString()} UZS`;
+      document.getElementById('summary-cyl-price').textContent = `${rawTotal.toLocaleString()} UZS`;
+      
+      const summaryBonusRow = document.getElementById('summary-bonus-row');
+      const summaryBonusAmount = document.getElementById('summary-bonus-amount');
+      if (summaryBonusRow && summaryBonusAmount) {
+        if (appliedBonusDiscount > 0) {
+          summaryBonusRow.style.display = 'flex';
+          summaryBonusAmount.textContent = `-${appliedBonusDiscount.toLocaleString()} UZS`;
+        } else {
+          summaryBonusRow.style.display = 'none';
+        }
+      }
 
+      document.getElementById('summary-total-price').textContent = `${finalToPay.toLocaleString()} UZS`;
       switchHomeStage('payment');
     });
   }
 
   btnGotoPayment.addEventListener('click', () => {
-    const customAddr = document.getElementById('input-custom-address').value.trim();
+    const inputCustom = document.getElementById('input-custom-address');
+    const customAddr = inputCustom ? inputCustom.value.trim() : '';
     if (customAddr) selectedAddress = customAddr;
 
     const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
-    const totalPrice = unitPrice * cylinderQuantity;
+    const rawTotal = unitPrice * cylinderQuantity;
+    const finalToPay = Math.max(0, rawTotal - appliedBonusDiscount);
 
     document.getElementById('summary-cyl-type').textContent = `Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)`;
-    document.getElementById('summary-cyl-price').textContent = `${totalPrice.toLocaleString()} UZS`;
-    document.getElementById('summary-total-price').textContent = `${totalPrice.toLocaleString()} UZS`;
+    document.getElementById('summary-cyl-price').textContent = `${rawTotal.toLocaleString()} UZS`;
 
+    const summaryBonusRow = document.getElementById('summary-bonus-row');
+    const summaryBonusAmount = document.getElementById('summary-bonus-amount');
+    if (summaryBonusRow && summaryBonusAmount) {
+      if (appliedBonusDiscount > 0) {
+        summaryBonusRow.style.display = 'flex';
+        summaryBonusAmount.textContent = `-${appliedBonusDiscount.toLocaleString()} UZS`;
+      } else {
+        summaryBonusRow.style.display = 'none';
+      }
+    }
+
+    document.getElementById('summary-total-price').textContent = `${finalToPay.toLocaleString()} UZS`;
     switchHomeStage('payment');
   });
 
@@ -1511,19 +1864,44 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
+    const rawTotal = unitPrice * cylinderQuantity;
+    const finalToPay = Math.max(0, rawTotal - appliedBonusDiscount);
+
+    // If bonus used, deduct from balance
+    if (appliedBonusDiscount > 0) {
+      loyaltyBalance = Math.max(0, loyaltyBalance - appliedBonusDiscount);
+      appliedBonusDiscount = 0;
+      saveAppState();
+      updateBalanceDisplay();
+    }
+
+    // Dynamic Courier info based on wholesale vs retail
+    const courierDriverName = document.getElementById('courier-driver-name');
+    const courierVehicleInfo = document.getElementById('courier-vehicle-info');
+    if (isWholesale) {
+      if (courierDriverName) courierDriverName.textContent = "Шерзод Умаров";
+      if (courierVehicleInfo) courierVehicleInfo.textContent = "🚛 Isuzu Cargo • 01 888 BBA";
+    } else {
+      if (courierDriverName) courierDriverName.textContent = "Фарход Рахимов";
+      if (courierVehicleInfo) courierVehicleInfo.textContent = "🚚 Labo Auto • 01 A 777 AA";
+    }
+
     switchHomeStage('tracking');
     startCountdownTimer(25 * 60);
     initTrackingMiniMap();
     launchConfettiCannon();
 
-    const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
+    const orderCode = `LPG-${Math.floor(1000 + Math.random() * 9000)}`;
     orderHistory.unshift({
-      code: `LPG-${Math.floor(1000 + Math.random() * 9000)}`,
+      code: orderCode,
       date: 'Сегодня',
       title: `Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)`,
-      price: unitPrice * cylinderQuantity,
+      price: finalToPay,
       status: 'В пути'
     });
+    saveAppState();
+    showToast(`Заказ ${orderCode} успешно оформлен!`);
   });
 
   function startCountdownTimer(seconds) {
@@ -1534,7 +1912,7 @@ document.addEventListener('DOMContentLoaded', () => {
     countdownTimerInterval = setInterval(() => {
       const mins = Math.floor(rem / 60);
       const secs = rem % 60;
-      timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      if (timerDisplay) timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
       rem--;
       if (rem < 0) clearInterval(countdownTimerInterval);
     }, 1000);
@@ -1585,25 +1963,61 @@ document.addEventListener('DOMContentLoaded', () => {
     switchHomeStage('initial');
   });
 
-  document.getElementById('btn-call-courier').addEventListener('click', () => {
-    showToast("Звонок курьеру Фарходу (+998 97 777-77-77)...");
-  });
+  const btnCallCourier = document.getElementById('btn-call-courier');
+  if (btnCallCourier) {
+    btnCallCourier.addEventListener('click', () => {
+      const driverName = isWholesale ? "Шерзоду (+998 90 888-88-88)" : "Фарходу (+998 97 777-77-77)";
+      showToast(`Звонок курьеру ${driverName}...`);
+    });
+  }
 
   // Fiscal Receipt Trigger
-  document.getElementById('btn-view-receipt').addEventListener('click', () => {
-    const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
-    const totalPrice = unitPrice * cylinderQuantity;
+  const btnViewReceipt = document.getElementById('btn-view-receipt');
+  if (btnViewReceipt) {
+    btnViewReceipt.addEventListener('click', () => {
+      const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
+      const rawTotal = unitPrice * cylinderQuantity;
+      const finalPrice = Math.max(0, rawTotal - appliedBonusDiscount);
 
-    document.getElementById('rec-code').textContent = `LPG-${Math.floor(1000 + Math.random() * 9000)}`;
-    document.getElementById('rec-item').textContent = `${selectedCylinder.name} x ${cylinderQuantity} шт`;
-    document.getElementById('rec-total').textContent = `${totalPrice.toLocaleString()} UZS`;
-    openModal('modal-receipt');
-  });
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const year = now.getFullYear();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      const formattedDate = `${day}.${month}.${year} ${hours}:${mins}`;
+
+      const recCode = document.getElementById('rec-code');
+      const recDate = document.getElementById('rec-date');
+      const recClient = document.getElementById('rec-client');
+      const recInnRow = document.getElementById('rec-inn-row');
+      const recInnVal = document.getElementById('rec-inn-val');
+      const recItem = document.getElementById('rec-item');
+      const recTotal = document.getElementById('rec-total');
+
+      if (recCode) recCode.textContent = orderHistory.length > 0 ? orderHistory[0].code : `LPG-${Math.floor(1000 + Math.random() * 9000)}`;
+      if (recDate) recDate.textContent = formattedDate;
+      if (recClient) recClient.textContent = isAuth ? currentUserName : "Гость";
+      if (recInnRow && recInnVal) {
+        if (companyInn) {
+          recInnRow.style.display = 'flex';
+          recInnVal.textContent = companyInn;
+        } else {
+          recInnRow.style.display = 'none';
+        }
+      }
+      if (recItem) recItem.textContent = `${selectedCylinder.name} x ${cylinderQuantity} шт`;
+      if (recTotal) recTotal.textContent = `${finalPrice.toLocaleString()} UZS`;
+
+      openModal('modal-receipt');
+    });
+  }
 
   // Animated Tracking Map
   function initTrackingMiniMap() {
     if (trackingCourierInterval) clearInterval(trackingCourierInterval);
     const container = document.getElementById('tracking-map-container');
+    if (!container) return;
     container.innerHTML = '';
     const tMap = L.map('tracking-map-container', { zoomControl: false }).setView([41.2920, 69.2200], 13);
 
@@ -1616,7 +2030,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const destLat = 41.2995;
     const destLng = 69.2401;
 
-    const courierMarker = L.marker([courierLat, courierLng]).addTo(tMap).bindPopup("🚚 Курьер Фарход");
+    const courierPopupLabel = isWholesale ? "🚛 Курьер Шерзод (Isuzu Cargo)" : "🚚 Курьер Фарход (Labo Auto)";
+    const courierMarker = L.marker([courierLat, courierLng]).addTo(tMap).bindPopup(courierPopupLabel);
     const routeLine = L.polyline([[courierLat, courierLng], [destLat, destLng]], { color: '#ef4444', weight: 4, dashArray: '6, 8' }).addTo(tMap);
     tMap.fitBounds(routeLine.getBounds(), { padding: [20, 20] });
 
@@ -1665,7 +2080,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-order-from-station').addEventListener('click', () => {
       showToast("Выбрана заправка с АГЗС #1 Чиланзар");
       navItems[0].click();
-      btnStartRefill.click();
+      if (btnStartRefill) btnStartRefill.click();
     });
 
     document.getElementById('btn-map-locate-me').addEventListener('click', () => {
@@ -1682,7 +2097,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnClearCartAll = document.getElementById('btn-clear-cart-all');
 
   function updateCartUI() {
-    localStorage.setItem('lpg_cart', JSON.stringify(cart));
+    saveAppState();
     const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
     if (cartBadgeCount) cartBadgeCount.textContent = totalCount;
 
@@ -1733,7 +2148,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <button class="qty-btn" onclick="changeQty(${i}, 1)" aria-label="Увеличить">+</button>
             </div>
             <strong class="cart-item-price">${(item.price * item.qty).toLocaleString()} UZS</strong>
-            <button class="cart-remove-btn" onclick="removeCartItem(${i})" title="Удалить"><i class="fa-regular fa-trash-can"></i></button>
+            <button class="cart-remove-btn" onclick="removeCartItem(${i})" title="Удалить" aria-label="Удалить"><i class="fa-regular fa-trash-can"></i></button>
           </div>
         </div>
       `).join('');
@@ -1749,6 +2164,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (discountAmount) discountAmount.textContent = `-${discountVal.toLocaleString()} UZS (${appliedPromoDiscount}%)`;
     }
     if (totalAmount) totalAmount.textContent = `${finalTotal.toLocaleString()} UZS`;
+
+    const btnRemovePromo = document.getElementById('btn-remove-promo');
+    if (btnRemovePromo) {
+      btnRemovePromo.style.display = appliedPromoDiscount > 0 ? 'inline-flex' : 'none';
+    }
   }
 
   window.changeQty = function(idx, delta) {
@@ -1803,6 +2223,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const btnRemovePromo = document.getElementById('btn-remove-promo');
+  if (btnRemovePromo) {
+    btnRemovePromo.addEventListener('click', () => {
+      appliedPromoDiscount = 0;
+      const promoInput = document.getElementById('input-promocode');
+      if (promoInput) promoInput.value = '';
+      showToast("Промокод удален");
+      updateCartUI();
+    });
+  }
+
   const btnCartCheckout = document.getElementById('btn-cart-checkout');
   if (btnCartCheckout) {
     btnCartCheckout.addEventListener('click', () => {
@@ -1810,14 +2241,30 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast("Корзина пуста!");
         return;
       }
+
+      let rawTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      let discountVal = Math.round(rawTotal * (appliedPromoDiscount / 100));
+      let finalTotal = rawTotal - discountVal;
+
+      const orderCode = `LPG-${Math.floor(1000 + Math.random() * 9000)}`;
+      orderHistory.unshift({
+        code: orderCode,
+        date: 'Сегодня',
+        title: `Заказ товаров (${cart.length} наим.)`,
+        price: finalTotal,
+        status: 'Оформлен'
+      });
+
       cart = [];
       appliedPromoDiscount = 0;
+      saveAppState();
       updateCartUI();
       launchConfettiCannon();
-      showToast("Заказ из корзины успешно оформлен!");
+      showToast(`Заказ ${orderCode} успешно оформлен!`);
+
       setTimeout(() => {
         navigateToScreen('screen-home');
-      }, 1200);
+      }, 1000);
     });
   }
 
@@ -1827,6 +2274,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnAccBalanceItem = document.getElementById('btn-acc-balance-item');
   if (btnAccBalanceItem) {
     btnAccBalanceItem.addEventListener('click', () => {
+      updateBalanceDisplay();
       openModal('modal-balance');
     });
   }
@@ -1835,10 +2283,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnUseBalanceNow) {
     btnUseBalanceNow.addEventListener('click', () => {
       closeModal('modal-balance');
+      appliedBonusDiscount = Math.min(loyaltyBalance, 25000);
       const homeNav = document.querySelector('[data-target="screen-home"]');
       if (homeNav) homeNav.click();
       if (btnStartRefill) btnStartRefill.click();
-      showToast("Бонусы 25 000 UZS будут применены к заказу!");
+      showToast(`Бонусы ${appliedBonusDiscount.toLocaleString()} UZS будут применены к заказу!`);
     });
   }
 
@@ -1898,6 +2347,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const masked = `${rawPan.substring(0, 4)} •••• •••• ${rawPan.substring(12)}`;
       savedCards.push({ type: previewLogo.textContent.toUpperCase(), pan: masked, exp: inputCardExp.value || '12/28' });
+      saveAppState();
       renderCards();
       const cardsPreview = document.getElementById('acc-cards-preview');
       if (cardsPreview) cardsPreview.textContent = `${savedCards.length} привязанные карты`;
@@ -1943,6 +2393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       savedAddresses.push({ title: title || 'Другой адрес', text: text, icon: '📍' });
+      saveAppState();
       renderAddressManager();
       const countDisplay = document.getElementById('acc-addresses-count');
       if (countDisplay) countDisplay.textContent = `${savedAddresses.length} адресов доставки`;
@@ -1961,6 +2412,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderHistory() {
     const list = document.getElementById('history-items-list');
+    if (!list) return;
     list.innerHTML = orderHistory.map(h => `
       <div class="account-card-item" style="margin-bottom:8px;">
         <div class="acc-icon orange-bg"><i class="fa-solid fa-gas-pump"></i></div>
@@ -2013,6 +2465,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
+  // Settings in Account Profile
+  const btnAccSettings = document.getElementById('btn-acc-settings');
+  if (btnAccSettings) {
+    btnAccSettings.addEventListener('click', () => {
+      openModal('modal-settings');
+    });
+  }
+
+  const togglePushNotif = document.getElementById('toggle-push-notif');
+  if (togglePushNotif) {
+    togglePushNotif.addEventListener('change', (e) => {
+      showToast(e.target.checked ? "Push-уведомления включены" : "Push-уведомления отключены");
+    });
+  }
+
   // ==================== UTILS: MODALS & TOAST ====================
   function openModal(id) {
     const modal = document.getElementById(id);
@@ -2055,11 +2522,16 @@ document.addEventListener('DOMContentLoaded', () => {
   function showToast(msg) {
     const toast = document.getElementById('toast-notif');
     const toastText = document.getElementById('toast-text');
-    toastText.textContent = msg;
-    toast.classList.add('active');
-    setTimeout(() => {
-      toast.classList.remove('active');
-    }, 2800);
+    if (toastText) toastText.textContent = msg;
+    if (toast) {
+      toast.classList.add('active');
+      setTimeout(() => {
+        toast.classList.remove('active');
+      }, 2800);
+    }
   }
+
+  updateAuthUI();
+  updateHeaderControls();
 
 });
