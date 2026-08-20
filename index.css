@@ -1309,56 +1309,209 @@ body.theme-light .qty-counter-control {
 .metric-value.highlight { color: var(--primary-flame); }
 
 
-/* STAGE 4: ADDRESS SELECT */
-.address-subview { display: flex; flex-direction: column; gap: 12px; animation: fadeIn 0.3s ease; }
+/* ==================== STAGE 4: ADDRESS SELECTION (PIXEL-PERFECT SCREENSHOT MATCH) ==================== */
+.address-subview {
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.3s ease;
+}
 
-.address-card-group { display: flex; flex-direction: column; gap: 10px; }
+#home-stage-address {
+  padding: 4px 4px 16px;
+}
+
+#home-stage-address .section-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #8E8E93;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 16px 0 12px 2px;
+}
+
+.address-card-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
 .address-option {
-  display: flex; align-items: center; gap: 14px; padding: 14px;
-  background: var(--bg-card); border: 1.5px solid var(--border-glass); border-radius: var(--radius-md);
-  cursor: pointer; transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: #1C1C1E;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
-.address-option.active { border-color: var(--primary-flame); background: rgba(239, 68, 68, 0.12); box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
-.radio-circle { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--text-muted); flex-shrink: 0; }
-.address-option.active .radio-circle { border-color: var(--primary-flame); background: var(--primary-flame); box-shadow: 0 0 10px var(--primary-glow); }
-.address-text h4 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
-.address-text p { font-size: 12px; color: var(--text-muted); }
+.address-option:hover {
+  background: #242426;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.address-option.selected {
+  background: #1C1C1E;
+  border-color: #FF4438;
+  box-shadow: 0 0 0 1px rgba(255, 68, 56, 0.3), 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.address-option .radio-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.address-option.selected .radio-check {
+  background: #FF4438;
+  border-color: #FF4438;
+  box-shadow: 0 0 10px rgba(255, 68, 56, 0.4);
+}
+
+.address-option .addr-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: #2C2C2E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #98989F;
+  transition: all 0.2s ease;
+}
+
+.address-option.selected .addr-icon-box {
+  color: #FF4438;
+  background: rgba(255, 68, 56, 0.12);
+}
+
+.address-option .addr-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.address-option .addr-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.address-option .addr-desc {
+  font-size: 13px;
+  color: #98989F;
+  margin: 0;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.address-option .addr-edit-btn {
+  background: transparent;
+  border: none;
+  color: #636366;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+
+.address-option .addr-edit-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
+}
 
 .address-empty-card {
-  text-align: center; padding: 24px 16px; display: flex; flex-direction: column;
-  align-items: center; gap: 8px; border: 1px dashed var(--border-glass);
+  text-align: center;
+  padding: 28px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
 }
-.empty-addr-icon { font-size: 32px; color: var(--primary-flame); margin-bottom: 4px; }
-.address-empty-card h4 { font-size: 15px; font-weight: 700; }
-.address-empty-card p { font-size: 12px; color: var(--text-muted); }
+.empty-addr-icon { font-size: 32px; color: #FF4438; margin-bottom: 4px; }
+.address-empty-card h4 { font-size: 15px; font-weight: 700; color: #fff; }
+.address-empty-card p { font-size: 12px; color: #98989F; }
 
-.add-new-address-btn {
-  margin-top: 6px;
-  background: rgba(239, 68, 68, 0.08);
-  border: 1.5px dashed rgba(239, 68, 68, 0.5);
-  color: var(--primary-flame) !important;
-  font-size: 13.5px;
+/* Dashed Add Address Button */
+.add-address-dashed-btn {
+  margin-top: 12px;
+  width: 100%;
+  height: 56px;
+  background: rgba(28, 28, 30, 0.6);
+  border: 1.5px dashed rgba(255, 68, 56, 0.35);
+  border-radius: 18px;
+  color: #FF4438;
+  font-size: 14.5px;
   font-weight: 700;
-  height: 48px;
-  border-radius: var(--radius-md);
-  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.add-address-dashed-btn:hover {
+  background: rgba(255, 68, 56, 0.1);
+  border-color: #FF4438;
+  transform: translateY(-1px);
+}
+
+.add-address-dashed-btn .plus-icon-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 68, 56, 0.18);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+/* Primary CTA Button on Address Screen */
+.btn-address-proceed-pay {
+  width: 100%;
+  height: 56px;
+  background: #FF4438;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 18px;
+  font-size: 16px;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   cursor: pointer;
-  width: 100%;
+  box-shadow: 0 10px 28px rgba(255, 68, 56, 0.4);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.add-new-address-btn:hover {
-  background: rgba(239, 68, 68, 0.16);
-  border-color: var(--primary-flame);
-  box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);
+
+.btn-address-proceed-pay:hover {
+  background: #ff554a;
+  box-shadow: 0 12px 32px rgba(255, 68, 56, 0.55);
+  transform: translateY(-1.5px);
 }
-.add-new-address-btn i {
-  color: var(--primary-flame);
-  font-size: 16px;
+
+.btn-address-proceed-pay:active {
+  transform: scale(0.98);
 }
 
 /* ADDRESS FORM SUBVIEW */

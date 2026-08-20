@@ -1548,24 +1548,45 @@ document.addEventListener('DOMContentLoaded', () => {
     container.innerHTML = savedAddresses.map((addr, idx) => {
       const isActive = selectedAddress === addr.text || (!selectedAddress && idx === 0);
       if (isActive) selectedAddress = addr.text;
-      const safeIcon = escapeHTML(addr.icon);
       const safeTitle = escapeHTML(addr.title);
       const safeText = escapeHTML(addr.text);
       return `
-        <div class="address-option ${isActive ? 'active' : ''}" data-address="${safeText}">
-          <div class="radio-circle"></div>
-          <div class="address-text">
-            <h4>${safeIcon} <span>${safeTitle}</span></h4>
-            <p>${safeText}</p>
+        <div class="address-option ${isActive ? 'selected' : ''}" data-address="${safeText}">
+          <div class="radio-check">
+            ${isActive ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><path d="M20 6 9 17l-5-5"/></svg>' : ''}
           </div>
+          <div class="addr-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div class="addr-info">
+            <h4 class="addr-title">${safeTitle}</h4>
+            <p class="addr-desc">${safeText}</p>
+          </div>
+          <button type="button" class="addr-edit-btn" title="Редактировать адрес" onclick="event.stopPropagation(); switchAddressSubview('form');">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </button>
         </div>
       `;
     }).join('');
 
     container.querySelectorAll('.address-option').forEach(opt => {
       opt.addEventListener('click', () => {
-        container.querySelectorAll('.address-option').forEach(o => o.classList.remove('active'));
-        opt.classList.add('active');
+        container.querySelectorAll('.address-option').forEach(o => {
+          o.classList.remove('selected');
+          const rc = o.querySelector('.radio-check');
+          if (rc) rc.innerHTML = '';
+        });
+        opt.classList.add('selected');
+        const activeRc = opt.querySelector('.radio-check');
+        if (activeRc) {
+          activeRc.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><path d="M20 6 9 17l-5-5"/></svg>';
+        }
         selectedAddress = opt.dataset.address;
       });
     });

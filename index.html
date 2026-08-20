@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <!-- App Styles -->
-  <link rel="stylesheet" href="index.css?v=4.9">
+  <link rel="stylesheet" href="index.css?v=5.0">
 </head>
 <body class="theme-dark">
 
@@ -734,13 +734,15 @@
         
         <!-- SUB-VIEW 1: SAVED ADDRESSES LIST -->
         <div id="address-view-list" class="address-subview">
-          <div class="stage-header">
-            <h2 data-i18n="addressSelectTitle">Адрес доставки</h2>
-            <p data-i18n="addressSelectSub">Выберите сохраненный адрес или укажите новый</p>
+          <div class="page-header" style="text-align: center; margin-bottom: 20px;">
+            <h1 style="font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 6px;" data-i18n="addressSelectTitle">Адрес доставки</h1>
+            <p style="font-size: 14px; color: var(--text-2); margin: 0;" data-i18n="addressSelectSub">Выберите сохранённый адрес или укажите новый</p>
           </div>
 
+          <div class="section-label" style="margin-bottom: 12px;">СОХРАНЁННЫЕ АДРЕСА</div>
+
           <div class="address-card-group" id="address-options-container">
-            <!-- Dynamic items -->
+            <!-- Dynamic items matching the screenshot -->
           </div>
 
           <!-- Empty state if 0 saved addresses -->
@@ -750,15 +752,18 @@
             <p>Добавьте адрес доставки для быстрого заказа</p>
           </div>
 
-          <button class="secondary-btn btn-full add-new-address-btn" id="btn-show-add-address" type="button">
-            <i class="fa-solid fa-circle-plus"></i>
+          <button class="add-address-dashed-btn" id="btn-show-add-address" type="button">
+            <span class="plus-icon-circle"><i class="fa-solid fa-plus"></i></span>
             <span data-i18n="btnAddAddress">Добавить адрес / Указать на карте</span>
           </button>
 
-          <div class="home-bottom-action" id="saved-address-bottom-action">
-            <button class="primary-btn btn-large ripple-btn" id="btn-goto-payment">
+          <div class="home-bottom-action" id="saved-address-bottom-action" style="margin-top: 20px;">
+            <button class="btn-address-proceed-pay" id="btn-goto-payment" type="button">
               <span data-i18n="btnProceedPayment">Перейти к оплате</span>
-              <i class="fa-solid fa-credit-card"></i>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 4px;">
+                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                <line x1="2" y1="10" x2="22" y2="10"/>
+              </svg>
             </button>
           </div>
         </div>
@@ -1647,6 +1652,6 @@
   <!-- Leaflet JS for Map -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- App JS -->
-  <script src="app.js?v=4.9"></script>
+  <script src="app.js?v=5.0"></script>
 </body>
 </html>
