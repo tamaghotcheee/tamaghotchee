@@ -31,25 +31,35 @@
   <div id="app-container" class="mobile-frame">
 
     <!-- ==================== HEADER / TOP BAR ==================== -->
-    <header class="app-header" id="app-header">
-      <!-- Left Action Group: Menu -->
+    <!-- ==================== HEADER / TOP BAR (VARIANT 2: ADDRESS PICKER) ==================== -->
+    <header class="app-header header-variant-2" id="app-header">
+      <!-- Left Action Group: Brand Logo & Title -->
       <div class="header-left-group">
-        <button class="icon-btn menu-trigger" id="btn-side-menu" aria-label="Menu" title="Меню">
-          <i class="fa-solid fa-bars"></i>
-        </button>
+        <div class="brand-badge-compact" id="btn-header-brand" style="cursor:pointer; display:flex; align-items:center; gap:6px;">
+          <svg class="animated-flame-svg" viewBox="0 0 32 32" width="22" height="22">
+            <path class="flame-outer" d="M16 2C16 2 22 9 22 17C22 23.6 19.3 27 16 27C12.7 27 10 23.6 10 17C10 9 16 2 16 2Z" fill="#dc2626"/>
+            <path class="flame-inner" d="M16 10C16 10 19 14 19 18C19 21 17.7 23 16 23C14.3 23 13 21 13 18C13 14 16 10 16 10Z" fill="#ffffff"/>
+          </svg>
+          <span class="brand-title" style="font-size:15px; font-weight:900; letter-spacing:-0.3px; color:var(--text-1);">Poytug</span>
+        </div>
       </div>
 
-      <!-- Center Brand Title / Logo -->
-      <div class="brand-badge">
-        <svg class="animated-flame-svg" viewBox="0 0 32 32" width="22" height="22">
-          <path class="flame-outer" d="M16 2C16 2 22 9 22 17C22 23.6 19.3 27 16 27C12.7 27 10 23.6 10 17C10 9 16 2 16 2Z" fill="#dc2626"/>
-          <path class="flame-inner" d="M16 10C16 10 19 14 19 18C19 21 17.7 23 16 23C14.3 23 13 21 13 18C13 14 16 10 16 10Z" fill="#ffffff"/>
-        </svg>
-        <span class="brand-title">Poytug GNS</span>
+      <!-- Center / Address Selector Pill Button -->
+      <div class="header-address-chip" id="header-address-btn" title="Выбрать адрес доставки">
+        <i class="fa-solid fa-location-dot address-pin-ic"></i>
+        <div class="header-address-info">
+          <span class="address-tag-label" id="header-address-tag">Дом</span>
+          <span class="address-text-sub" id="header-address-street">ул. Катартал, 28</span>
+        </div>
+        <i class="fa-solid fa-chevron-down address-chevron"></i>
       </div>
 
-      <!-- Header Right Action Group: Cart + Close 'X' -->
+      <!-- Header Right Action Group: Club Badge + Cart + Close 'X' -->
       <div class="header-right-group">
+        <button class="icon-btn header-club-btn" id="btn-header-club" title="Poytug Club (Бонусы)" style="color:#FFD60A; border-color:rgba(255,214,10,0.3); background:rgba(255,214,10,0.1);">
+          <i class="fa-solid fa-crown"></i>
+        </button>
+
         <button class="icon-btn cart-badge-btn" id="btn-open-cart" title="Корзина">
           <i class="fa-solid fa-cart-shopping"></i>
           <span class="cart-count-badge" id="cart-badge-count">0</span>
@@ -1182,7 +1192,7 @@
           <div class="top-up" id="btn-topup-balance">Пополнить</div>
         </div>
 
-        <!-- Section: Платежи и адреса -->
+        <!-- Section 1: Платежи и адреса -->
         <div class="section-label">Платежи и адреса</div>
         <div class="list" style="margin-bottom:14px;">
           <div class="row" id="btn-acc-cards">
@@ -1220,8 +1230,101 @@
           </div>
         </div>
 
-        <!-- Section: Безопасность и настройки -->
-        <div class="section-label">Безопасность и настройки</div>
+        <!-- Section 2: Программа лояльности & Бонусы -->
+        <div class="section-label">Лояльность и бонусы</div>
+        <div class="list" style="margin-bottom:14px;">
+          <div class="row" id="btn-acc-loyalty">
+            <div class="ic" style="color:#FFD60A; background:rgba(255,214,10,0.14);">
+              <i class="fa-solid fa-crown"></i>
+            </div>
+            <div class="label">Poytug Club (2% Кэшбэк)</div>
+            <span class="row-sub-tag" style="color:#FFD60A; background:rgba(255,214,10,0.15);">25 000 UZS</span>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-acc-referral">
+            <div class="ic" style="color:#10B981; background:rgba(16,185,129,0.14);">
+              <i class="fa-solid fa-gift"></i>
+            </div>
+            <div class="label">Пригласи друга (+15 000 сум)</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-acc-emergency">
+            <div class="ic danger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <div class="label danger">Аварийная служба 104</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-acc-support">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 11a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3M3 11v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H3"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="support">Служба поддержки 24/7</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-acc-about">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="2" width="16" height="20" rx="2"/>
+                <path d="M9 22v-4h6v4M9 6h.01M15 6h.01M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="aboutCompany">О компании «Poytug GNS»</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-acc-settings">
+            <div class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
+              </svg>
+            </div>
+            <div class="label" data-i18n="settings">Язык и параметры приложения</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        </div>
+
+        <!-- Section 3: Сервисы и инструменты -->
+        <div class="section-label">Сервисы и утилиты</div>
+        <div class="list" style="margin-bottom:14px;">
+          <div class="row" id="btn-acc-calculator">
+            <div class="ic" style="color:#F59E0B; background:rgba(245,158,11,0.14);">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <div class="label">Калькулятор расхода газа</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-acc-inspection">
+            <div class="ic" style="color:#8B5CF6; background:rgba(139,92,246,0.14);">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <div class="label">Освидетельствование баллонов</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+
+          <div class="row" id="btn-acc-b2b">
+            <div class="ic" style="color:#EC4899; background:rgba(236,72,153,0.14);">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <div class="label">Для бизнеса (B2B опт)</div>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        </div>
+
+        <!-- Section 4: Безопасность и информация -->
+        <div class="section-label">Безопасность и информация</div>
         <div class="list" style="margin-bottom:16px;">
           <div class="row" id="btn-acc-security">
             <div class="ic danger">

@@ -2431,6 +2431,76 @@ document.addEventListener('DOMContentLoaded', () => {
     inputCardExp.value = '';
   });
 
+  // Header Variant 2: Delivery Address Pill Click
+  const headerAddressBtn = document.getElementById('header-address-btn');
+  if (headerAddressBtn) {
+    headerAddressBtn.addEventListener('click', () => {
+      renderAddressManager();
+      openModal('modal-addresses');
+    });
+  }
+
+  const btnHeaderBrand = document.getElementById('btn-header-brand');
+  if (btnHeaderBrand) {
+    btnHeaderBrand.addEventListener('click', () => {
+      switchScreen('screen-home');
+    });
+  }
+
+  const btnHeaderClub = document.getElementById('btn-header-club');
+  if (btnHeaderClub) {
+    btnHeaderClub.addEventListener('click', () => {
+      openLoyaltyModal();
+    });
+  }
+
+  // Account Screen: Service & Utility buttons
+  const btnAccLoyalty = document.getElementById('btn-acc-loyalty');
+  if (btnAccLoyalty) {
+    btnAccLoyalty.addEventListener('click', () => {
+      openLoyaltyModal();
+    });
+  }
+
+  const btnAccReferral = document.getElementById('btn-acc-referral');
+  if (btnAccReferral) {
+    btnAccReferral.addEventListener('click', () => {
+      openModal('modal-referral');
+    });
+  }
+
+  const btnAccPromocodes = document.getElementById('btn-acc-promocodes');
+  if (btnAccPromocodes) {
+    btnAccPromocodes.addEventListener('click', () => {
+      openModal('modal-promocodes');
+    });
+  }
+
+  const btnAccCalculator = document.getElementById('btn-acc-calculator');
+  if (btnAccCalculator) {
+    btnAccCalculator.addEventListener('click', () => {
+      openModal('modal-gas-calculator');
+    });
+  }
+
+  const btnAccInspection = document.getElementById('btn-acc-inspection');
+  if (btnAccInspection) {
+    btnAccInspection.addEventListener('click', () => {
+      openModal('modal-cylinder-inspection');
+    });
+  }
+
+  const btnAccB2b = document.getElementById('btn-acc-b2b');
+  if (btnAccB2b) {
+    btnAccB2b.addEventListener('click', () => {
+      isWholesale = true;
+      if (inputCylQty) inputCylQty.value = 10;
+      updateQuantityAndWholesaleState();
+      switchScreen('screen-home');
+      showToast("🏢 Режим B2B оптовых поставок активирован (от 10 баллонов)");
+    });
+  }
+
   document.getElementById('btn-acc-addresses').addEventListener('click', () => {
     renderAddressManager();
     openModal('modal-addresses');
@@ -2448,14 +2518,29 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     list.innerHTML = savedAddresses.map(a => `
-      <div class="account-card-item" style="margin-bottom:8px;">
+      <div class="account-card-item select-address-card" data-title="${escapeHTML(a.title)}" data-text="${escapeHTML(a.text)}" style="margin-bottom:8px; cursor:pointer;">
         <div class="acc-icon green-bg">${escapeHTML(a.icon)}</div>
         <div class="acc-text">
           <h4>${escapeHTML(a.title)}</h4>
           <p>${escapeHTML(a.text)}</p>
         </div>
+        <span style="font-size:11.5px; color:var(--brand); font-weight:700;">Выбрать</span>
       </div>
     `).join('');
+
+    // Clicking an address card sets it as active delivery address in header
+    list.querySelectorAll('.select-address-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const title = card.dataset.title || 'Дом';
+        const text = card.dataset.text || 'ул. Катартал, 28';
+        const tagEl = document.getElementById('header-address-tag');
+        const streetEl = document.getElementById('header-address-street');
+        if (tagEl) tagEl.textContent = title;
+        if (streetEl) streetEl.textContent = text;
+        closeModal('modal-addresses');
+        showToast(`📍 Адрес доставки выбран: ${title} (${text})`);
+      });
+    });
   }
 
   document.getElementById('btn-save-new-address').addEventListener('click', () => {

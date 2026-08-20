@@ -655,20 +655,68 @@ input, button, select, textarea {
   flex: 0 0 auto;
 }
 
-.brand-badge {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+.brand-badge-compact {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 6px;
+  user-select: none;
+}
+
+/* Delivery Address Pill Chip (Variant 2) */
+.header-address-chip {
+  display: flex;
+  align-items: center;
   gap: 7px;
+  padding: 5px 10px;
+  background: var(--bg-card-glass, rgba(255,255,255,0.06));
+  border: 1px solid var(--border-glass, rgba(255,255,255,0.12));
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  max-width: 175px;
+}
+
+.header-address-chip:hover, .header-address-chip:active {
+  background: rgba(255, 68, 56, 0.14);
+  border-color: rgba(255, 68, 56, 0.4);
+  transform: scale(0.98);
+}
+
+.header-address-chip .address-pin-ic {
+  color: var(--primary-flame, #FF4438);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.header-address-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: left;
+  line-height: 1.15;
+}
+
+.address-tag-label {
+  font-size: 11.5px;
   font-weight: 800;
-  font-size: 16px;
-  letter-spacing: -0.2px;
-  color: var(--text-main);
-  pointer-events: none;
+  color: var(--text-main, #ffffff);
   white-space: nowrap;
+}
+
+.address-text-sub {
+  font-size: 10px;
+  color: var(--text-muted, #94a3b8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 95px;
+}
+
+.address-chevron {
+  font-size: 9px;
+  color: var(--text-muted, #94a3b8);
+  flex-shrink: 0;
+  margin-left: 2px;
 }
 
 .animated-flame-svg { width: 22px; height: 22px; }
