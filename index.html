@@ -1553,9 +1553,36 @@
                 <span data-i18n="appLanguage" style="font-weight:700; font-size:13.5px;">Язык приложения / Til</span>
               </div>
               <div class="settings-lang-group" id="settings-lang-group">
-                <button type="button" class="lang-btn" data-lang="uz">🇺🇿 O'zbekcha</button>
-                <button type="button" class="lang-btn active" data-lang="ru">🇷🇺 Русский</button>
-                <button type="button" class="lang-btn" data-lang="en">🇬🇧 English</button>
+                <button type="button" class="lang-btn" data-lang="uz">
+                  <svg class="flag-icon-mini" viewBox="0 0 32 20" width="18" height="12">
+                    <rect width="32" height="6.6" fill="#0099b5"/>
+                    <rect y="6.6" width="32" height="6.8" fill="#ffffff"/>
+                    <rect y="13.4" width="32" height="6.6" fill="#1eb53a"/>
+                    <rect y="6.3" width="32" height="0.6" fill="#ce1126"/>
+                    <rect y="13.1" width="32" height="0.6" fill="#ce1126"/>
+                    <circle cx="5" cy="3.3" r="1.8" fill="#ffffff"/>
+                    <circle cx="5.6" cy="3.3" r="1.5" fill="#0099b5"/>
+                  </svg>
+                  <span>O'zbekcha</span>
+                </button>
+                <button type="button" class="lang-btn active" data-lang="ru">
+                  <svg class="flag-icon-mini" viewBox="0 0 32 20" width="18" height="12">
+                    <rect width="32" height="6.7" fill="#ffffff"/>
+                    <rect y="6.7" width="32" height="6.7" fill="#0039a6"/>
+                    <rect y="13.4" width="32" height="6.7" fill="#d52b1e"/>
+                  </svg>
+                  <span>Русский</span>
+                </button>
+                <button type="button" class="lang-btn" data-lang="en">
+                  <svg class="flag-icon-mini" viewBox="0 0 32 20" width="18" height="12">
+                    <rect width="32" height="20" fill="#012169"/>
+                    <path d="M0,0 L32,20 M32,0 L0,20" stroke="#ffffff" stroke-width="4"/>
+                    <path d="M0,0 L32,20 M32,0 L0,20" stroke="#c8102e" stroke-width="2.2"/>
+                    <path d="M16,0 V20 M0,10 H32" stroke="#ffffff" stroke-width="6"/>
+                    <path d="M16,0 V20 M0,10 H32" stroke="#c8102e" stroke-width="3.6"/>
+                  </svg>
+                  <span>English</span>
+                </button>
               </div>
             </div>
 
@@ -1565,7 +1592,7 @@
                 <i class="fa-solid fa-moon" style="color:var(--primary-flame);"></i>
                 <span data-i18n="darkThemeSetting">Темная тема интерфейса</span>
               </div>
-              <label class="ios-switch" for="toggle-dark-theme">
+              <label class="ios-switch">
                 <input type="checkbox" id="toggle-dark-theme" checked>
                 <span class="ios-switch-slider"></span>
               </label>
@@ -1577,7 +1604,7 @@
                 <i class="fa-solid fa-volume-high" style="color:var(--primary-flame);"></i>
                 <span data-i18n="soundEffects">Звуковые эффекты (шипение)</span>
               </div>
-              <label class="ios-switch" for="toggle-sound-fx">
+              <label class="ios-switch">
                 <input type="checkbox" id="toggle-sound-fx" checked>
                 <span class="ios-switch-slider"></span>
               </label>
@@ -1589,7 +1616,7 @@
                 <i class="fa-solid fa-bell" style="color:var(--primary-flame);"></i>
                 <span data-i18n="pushNotifications">Push-уведомления</span>
               </div>
-              <label class="ios-switch" for="toggle-push-notif">
+              <label class="ios-switch">
                 <input type="checkbox" id="toggle-push-notif" checked>
                 <span class="ios-switch-slider"></span>
               </label>

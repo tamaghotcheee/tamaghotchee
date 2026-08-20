@@ -2914,10 +2914,22 @@ body.theme-light .settings-lang-group .lang-btn.active {
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
+/* Flag Icon Mini for Language Selector */
+.flag-icon-mini {
+  width: 18px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  display: inline-block;
+  vertical-align: middle;
+}
+
 /* ==================== iOS-STYLE TOGGLE SWITCHES ==================== */
 .ios-switch {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   width: 50px;
   height: 28px;
   flex-shrink: 0;
@@ -2926,12 +2938,14 @@ body.theme-light .settings-lang-group .lang-btn.active {
   user-select: none;
 }
 
-.ios-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  position: absolute;
-  pointer-events: none;
+.ios-switch input,
+.ios-switch input[type="checkbox"] {
+  display: none !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  pointer-events: none !important;
 }
 
 .ios-switch-slider {
@@ -2944,6 +2958,7 @@ body.theme-light .settings-lang-group .lang-btn.active {
   border-radius: 34px;
   transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.28s ease, box-shadow 0.28s ease;
   border: 1.5px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
 }
 
 .ios-switch-slider::before {
@@ -2960,9 +2975,9 @@ body.theme-light .settings-lang-group .lang-btn.active {
 }
 
 .ios-switch input:checked + .ios-switch-slider {
-  background-color: var(--primary-flame);
-  border-color: var(--primary-flame);
-  box-shadow: 0 0 14px rgba(239, 68, 68, 0.45);
+  background-color: #34c759 !important;
+  border-color: #34c759 !important;
+  box-shadow: 0 0 14px rgba(52, 199, 89, 0.45);
 }
 
 .ios-switch input:checked + .ios-switch-slider::before {
@@ -2981,7 +2996,7 @@ body.theme-light .ios-switch-slider::before {
 }
 
 body.theme-light .ios-switch input:checked + .ios-switch-slider {
-  background-color: var(--primary-flame);
-  border-color: var(--primary-flame);
-  box-shadow: 0 0 14px rgba(239, 68, 68, 0.35);
+  background-color: #34c759 !important;
+  border-color: #34c759 !important;
+  box-shadow: 0 0 14px rgba(52, 199, 89, 0.35);
 }
