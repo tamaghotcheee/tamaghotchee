@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <!-- App Styles -->
-  <link rel="stylesheet" href="index.css?v=4.4">
+  <link rel="stylesheet" href="index.css?v=4.5">
 </head>
 <body class="theme-dark">
 
@@ -1393,6 +1393,77 @@
       </div>
     </div>
 
+    <!-- ==================== MODAL: TOP-UP BALANCE ==================== -->
+    <div class="modal-backdrop" id="modal-topup">
+      <div class="modal-dialog sheet">
+        <button type="button" class="close-btn modal-close" data-close="modal-topup" aria-label="Закрыть">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+
+        <div class="sheet-header">
+          <div class="cart-mark" style="background: rgba(255, 68, 56, 0.14); color: #FF4438;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+          </div>
+          <h1>Пополнение баланса</h1>
+          <p style="font-size: 13px; color: #8E8E93; margin: 4px 0 0;">Текущий баланс: <strong id="topup-current-balance" style="color:#FFF;">25 000 UZS</strong></p>
+        </div>
+
+        <!-- Amount Input Field -->
+        <div class="topup-amount-box">
+          <label style="font-size: 12px; font-weight: 700; color: #8E8E93; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block;">Сумма пополнения (UZS)</label>
+          <div class="topup-input-wrap">
+            <input type="text" id="input-topup-amount" class="topup-input" value="50 000" inputmode="numeric" placeholder="0">
+            <span class="topup-currency">UZS</span>
+          </div>
+        </div>
+
+        <!-- Quick Preset Amount Chips -->
+        <div class="topup-chips-grid">
+          <button type="button" class="topup-chip active" data-amount="50000">+50 000</button>
+          <button type="button" class="topup-chip" data-amount="100000">+100 000</button>
+          <button type="button" class="topup-chip" data-amount="200000">+200 000</button>
+          <button type="button" class="topup-chip" data-amount="500000">+500 000</button>
+        </div>
+
+        <!-- Payment Method Source -->
+        <div class="topup-source-label">Способ оплаты</div>
+        <div class="topup-methods-list">
+          <div class="topup-method-card selected" data-source="card-uzcard">
+            <div class="topup-method-ic" style="background:#1877F2; color:#fff; font-size:10px; font-weight:800;">CARD</div>
+            <div class="topup-method-info">
+              <h4>UZCARD •••• 4412</h4>
+              <p>Основная карта</p>
+            </div>
+            <div class="radio"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+          </div>
+
+          <div class="topup-method-card" data-source="click">
+            <div class="topup-method-ic" style="background:#1877F2; color:#fff; font-size:11px; font-weight:800;">click</div>
+            <div class="topup-method-info">
+              <h4>Click Pass</h4>
+              <p>Оплата через приложение Click</p>
+            </div>
+            <div class="radio"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+          </div>
+
+          <div class="topup-method-card" data-source="payme">
+            <div class="topup-method-ic" style="background:#00CDBA; color:#fff; font-size:11px; font-weight:800;">payme</div>
+            <div class="topup-method-info">
+              <h4>Payme</h4>
+              <p>Оплата через Payme</p>
+            </div>
+            <div class="radio"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="button" class="cta" id="btn-submit-topup" style="margin-top: 14px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5v14M5 12h14"/></svg>
+          <span id="btn-topup-label">Пополнить на 50 000 UZS</span>
+        </button>
+      </div>
+    </div>
+
     <!-- Modal 2: Saved Cards Manager & Add Card -->
     <div class="modal-backdrop" id="modal-cards">
       <div class="modal-dialog glass-panel">
@@ -1576,6 +1647,6 @@
   <!-- Leaflet JS for Map -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- App JS -->
-  <script src="app.js?v=4.4"></script>
+  <script src="app.js?v=4.5"></script>
 </body>
 </html>

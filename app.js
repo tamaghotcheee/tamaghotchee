@@ -29,6 +29,19 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
   }
   let appliedPromoDiscount = 0;
+  let userBalance = parseInt(localStorage.getItem('lpg_balance') || '25000', 10);
+
+  function updateBalanceDisplay() {
+    const formatted = userBalance.toLocaleString().replace(/,/g, ' ') + ' UZS';
+    const menuEl = document.getElementById('menu-balance-amount');
+    const accEl = document.getElementById('acc-balance-display');
+    const topupEl = document.getElementById('topup-current-balance');
+    if (menuEl) menuEl.textContent = formatted;
+    if (accEl) accEl.textContent = formatted;
+    if (topupEl) topupEl.textContent = formatted;
+    localStorage.setItem('lpg_balance', userBalance.toString());
+  }
+  updateBalanceDisplay();
 
   let savedCards = [
     { type: 'UZCARD', pan: '8600 •••• •••• 4412', exp: '12/28' },
@@ -866,19 +879,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Balance Top-up in Profile & Drawer
+  // ==================== BALANCE TOP-UP MODAL ENGINE ====================
+  function openTopupModal() {
+    updateBalanceDisplay();
+    openModal('modal-topup');
+  }
+
   const btnTopupBalance = document.getElementById('btn-topup-balance');
   if (btnTopupBalance) {
     btnTopupBalance.addEventListener('click', (e) => {
       e.stopPropagation();
-      openModal('modal-cards');
+      openTopupModal();
     });
   }
 
   const btnAccBalanceItem = document.getElementById('btn-acc-balance-item');
   if (btnAccBalanceItem) {
     btnAccBalanceItem.addEventListener('click', () => {
-      openModal('modal-cards');
+      openTopupModal();
+    });
+  }
+
+  const inputTopupAmount = document.getElementById('input-topup-amount');
+  const btnTopupLabel = document.getElementById('btn-topup-label');
+  const topupChips = document.querySelectorAll('.topup-chip');
+  const topupMethodCards = document.querySelectorAll('.topup-method-card');
+  const btnSubmitTopup = document.getElementById('btn-submit-topup');
+
+  function refreshTopupSubmitBtn() {
+    let rawVal = inputTopupAmount ? inputTopupAmount.value.replace(/\D/g, '') : '0';
+    let num = parseInt(rawVal, 10) || 0;
+    if (btnTopupLabel) {
+      btnTopupLabel.textContent = `Пополнить на ${num.toLocaleString().replace(/,/g, ' ')} UZS`;
+    }
+  }
+
+  topupChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      topupChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const amt = parseInt(chip.dataset.amount, 10);
+      if (inputTopupAmount) {
+        inputTopupAmount.value = amt.toLocaleString().replace(/,/g, ' ');
+      }
+      refreshTopupSubmitBtn();
+    });
+  });
+
+  if (inputTopupAmount) {
+    inputTopupAmount.addEventListener('input', (e) => {
+      let digits = e.target.value.replace(/\D/g, '');
+      let val = parseInt(digits, 10) || 0;
+      e.target.value = val ? val.toLocaleString().replace(/,/g, ' ') : '';
+      topupChips.forEach(c => {
+        c.classList.toggle('active', parseInt(c.dataset.amount, 10) === val);
+      });
+      refreshTopupSubmitBtn();
+    });
+  }
+
+  topupMethodCards.forEach(card => {
+    card.addEventListener('click', () => {
+      topupMethodCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+    });
+  });
+
+  if (btnSubmitTopup) {
+    btnSubmitTopup.addEventListener('click', () => {
+      let digits = inputTopupAmount ? inputTopupAmount.value.replace(/\D/g, '') : '0';
+      let amount = parseInt(digits, 10) || 0;
+      if (amount < 1000) {
+        showToast("Минимальная сумма пополнения: 1 000 UZS");
+        return;
+      }
+      userBalance += amount;
+      updateBalanceDisplay();
+      closeModal('modal-topup');
+      showToast(`💳 Баланс успешно пополнен на +${amount.toLocaleString().replace(/,/g, ' ')} UZS!`);
+      launchConfettiCannon();
     });
   }
 
@@ -966,7 +1045,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('btn-menu-balance').addEventListener('click', () => {
     closeDrawer();
-    showToast("Ваш баланс: 25 000 UZS (+2% кэшбэк за заправку)");
+    openTopupModal();
   });
   document.getElementById('btn-menu-settings').addEventListener('click', () => {
     closeDrawer();

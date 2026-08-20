@@ -2439,6 +2439,183 @@ body.theme-light .qty-counter-control {
 #modal-cart.empty-mode .total-row { display: none !important; }
 #modal-cart.empty-mode .cta { display: none !important; }
 
+/* ==================== APPLE OLED TOP-UP MODAL ==================== */
+#modal-topup .sheet {
+  width: 100%;
+  max-width: 380px;
+  background: #1C1C1E;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  padding: 24px 20px 22px;
+  position: relative;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.85);
+}
+#modal-topup .close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #2C2C2E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8E8E93;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+#modal-topup .close-btn:hover {
+  color: #FFFFFF;
+  background: #3A3A3C;
+}
+
+#modal-topup .sheet-header {
+  text-align: center;
+  padding: 4px 0 16px;
+}
+#modal-topup .cart-mark {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(255, 68, 56, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  color: #FF4438;
+}
+#modal-topup .sheet-header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 750;
+  color: #FFFFFF;
+  letter-spacing: -0.2px;
+}
+
+.topup-amount-box {
+  margin-bottom: 12px;
+}
+.topup-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.topup-input {
+  width: 100%;
+  height: 52px;
+  background: #2C2C2E;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 0 54px 0 16px;
+  color: #FFFFFF;
+  font-size: 20px;
+  font-weight: 800;
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+.topup-input:focus {
+  border-color: #FF4438;
+}
+.topup-currency {
+  position: absolute;
+  right: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #FF4438;
+}
+
+.topup-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.topup-chip {
+  background: #2C2C2E;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 8px 4px;
+  color: #8E8E93;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+.topup-chip:hover {
+  color: #FFFFFF;
+  background: #3A3A3C;
+}
+.topup-chip.active {
+  background: rgba(255, 68, 56, 0.15);
+  border-color: #FF4438;
+  color: #FF4438;
+}
+
+.topup-source-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #8E8E93;
+  margin: 0 4px 8px;
+}
+
+.topup-methods-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.topup-method-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #2C2C2E;
+  border: 1.5px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 11px 14px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.topup-method-card:hover {
+  background: #353538;
+}
+.topup-method-card.selected {
+  border-color: #FF4438;
+  background: #2C2C2E;
+}
+
+.topup-method-ic {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 38px;
+}
+.topup-method-info {
+  flex: 1;
+  min-width: 0;
+}
+.topup-method-info h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+.topup-method-info p {
+  margin: 2px 0 0;
+  font-size: 11.5px;
+  color: #8E8E93;
+}
+
 .interactive-card-preview {
   height: 140px; background: linear-gradient(135deg, #1e293b, #0f172a);
   border: 1px solid var(--border-glass); border-radius: var(--radius-md);
