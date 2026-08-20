@@ -21,7 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let countdownTimerInterval = null;
   let trackingCourierInterval = null;
 
-  let cart = JSON.parse(localStorage.getItem('lpg_cart') || '[]');
+  let cart = JSON.parse(localStorage.getItem('lpg_cart') || 'null');
+  if (!cart) {
+    cart = [
+      { name: "Баллон 10 кг", qty: 1, price: 340000 },
+      { name: "Баллон 20 кг", qty: 1, price: 480000 }
+    ];
+  }
   let appliedPromoDiscount = 0;
 
   let savedCards = [
@@ -1770,14 +1776,14 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>${item.qty}</span>
             <button type="button" onclick="changeQty(${i}, 1)">+</button>
           </div>
-          <span class="price">${(item.price * item.qty).toLocaleString()} UZS</span>
+          <span class="price">${(item.price * item.qty).toLocaleString().replace(/,/g, ' ')}</span>
         </div>
       `).join('');
     }
 
     let rawTotal = isEmpty ? 0 : cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     let finalTotal = Math.round(rawTotal * (1 - appliedPromoDiscount / 100));
-    if (totalAmountEl) totalAmountEl.textContent = `${finalTotal.toLocaleString()} UZS`;
+    if (totalAmountEl) totalAmountEl.textContent = `${finalTotal.toLocaleString().replace(/,/g, ' ')} UZS`;
   }
 
   window.changeQty = function(idx, delta) {

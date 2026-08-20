@@ -2143,16 +2143,16 @@ body.theme-light .qty-counter-control {
 .receipt-qr-box { margin-top: 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 10px; color: #64748b; }
 .fake-qr-code { font-size: 64px; color: #000; }
 
-/* ==================== APPLE OLED CART MODAL (poytug_cart_screen.html) ==================== */
+/* ==================== APPLE OLED CART MODAL (Exact Screenshot Match) ==================== */
 #modal-cart .sheet {
   width: 100%;
-  max-width: 400px;
-  background: var(--bg-1);
-  border: 1px solid var(--sep);
-  border-radius: 26px;
-  padding: 24px 20px 20px;
+  max-width: 380px;
+  background: #1C1C1E;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  padding: 26px 20px 22px;
   position: relative;
-  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .7);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.85);
 }
 #modal-cart .close-btn {
   position: absolute;
@@ -2161,19 +2161,19 @@ body.theme-light .qty-counter-control {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: var(--bg-2);
+  background: #2C2C2E;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-2);
+  color: #8E8E93;
   border: none;
   cursor: pointer;
   padding: 0;
   transition: color var(--transition-fast), background var(--transition-fast);
 }
 #modal-cart .close-btn:hover {
-  color: #fff;
-  background: var(--bg-3);
+  color: #FFFFFF;
+  background: #3A3A3C;
 }
 
 #modal-cart .sheet-header {
@@ -2184,42 +2184,43 @@ body.theme-light .qty-counter-control {
   width: 52px;
   height: 52px;
   border-radius: 16px;
-  background: var(--brand-dim);
+  background: rgba(255, 68, 56, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 12px;
-  color: var(--brand);
+  color: #FF4438;
 }
 #modal-cart .sheet-header h1 {
   margin: 0;
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 750;
-  color: var(--text-1);
+  color: #FFFFFF;
+  letter-spacing: -0.2px;
 }
 
 /* ---------- filled state ---------- */
 #modal-cart .items {
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  margin-bottom: 16px;
-  max-height: 220px;
+  gap: 12px;
+  margin-bottom: 18px;
+  max-height: 240px;
   overflow-y: auto;
 }
 #modal-cart .item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  background: var(--bg-2);
-  border-radius: 14px;
-  padding: 10px 12px;
+  gap: 12px;
+  background: #2C2C2E;
+  border-radius: 16px;
+  padding: 14px 16px;
 }
 #modal-cart .item .name {
-  font-size: 13.5px;
+  font-size: 15px;
   font-weight: 600;
-  color: var(--text-1);
+  color: #FFFFFF;
   flex: 1;
   min-width: 0;
 }
@@ -2227,17 +2228,18 @@ body.theme-light .qty-counter-control {
   display: flex;
   align-items: center;
   gap: 0;
-  background: var(--bg-3);
-  border-radius: 9px;
+  background: #3A3A3C;
+  border-radius: 10px;
   overflow: hidden;
+  height: 32px;
 }
 #modal-cart .stepper button {
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 32px;
   border: none;
   background: transparent;
-  color: var(--text-1);
-  font-size: 15px;
+  color: #FFFFFF;
+  font-size: 16px;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
@@ -2247,20 +2249,20 @@ body.theme-light .qty-counter-control {
   transition: background var(--transition-fast);
 }
 #modal-cart .stepper button:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.12);
 }
 #modal-cart .stepper span {
-  width: 20px;
+  width: 24px;
   text-align: center;
-  font-size: 12.5px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--text-1);
+  color: #FFFFFF;
 }
 #modal-cart .item .price {
-  font-size: 13.5px;
+  font-size: 15px;
   font-weight: 700;
-  color: var(--brand);
-  width: 88px;
+  color: #FF4438;
+  width: 80px;
   text-align: right;
   flex: 0 0 auto;
 }
@@ -2271,60 +2273,58 @@ body.theme-light .qty-counter-control {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 8px 10px 22px;
-  color: var(--text-2);
+  padding: 12px 10px 24px;
+  color: #8E8E93;
 }
 #modal-cart .empty h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
-  color: var(--text-1);
+  color: #FFFFFF;
 }
 #modal-cart .empty p {
   margin: 6px 0 0;
-  font-size: 13px;
-  max-width: 240px;
+  font-size: 13.5px;
+  max-width: 250px;
   line-height: 1.4;
-  color: var(--text-2);
+  color: #8E8E93;
 }
 
 /* ---------- promo ---------- */
 #modal-cart .promo-row {
   display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 #modal-cart .promo-input {
   flex: 1;
-  background: var(--bg-2);
-  border: 1px solid var(--sep);
-  border-radius: 12px;
-  padding: 11px 13px;
-  color: var(--text-1);
-  font-size: 13px;
+  background: #2C2C2E;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 13px 16px;
+  color: #FFFFFF;
+  font-size: 14px;
   font-family: inherit;
   outline: none;
 }
 #modal-cart .promo-input::placeholder {
-  color: var(--text-3);
-}
-#modal-cart .promo-input:disabled {
-  opacity: .45;
+  color: #636366;
 }
 #modal-cart .promo-apply {
-  background: var(--bg-2);
-  border: 1px solid var(--sep);
-  border-radius: 12px;
-  padding: 0 15px;
-  color: var(--brand);
-  font-size: 13px;
+  background: #2C2C2E;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 0 18px;
+  color: #FF4438;
+  font-size: 14px;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
+  height: 46px;
   transition: background var(--transition-fast);
 }
 #modal-cart .promo-apply:hover {
-  background: var(--bg-3);
+  background: #3A3A3C;
 }
 
 /* ---------- total ---------- */
@@ -2332,51 +2332,55 @@ body.theme-light .qty-counter-control {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 15px;
-  padding: 0 2px;
+  margin-bottom: 20px;
+  padding: 0 4px;
 }
 #modal-cart .total-row .l {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  color: var(--brand);
+  color: #FF4438;
 }
 #modal-cart .total-row .v {
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 800;
-  color: var(--brand);
+  color: #FF4438;
+  letter-spacing: -0.3px;
 }
 
 #modal-cart .cta {
   width: 100%;
-  height: 50px;
+  height: 56px;
   border: none;
-  border-radius: 14px;
-  background: var(--brand);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
+  border-radius: 18px;
+  background: #FF4438;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 750;
   font-family: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   cursor: pointer;
-  box-shadow: 0 10px 20px -8px rgba(255, 68, 56, .5);
+  box-shadow: 0 12px 28px -6px rgba(255, 68, 56, 0.6);
   transition: transform var(--transition-fast), opacity var(--transition-fast);
 }
 #modal-cart .cta:hover {
   transform: translateY(-1px);
   opacity: 0.95;
 }
+#modal-cart .cta:active {
+  transform: translateY(1px);
+}
 
 #modal-cart .browse-btn {
   width: 100%;
-  height: 50px;
-  border-radius: 14px;
-  background: var(--brand);
+  height: 54px;
+  border-radius: 18px;
+  background: #FF4438;
   border: none;
-  color: #fff;
-  font-size: 15px;
+  color: #FFFFFF;
+  font-size: 15.5px;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
@@ -2384,7 +2388,7 @@ body.theme-light .qty-counter-control {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 10px 20px -8px rgba(255, 68, 56, .5);
+  box-shadow: 0 12px 28px -6px rgba(255, 68, 56, 0.6);
   transition: transform var(--transition-fast), opacity var(--transition-fast);
 }
 #modal-cart .browse-btn:hover {
