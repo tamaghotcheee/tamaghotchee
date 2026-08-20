@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   let savedAddresses = [
-    { title: 'Дом', text: 'г. Ташкент, ул. Амира Темура, 45, кв. 12', icon: '🏠' },
-    { title: 'Дача / Частный дом', text: 'г. Ташкент, Сергели, Массив 4, д. 18', icon: '🏡' }
+    { title: 'Дом', text: 'г. Ташкент, ул. Амира Темура, 45, кв. 12', icon: 'house' },
+    { title: 'Дача / Частный дом', text: 'г. Ташкент, Сергели, Массив 4, д. 18', icon: 'tree' }
   ];
 
   let orderHistory = [
@@ -73,13 +73,21 @@ document.addEventListener('DOMContentLoaded', () => {
       btnGet2faCode: "Получить СМС код",
       btnCompleteRegistration: "Завершить регистрацию",
       backToForm: "Вернуться к заполнению",
-      skipAuthHint: "Или нажмите ✕ сверху чтобы войти позже в гостевом режиме",
+      skipAuthHint: "Или используйте гостевой доступ снизу",
+      guestOrDivider: "или",
+      guestModeTitle: "Войти как Гость",
+      guestModeDesc: "Ознакомиться с каталогом без регистрации",
       guestUser: "Гость",
       myBalance: "Мой баланс",
       myBalanceModalTitle: "Мой баланс и баллы",
       myBalanceModalSub: "Бонусная программа лояльности Poytug Club",
       security2fa: "Безопасность и 2FA",
+      securityModalTitle: "Безопасность и 2FA",
+      securityModalSub: "Двухфакторная защита аккаунта и сессий",
       settings: "Настройки",
+      appLanguage: "Язык интерфейса",
+      notifTitle: "Уведомления",
+      notifSub: "Новости сервиса, акции и безопасность",
       aboutCompany: "О компании",
       aboutCompanyTitle: "О компании «Poytug GNS»",
       aboutCompanySub: "Официальный сертифицированный поставщик LPG в Узбекистане",
@@ -142,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
       orderHistory: "История заказов",
       openNow: "Открыто",
       btnBuildRoute: "Построить маршрут",
-      cartTitle: "Корзина покупок",
+      cartTitle: "Корзина",
       btnExploreCatalog: "Перейти в каталог",
       emergencyTitle: "Аварийная служба газа",
       emergencySub: "Инструкция по безопасности при обнаружении запаха газа СУГ:",
@@ -150,7 +158,13 @@ document.addEventListener('DOMContentLoaded', () => {
       safetyStep1: "Немедленно перекройте вентиль газового баллона.",
       safetyStep2: "Откройте все окна и двери для проветривания.",
       safetyStep3: "Не включайте выключатели света, выдерните приборы.",
-      safetyStep4: "Покиньте помещение и вызовите службу 104."
+      safetyStep4: "Покиньте помещение и вызовите службу 104.",
+      selectCountryTitle: "Код страны",
+      selectCountrySub: "СНГ, постсоветские страны и Польша",
+      logoutConfirmTitle: "Выйти из аккаунта?",
+      logoutConfirmDesc: "Вы действительно хотите выйти? Вам потребуется повторный ввод пароля или SMS-кода для входа.",
+      btnLogoutConfirm: "Да, выйти",
+      btnCancel: "Отмена"
     },
     uz: {
       auth2faTitle: "Kirish",
@@ -178,13 +192,21 @@ document.addEventListener('DOMContentLoaded', () => {
       btnGet2faCode: "SMS kodini olish",
       btnCompleteRegistration: "Ro'yxatdan o'tishni yakunlash",
       backToForm: "Formaga qaytish",
-      skipAuthHint: "Yoki keyinroq mehmon sifatida kirish uchun ✕ bosing",
+      skipAuthHint: "Yoki pastdagi tezkor mehmon kirishidan foydalaning",
+      guestOrDivider: "yoki",
+      guestModeTitle: "Mehmon sifatida kirish",
+      guestModeDesc: "Ro'yxatdan o'tmasdan katalog bilan tanishish",
       guestUser: "Mehmon",
       myBalance: "Mening balansim",
       myBalanceModalTitle: "Mening balansim va ballarim",
       myBalanceModalSub: "Poytug Club sodiqlik bonus dasturi",
       security2fa: "Xavfsizlik va 2FA",
+      securityModalTitle: "Xavfsizlik va 2FA",
+      securityModalSub: "Ikki bosqichli hisob va seanslar himoyasi",
       settings: "Sozlamalar",
+      appLanguage: "Ilova tili",
+      notifTitle: "Bildirishnomalar",
+      notifSub: "Xizmat yangiliklari, aksiyalar va xavfsizlik",
       aboutCompany: "Kompaniya haqida",
       aboutCompanyTitle: "«Poytug GNS» kompaniyasi haqida",
       aboutCompanySub: "O'zbekistonda rasmiy sertifikatlangan LPG yetkazib beruvchi",
@@ -255,7 +277,13 @@ document.addEventListener('DOMContentLoaded', () => {
       safetyStep1: "Darhol gaz balloni ventilini yoping.",
       safetyStep2: "Xonani shamollatish uchun deraza va eshiklarni oching.",
       safetyStep3: "Elektr chiroqlarini yoqmang, asboblarni tarmoqdan uzing.",
-      safetyStep4: "Binodan chiqing va 104 xizmatiga qo'ng'iroq qiling."
+      safetyStep4: "Binodan chiqing va 104 xizmatiga qo'ng'iroq qiling.",
+      selectCountryTitle: "Mamlakat kodi",
+      selectCountrySub: "MDH, postsovet mamlakatlari va Polsha",
+      logoutConfirmTitle: "Hisobdan chiqasizmi?",
+      logoutConfirmDesc: "Haqiqatan ham chiqmoqchimisiz? Qayta kirish uchun parol yoki SMS kod kiritish talab qilinadi.",
+      btnLogoutConfirm: "Ha, chiqish",
+      btnCancel: "Bekor qilish"
     },
     en: {
       auth2faTitle: "Sign In",
@@ -283,13 +311,21 @@ document.addEventListener('DOMContentLoaded', () => {
       btnGet2faCode: "Get SMS Code",
       btnCompleteRegistration: "Complete Registration",
       backToForm: "Back to Form",
-      skipAuthHint: "Or tap ✕ above to skip and enter as Guest",
+      skipAuthHint: "Or use guest quick access below",
+      guestOrDivider: "or",
+      guestModeTitle: "Continue as Guest",
+      guestModeDesc: "Explore the catalog without signing in",
       guestUser: "Guest",
       myBalance: "My Balance",
       myBalanceModalTitle: "My Balance & Points",
       myBalanceModalSub: "Poytug Club Loyalty Program",
       security2fa: "Security & 2FA",
+      securityModalTitle: "Security & 2FA",
+      securityModalSub: "Two-factor protection for account and active sessions",
       settings: "Settings",
+      appLanguage: "App Language",
+      notifTitle: "Notifications",
+      notifSub: "Service news, promos and safety alerts",
       aboutCompany: "About Company",
       aboutCompanyTitle: "About Poytug GNS",
       aboutCompanySub: "Official certified LPG gas supplier in Uzbekistan",
@@ -352,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
       orderHistory: "Order History",
       openNow: "Open Now",
       btnBuildRoute: "Get Directions",
-      cartTitle: "Shopping Cart",
+      cartTitle: "Cart",
       btnExploreCatalog: "Browse Catalog",
       emergencyTitle: "Emergency Gas Service",
       emergencySub: "Safety instructions upon detecting LPG gas odor:",
@@ -360,7 +396,13 @@ document.addEventListener('DOMContentLoaded', () => {
       safetyStep1: "Immediately close the gas cylinder valve.",
       safetyStep2: "Open all windows and doors for ventilation.",
       safetyStep3: "Do not turn on light switches, unplug appliances.",
-      safetyStep4: "Evacuate the premises and call 104 emergency service."
+      safetyStep4: "Evacuate the premises and call 104 emergency service.",
+      selectCountryTitle: "Country Code",
+      selectCountrySub: "CIS, Post-Soviet countries & Poland",
+      logoutConfirmTitle: "Log Out of Account?",
+      logoutConfirmDesc: "Are you sure you want to log out? You will need your password or SMS code to sign back in.",
+      btnLogoutConfirm: "Yes, Log Out",
+      btnCancel: "Cancel"
     }
   };
 
@@ -369,9 +411,15 @@ document.addEventListener('DOMContentLoaded', () => {
     currentLang = lang;
     localStorage.setItem('lpg_lang', lang);
 
-    document.querySelectorAll('.lang-btn').forEach(btn => {
+    document.querySelectorAll('.lang-choice-btn, .lang-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
+
+    const langPreview = document.getElementById('acc-lang-preview');
+    if (langPreview) {
+      const langNames = { ru: 'Русский', uz: "O'zbekcha", en: 'English' };
+      langPreview.textContent = `Язык: ${langNames[lang] || 'Русский'} • Звук • Тема`;
+    }
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.dataset.i18n;
@@ -383,10 +431,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setLanguage(currentLang);
 
-  document.querySelectorAll('.lang-btn').forEach(btn => {
+  document.querySelectorAll('.lang-choice-btn, .lang-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       setLanguage(btn.dataset.lang);
-      showToast(`Language: ${btn.dataset.lang.toUpperCase()}`);
+      const langNames = { ru: 'Русский', uz: "O'zbekcha", en: 'English' };
+      showToast(`Язык: ${langNames[btn.dataset.lang] || btn.dataset.lang.toUpperCase()}`);
     });
   });
 
@@ -478,7 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       whiteNoise.start();
       hissNoiseNode = { source: whiteNoise, gain: gain, filter: filter };
-    } catch (e) {}
+    } catch (e) { }
   }
 
   function updateAudioPitch(percent) {
@@ -492,25 +541,215 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hissNoiseNode && audioCtx) {
       try {
         hissNoiseNode.gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
-        setTimeout(() => hissNoiseNode.source.stop(), 200);
-      } catch (e) {}
+        setTimeout(() => {
+          try { hissNoiseNode.source.stop(); } catch(e) {}
+        }, 200);
+      } catch (e) { }
     }
   }
 
+  function playCompletionChime() {
+    if (!soundFxEnabled) return;
+    try {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15);
+
+      gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.55);
+    } catch(e) {}
+  }
+
+
+  // ==================== COUNTRIES & PHONE CODES ====================
+  const COUNTRIES_DATA = [
+    { iso: 'UZ', code: '+998', name: "Узбекистан / O'zbekiston", sample: '(90) 123-45-67' },
+    { iso: 'KZ', code: '+7', name: 'Казахстан', sample: '(701) 123-45-67' },
+    { iso: 'KG', code: '+996', name: 'Кыргызстан', sample: '(555) 123-456' },
+    { iso: 'TJ', code: '+992', name: 'Таджикистан', sample: '(90) 123-45-67' },
+    { iso: 'TM', code: '+993', name: 'Туркменистан', sample: '(65) 12-34-56' },
+    { iso: 'RU', code: '+7', name: 'Россия', sample: '(999) 123-45-67' },
+    { iso: 'BY', code: '+375', name: 'Беларусь', sample: '(29) 123-45-67' },
+    { iso: 'AZ', code: '+994', name: 'Азербайджан', sample: '(50) 123-45-67' },
+    { iso: 'AM', code: '+374', name: 'Армения', sample: '(91) 12-34-56' },
+    { iso: 'GE', code: '+995', name: 'Грузия', sample: '(599) 12-34-56' },
+    { iso: 'MD', code: '+373', name: 'Молдова', sample: '(68) 12-34-56' },
+    { iso: 'PL', code: '+48', name: 'Польша / Polska', sample: '(501) 123-456' }
+  ];
+
+  let currentLoginCountry = COUNTRIES_DATA[0];
+  let currentRegCountry = COUNTRIES_DATA[0];
+  let activeCountryPickerTarget = 'login'; // 'login' | 'reg'
+
+  function formatPhoneWithMask(rawVal, country) {
+    if (!rawVal) return '';
+    const digits = (rawVal || '').replace(/\D/g, '');
+    if (!digits) return '';
+
+    const iso = country ? country.iso : 'UZ';
+
+    // (XX) XXX-XX-XX : UZ, TJ, BY, AZ
+    if (['UZ', 'TJ', 'BY', 'AZ'].includes(iso)) {
+      let r = '';
+      if (digits.length > 0) r += '(' + digits.substring(0, Math.min(2, digits.length));
+      if (digits.length >= 2) r += ') ' + digits.substring(2, Math.min(5, digits.length));
+      if (digits.length >= 5) r += '-' + digits.substring(5, Math.min(7, digits.length));
+      if (digits.length >= 7) r += '-' + digits.substring(7, Math.min(9, digits.length));
+      return r;
+    }
+    // (XX) XX-XX-XX : TM, AM, MD
+    if (['TM', 'AM', 'MD'].includes(iso)) {
+      let r = '';
+      if (digits.length > 0) r += '(' + digits.substring(0, Math.min(2, digits.length));
+      if (digits.length >= 2) r += ') ' + digits.substring(2, Math.min(4, digits.length));
+      if (digits.length >= 4) r += '-' + digits.substring(4, Math.min(6, digits.length));
+      if (digits.length >= 6) r += '-' + digits.substring(6, Math.min(8, digits.length));
+      return r;
+    }
+    // (XXX) XXX-XX-XX : KZ, RU
+    if (['KZ', 'RU'].includes(iso)) {
+      let r = '';
+      if (digits.length > 0) r += '(' + digits.substring(0, Math.min(3, digits.length));
+      if (digits.length >= 3) r += ') ' + digits.substring(3, Math.min(6, digits.length));
+      if (digits.length >= 6) r += '-' + digits.substring(6, Math.min(8, digits.length));
+      if (digits.length >= 8) r += '-' + digits.substring(8, Math.min(10, digits.length));
+      return r;
+    }
+    // (XXX) XX-XX-XX : GE
+    if (iso === 'GE') {
+      let r = '';
+      if (digits.length > 0) r += '(' + digits.substring(0, Math.min(3, digits.length));
+      if (digits.length >= 3) r += ') ' + digits.substring(3, Math.min(5, digits.length));
+      if (digits.length >= 5) r += '-' + digits.substring(5, Math.min(7, digits.length));
+      if (digits.length >= 7) r += '-' + digits.substring(7, Math.min(9, digits.length));
+      return r;
+    }
+    // (XXX) XXX-XXX : KG, PL
+    if (['KG', 'PL'].includes(iso)) {
+      let r = '';
+      if (digits.length > 0) r += '(' + digits.substring(0, Math.min(3, digits.length));
+      if (digits.length >= 3) r += ') ' + digits.substring(3, Math.min(6, digits.length));
+      if (digits.length >= 6) r += '-' + digits.substring(6, Math.min(9, digits.length));
+      return r;
+    }
+    return digits;
+  }
+
+  function bindPhoneMask(inputEl, getCountryFn) {
+    if (!inputEl) return;
+    inputEl.addEventListener('input', (e) => {
+      const country = getCountryFn();
+      const formatted = formatPhoneWithMask(e.target.value, country);
+      e.target.value = formatted;
+    });
+  }
+
+  function renderCountryPickerList(query = '') {
+    const listEl = document.getElementById('country-picker-list');
+    if (!listEl) return;
+    const q = (query || '').toLowerCase().trim();
+    const currentCountry = activeCountryPickerTarget === 'login' ? currentLoginCountry : currentRegCountry;
+
+    const filtered = COUNTRIES_DATA.filter(c =>
+      c.name.toLowerCase().includes(q) ||
+      c.code.includes(q) ||
+      c.iso.toLowerCase().includes(q)
+    );
+
+    if (filtered.length === 0) {
+      listEl.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text-faint);">Страна не найдена</div>';
+      return;
+    }
+
+    listEl.innerHTML = filtered.map(c => `
+      <div class="country-option-card ${c.iso === currentCountry.iso ? 'active' : ''}" onclick="selectCountryCode('${c.iso}')">
+        <div class="country-opt-left">
+          <span class="country-opt-iso">${c.iso}</span>
+          <span class="country-opt-name">${c.name}</span>
+        </div>
+        <span class="country-opt-code">${c.code}</span>
+      </div>
+    `).join('');
+  }
+
+  window.selectCountryCode = function (iso) {
+    const country = COUNTRIES_DATA.find(c => c.iso === iso) || COUNTRIES_DATA[0];
+    if (activeCountryPickerTarget === 'login') {
+      currentLoginCountry = country;
+      const isoPill = document.getElementById('selected-country-iso-login');
+      const codeText = document.getElementById('selected-country-code-login');
+      const phoneInput = document.getElementById('input-login-phone');
+      if (isoPill) isoPill.textContent = country.iso;
+      if (codeText) codeText.textContent = country.code;
+      if (phoneInput) {
+        phoneInput.placeholder = country.sample;
+        phoneInput.value = formatPhoneWithMask(phoneInput.value, country);
+      }
+    } else {
+      currentRegCountry = country;
+      const isoPill = document.getElementById('selected-country-iso-reg');
+      const codeText = document.getElementById('selected-country-code-reg');
+      const phoneInput = document.getElementById('input-reg-phone');
+      if (isoPill) isoPill.textContent = country.iso;
+      if (codeText) codeText.textContent = country.code;
+      if (phoneInput) {
+        phoneInput.placeholder = country.sample;
+        phoneInput.value = formatPhoneWithMask(phoneInput.value, country);
+      }
+    }
+    closeModal('modal-country-picker');
+  };
+
+  const btnCountryLogin = document.getElementById('btn-country-picker-login');
+  if (btnCountryLogin) {
+    btnCountryLogin.addEventListener('click', () => {
+      activeCountryPickerTarget = 'login';
+      const searchInput = document.getElementById('input-country-search');
+      if (searchInput) searchInput.value = '';
+      renderCountryPickerList('');
+      openModal('modal-country-picker');
+    });
+  }
+
+  const btnCountryReg = document.getElementById('btn-country-picker-reg');
+  if (btnCountryReg) {
+    btnCountryReg.addEventListener('click', () => {
+      activeCountryPickerTarget = 'reg';
+      const searchInput = document.getElementById('input-country-search');
+      if (searchInput) searchInput.value = '';
+      renderCountryPickerList('');
+      openModal('modal-country-picker');
+    });
+  }
+
+  const inputCountrySearch = document.getElementById('input-country-search');
+  if (inputCountrySearch) {
+    inputCountrySearch.addEventListener('input', (e) => {
+      renderCountryPickerList(e.target.value);
+    });
+  }
 
   // ==================== 2FA AUTH & REGISTRATION ENGINE ====================
   let storedUsers = JSON.parse(localStorage.getItem('lpg_users') || '[]');
   if (storedUsers.length === 0) {
     storedUsers = [
-      { name: "Алишер Каримов", phone: "+998 90 123-45-67", password: "123456" }
+      { name: "Дилшод Каримов", phone: "+998 (90) 123-45-67", password: "123456" }
     ];
     localStorage.setItem('lpg_users', JSON.stringify(storedUsers));
   }
 
-  let currentUserName = localStorage.getItem('lpg_user_name') || "Алишер Каримов";
+  let currentUserName = localStorage.getItem('lpg_user_name') || "Дилшод Каримов";
   let pendingAuthData = { name: '', phone: '', password: '' };
-  let loginTimerInterval = null;
-  let regTimerInterval = null;
 
   // Tabs: Login vs Register
   const tabAuthLogin = document.getElementById('tab-auth-login');
@@ -581,12 +820,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Phone input formatting
+  const inputLoginPhone = document.getElementById('input-login-phone');
+  const inputRegPhone = document.getElementById('input-reg-phone');
+  bindPhoneMask(inputLoginPhone, () => currentLoginCountry);
+  bindPhoneMask(inputRegPhone, () => currentRegCountry);
+
   // Enter Application Helper
-  function enterApp(asGuest = false, name = "Алишер Каримов", phone = "+998 90 123-45-67") {
+  function enterApp(asGuest = false, name = "Алишер Каримов", phone = "+998 (90) 123-45-67") {
+    document.body.classList.remove('auth-mode');
+    const appHeader = document.getElementById('app-header');
+    const bottomNav = document.getElementById('bottom-nav');
+    if (appHeader) appHeader.style.display = 'flex';
+    if (bottomNav) bottomNav.style.display = 'flex';
+
     document.getElementById('screen-auth').classList.remove('active');
     document.getElementById('screen-home').classList.add('active');
-    
-    // Hide the 'X' button on all in-app screens
+
     const btnCloseAuth = document.getElementById('btn-close-auth');
     if (btnCloseAuth) btnCloseAuth.style.display = 'none';
 
@@ -613,13 +863,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (isAuth) {
     enterApp(false, currentUserName, userPhone || "+998 (90) 123-45-67");
   } else {
-    const btnCloseAuth = document.getElementById('btn-close-auth');
-    if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
+    document.body.classList.add('auth-mode');
+    const appHeader = document.getElementById('app-header');
+    const bottomNav = document.getElementById('bottom-nav');
+    if (appHeader) appHeader.style.display = 'none';
+    if (bottomNav) bottomNav.style.display = 'none';
   }
 
   // --- LOGIN FLOW (Step 1 -> Step 2) ---
   const btnLoginNext = document.getElementById('btn-login-next');
-  const inputLoginPhone = document.getElementById('input-login-phone');
   const loginStepCreds = document.getElementById('login-step-credentials');
   const loginStepOtp = document.getElementById('login-step-otp');
   const displayLoginPhone = document.getElementById('display-login-phone');
@@ -631,7 +883,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rawPhone = inputLoginPhone.value.trim();
     const password = inputLoginPwd.value.trim();
 
-    if (!rawPhone || rawPhone.length < 7) {
+    if (!rawPhone || rawPhone.length < 5) {
       showToast("Введите корректный номер телефона!");
       inputLoginPhone.focus();
       return;
@@ -642,9 +894,9 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const formattedPhone = rawPhone.startsWith('+998') ? rawPhone : `+998 ${rawPhone}`;
+    const formattedPhone = `${currentLoginCountry.code} ${rawPhone}`;
     const cleanDigits = rawPhone.replace(/\D/g, '');
-    
+
     // Check if user exists in local database
     const existing = storedUsers.find(u => u.phone.replace(/\D/g, '').includes(cleanDigits) || cleanDigits.includes(u.phone.replace(/\D/g, '')));
     if (existing && existing.password !== password) {
@@ -663,7 +915,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstOtp = loginStepOtp.querySelector('.otp-login-digit');
     if (firstOtp) firstOtp.focus();
     startTimer('login-timer-sec', 30);
-    showToast("💬 СМС-код отправлен (Тестовый код: 1234)");
+    showToast("СМС-код отправлен (Тестовый код: 1234)");
   });
 
   btnVerifyLoginOtp.addEventListener('click', () => {
@@ -683,7 +935,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- REGISTRATION FLOW (Step 1 -> Step 2) ---
   const btnRegisterNext = document.getElementById('btn-register-next');
   const inputRegName = document.getElementById('input-reg-name');
-  const inputRegPhone = document.getElementById('input-reg-phone');
   const inputRegPwdConfirm = document.getElementById('input-reg-password-confirm');
   const checkRegTerms = document.getElementById('check-reg-terms');
   const regStepForm = document.getElementById('register-step-form');
@@ -704,7 +955,7 @@ document.addEventListener('DOMContentLoaded', () => {
       inputRegName.focus();
       return;
     }
-    if (!rawPhone || rawPhone.length < 7) {
+    if (!rawPhone || rawPhone.length < 5) {
       showToast("Введите номер телефона!");
       inputRegPhone.focus();
       return;
@@ -724,7 +975,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const formattedPhone = rawPhone.startsWith('+998') ? rawPhone : `+998 ${rawPhone}`;
+    const formattedPhone = `${currentRegCountry.code} ${rawPhone}`;
     pendingAuthData = { name: name, phone: formattedPhone, password: password };
 
     displayRegPhone.textContent = formattedPhone;
@@ -734,7 +985,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstOtp = regStepOtp.querySelector('.otp-reg-digit');
     if (firstOtp) firstOtp.focus();
     startTimer('reg-timer-sec', 30);
-    showToast("💬 СМС-код отправлен (Тестовый код: 1234)");
+    showToast("СМС-код отправлен (Тестовый код: 1234)");
   });
 
   btnVerifyRegOtp.addEventListener('click', () => {
@@ -758,13 +1009,20 @@ document.addEventListener('DOMContentLoaded', () => {
     regStepForm.classList.add('active');
   });
 
-  // OTP digit Auto-Advance and Backspace for all OTP inputs
-  function setupOtpInputs(className) {
+  // OTP digit Auto-Advance, Backspace & Auto-Submit for all OTP inputs
+  function setupOtpInputs(className, submitCallback) {
     const digits = document.querySelectorAll(`.${className}`);
     digits.forEach((input, idx) => {
       input.addEventListener('input', () => {
-        if (input.value.length === 1 && idx < digits.length - 1) {
-          digits[idx + 1].focus();
+        if (input.value.length === 1) {
+          if (idx < digits.length - 1) {
+            digits[idx + 1].focus();
+          } else if (idx === digits.length - 1) {
+            const allFilled = Array.from(digits).every(d => d.value.trim().length === 1);
+            if (allFilled && submitCallback) {
+              setTimeout(submitCallback, 150);
+            }
+          }
         }
       });
       input.addEventListener('keydown', (e) => {
@@ -774,8 +1032,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
-  setupOtpInputs('otp-login-digit');
-  setupOtpInputs('otp-reg-digit');
+  setupOtpInputs('otp-login-digit', () => {
+    if (btnVerifyLoginOtp) btnVerifyLoginOtp.click();
+  });
+  setupOtpInputs('otp-reg-digit', () => {
+    if (btnVerifyRegOtp) btnVerifyRegOtp.click();
+  });
 
   function startTimer(timerId, duration) {
     let sec = duration;
@@ -790,34 +1052,153 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Forgot Password Hint
-  document.getElementById('btn-forgot-pwd').addEventListener('click', () => {
-    showToast("Для демо-аккаунта используйте пароль: 123456 или службу 104");
-  });
-
-  // Guest / Skip Auth
-  document.getElementById('btn-close-auth').addEventListener('click', () => enterApp(true));
-  document.getElementById('btn-auth-skip-link').addEventListener('click', () => enterApp(true));
-
-  // Logout Action
-  const btnLogout = document.getElementById('btn-logout');
-  if (btnLogout) {
-    btnLogout.addEventListener('click', () => {
-      isAuth = false;
-      localStorage.setItem('lpg_auth', 'false');
-      document.getElementById('screen-account').classList.remove('active');
-      document.getElementById('screen-auth').classList.add('active');
-      const btnCloseAuth = document.getElementById('btn-close-auth');
-      if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
-      switchAuthTab('login');
-      showToast("Вы вышли из системы");
+  const btnForgotPwd = document.getElementById('btn-forgot-pwd');
+  if (btnForgotPwd) {
+    btnForgotPwd.addEventListener('click', () => {
+      showToast("Для демо-аккаунта используйте пароль: 123456 или службу 104");
     });
   }
 
-  // Security 2FA Item in Profile
+  // Guest / Skip Auth
+  const btnCloseAuth = document.getElementById('btn-close-auth');
+  if (btnCloseAuth) btnCloseAuth.addEventListener('click', () => enterApp(true));
+  
+  const btnAuthSkipLink = document.getElementById('btn-auth-skip-link');
+  if (btnAuthSkipLink) btnAuthSkipLink.addEventListener('click', () => enterApp(true));
+
+  // Logout Action
+  // Logout Action with Confirmation Modal
+  function performLogout() {
+    isAuth = false;
+    localStorage.setItem('lpg_auth', 'false');
+    document.body.classList.add('auth-mode');
+    const appHeader = document.getElementById('app-header');
+    const bottomNav = document.getElementById('bottom-nav');
+    if (appHeader) appHeader.style.display = 'none';
+    if (bottomNav) bottomNav.style.display = 'none';
+
+    document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-auth').classList.add('active');
+    switchAuthTab('login');
+    showToast("Вы успешно вышли из аккаунта");
+  }
+
+  function promptLogoutConfirmation() {
+    const sideDrawer = document.getElementById('side-drawer');
+    const menuBackdrop = document.getElementById('menu-backdrop');
+    if (sideDrawer) sideDrawer.classList.remove('active');
+    if (menuBackdrop) menuBackdrop.classList.remove('active');
+    openModal('modal-logout-confirm');
+  }
+
+  const btnLogout = document.getElementById('btn-logout');
+  if (btnLogout) {
+    btnLogout.addEventListener('click', promptLogoutConfirmation);
+  }
+
+  const btnDrawerLogout = document.getElementById('btn-drawer-logout');
+  if (btnDrawerLogout) {
+    btnDrawerLogout.addEventListener('click', promptLogoutConfirmation);
+  }
+
+  const btnConfirmLogoutAction = document.getElementById('btn-confirm-logout-action');
+  if (btnConfirmLogoutAction) {
+    btnConfirmLogoutAction.addEventListener('click', () => {
+      closeModal('modal-logout-confirm');
+      performLogout();
+    });
+  }
+
+  const btnCancelLogoutModal = document.getElementById('btn-cancel-logout-modal');
+  if (btnCancelLogoutModal) {
+    btnCancelLogoutModal.addEventListener('click', () => {
+      closeModal('modal-logout-confirm');
+    });
+  }
+
+  // Security 2FA Item in Profile & Modal
   const btnAccSecurity = document.getElementById('btn-acc-security');
   if (btnAccSecurity) {
     btnAccSecurity.addEventListener('click', () => {
-      showToast("🛡️ Двухфакторная защита активна: Пароль + SMS OTP (100% защита)");
+      const userPhone = localStorage.getItem('lpg_user_phone') || "+998 (90) 123-45-67";
+      const secPhoneDisplay = document.getElementById('sec-phone-display');
+      if (secPhoneDisplay) secPhoneDisplay.textContent = userPhone;
+      
+      const pwdForm = document.getElementById('change-pwd-form-box');
+      if (pwdForm) pwdForm.style.display = 'none';
+      
+      openModal('modal-security');
+    });
+  }
+
+  const btnOpenChangePwdBox = document.getElementById('btn-open-change-pwd-box');
+  const changePwdFormBox = document.getElementById('change-pwd-form-box');
+  if (btnOpenChangePwdBox && changePwdFormBox) {
+    btnOpenChangePwdBox.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isHidden = changePwdFormBox.style.display === 'none' || !changePwdFormBox.style.display;
+      changePwdFormBox.style.display = isHidden ? 'flex' : 'none';
+      if (isHidden) {
+        const inputCurr = document.getElementById('input-sec-current-pwd');
+        if (inputCurr) inputCurr.focus();
+      }
+    });
+  }
+
+  const btnSubmitChangePwd = document.getElementById('btn-submit-change-pwd');
+  if (btnSubmitChangePwd) {
+    btnSubmitChangePwd.addEventListener('click', () => {
+      const currInput = document.getElementById('input-sec-current-pwd');
+      const newInput = document.getElementById('input-sec-new-pwd');
+      const curr = currInput ? currInput.value.trim() : '';
+      const nw = newInput ? newInput.value.trim() : '';
+
+      if (!curr) {
+        showToast("Введите текущий пароль!");
+        return;
+      }
+      if (nw.length < 6) {
+        showToast("Новый пароль должен содержать минимум 6 символов!");
+        return;
+      }
+
+      if (currInput) currInput.value = '';
+      if (newInput) newInput.value = '';
+      if (changePwdFormBox) changePwdFormBox.style.display = 'none';
+
+      const secPwdStatus = document.getElementById('sec-pwd-status');
+      if (secPwdStatus) secPwdStatus.textContent = 'Обновлён только что';
+
+      showToast("Пароль успешно обновлён!");
+    });
+  }
+
+  const toggleSecSms = document.getElementById('toggle-sec-sms');
+  if (toggleSecSms) {
+    toggleSecSms.addEventListener('change', (e) => {
+      if (!e.target.checked) {
+        showToast("Предупреждение: СМС 2FA отключено");
+      } else {
+        showToast("Двухфакторная СМС защита включена");
+      }
+    });
+  }
+
+  const toggleSecBio = document.getElementById('toggle-sec-bio');
+  if (toggleSecBio) {
+    toggleSecBio.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        showToast("Биометрическая аутентификация активирована");
+      } else {
+        showToast("Биометрический вход отключён");
+      }
+    });
+  }
+
+  const btnTerminateSessions = document.getElementById('btn-terminate-sessions');
+  if (btnTerminateSessions) {
+    btnTerminateSessions.addEventListener('click', () => {
+      showToast("Все остальные сессии успешно завершены!");
     });
   }
 
@@ -832,20 +1213,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==================== NAVIGATION ROUTER ====================
   const navItems = document.querySelectorAll('.nav-item');
-  const screens = document.querySelectorAll('.app-screen');
   let previousScreenId = 'screen-home';
 
   function navigateToScreen(targetId) {
-    const currentActiveScreen = Array.from(screens).find(s => s.classList.contains('active'));
+    if (!targetId) return;
+
+    const currentActiveScreen = Array.from(document.querySelectorAll('.app-screen')).find(s => s.classList.contains('active'));
     if (currentActiveScreen && currentActiveScreen.id !== targetId && currentActiveScreen.id !== 'screen-cart') {
       previousScreenId = currentActiveScreen.id;
     }
 
-    navItems.forEach(n => {
-      n.classList.toggle('active', n.dataset.target === targetId);
+    document.querySelectorAll('.nav-item').forEach(n => {
+      n.classList.toggle('active', n.dataset.target === targetId || n.getAttribute('data-target') === targetId);
     });
 
-    screens.forEach(s => s.classList.toggle('active', s.id === targetId));
+    document.querySelectorAll('.app-screen').forEach(s => {
+      if (s.id === targetId) {
+        s.classList.add('active');
+        s.scrollTop = 0;
+      } else {
+        s.classList.remove('active');
+      }
+    });
 
     if (targetId === 'screen-map') {
       if (!mapInitialized) {
@@ -863,9 +1252,20 @@ document.addEventListener('DOMContentLoaded', () => {
   window.navigateToScreen = navigateToScreen;
 
   navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      navigateToScreen(item.dataset.target);
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = item.dataset.target || item.getAttribute('data-target');
+      if (target) navigateToScreen(target);
     });
+  });
+
+  // Global event delegation for nav-items
+  document.addEventListener('click', (e) => {
+    const navBtn = e.target.closest('.nav-item');
+    if (navBtn) {
+      const target = navBtn.dataset.target || navBtn.getAttribute('data-target');
+      if (target) navigateToScreen(target);
+    }
   });
 
 
@@ -878,15 +1278,22 @@ document.addEventListener('DOMContentLoaded', () => {
     openModal('modal-emergency');
   }
 
-  btnOpenEmergency.addEventListener('click', openEmergencyModal);
-  btnMenuEmergency.addEventListener('click', () => {
-    closeDrawer();
-    openEmergencyModal();
-  });
+  if (btnOpenEmergency) btnOpenEmergency.addEventListener('click', openEmergencyModal);
+  if (btnMenuEmergency) {
+    btnMenuEmergency.addEventListener('click', () => {
+      closeDrawer();
+      openEmergencyModal();
+    });
+  }
 
-  btnCall104Direct.addEventListener('click', () => {
-    showToast("Вызов аварийной газовой службы 104...");
-  });
+  if (btnCall104Direct) {
+    btnCall104Direct.addEventListener('click', () => {
+      showToast("Вызов аварийной газовой службы 104...");
+      setTimeout(() => {
+        window.location.href = 'tel:104';
+      }, 400);
+    });
+  }
 
   const btnSideMenu = document.getElementById('btn-side-menu');
   const btnCloseDrawer = document.getElementById('btn-close-drawer');
@@ -894,52 +1301,57 @@ document.addEventListener('DOMContentLoaded', () => {
   const sideDrawer = document.getElementById('side-drawer');
 
   function openDrawer() {
-    sideDrawer.classList.add('active');
-    drawerBackdrop.classList.add('active');
+    if (sideDrawer) sideDrawer.classList.add('active');
+    if (drawerBackdrop) drawerBackdrop.classList.add('active');
   }
 
   function closeDrawer() {
-    sideDrawer.classList.remove('active');
-    drawerBackdrop.classList.remove('active');
+    if (sideDrawer) sideDrawer.classList.remove('active');
+    if (drawerBackdrop) drawerBackdrop.classList.remove('active');
   }
 
-  btnSideMenu.addEventListener('click', openDrawer);
-  btnCloseDrawer.addEventListener('click', closeDrawer);
-  drawerBackdrop.addEventListener('click', closeDrawer);
+  if (btnSideMenu) btnSideMenu.addEventListener('click', openDrawer);
+  if (btnCloseDrawer) btnCloseDrawer.addEventListener('click', closeDrawer);
+  if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
 
-  document.getElementById('btn-menu-balance').addEventListener('click', () => {
-    closeDrawer();
-    openModal('modal-balance');
-  });
-  document.getElementById('btn-menu-settings').addEventListener('click', () => {
-    closeDrawer();
-    openModal('modal-settings');
-  });
-  document.getElementById('btn-menu-history').addEventListener('click', () => {
-    closeDrawer();
-    renderHistory();
-    openModal('modal-history');
-  });
-  document.getElementById('btn-menu-about').addEventListener('click', () => {
-    closeDrawer();
-    openModal('modal-about');
-  });
-  document.getElementById('btn-menu-support').addEventListener('click', () => {
-    closeDrawer();
-    openModal('modal-support');
-  });
-  const btnDrawerLogout = document.getElementById('btn-drawer-logout');
-  if (btnDrawerLogout) {
-    btnDrawerLogout.addEventListener('click', () => {
+  const btnMenuBalance = document.getElementById('btn-menu-balance');
+  if (btnMenuBalance) {
+    btnMenuBalance.addEventListener('click', () => {
       closeDrawer();
-      isAuth = false;
-      localStorage.setItem('lpg_auth', 'false');
-      screens.forEach(s => s.classList.remove('active'));
-      document.getElementById('screen-auth').classList.add('active');
-      const btnCloseAuth = document.getElementById('btn-close-auth');
-      if (btnCloseAuth) btnCloseAuth.style.display = 'flex';
-      switchAuthTab('login');
-      showToast("Вы вышли из системы");
+      openModal('modal-balance');
+    });
+  }
+
+  const btnMenuSettings = document.getElementById('btn-menu-settings');
+  if (btnMenuSettings) {
+    btnMenuSettings.addEventListener('click', () => {
+      closeDrawer();
+      openModal('modal-settings');
+    });
+  }
+
+  const btnMenuHistory = document.getElementById('btn-menu-history');
+  if (btnMenuHistory) {
+    btnMenuHistory.addEventListener('click', () => {
+      closeDrawer();
+      renderHistory();
+      openModal('modal-history');
+    });
+  }
+
+  const btnMenuAbout = document.getElementById('btn-menu-about');
+  if (btnMenuAbout) {
+    btnMenuAbout.addEventListener('click', () => {
+      closeDrawer();
+      openModal('modal-about');
+    });
+  }
+
+  const btnMenuSupport = document.getElementById('btn-menu-support');
+  if (btnMenuSupport) {
+    btnMenuSupport.addEventListener('click', () => {
+      closeDrawer();
+      openModal('modal-support');
     });
   }
 
@@ -947,18 +1359,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== QUANTITY SELECTOR & WHOLESALE B2B ENGINE ====================
   const btnQtyMinus = document.getElementById('btn-qty-minus');
   const btnQtyPlus = document.getElementById('btn-qty-plus');
-  const inputCylQty = document.getElementById('input-cyl-qty');
+  const inputCylQty = document.getElementById('input-cylinder-qty') || document.getElementById('input-cyl-qty');
   const wholesaleBadge = document.getElementById('wholesale-badge');
-  const displayCylPrice = document.getElementById('display-cyl-price');
 
   function updateQuantityAndWholesaleState() {
-    let qty = parseInt(inputCylQty.value) || 1;
+    let qty = inputCylQty ? (parseInt(inputCylQty.value) || 1) : 1;
     if (qty < 1) qty = 1;
     cylinderQuantity = qty;
-    inputCylQty.value = cylinderQuantity;
+    if (inputCylQty) inputCylQty.value = cylinderQuantity;
 
-    isWholesale = cylinderQuantity >= 10;
-    wholesaleBadge.style.display = isWholesale ? 'block' : 'none';
+    isWholesale = cylinderQuantity >= 3;
+    if (wholesaleBadge) wholesaleBadge.style.display = isWholesale ? 'block' : 'none';
 
     const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
     const cards = document.querySelectorAll('.carousel-card');
@@ -971,27 +1382,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (isWholesale) {
-      showToast(`🏷️ Оптовый заказ (${cylinderQuantity} шт)! Оптовая цена: ${unitPrice.toLocaleString()} UZS`);
+      showToast(`Оптовый заказ (${cylinderQuantity} шт)! Оптовая цена: ${unitPrice.toLocaleString()} UZS`);
     }
   }
 
-  btnQtyMinus.addEventListener('click', () => {
-    if (cylinderQuantity > 1) {
-      cylinderQuantity--;
-      inputCylQty.value = cylinderQuantity;
+  if (btnQtyMinus) {
+    btnQtyMinus.addEventListener('click', () => {
+      if (cylinderQuantity > 1) {
+        cylinderQuantity--;
+        if (inputCylQty) inputCylQty.value = cylinderQuantity;
+        updateQuantityAndWholesaleState();
+      }
+    });
+  }
+
+  if (btnQtyPlus) {
+    btnQtyPlus.addEventListener('click', () => {
+      cylinderQuantity++;
+      if (inputCylQty) inputCylQty.value = cylinderQuantity;
       updateQuantityAndWholesaleState();
-    }
-  });
+    });
+  }
 
-  btnQtyPlus.addEventListener('click', () => {
-    cylinderQuantity++;
-    inputCylQty.value = cylinderQuantity;
-    updateQuantityAndWholesaleState();
-  });
-
-  inputCylQty.addEventListener('input', () => {
-    updateQuantityAndWholesaleState();
-  });
+  if (inputCylQty) {
+    inputCylQty.addEventListener('input', () => {
+      updateQuantityAndWholesaleState();
+    });
+  }
 
 
   // ==================== STORE PRODUCT QUANTITY COUNTERS ====================
@@ -1015,8 +1432,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (buyBtn) {
       buyBtn.addEventListener('click', () => {
-        const pName = buyBtn.dataset.product;
-        const pPrice = parseInt(buyBtn.dataset.price);
+        const pName = buyBtn.dataset.product || buyBtn.getAttribute('data-product') || 'Газовый баллон';
+        const pPrice = parseInt(buyBtn.dataset.price || buyBtn.getAttribute('data-price') || '480000');
         const buyQty = inputQty ? (parseInt(inputQty.value) || 1) : 1;
 
         const existing = cart.find(x => x.name === pName);
@@ -1032,9 +1449,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==================== HOME STAGES & CAROUSEL ====================
   const btnStartRefill = document.getElementById('btn-start-refill');
-  const btnConfirmCylinder = document.getElementById('btn-confirm-cylinder');
-  const btnGotoPayment = document.getElementById('btn-goto-payment');
-  const btnSubmitOrder = document.getElementById('btn-submit-order');
+  const btnConfirmCylinder = document.getElementById('btn-confirm-cylinder-selection') || document.getElementById('btn-confirm-cylinder');
+  const btnGotoPayment = document.getElementById('btn-proceed-to-payment') || document.getElementById('btn-goto-payment');
+  const btnSubmitOrder = document.getElementById('btn-submit-order') || document.getElementById('btn-pay-submit');
   const btnNewOrderReset = document.getElementById('btn-new-order-reset');
 
   const homeStages = {
@@ -1051,7 +1468,14 @@ document.addEventListener('DOMContentLoaded', () => {
         homeStages[k].classList.toggle('active', k === stageKey);
       }
     });
+
+    const homeScreen = document.getElementById('screen-home');
+    if (homeScreen) homeScreen.scrollTop = 0;
+
     if (stageKey === 'address') {
+      if (typeof renderAddressOptions === 'function') {
+        renderAddressOptions();
+      }
       if (savedAddresses && savedAddresses.length > 0) {
         switchAddressSubview('list');
       } else {
@@ -1060,54 +1484,216 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  let isHomeRefueling = false;
+  // Volume Selection on Home Stage
+  const volButtons = document.querySelectorAll('.vol-btn');
+  const displaySelectedVol = document.getElementById('display-selected-vol');
+  const refillMainPrice = document.getElementById('refill-main-price');
+  const btnRefillText = document.getElementById('btn-refill-text');
+  const refuelStatusText = document.getElementById('refuel-status-text');
+  const svgGasFillRect = document.getElementById('svg-gas-fill-rect');
+  const cylStatusText = document.getElementById('cyl-status-text');
 
-  // Step 1: Animate hose connection, then open cylinder selection
-  function runHomeRigDockingAnimation() {
-    if (isHomeRefueling) return;
-    isHomeRefueling = true;
+  let selectedVolLiters = 10;
+  let selectedVolPrice = 38000;
+
+  let isRefillingAnimation = false;
+
+  function updateTankVisualForVolume(vol) {
+    if (svgGasFillRect && cylStatusText) {
+      const wavePath = document.getElementById('svg-gas-wave-path');
+      if (vol === 5) {
+        svgGasFillRect.setAttribute('y', '155');
+        svgGasFillRect.setAttribute('height', '55');
+        cylStatusText.textContent = '25%';
+        if (wavePath) wavePath.setAttribute('d', 'M 25 155 Q 55 151 90 155 T 155 155 L 155 210 L 25 210 Z');
+      } else if (vol === 10) {
+        svgGasFillRect.setAttribute('y', '125');
+        svgGasFillRect.setAttribute('height', '85');
+        cylStatusText.textContent = '50%';
+        if (wavePath) wavePath.setAttribute('d', 'M 25 125 Q 55 121 90 125 T 155 125 L 155 210 L 25 210 Z');
+      } else if (vol === 20) {
+        svgGasFillRect.setAttribute('y', '55');
+        svgGasFillRect.setAttribute('height', '155');
+        cylStatusText.textContent = '100%';
+        if (wavePath) wavePath.setAttribute('d', 'M 25 55 Q 55 51 90 55 T 155 55 L 155 210 L 25 210 Z');
+      }
+    }
+  }
+
+  // Initial tank setup
+  updateTankVisualForVolume(10);
+
+  volButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (isRefillingAnimation) return;
+
+      volButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const vol = parseInt(btn.dataset.vol) || 10;
+      const price = parseInt(btn.dataset.price) || 38000;
+      const litersText = btn.dataset.liters || `${vol} л`;
+
+      selectedVolLiters = vol;
+      selectedVolPrice = price;
+
+      if (displaySelectedVol) displaySelectedVol.textContent = litersText;
+      if (refillMainPrice) refillMainPrice.textContent = `${price.toLocaleString()} UZS`;
+      if (btnRefillText) btnRefillText.textContent = `Заправить за ${price.toLocaleString()} UZS`;
+      if (refuelStatusText) refuelStatusText.textContent = `Готово к заправке — ${litersText}`;
+
+      updateTankVisualForVolume(vol);
+    });
+  });
+
+  function performInteractiveRefillAnimation(targetLiters, targetPrice, onComplete) {
+    if (isRefillingAnimation) return;
+    isRefillingAnimation = true;
 
     const rig = document.getElementById('hose-nozzle-rig');
     const lockIndicator = document.getElementById('dock-lock-indicator');
+    const gasStream = document.getElementById('gas-flow-stream');
+    const fillRect = document.getElementById('svg-gas-fill-rect');
+    const wavePath = document.getElementById('svg-gas-wave-path');
     const statusPill = document.getElementById('refuel-live-status');
     const statusPillText = document.getElementById('refuel-status-text');
     const cylStatusText = document.getElementById('cyl-status-text');
-    const cylStatusRect = document.getElementById('cyl-status-rect');
+    const teleSpeedVal = document.getElementById('tele-speed-val');
+    const telePressureVal = document.getElementById('tele-pressure-val');
 
-    // 1. Connection Phase (Docking nozzle to valve spout)
+    // 1. Dock the nozzle rig with a snap
     if (rig) {
       rig.classList.remove('rig-idle');
       rig.classList.add('rig-docked');
     }
-    if (statusPill) statusPill.className = 'refuel-status-pill active-fueling';
-    if (statusPillText) statusPillText.textContent = 'Подключение шланга...';
-    if (cylStatusText) {
-      cylStatusText.textContent = 'СТЫКОВКА...';
-      cylStatusText.setAttribute('fill', '#00f2fe');
+    if (lockIndicator) lockIndicator.setAttribute('fill', '#22c55e');
+
+    // Start Audio Synthesizer Whoosh
+    playGasFillingAudio();
+
+    // 2. Activate pressurized flow stream
+    if (gasStream) gasStream.classList.add('active-flow');
+    if (statusPill) {
+      statusPill.className = 'refuel-status-pill filling-mode';
     }
-    if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#00f2fe');
 
-    setTimeout(() => {
-      // 2. Lock & Connected state
-      if (lockIndicator) lockIndicator.setAttribute('fill', '#00e676');
-      if (statusPillText) statusPillText.textContent = 'Шланг подключен ✓';
-      if (cylStatusText) {
-        cylStatusText.textContent = 'ПОДКЛЮЧЕНО';
-        cylStatusText.setAttribute('fill', '#00e676');
+    if (btnStartRefill) {
+      btnStartRefill.disabled = true;
+      btnStartRefill.style.opacity = '0.7';
+    }
+
+    // Reset to bottom to start filling up
+    let startY = 195;
+    let targetY = 125;
+    let targetHeight = 85;
+    let targetPct = 50;
+
+    if (targetLiters === 5) {
+      targetY = 155;
+      targetHeight = 55;
+      targetPct = 25;
+    } else if (targetLiters === 10) {
+      targetY = 125;
+      targetHeight = 85;
+      targetPct = 50;
+    } else if (targetLiters === 20) {
+      targetY = 55;
+      targetHeight = 155;
+      targetPct = 100;
+    }
+
+    // Start fluid at bottom
+    if (fillRect) {
+      fillRect.setAttribute('y', startY);
+      fillRect.setAttribute('height', 0);
+    }
+
+    const duration = 1400; // 1.4 seconds of smooth filling
+    const startTime = performance.now();
+
+    function stepFill(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+
+      const currentLiters = (targetLiters * ease).toFixed(1);
+      const currentPct = Math.round(targetPct * ease);
+      const currentHeight = Math.round(targetHeight * ease);
+      const currentY = Math.round(startY - currentHeight);
+
+      if (fillRect) {
+        fillRect.setAttribute('y', currentY);
+        fillRect.setAttribute('height', currentHeight);
       }
-      if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#00e676');
-      showToast('🔌 Шланг подключен! Выберите размер баллона');
 
-      // 3. Move to cylinder selection stage
-      setTimeout(() => {
-        switchHomeStage('select');
-      }, 450);
-    }, 700);
+      if (wavePath) {
+        wavePath.setAttribute('d', `M 25 ${currentY} Q 55 ${currentY - 3} 90 ${currentY} T 155 ${currentY} L 155 210 L 25 210 Z`);
+      }
+
+      if (cylStatusText) {
+        cylStatusText.textContent = `${currentPct}%`;
+      }
+
+      if (statusPillText) {
+        statusPillText.textContent = `⚡ Заправка: ${currentLiters} / ${targetLiters} л`;
+      }
+
+      if (teleSpeedVal) {
+        const speed = (progress < 0.95 ? (4.2 + Math.random() * 0.6).toFixed(1) : '0.0');
+        teleSpeedVal.textContent = `${speed} л/мин`;
+      }
+
+      if (telePressureVal) {
+        const bar = (12.0 + progress * 4.0).toFixed(1);
+        telePressureVal.textContent = `${bar} Bar`;
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(stepFill);
+      } else {
+        // Completion
+        stopGasFillingAudio();
+        playCompletionChime();
+
+        if (gasStream) gasStream.classList.remove('active-flow');
+
+        if (statusPill) {
+          statusPill.className = 'refuel-status-pill success-mode';
+        }
+        if (statusPillText) {
+          statusPillText.textContent = `✓ Успешно заправлено: ${targetLiters} л`;
+        }
+
+        launchConfettiCannon();
+        showToast(`Баллон на ${targetLiters} л заправлен! Переходим к выбору адреса.`);
+
+        setTimeout(() => {
+          if (btnStartRefill) {
+            btnStartRefill.disabled = false;
+            btnStartRefill.style.opacity = '';
+          }
+          isRefillingAnimation = false;
+          if (onComplete) onComplete();
+        }, 700);
+      }
+    }
+
+    requestAnimationFrame(stepFill);
   }
 
-  btnStartRefill.addEventListener('click', () => {
-    runHomeRigDockingAnimation();
-  });
+  if (btnStartRefill) {
+    btnStartRefill.addEventListener('click', () => {
+      performInteractiveRefillAnimation(selectedVolLiters, selectedVolPrice, () => {
+        selectedCylinder = {
+          name: `Заправка СУГ (${selectedVolLiters} л)`,
+          price: selectedVolPrice,
+          type: `${selectedVolLiters}l`
+        };
+        switchHomeStage('address');
+      });
+    });
+  }
 
   // Carousel
   const carouselTrack = document.getElementById('carousel-track');
@@ -1119,7 +1705,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateCarousel() {
     carouselTrack.style.transform = `translateX(-${currentCarouselIdx * 100}%)`;
     carouselCards.forEach((c, i) => c.classList.toggle('active', i === currentCarouselIdx));
-    
+
     const activeCard = carouselCards[currentCarouselIdx];
     selectedCylinder = {
       type: activeCard.dataset.type,
@@ -1144,12 +1730,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Step 2: After cylinder is selected, return to main cylinder and continue 1st animation
-  btnConfirmCylinder.addEventListener('click', () => {
-    switchHomeStage('initial');
-    if (btnStartRefill) btnStartRefill.style.display = 'none';
-    continueGasFillingOnRig();
-  });
+  // Touch-Swipe Support for Carousel
+  const carouselWrapper = document.querySelector('.carousel-viewport');
+  let touchStartX = 0;
+  let touchEndX = 0;
+  if (carouselWrapper) {
+    carouselWrapper.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    carouselWrapper.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const swipeThreshold = 40;
+      if (touchStartX - touchEndX > swipeThreshold) {
+        // Swiped Left -> Next
+        if (currentCarouselIdx < carouselCards.length - 1) {
+          currentCarouselIdx++;
+          updateCarousel();
+        }
+      } else if (touchEndX - touchStartX > swipeThreshold) {
+        // Swiped Right -> Prev
+        if (currentCarouselIdx > 0) {
+          currentCarouselIdx--;
+          updateCarousel();
+        }
+      }
+    }, { passive: true });
+  }
+
+  if (btnConfirmCylinder) {
+    btnConfirmCylinder.addEventListener('click', () => {
+      switchHomeStage('initial');
+      if (btnStartRefill) btnStartRefill.style.display = 'none';
+      continueGasFillingOnRig();
+    });
+  }
 
   function continueGasFillingOnRig() {
     const gasStream = document.getElementById('gas-flow-stream');
@@ -1177,7 +1791,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#00f2fe');
 
     playGasFillingAudio();
-    showToast(`⛽ Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)...`);
+    showToast(`Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)...`);
 
     let percent = 0;
     const fillInterval = setInterval(() => {
@@ -1211,7 +1825,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (cylStatusRect) cylStatusRect.setAttribute('stroke', '#00e676');
         launchConfettiCannon();
-        showToast(`🎉 Баллон ${selectedCylinder.name} (${cylinderQuantity} шт) успешно заправлен!`);
+        showToast(`Баллон ${selectedCylinder.name} (${cylinderQuantity} шт) успешно заправлен!`);
 
         setTimeout(() => {
           isHomeRefueling = false;
@@ -1223,7 +1837,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Address selection state & subviews
-  let selectedAddressTag = { title: 'Дом', icon: '🏠' };
+  let selectedAddressTag = { title: 'Дом', icon: 'house' };
 
   function switchAddressSubview(subviewKey) {
     const viewList = document.getElementById('address-view-list');
@@ -1265,11 +1879,12 @@ document.addEventListener('DOMContentLoaded', () => {
     container.innerHTML = savedAddresses.map((addr, idx) => {
       const isActive = selectedAddress === addr.text || (!selectedAddress && idx === 0);
       if (isActive) selectedAddress = addr.text;
+      const iconClass = (addr.icon && addr.icon.length > 2) ? addr.icon : 'location-dot';
       return `
         <div class="address-option ${isActive ? 'active' : ''}" data-address="${addr.text}">
           <div class="radio-circle"></div>
           <div class="address-text">
-            <h4>${addr.icon} <span>${addr.title}</span></h4>
+            <h4><i class="fa-solid fa-${iconClass}"></i> <span>${addr.title}</span></h4>
             <p>${addr.text}</p>
           </div>
         </div>
@@ -1286,7 +1901,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Button to open "Add new address" form view
-  const btnShowAddAddress = document.getElementById('btn-show-add-address');
+  const btnShowAddAddress = document.getElementById('btn-show-add-address-form') || document.getElementById('btn-show-add-address');
   if (btnShowAddAddress) {
     btnShowAddAddress.addEventListener('click', () => {
       switchAddressSubview('form');
@@ -1301,7 +1916,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Tag chips in address form (🏠 Дом, 🏡 Дача, 🏢 Работа, 📍 Другое)
+  // Tag chips in address form (Дом, Дача, Работа, Другое)
   const tagChips = document.querySelectorAll('#address-tag-chips .tag-chip');
   tagChips.forEach(chip => {
     chip.addEventListener('click', () => {
@@ -1309,7 +1924,7 @@ document.addEventListener('DOMContentLoaded', () => {
       chip.classList.add('active');
       selectedAddressTag = {
         title: chip.dataset.title || 'Адрес',
-        icon: chip.dataset.icon || '📍'
+        icon: chip.dataset.icon || 'location-dot'
       };
     });
   });
@@ -1359,7 +1974,7 @@ document.addEventListener('DOMContentLoaded', () => {
         attributionControl: false
       }).setView([currentPickedLocation.lat, currentPickedLocation.lng], 13);
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(embeddedAddressMap);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(embeddedAddressMap);
 
       const pinIcon = L.divIcon({
         className: 'custom-map-pin',
@@ -1378,12 +1993,12 @@ document.addEventListener('DOMContentLoaded', () => {
           lng: latlng.lng,
           address: friendlyAddr
         };
-        
+
         const inputCustom = document.getElementById('input-custom-address');
         if (inputCustom) inputCustom.value = friendlyAddr;
 
         const hintText = document.getElementById('embedded-map-status-text');
-        if (hintText) hintText.textContent = `📍 ${friendlyAddr}`;
+        if (hintText) hintText.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${friendlyAddr}`;
       }
 
       embeddedAddressMap.on('click', (e) => {
@@ -1405,7 +2020,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const lng = pos.coords.longitude;
                 embeddedAddressMap.setView([lat, lng], 15);
                 updatePickedPosition({ lat, lng });
-                showToast("📍 Ваше местоположение определено!");
+                showToast("Ваше местоположение определено!");
               },
               () => {
                 showToast("Используется центр Ташкента");
@@ -1446,7 +2061,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const accCount = document.getElementById('acc-addresses-count');
       if (accCount) accCount.textContent = `${savedAddresses.length} адресов доставки`;
 
-      showToast(`📍 Адрес "${selectedAddressTag.title}" сохранен!`);
+      showToast(`Адрес "${selectedAddressTag.title}" сохранен!`);
 
       // Switch to payment stage
       const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
@@ -1460,19 +2075,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  btnGotoPayment.addEventListener('click', () => {
-    const customAddr = document.getElementById('input-custom-address').value.trim();
-    if (customAddr) selectedAddress = customAddr;
+  if (btnGotoPayment) {
+    btnGotoPayment.addEventListener('click', () => {
+      const customAddrInput = document.getElementById('input-custom-address');
+      const customAddr = customAddrInput ? customAddrInput.value.trim() : '';
+      if (customAddr) selectedAddress = customAddr;
 
-    const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
-    const totalPrice = unitPrice * cylinderQuantity;
+      const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
+      const totalPrice = unitPrice * cylinderQuantity;
 
-    document.getElementById('summary-cyl-type').textContent = `Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)`;
-    document.getElementById('summary-cyl-price').textContent = `${totalPrice.toLocaleString()} UZS`;
-    document.getElementById('summary-total-price').textContent = `${totalPrice.toLocaleString()} UZS`;
+      const sumType = document.getElementById('summary-cyl-type');
+      const sumPrice = document.getElementById('summary-cyl-price');
+      const sumTotal = document.getElementById('summary-total-price');
 
-    switchHomeStage('payment');
-  });
+      if (sumType) sumType.textContent = `Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)`;
+      if (sumPrice) sumPrice.textContent = `${totalPrice.toLocaleString()} UZS`;
+      if (sumTotal) sumTotal.textContent = `${totalPrice.toLocaleString()} UZS`;
+
+      switchHomeStage('payment');
+    });
+  }
 
   const paymentOptions = document.querySelectorAll('.payment-option');
   const b2bInnContainer = document.getElementById('b2b-inn-container');
@@ -1498,33 +2120,38 @@ document.addEventListener('DOMContentLoaded', () => {
       paymentOptions.forEach(p => p.classList.remove('active'));
       pm.classList.add('active');
       selectedPayment = pm.dataset.method;
-      b2bInnContainer.style.display = selectedPayment === 'b2b_invoice' ? 'block' : 'none';
-    });
-  });
-
-  btnSubmitOrder.addEventListener('click', () => {
-    if (selectedPayment === 'b2b_invoice') {
-      companyInn = document.getElementById('input-company-inn').value.trim();
-      if (companyInn.length < 9) {
-        showToast("Введите 9-значный ИНН компании!");
-        return;
+      if (b2bInnContainer) {
+        b2bInnContainer.style.display = selectedPayment === 'b2b_invoice' ? 'block' : 'none';
       }
-    }
-
-    switchHomeStage('tracking');
-    startCountdownTimer(25 * 60);
-    initTrackingMiniMap();
-    launchConfettiCannon();
-
-    const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
-    orderHistory.unshift({
-      code: `LPG-${Math.floor(1000 + Math.random() * 9000)}`,
-      date: 'Сегодня',
-      title: `Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)`,
-      price: unitPrice * cylinderQuantity,
-      status: 'В пути'
     });
   });
+
+  if (btnSubmitOrder) {
+    btnSubmitOrder.addEventListener('click', () => {
+      if (selectedPayment === 'b2b_invoice') {
+        const innInput = document.getElementById('input-company-inn');
+        companyInn = innInput ? innInput.value.trim() : '';
+        if (companyInn.length < 9) {
+          showToast("Введите 9-значный ИНН компании!");
+          return;
+        }
+      }
+
+      switchHomeStage('tracking');
+      startCountdownTimer(25 * 60);
+      initTrackingMiniMap();
+      launchConfettiCannon();
+
+      const unitPrice = isWholesale ? selectedCylinder.wholesalePrice : selectedCylinder.price;
+      orderHistory.unshift({
+        code: `LPG-${Math.floor(1000 + Math.random() * 9000)}`,
+        date: 'Сегодня',
+        title: `Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)`,
+        price: unitPrice * cylinderQuantity,
+        status: 'В пути'
+      });
+    });
+  }
 
   function startCountdownTimer(seconds) {
     if (countdownTimerInterval) clearInterval(countdownTimerInterval);
@@ -1605,20 +2232,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if (trackingCourierInterval) clearInterval(trackingCourierInterval);
     const container = document.getElementById('tracking-map-container');
     container.innerHTML = '';
-    const tMap = L.map('tracking-map-container', { zoomControl: false }).setView([41.2920, 69.2200], 13);
+    const tMap = L.map('tracking-map-container', { zoomControl: false, attributionControl: false }).setView([41.2920, 69.2200], 13);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(tMap);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(tMap);
 
-    L.circleMarker([41.2995, 69.2401], { color: '#ef4444', fillColor: '#ffffff', fillOpacity: 1, radius: 8 }).addTo(tMap).bindPopup("Ваш адрес");
+    const userPin = L.divIcon({
+      className: 'custom-user-pin',
+      html: '<div style="background:#4ADE80; color:#000; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 12px rgba(74,222,128,0.9); border:2px solid #fff; font-size:12px;"><i class="fa-solid fa-house"></i></div>',
+      iconSize: [26, 26],
+      iconAnchor: [13, 13]
+    });
+    L.marker([41.2995, 69.2401], { icon: userPin }).addTo(tMap).bindPopup("Ваш адрес");
 
     let courierLat = 41.2850;
     let courierLng = 69.2050;
     const destLat = 41.2995;
     const destLng = 69.2401;
 
-    const courierMarker = L.marker([courierLat, courierLng]).addTo(tMap).bindPopup("🚚 Курьер Фарход");
-    const routeLine = L.polyline([[courierLat, courierLng], [destLat, destLng]], { color: '#ef4444', weight: 4, dashArray: '6, 8' }).addTo(tMap);
-    tMap.fitBounds(routeLine.getBounds(), { padding: [20, 20] });
+    const courierIcon = L.divIcon({
+      className: 'custom-courier-pin',
+      html: '<div style="background:#FF4B3E; color:#fff; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 14px rgba(255,75,62,0.9); border:2px solid #fff; font-size:13px;"><i class="fa-solid fa-truck-fast"></i></div>',
+      iconSize: [30, 30],
+      iconAnchor: [15, 15]
+    });
+
+    const courierMarker = L.marker([courierLat, courierLng], { icon: courierIcon }).addTo(tMap).bindPopup("Курьер Фарход (Poytug Express)");
+    const routeLine = L.polyline([[courierLat, courierLng], [destLat, destLng]], { color: '#FF4B3E', weight: 4, dashArray: '6, 8' }).addTo(tMap);
+    tMap.fitBounds(routeLine.getBounds(), { padding: [25, 25] });
 
     trackingCourierInterval = setInterval(() => {
       courierLat += (destLat - courierLat) * 0.05;
@@ -1632,21 +2272,35 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== MAP SCREEN (LEAFLET.JS) ====================
   let mapInitialized = false;
   let mainMap = null;
+  let activeRouteLine = null;
 
   function initLeafletMap() {
     mapInitialized = true;
-    mainMap = L.map('interactive-map').setView([41.2995, 69.2401], 13);
+    mainMap = L.map('interactive-map', {
+      zoomControl: true,
+      attributionControl: false
+    }).setView([41.2995, 69.2401], 13);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mainMap);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(mainMap);
+    setTimeout(() => { if (mainMap) mainMap.invalidateSize(); }, 250);
+
+    const stationIcon = L.divIcon({
+      className: 'custom-station-pin',
+      html: '<div style="background:linear-gradient(135deg,#FF4B3E,#dc2626); color:#fff; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 16px rgba(255,75,62,0.85); border:2px solid #ffffff; font-size:15px; cursor:pointer;"><i class="fa-solid fa-gas-pump"></i></div>',
+      iconSize: [34, 34],
+      iconAnchor: [17, 34],
+      popupAnchor: [0, -34]
+    });
 
     const stations = [
-      { name: "🔥 АГЗС #1 Poytug GNS — Чиланзар", lat: 41.2850, lng: 69.2050, addr: "Ташкент, ул. Катартал, 28", price: "3 800 UZS / л" },
-      { name: "🔥 АГЗС #2 Poytug GNS — Сергели", lat: 41.2210, lng: 69.2230, addr: "Ташкент, Сергели 4, АГЗС-2", price: "3 750 UZS / л" },
-      { name: "🔥 АГЗС #3 Poytug GNS — Юнусабад", lat: 41.3520, lng: 69.2890, addr: "Ташкент, Юнусабад 12-квартал", price: "3 850 UZS / л" }
+      { name: "АГЗС #1 Poytug GNS — Чиланзар", lat: 41.2850, lng: 69.2050, addr: "Ташкент, ул. Катартал, 28", price: "3 800 UZS / л" },
+      { name: "АГЗС #2 Poytug GNS — Сергели", lat: 41.2210, lng: 69.2230, addr: "Ташкент, Сергели 4, АГЗС-2", price: "3 750 UZS / л" },
+      { name: "АГЗС #3 Poytug GNS — Юнусабад", lat: 41.3520, lng: 69.2890, addr: "Ташкент, Юнусабад 12-квартал", price: "3 850 UZS / л" }
     ];
 
     stations.forEach(st => {
-      const marker = L.marker([st.lat, st.lng]).addTo(mainMap);
+      const marker = L.marker([st.lat, st.lng], { icon: stationIcon }).addTo(mainMap);
+      marker.bindPopup(`<b>${st.name}</b><br>${st.addr}<br><span style="color:#FF4B3E;font-weight:bold;">${st.price}</span>`);
       marker.on('click', () => {
         document.getElementById('station-name-display').textContent = st.name;
         document.getElementById('station-address-display').innerHTML = `<i class="fa-solid fa-location-dot"></i> ${st.addr}`;
@@ -1654,18 +2308,28 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    const userMarker = L.circleMarker([41.2995, 69.2401], { color: '#ef4444', fillColor: '#ffffff', fillOpacity: 1, radius: 9 }).addTo(mainMap);
-    userMarker.bindPopup("<b>Вы здесь</b>").openPopup();
+    const userPin = L.divIcon({
+      className: 'custom-user-pin',
+      html: '<div style="background:#4ADE80; color:#000; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 16px rgba(74,222,128,0.9); border:2.5px solid #fff; font-size:13px; font-weight:800;"><i class="fa-solid fa-location-dot"></i></div>',
+      iconSize: [30, 30],
+      iconAnchor: [15, 30],
+      popupAnchor: [0, -30]
+    });
+
+    const userMarker = L.marker([41.2995, 69.2401], { icon: userPin }).addTo(mainMap);
+    userMarker.bindPopup("<b>Вы здесь</b><br>г. Ташкент").openPopup();
 
     document.getElementById('btn-build-route').addEventListener('click', () => {
-      L.polyline([[41.2995, 69.2401], [41.2850, 69.2050]], { color: '#ef4444', weight: 5 }).addTo(mainMap);
-      showToast("Маршрут построен!");
+      if (activeRouteLine) mainMap.removeLayer(activeRouteLine);
+      activeRouteLine = L.polyline([[41.2995, 69.2401], [41.2850, 69.2050]], { color: '#FF4B3E', weight: 5, opacity: 0.9, dashArray: '8, 8' }).addTo(mainMap);
+      mainMap.fitBounds(activeRouteLine.getBounds(), { padding: [40, 40] });
+      showToast("Маршрут до АГЗС #1 построен (~12 мин)!");
     });
 
     document.getElementById('btn-order-from-station').addEventListener('click', () => {
       showToast("Выбрана заправка с АГЗС #1 Чиланзар");
       navItems[0].click();
-      btnStartRefill.click();
+      if (btnStartRefill) btnStartRefill.click();
     });
 
     document.getElementById('btn-map-locate-me').addEventListener('click', () => {
@@ -1684,7 +2348,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateCartUI() {
     localStorage.setItem('lpg_cart', JSON.stringify(cart));
     const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
-    if (cartBadgeCount) cartBadgeCount.textContent = totalCount;
+    if (cartBadgeCount) {
+      cartBadgeCount.textContent = totalCount;
+      cartBadgeCount.style.display = totalCount > 0 ? 'flex' : 'none';
+    }
 
     const list = document.getElementById('cart-items-list');
     const bottomActions = document.getElementById('cart-bottom-actions');
@@ -1722,18 +2389,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
       list.innerHTML = cart.map((item, i) => `
         <div class="cart-item-card">
-          <div class="cart-item-info">
-            <span class="cart-item-title">${item.name}</span>
-            <span class="cart-item-unit-price">${item.price.toLocaleString()} UZS / шт</span>
+          <div class="cart-item-main-row">
+            <div class="cart-item-icon">
+              <i class="fa-solid fa-fire-flame-curved"></i>
+            </div>
+            <div class="cart-item-info">
+              <h4 class="cart-item-title">${item.name}</h4>
+              <span class="cart-item-unit-price">${item.price.toLocaleString()} UZS / шт</span>
+            </div>
+            <button class="cart-remove-btn" onclick="removeCartItem(${i})" title="Удалить" aria-label="Удалить товар">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
           </div>
-          <div class="cart-item-right">
+          <div class="cart-item-bottom-row">
             <div class="cart-qty-ctrl">
-              <button class="qty-btn" onclick="changeQty(${i}, -1)" aria-label="Уменьшить">-</button>
+              <button class="qty-btn" onclick="changeQty(${i}, -1)" aria-label="Уменьшить">−</button>
               <span class="cart-qty-num">${item.qty}</span>
               <button class="qty-btn" onclick="changeQty(${i}, 1)" aria-label="Увеличить">+</button>
             </div>
-            <strong class="cart-item-price">${(item.price * item.qty).toLocaleString()} UZS</strong>
-            <button class="cart-remove-btn" onclick="removeCartItem(${i})" title="Удалить"><i class="fa-regular fa-trash-can"></i></button>
+            <div class="cart-item-subtotal">
+              <span class="subtotal-label">Сумма:</span>
+              <strong class="cart-item-price">${(item.price * item.qty).toLocaleString()} UZS</strong>
+            </div>
           </div>
         </div>
       `).join('');
@@ -1751,13 +2428,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (totalAmount) totalAmount.textContent = `${finalTotal.toLocaleString()} UZS`;
   }
 
-  window.changeQty = function(idx, delta) {
+  window.changeQty = function (idx, delta) {
     cart[idx].qty += delta;
     if (cart[idx].qty <= 0) cart.splice(idx, 1);
     updateCartUI();
   };
 
-  window.removeCartItem = function(idx) {
+  window.removeCartItem = function (idx) {
     cart.splice(idx, 1);
     updateCartUI();
     showToast("Товар удален из корзины");
@@ -1821,6 +2498,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  updateCartUI();
 
   // ==================== CARDS, ADDRESSES & BALANCE ====================
   // Loyalty Balance in Account Screen
@@ -1854,56 +2532,85 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderCards() {
     const wrapper = document.getElementById('cards-list-wrapper');
     if (!wrapper) return;
-    wrapper.innerHTML = savedCards.map(c => `
-      <div class="account-card-item" style="margin-bottom:8px;">
-        <div class="acc-icon blue-bg"><i class="fa-solid fa-credit-card"></i></div>
-        <div class="acc-text">
-          <h4>${c.type} (${c.exp})</h4>
-          <p>${c.pan}</p>
+    if (savedCards.length === 0) {
+      wrapper.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0;">Нет привязанных карт</p>`;
+      return;
+    }
+    wrapper.innerHTML = savedCards.map((c, i) => `
+      <div class="account-card-item" style="margin-bottom:8px; justify-content:space-between;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="acc-icon blue-bg"><i class="fa-solid fa-credit-card"></i></div>
+          <div class="acc-text">
+            <h4>${c.type} (${c.exp})</h4>
+            <p>${c.pan}</p>
+          </div>
         </div>
+        <button class="card-remove-btn" onclick="deleteSavedCard(${i})" title="Удалить карту" style="background:transparent; border:none; color:#ef4444; cursor:pointer; font-size:15px; padding:6px;">
+          <i class="fa-regular fa-trash-can"></i>
+        </button>
       </div>
     `).join('');
   }
 
+  window.deleteSavedCard = function (idx) {
+    savedCards.splice(idx, 1);
+    renderCards();
+    const cardsPreview = document.getElementById('acc-cards-preview');
+    if (cardsPreview) cardsPreview.textContent = savedCards.length > 0 ? `${savedCards.length} привязанные карты` : 'Нет карт';
+    showToast("Карта удалена");
+  };
+
   const inputCardNum = document.getElementById('input-card-number');
-  const inputCardExp = document.getElementById('input-card-expiry');
-  const previewNum = document.getElementById('preview-card-number');
-  const previewExp = document.getElementById('preview-card-expiry');
-  const previewLogo = document.getElementById('preview-card-logo');
+  const inputCardExp = document.getElementById('input-card-exp') || document.getElementById('input-card-expiry');
+  const previewLogo = document.getElementById('card-logo-preview') || document.getElementById('preview-card-logo');
 
   if (inputCardNum) {
     inputCardNum.addEventListener('input', (e) => {
-      let val = e.target.value.replace(/\D/g, '');
-      if (val.startsWith('8600')) previewLogo.textContent = 'Uzcard';
-      else if (val.startsWith('9860')) previewLogo.textContent = 'Humo';
-      else previewLogo.textContent = 'Visa';
+      let val = e.target.value.replace(/\D/g, '').substring(0, 16);
+      e.target.value = val.replace(/(.{4})(?=.)/g, '$1 ').trim();
 
-      previewNum.textContent = val.replace(/(.{4})/g, '$1 ').trim() || '8600 •••• •••• ••••';
+      if (previewLogo) {
+        if (val.startsWith('8600')) previewLogo.textContent = 'Uzcard';
+        else if (val.startsWith('9860')) previewLogo.textContent = 'Humo';
+        else previewLogo.textContent = 'Visa';
+      }
     });
   }
 
   if (inputCardExp) {
     inputCardExp.addEventListener('input', (e) => {
-      previewExp.textContent = e.target.value || '12/28';
+      let val = e.target.value.replace(/\D/g, '').substring(0, 4);
+      if (val.length >= 2) {
+        e.target.value = val.substring(0, 2) + '/' + val.substring(2, 4);
+      } else {
+        e.target.value = val;
+      }
     });
   }
 
-  const btnSaveNewCard = document.getElementById('btn-save-new-card');
+  const btnSaveNewCard = document.getElementById('btn-submit-new-card') || document.getElementById('btn-save-new-card');
   if (btnSaveNewCard) {
     btnSaveNewCard.addEventListener('click', () => {
-      const rawPan = inputCardNum.value.replace(/\D/g, '');
+      const numInput = document.getElementById('input-card-number');
+      const expInput = document.getElementById('input-card-exp') || document.getElementById('input-card-expiry');
+      const logoEl = document.getElementById('card-logo-preview') || document.getElementById('preview-card-logo');
+      
+      const rawPan = numInput ? numInput.value.replace(/\D/g, '') : '';
       if (rawPan.length < 16) {
         showToast("Введите корректный 16-значный номер карты!");
         return;
       }
+      const cardType = logoEl ? logoEl.textContent.toUpperCase() : 'UZCARD';
+      const cardExp = (expInput && expInput.value) ? expInput.value : '12/28';
       const masked = `${rawPan.substring(0, 4)} •••• •••• ${rawPan.substring(12)}`;
-      savedCards.push({ type: previewLogo.textContent.toUpperCase(), pan: masked, exp: inputCardExp.value || '12/28' });
+      
+      savedCards.push({ type: cardType, pan: masked, exp: cardExp });
       renderCards();
       const cardsPreview = document.getElementById('acc-cards-preview');
       if (cardsPreview) cardsPreview.textContent = `${savedCards.length} привязанные карты`;
       showToast("Карта успешно привязана!");
-      inputCardNum.value = '';
-      inputCardExp.value = '';
+      if (numInput) numInput.value = '';
+      if (expInput) expInput.value = '';
     });
   }
 
@@ -1917,50 +2624,82 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderAddressManager() {
-    const list = document.getElementById('address-manager-list');
+    const list = document.getElementById('addresses-manager-list') || document.getElementById('address-manager-list');
     if (!list) return;
-    list.innerHTML = savedAddresses.map(a => `
-      <div class="account-card-item" style="margin-bottom:8px;">
-        <div class="acc-icon green-bg">${a.icon}</div>
-        <div class="acc-text">
-          <h4>${a.title}</h4>
-          <p>${a.text}</p>
+    if (savedAddresses.length === 0) {
+      list.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0;">Нет сохраненных адресов</p>`;
+      return;
+    }
+    list.innerHTML = savedAddresses.map((a, i) => {
+      const iconClass = (a.icon && a.icon.length > 2) ? a.icon : 'location-dot';
+      return `
+        <div class="account-card-item" style="margin-bottom:8px; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="acc-icon green-bg"><i class="fa-solid fa-${iconClass}"></i></div>
+            <div class="acc-text">
+              <h4>${a.title}</h4>
+              <p>${a.text}</p>
+            </div>
+          </div>
+          <button class="addr-remove-btn" onclick="deleteSavedAddress(${i})" title="Удалить адрес" style="background:transparent; border:none; color:#ef4444; cursor:pointer; font-size:15px; padding:6px;">
+            <i class="fa-regular fa-trash-can"></i>
+          </button>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
-  const btnSaveNewAddr = document.getElementById('btn-save-new-address');
+  window.deleteSavedAddress = function (idx) {
+    savedAddresses.splice(idx, 1);
+    renderAddressManager();
+    const countDisplay = document.getElementById('acc-addresses-count');
+    if (countDisplay) countDisplay.textContent = `${savedAddresses.length} адресов доставки`;
+    renderAddressOptions();
+    showToast("Адрес удален");
+  };
+
+  const btnSaveNewAddr = document.getElementById('btn-submit-mgr-addr') || document.getElementById('btn-save-new-address');
   if (btnSaveNewAddr) {
     btnSaveNewAddr.addEventListener('click', () => {
-      const titleInput = document.getElementById('input-new-addr-title');
-      const textInput = document.getElementById('input-new-addr-text');
-      const title = titleInput.value.trim();
-      const text = textInput.value.trim();
+      const titleInput = document.getElementById('input-mgr-addr-title') || document.getElementById('input-new-addr-title');
+      const textInput = document.getElementById('input-mgr-addr-text') || document.getElementById('input-new-addr-text');
+      const title = titleInput ? titleInput.value.trim() : 'Другой адрес';
+      const text = textInput ? textInput.value.trim() : '';
       if (!text) {
         showToast("Введите адрес!");
-        textInput.focus();
+        if (textInput) textInput.focus();
         return;
       }
-      savedAddresses.push({ title: title || 'Другой адрес', text: text, icon: '📍' });
+      savedAddresses.push({ title: title || 'Другой адрес', text: text, icon: 'location-dot' });
       renderAddressManager();
+      renderAddressOptions();
       const countDisplay = document.getElementById('acc-addresses-count');
       if (countDisplay) countDisplay.textContent = `${savedAddresses.length} адресов доставки`;
       showToast("Адрес успешно сохранен!");
-      titleInput.value = '';
-      textInput.value = '';
+      if (titleInput) titleInput.value = '';
+      if (textInput) textInput.value = '';
     });
   }
 
-
   // ==================== HISTORY & SUPPORT CHAT ====================
-  document.getElementById('btn-acc-history').addEventListener('click', () => {
-    renderHistory();
-    openModal('modal-history');
-  });
+  const btnAccHistory = document.getElementById('btn-acc-history');
+  if (btnAccHistory) {
+    btnAccHistory.addEventListener('click', () => {
+      renderHistory();
+      openModal('modal-history');
+    });
+  }
+
+  const btnAccSettings = document.getElementById('btn-acc-settings');
+  if (btnAccSettings) {
+    btnAccSettings.addEventListener('click', () => {
+      openModal('modal-settings');
+    });
+  }
 
   function renderHistory() {
     const list = document.getElementById('history-items-list');
+    if (!list) return;
     list.innerHTML = orderHistory.map(h => `
       <div class="account-card-item" style="margin-bottom:8px;">
         <div class="acc-icon orange-bg"><i class="fa-solid fa-gas-pump"></i></div>
@@ -2014,6 +2753,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==================== UTILS: MODALS & TOAST ====================
+  const btnOpenNotif = document.getElementById('btn-open-notifications');
+  if (btnOpenNotif) {
+    btnOpenNotif.addEventListener('click', () => {
+      openModal('modal-notifications');
+    });
+  }
+
   function openModal(id) {
     const modal = document.getElementById(id);
     if (modal) modal.classList.add('active');

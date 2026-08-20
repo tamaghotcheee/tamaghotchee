@@ -12,7 +12,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -32,43 +32,28 @@
 
     <!-- ==================== HEADER / TOP BAR ==================== -->
     <header class="app-header" id="app-header">
-      <!-- Left Action Group: Menu + 104 Emergency -->
+      <!-- Left Action Group: Menu + Subtle 104 Emergency -->
       <div class="header-left-group">
         <button class="icon-btn menu-trigger" id="btn-side-menu" aria-label="Menu" title="Меню">
           <i class="fa-solid fa-bars"></i>
         </button>
-        <button class="emergency-badge-btn" id="btn-open-emergency" title="Служба газа 104">
-          <i class="fa-solid fa-phone-volume"></i>
-          <span class="em-text">104</span>
+        <button class="sos-subtle-btn" id="btn-open-emergency" title="Аварийная служба 104" aria-label="Служба газа 104">
+          <i class="fa-solid fa-phone"></i>
+          <span class="sos-text">104</span>
         </button>
       </div>
 
       <!-- Center Brand Title / Logo -->
       <div class="brand-badge">
-        <svg class="animated-flame-svg" viewBox="0 0 32 32" width="22" height="22">
-          <path class="flame-outer" d="M16 2C16 2 22 9 22 17C22 23.6 19.3 27 16 27C12.7 27 10 23.6 10 17C10 9 16 2 16 2Z" fill="#dc2626"/>
-          <path class="flame-inner" d="M16 10C16 10 19 14 19 18C19 21 17.7 23 16 23C14.3 23 13 21 13 18C13 14 16 10 16 10Z" fill="#ffffff"/>
-        </svg>
+        <span class="brand-dot"></span>
         <span class="brand-title">Poytug GNS</span>
       </div>
 
-      <!-- Header Right Action Group: Cart + Languages + Close 'X' -->
+      <!-- Header Right Action Group: Notifications -->
       <div class="header-right-group">
-        <button class="icon-btn cart-badge-btn" id="btn-open-cart" title="Корзина">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span class="cart-count-badge" id="cart-badge-count">0</span>
-        </button>
-
-        <!-- Language Switcher (3 buttons) -->
-        <div class="lang-selector" id="lang-selector">
-          <button class="lang-btn" data-lang="uz">UZ</button>
-          <button class="lang-btn active" data-lang="ru">RU</button>
-          <button class="lang-btn" data-lang="en">EN</button>
-        </div>
-
-        <!-- Guest / Exit 'X' Button -->
-        <button class="icon-btn close-guest-btn" id="btn-close-auth" title="Войти позже" aria-label="Skip Auth">
-          <i class="fa-solid fa-xmark"></i>
+        <button class="icon-btn notif-badge-btn" id="btn-open-notifications" title="Уведомления" aria-label="Уведомления">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notif-dot-pulse"></span>
         </button>
       </div>
     </header>
@@ -90,40 +75,40 @@
       </div>
 
       <nav class="drawer-nav">
-        <button class="drawer-link" id="btn-menu-balance">
+        <button class="drawer-link" id="btn-menu-balance" type="button">
           <div class="link-icon"><i class="fa-solid fa-wallet"></i></div>
           <span data-i18n="myBalance">Мой баланс</span>
           <strong class="balance-badge" id="menu-balance-amount">25 000 UZS</strong>
         </button>
 
-        <button class="drawer-link" id="btn-menu-emergency">
+        <button class="drawer-link" id="btn-menu-emergency" type="button">
           <div class="link-icon red-bg"><i class="fa-solid fa-triangle-exclamation"></i></div>
-          <span style="color:#ef4444; font-weight:800;">Безопасность 104</span>
+          <span style="color:#ef4444; font-weight:700;">Безопасность 104</span>
         </button>
 
-        <button class="drawer-link" id="btn-menu-settings">
+        <button class="drawer-link" id="btn-menu-settings" type="button">
           <div class="link-icon"><i class="fa-solid fa-sliders"></i></div>
           <span data-i18n="settings">Настройки</span>
         </button>
 
-        <button class="drawer-link" id="btn-menu-history">
+        <button class="drawer-link" id="btn-menu-history" type="button">
           <div class="link-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
           <span data-i18n="orderHistory">История заказов</span>
         </button>
 
-        <button class="drawer-link" id="btn-menu-about">
+        <button class="drawer-link" id="btn-menu-about" type="button">
           <div class="link-icon"><i class="fa-solid fa-building"></i></div>
-          <span data-i18n="aboutCompany">О нашей фирме</span>
+          <span data-i18n="aboutCompany">О компании</span>
         </button>
 
-        <button class="drawer-link" id="btn-menu-support">
+        <button class="drawer-link" id="btn-menu-support" type="button">
           <div class="link-icon"><i class="fa-solid fa-headset"></i></div>
           <span data-i18n="support">Служба поддержки</span>
         </button>
 
-        <button class="drawer-link" id="btn-drawer-logout" style="color:#ef4444;">
-          <div class="link-icon" style="background:rgba(239,68,68,0.15); color:#ef4444;"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
-          <span data-i18n="btnLogout">Выйти из аккаунта</span>
+        <button class="drawer-link" id="btn-drawer-logout" type="button" style="margin-top: 6px;">
+          <div class="link-icon red-bg"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+          <span style="color:#ef4444; font-weight:700;" data-i18n="btnLogout">Выйти из аккаунта</span>
         </button>
       </nav>
 
@@ -159,9 +144,13 @@
             </div>
 
             <label for="input-login-phone" class="input-label" data-i18n="phoneLabel">Номер телефона</label>
-            <div class="phone-input-wrapper">
-              <span class="country-prefix">🇺🇿 +998</span>
-              <input type="tel" id="input-login-phone" placeholder="(90) 123-45-67" maxlength="14" autocomplete="tel" value="90 123-45-67">
+            <div class="phone-input-wrapper" id="phone-wrapper-login">
+              <button type="button" class="country-picker-btn" id="btn-country-picker-login" title="Выбрать код страны" aria-label="Выбрать код страны">
+                <span class="country-iso-pill" id="selected-country-iso-login">UZ</span>
+                <span class="country-code-text" id="selected-country-code-login">+998</span>
+                <i class="fa-solid fa-chevron-down country-arrow"></i>
+              </button>
+              <input type="tel" id="input-login-phone" placeholder="(90) 123-45-67" autocomplete="tel" value="(90) 123-45-67">
             </div>
 
             <label for="input-login-password" class="input-label" data-i18n="passwordLabel">Пароль</label>
@@ -193,7 +182,7 @@
             <div class="otp-security-notice">
               <i class="fa-solid fa-mobile-screen-button"></i>
               <div>
-                <p class="otp-sent-text"><span data-i18n="codeSentTo">СМС была отправлена на номер</span> <strong id="display-login-phone">+998 90 123-45-67</strong></p>
+                <p class="otp-sent-text"><span data-i18n="codeSentTo">СМС была отправлена на номер</span> <strong id="display-login-phone">+998 (90) 123-45-67</strong></p>
                 <span class="otp-security-sub" data-i18n="otpSecuritySub">Введите 4 цифры для подтверждения</span>
               </div>
             </div>
@@ -238,9 +227,13 @@
             </div>
 
             <label for="input-reg-phone" class="input-label" data-i18n="phoneLabel">Номер телефона</label>
-            <div class="phone-input-wrapper">
-              <span class="country-prefix">🇺🇿 +998</span>
-              <input type="tel" id="input-reg-phone" placeholder="(90) 123-45-67" maxlength="14" autocomplete="tel">
+            <div class="phone-input-wrapper" id="phone-wrapper-reg">
+              <button type="button" class="country-picker-btn" id="btn-country-picker-reg" title="Выбрать код страны" aria-label="Выбрать код страны">
+                <span class="country-iso-pill" id="selected-country-iso-reg">UZ</span>
+                <span class="country-code-text" id="selected-country-code-reg">+998</span>
+                <i class="fa-solid fa-chevron-down country-arrow"></i>
+              </button>
+              <input type="tel" id="input-reg-phone" placeholder="(90) 123-45-67" autocomplete="tel">
             </div>
 
             <label for="input-reg-password" class="input-label" data-i18n="createPassword">Придумайте пароль</label>
@@ -313,9 +306,19 @@
 
         </div>
 
-        <div class="guest-action-hint">
-          <button class="link-btn" id="btn-auth-skip-link" data-i18n="skipAuthHint">Или нажмите ✕ сверху чтобы войти позже в гостевом режиме</button>
+        <!-- Guest Quick Access Divider & Button -->
+        <div class="auth-guest-divider">
+          <span data-i18n="guestOrDivider">или</span>
         </div>
+
+        <button type="button" class="btn-guest-quick-access ripple-btn" id="btn-auth-skip-link">
+          <div class="guest-btn-icon"><i class="fa-solid fa-user-astronaut"></i></div>
+          <div class="guest-btn-content">
+            <span class="guest-btn-title" data-i18n="guestModeTitle">Войти как Гость</span>
+            <span class="guest-btn-desc" data-i18n="guestModeDesc">Ознакомиться с каталогом без регистрации</span>
+          </div>
+          <i class="fa-solid fa-chevron-right guest-btn-arrow"></i>
+        </button>
 
       </div>
     </section>
@@ -324,7 +327,7 @@
     <!-- ==================== SCREEN 1: HOME (REFILL CYLINDER) ==================== -->
     <section class="app-screen" id="screen-home">
       
-      <!-- SUB-STAGE 1: INITIAL EMPTY CYLINDER -->
+      <!-- SUB-STAGE 1: INITIAL EMPTY CYLINDER (REFILL SCREEN MATCHING SCREENSHOT 2) -->
       <div class="home-stage active" id="home-stage-initial">
         <div class="stage-header home-hero-header">
           <div class="hero-chip-badge">
@@ -332,198 +335,181 @@
             <span data-i18n="heroServiceTag">Экспресс-доставка газа</span>
           </div>
           <h2 class="hero-main-title" data-i18n="refillGasTitle">Заправка СУГ / LPG</h2>
-          <p class="hero-sub-title" data-i18n="refillGasSub">Быстрая заправка вашего баллона с доставкой</p>
+          <p class="hero-sub-title" data-i18n="refillGasSub">Выберите объём — оплатите и ждите курьера</p>
         </div>
 
-        <!-- 3D Realistic Visual Cylinder Graphic & Gas Rig -->
         <div class="cylinder-visual-container">
+          <!-- Live Status Pill -->
           <div class="refuel-status-pill" id="refuel-live-status">
             <span class="status-dot"></span>
-            <span id="refuel-status-text">Баллон готов к заправке</span>
+            <span id="refuel-status-text">Готово к заправке — 10 л</span>
           </div>
 
-          <svg class="realistic-cylinder-svg" id="home-cylinder-svg" viewBox="0 0 340 400" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
-            <defs>
-              <!-- Metallic Red Cylinder Body Gradient -->
-              <linearGradient id="cyl-body-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#5c0d0d"/>
-                <stop offset="10%" stop-color="#991b1b"/>
-                <stop offset="24%" stop-color="#dc2626"/>
-                <stop offset="42%" stop-color="#ef4444"/>
-                <stop offset="52%" stop-color="#fca5a5"/>
-                <stop offset="65%" stop-color="#dc2626"/>
-                <stop offset="85%" stop-color="#991b1b"/>
-                <stop offset="100%" stop-color="#450a0a"/>
-              </linearGradient>
+          <!-- Dynamic 3D / Glassmorphism Gas Tank Illustration with Filling Rig -->
+          <div class="cylinder-illustration-wrapper">
+            <svg class="modern-tank-svg" id="home-cylinder-svg" viewBox="0 0 180 230" width="160" height="205">
+              <defs>
+                <!-- Liquid Gas Gradient with Glowing Flame Colors -->
+                <linearGradient id="tank-gas-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+                  <stop offset="0%" stop-color="#b91c1c"/>
+                  <stop offset="25%" stop-color="#ea580c"/>
+                  <stop offset="65%" stop-color="#f97316"/>
+                  <stop offset="90%" stop-color="#fb923c"/>
+                  <stop offset="100%" stop-color="#fed7aa"/>
+                </linearGradient>
 
-              <!-- Cylinder Specular Highlight -->
-              <linearGradient id="cyl-gloss-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
-                <stop offset="50%" stop-color="rgba(255,255,255,0.4)"/>
-                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-              </linearGradient>
+                <!-- Specular Highlight Linear Gradient -->
+                <linearGradient id="tank-glass-sheen" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.2)"/>
+                  <stop offset="15%" stop-color="rgba(255,255,255,0.05)"/>
+                  <stop offset="85%" stop-color="rgba(0,0,0,0)"/>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0.1)"/>
+                </linearGradient>
 
-              <!-- Brass Valve Gradient -->
-              <linearGradient id="brass-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#92400e"/>
-                <stop offset="25%" stop-color="#f59e0b"/>
-                <stop offset="50%" stop-color="#fef08a"/>
-                <stop offset="75%" stop-color="#d97706"/>
-                <stop offset="100%" stop-color="#78350f"/>
-              </linearGradient>
+                <!-- Brass Metallic Gradient -->
+                <linearGradient id="brass-valve-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#92400e"/>
+                  <stop offset="50%" stop-color="#fde047"/>
+                  <stop offset="100%" stop-color="#78350f"/>
+                </linearGradient>
 
-              <!-- Chrome / Steel Metal Gradient -->
-              <linearGradient id="chrome-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#1e293b"/>
-                <stop offset="30%" stop-color="#64748b"/>
-                <stop offset="55%" stop-color="#f1f5f9"/>
-                <stop offset="80%" stop-color="#475569"/>
-                <stop offset="100%" stop-color="#0f172a"/>
-              </linearGradient>
+                <!-- Laser Stream Flow Gradient -->
+                <linearGradient id="laser-stream-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(56,189,248,0.9)"/>
+                  <stop offset="50%" stop-color="rgba(249,115,22,0.9)"/>
+                  <stop offset="100%" stop-color="rgba(239,68,68,0.9)"/>
+                </linearGradient>
 
-              <!-- Armored Corrugated Hose Gradient -->
-              <linearGradient id="hose-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#020617"/>
-                <stop offset="45%" stop-color="#334155"/>
-                <stop offset="70%" stop-color="#1e293b"/>
-                <stop offset="100%" stop-color="#020617"/>
-              </linearGradient>
+                <!-- Tank Body Clipping Mask -->
+                <clipPath id="tank-body-clip">
+                  <rect x="30" y="48" width="120" height="154" rx="32"/>
+                </clipPath>
+              </defs>
 
-              <!-- Gas Flow Pulse Gradient -->
-              <linearGradient id="gas-flow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ef4444"/>
-                <stop offset="50%" stop-color="#ffffff"/>
-                <stop offset="100%" stop-color="#dc2626"/>
-              </linearGradient>
+              <!-- Ambient Tank Glow -->
+              <ellipse cx="90" cy="195" rx="55" ry="14" fill="rgba(249,115,22,0.18)" class="tank-ambient-glow"/>
 
-              <!-- Liquid Gas Fill Gradient -->
-              <linearGradient id="liquid-gas-grad" x1="0%" y1="100%" x2="0%" y2="0%">
-                <stop offset="0%" stop-color="rgba(153, 27, 27, 0.95)"/>
-                <stop offset="65%" stop-color="rgba(239, 68, 68, 0.9)"/>
-                <stop offset="100%" stop-color="rgba(255, 255, 255, 0.95)"/>
-              </linearGradient>
+              <!-- Outer Tank Metal Skirt Base -->
+              <path d="M 46 194 L 48 208 Q 90 216 132 208 L 134 194 Q 90 200 46 194 Z" fill="#26262b" stroke="#383842" stroke-width="1.5"/>
 
-              <!-- Seamless Internal Tank Mask for Liquid Fill -->
-              <clipPath id="cyl-inner-clip">
-                <path d="M 116 130 C 116 75 244 75 244 130 L 244 280 C 244 320 116 320 116 280 Z"/>
-              </clipPath>
-            </defs>
+              <!-- Outer Tank Body -->
+              <rect x="30" y="48" width="120" height="154" rx="32" fill="#18191f" stroke="#2f303a" stroke-width="2"/>
+              <rect x="30" y="48" width="120" height="154" rx="32" fill="url(#tank-glass-sheen)"/>
 
-            <!-- Ground Contact Shadow -->
-            <ellipse cx="180" cy="355" rx="75" ry="12" fill="#000" opacity="0.65"/>
+              <!-- Welded Reinforcement Collar Top -->
+              <path d="M 52 48 C 52 28 128 28 128 48 L 132 54 L 48 54 Z" fill="#202229" stroke="#383842" stroke-width="1.5"/>
+              <rect x="58" y="32" width="12" height="6" rx="3" fill="#0d0e12" stroke="#383842" stroke-width="1"/>
+              <rect x="110" y="32" width="12" height="6" rx="3" fill="#0d0e12" stroke="#383842" stroke-width="1"/>
 
-            <!-- ==================== WELDED BASE SKIRT (Опорный башмак ГОСТ) ==================== -->
-            <!-- Base skirt welded onto bottom dome without any gaps -->
-            <path d="M 126 295 L 128 340 Q 180 350 232 340 L 234 295 Q 180 305 126 295 Z" fill="url(#cyl-body-grad)" stroke="#450a0a" stroke-width="1.5"/>
-            <ellipse cx="180" cy="340" rx="52" ry="7" fill="#090d16" stroke="#1e293b" stroke-width="2"/>
+              <!-- Central Brass Valve -->
+              <rect x="85" y="30" width="10" height="14" fill="url(#brass-valve-grad)" stroke="#78350f" stroke-width="0.8"/>
+              <!-- Red Valve Handle Knob -->
+              <rect x="76" y="22" width="28" height="7" rx="3.5" fill="#dc2626" stroke="#991b1b" stroke-width="1"/>
 
-            <!-- ==================== UNIFIED SEAMLESS CYLINDER BODY ==================== -->
-            <!-- Solid continuous steel shell: Top dome + cylinder body + bottom dome (ZERO GAPS) -->
-            <path id="cylinder-seamless-shell" d="M 115 130 C 115 72 245 72 245 130 L 245 285 C 245 328 115 328 115 285 Z" fill="url(#cyl-body-grad)" stroke="#450a0a" stroke-width="1.5"/>
+              <!-- Dynamic Liquid Gas Fill with Clipping -->
+              <g clip-path="url(#tank-body-clip)">
+                <!-- Liquid Gas Body -->
+                <rect id="svg-gas-fill-rect" x="25" y="125" width="130" height="85" fill="url(#tank-gas-grad)"/>
 
-            <!-- Internal Liquid Fill Layer (Fully masked inside cylinder, hidden at 0%) -->
-            <g clip-path="url(#cyl-inner-clip)">
-              <!-- Gas Level Fill Rectangle (starts empty with height 0 and opacity 0) -->
-              <rect id="svg-gas-fill-rect" x="110" y="325" width="140" height="0" fill="url(#liquid-gas-grad)" opacity="0"/>
-              <!-- Liquid Surface Wave (hidden by default) -->
-              <path id="svg-gas-wave-path" d="M 110 325 Q 145 320 180 325 T 250 325 L 250 345 L 110 345 Z" fill="#ffffff" opacity="0"/>
-            </g>
+                <!-- Fluid Surface Animated Wave Path -->
+                <path id="svg-gas-wave-path" class="liquid-wave-surface active" d="M 25 125 Q 55 121 90 125 T 155 125 L 155 210 L 25 210 Z" fill="rgba(254, 215, 170, 0.28)"/>
 
-            <!-- Specular Vertical Gloss Reflection -->
-            <path d="M 132 100 L 132 300" stroke="url(#cyl-gloss-grad)" stroke-width="14" stroke-linecap="round"/>
+                <!-- Rising Bubbles in Liquid -->
+                <g class="gas-bubbles-group">
+                  <circle cx="65" cy="180" r="3" fill="rgba(255,255,255,0.6)" class="bubble bubble-1"/>
+                  <circle cx="105" cy="190" r="2.5" fill="rgba(255,255,255,0.5)" class="bubble bubble-2"/>
+                  <circle cx="80" cy="165" r="4" fill="rgba(255,255,255,0.7)" class="bubble bubble-3"/>
+                  <circle cx="120" cy="175" r="2" fill="rgba(255,255,255,0.6)" class="bubble bubble-4"/>
+                </g>
 
-            <!-- Middle Welded Seam Band (Кольцевой сварной шов ГОСТ) -->
-            <ellipse cx="180" cy="205" rx="65" ry="3.5" fill="none" stroke="#7f1d1d" stroke-width="3"/>
-            <ellipse cx="180" cy="204" rx="65" ry="3.5" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-
-            <!-- Cylinder Stencils & Branding -->
-            <g id="cyl-stencils" opacity="0.95">
-              <!-- Flame Hazard Diamond Badge -->
-              <g transform="translate(180, 150)">
-                <polygon points="0,-15 15,0 0,15 -15,0" fill="#dc2626" stroke="#fff" stroke-width="1.5"/>
-                <path d="M 0 -7 C 0 -7 3.5 -2 3.5 2 C 3.5 5.5 1.8 7.5 0 7.5 C -1.8 7.5 -3.5 5.5 -3.5 2 C -3.5 -2 0 -7 0 -7 Z" fill="#ffb703"/>
-                <text x="0" y="12" font-size="5" font-weight="900" fill="#fff" text-anchor="middle">2</text>
+                <!-- Internal Bottom Shadow Curve -->
+                <ellipse cx="90" cy="194" rx="50" ry="12" fill="rgba(0,0,0,0.4)"/>
               </g>
-              <!-- Brand Title Stencil -->
-              <text x="180" y="182" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="14" fill="#ffffff" text-anchor="middle" letter-spacing="1">POYTUG GNS</text>
-              <text x="180" y="194" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="8.5" fill="#ffedd5" text-anchor="middle" letter-spacing="2">ПРОПАН-БУТАН</text>
-              
-            </g>
 
-            <!-- Live Status Badge on Cylinder Body -->
-            <g id="cyl-status-badge-group" transform="translate(180, 272)">
-              <rect id="cyl-status-rect" x="-48" y="-12" width="96" height="24" rx="12" fill="rgba(0,0,0,0.75)" stroke="#ef4444" stroke-width="1.5"/>
-              <text id="cyl-status-text" x="0" y="4" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="800" fill="#ef4444" text-anchor="middle">ПУСТОЙ 0%</text>
-            </g>
+              <!-- Specular Gloss Reflection Layer -->
+              <path d="M 40 60 C 40 60 42 186 42 186" stroke="rgba(255,255,255,0.35)" stroke-width="5" stroke-linecap="round" pointer-events="none"/>
 
-            <!-- ==================== TOP PROTECTIVE COLLAR (Воротник с ручками) ==================== -->
-            <g id="collar-assembly">
-              <!-- Collar Outer Steel Shroud -->
-              <path d="M 130 92 C 130 58 230 58 230 92 L 235 100 L 125 100 Z" fill="url(#cyl-body-grad)" stroke="#450a0a" stroke-width="1.5"/>
-              <!-- Left Hand Grip Cutout -->
-              <rect x="138" y="68" width="22" height="10" rx="5" fill="#090d16" stroke="#450a0a" stroke-width="1.5"/>
-              <!-- Right Hand Grip Cutout -->
-              <rect x="200" y="68" width="22" height="10" rx="5" fill="#090d16" stroke="#450a0a" stroke-width="1.5"/>
-            </g>
+              <!-- Welded Center Belt Seam -->
+              <ellipse cx="90" cy="125" rx="59" ry="2" fill="none" stroke="#2e303a" stroke-width="1.5"/>
+              <ellipse cx="90" cy="124.5" rx="59" ry="2" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
 
-            <!-- ==================== BRASS VALVE ASSEMBLY (Вентиль ВБ-2) ==================== -->
-            <g id="brass-valve" transform="translate(180, 76)">
-              <!-- Valve Base / Threaded Neck -->
-              <rect x="-6" y="-6" width="12" height="12" fill="url(#brass-grad)" stroke="#78350f" stroke-width="1"/>
-              <!-- Valve Body -->
-              <path d="M -8 -16 L 8 -16 L 6 -6 L -6 -6 Z" fill="url(#brass-grad)" stroke="#78350f" stroke-width="1"/>
-              <!-- Valve Left Outlet Spout (Штуцер заправки) -->
-              <rect id="valve-outlet-spout" x="-24" y="-14" width="18" height="7" rx="2" fill="url(#brass-grad)" stroke="#78350f" stroke-width="1"/>
-              <ellipse cx="-24" cy="-10.5" rx="2" ry="3.5" fill="#451a03" stroke="#f59e0b" stroke-width="0.8"/>
-              <!-- Valve Top Handwheel Knob -->
-              <rect x="-11" y="-22" width="22" height="6" rx="3" fill="#dc2626" stroke="#450a0a" stroke-width="1"/>
-              <circle cx="0" cy="-19" r="2.5" fill="url(#brass-grad)"/>
-            </g>
+              <!-- Stencil Branding & Stamped Metal Text -->
+              <text x="90" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="900" fill="rgba(255,255,255,0.22)" text-anchor="middle" letter-spacing="2">POYTUG GNS</text>
+              <text x="90" y="102" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="800" fill="rgba(255,255,255,0.18)" text-anchor="middle" letter-spacing="1">LPG PROPANE 99.8%</text>
 
-            <!-- ==================== CURVED FLEXIBLE HOSE & REFUELING NOZZLE ==================== -->
-            <g id="hose-nozzle-rig" class="rig-idle">
-              <!-- Natural S-Curve High-Pressure Hose coming from top-left offscreen -->
-              <path id="hose-bg-shadow" d="M -50 -30 C 10 0, 20 60, 95 62" fill="none" stroke="#000" stroke-width="16" stroke-linecap="round" opacity="0.45"/>
-              <path id="hose-outer-path" d="M -50 -30 C 10 0, 20 60, 95 62" fill="none" stroke="url(#hose-grad)" stroke-width="13" stroke-linecap="round"/>
-              <path id="hose-ribs" d="M -50 -30 C 10 0, 20 60, 95 62" fill="none" stroke="#64748b" stroke-width="13" stroke-linecap="round" stroke-dasharray="2 6" opacity="0.6"/>
-              
-              <!-- Pulsing Neon Gas Flow Stream inside Hose -->
-              <path id="gas-flow-stream" d="M -50 -30 C 10 0, 20 60, 95 62" fill="none" stroke="url(#gas-flow-grad)" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="8 6" opacity="0"/>
-
-              <!-- Metal Strain-Relief Spring at Hose-to-Gun Junction -->
-              <rect x="92" y="56" width="10" height="12" rx="3" fill="url(#chrome-grad)" stroke="#1e293b" stroke-width="1"/>
-
-              <!-- Heavy-Duty Fueling Gun / Nozzle Assembly -->
-              <g id="fuel-nozzle-gun" transform="translate(102, 62)">
-                <!-- Gun Main Body (Aluminum / Steel) -->
-                <rect x="0" y="-8" width="28" height="16" rx="4" fill="url(#chrome-grad)" stroke="#0f172a" stroke-width="1.2"/>
-                <!-- Ergonomic Rubber Pistol Grip Handle -->
-                <path d="M 6 8 L 10 28 L 18 28 L 14 8 Z" fill="#0f172a" stroke="#334155" stroke-width="1.2"/>
-                <rect x="7" y="12" width="6" height="3" rx="1.5" fill="#475569"/>
-                <rect x="8" y="17" width="6" height="3" rx="1.5" fill="#475569"/>
-                <rect x="9" y="22" width="6" height="3" rx="1.5" fill="#475569"/>
-                <!-- Red Trigger Lever -->
-                <path d="M 14 10 L 22 18 L 18 20 L 12 12 Z" fill="#ef4444" opacity="0.95"/>
-                <!-- Mini Dial Pressure Gauge on Gun -->
-                <circle cx="14" cy="-8" r="6" fill="#fff" stroke="#334155" stroke-width="1.2"/>
-                <line id="gun-gauge-needle" x1="14" y1="-8" x2="17" y2="-11" stroke="#ef4444" stroke-width="1.2" stroke-linecap="round"/>
-                
-                <!-- Brass Quick-Connect Locking Collar -->
-                <rect x="28" y="-6" width="14" height="12" rx="2" fill="url(#brass-grad)" stroke="#78350f" stroke-width="1"/>
-                <!-- Chrome Docking Nozzle Tip (docks precisely into valve spout at 156, 62) -->
-                <rect id="nozzle-dock-tip" x="42" y="-4" width="14" height="8" rx="1.5" fill="url(#chrome-grad)" stroke="#1e293b" stroke-width="0.8"/>
-                
-                <!-- Connection Lock Status LED Indicator -->
-                <circle id="dock-lock-indicator" cx="35" cy="-8" r="3.5" fill="#ef4444" stroke="#fff" stroke-width="0.8"/>
+              <!-- Interactive Floating Digital HUD Pill (Percentage & Liters) -->
+              <g transform="translate(90, 130)" id="cyl-status-hud-group" class="cyl-hud-group">
+                <rect x="-38" y="-14" width="76" height="28" rx="14" fill="rgba(15,17,23,0.92)" stroke="rgba(255,255,255,0.15)" stroke-width="1.2" class="hud-glass-badge"/>
+                <text id="cyl-status-text" x="0" y="4" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="900" fill="#FFFFFF" text-anchor="middle">50%</text>
               </g>
-            </g>
-          </svg>
+
+              <!-- Interactive Nozzle & Hose Filling Rig (Dockable via JS during fill) -->
+              <g id="hose-nozzle-rig" class="hose-nozzle-rig rig-idle">
+                <!-- Pressurized Braided Hose -->
+                <path d="M 0 10 Q 50 10 75 22" fill="none" stroke="#475569" stroke-width="6" stroke-linecap="round"/>
+                <path d="M 0 10 Q 50 10 75 22" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3"/>
+                
+                <!-- Quick-Lock Nozzle Chuck -->
+                <path d="M 72 17 L 85 24 L 81 32 L 68 25 Z" fill="#64748b" stroke="#334155" stroke-width="1"/>
+                <rect x="80" y="24" width="8" height="10" rx="2" fill="#0284c7" stroke="#0369a1" stroke-width="1"/>
+                
+                <!-- Locking Indicator Light -->
+                <circle id="dock-lock-indicator" cx="84" cy="29" r="2.2" fill="#22c55e"/>
+
+                <!-- Dynamic Gas Flow Stream inside Hose (Active during fill) -->
+                <path id="gas-flow-stream" class="gas-flow-stream" d="M 85 28 L 90 48 L 90 120" stroke="url(#laser-stream-grad)" stroke-width="3" stroke-linecap="round" fill="none" opacity="0"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Telemetry Live HUD Bar -->
+          <div class="tank-telemetry-row">
+            <div class="telemetry-item">
+              <span class="telemetry-label"><i class="fa-solid fa-gauge-high"></i> Давление</span>
+              <strong class="telemetry-val" id="tele-pressure-val">16.0 Bar</strong>
+            </div>
+            <div class="telemetry-divider"></div>
+            <div class="telemetry-item">
+              <span class="telemetry-label"><i class="fa-solid fa-fire-flame-simple"></i> Стандарт</span>
+              <strong class="telemetry-val" id="tele-grade-val">ГОСТ 20448</strong>
+            </div>
+            <div class="telemetry-divider"></div>
+            <div class="telemetry-item">
+              <span class="telemetry-label"><i class="fa-solid fa-bolt"></i> Скорость</span>
+              <strong class="telemetry-val" id="tele-speed-val">4.5 л/мин</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Volume Selection Tabs -->
+        <div class="refill-volume-section">
+          <div class="volume-header-row">
+            <span class="volume-label">Объём заправки</span>
+            <span class="volume-value-selected" id="display-selected-vol">10 л</span>
+          </div>
+          <div class="volume-toggle-group" id="volume-toggle-group">
+            <button class="vol-btn" data-vol="5" data-price="19000" data-liters="5 л">5 л</button>
+            <button class="vol-btn active" data-vol="10" data-price="38000" data-liters="10 л">10 л</button>
+            <button class="vol-btn" data-vol="20" data-price="76000" data-liters="20 л (полный)">20 л (полный)</button>
+          </div>
+        </div>
+
+        <!-- Price Summary Card -->
+        <div class="refill-price-card">
+          <div class="price-left-col">
+            <span class="price-mini-label">К ОПЛАТЕ</span>
+            <strong class="price-main-val" id="refill-main-price">38 000 UZS</strong>
+          </div>
+          <div class="price-right-col">
+            <span class="price-rate-text">3 800 UZS / л</span>
+            <span class="delivery-eta-badge">~25 мин доставка</span>
+          </div>
         </div>
 
         <div class="home-bottom-action">
-          <button class="primary-btn btn-large ripple-btn pulse-glow" id="btn-start-refill">
+          <button class="primary-btn btn-large ripple-btn" id="btn-start-refill">
             <i class="fa-solid fa-bolt"></i>
-            <span data-i18n="btnRefill">ЗАПРАВИТЬ</span>
+            <span id="btn-refill-text">Заправить за 38 000 UZS</span>
           </button>
         </div>
       </div>
@@ -580,7 +566,7 @@
                     <rect x="58" y="23" width="14" height="4" rx="2" fill="#dc2626" stroke="#7f1d1d" stroke-width="0.6"/>
                     <!-- Stencil Badge & Typography -->
                     <polygon points="65,65 73,73 65,81 57,73" fill="#dc2626" stroke="#fff" stroke-width="0.8"/>
-                    <text x="65" y="77" font-size="6" font-weight="900" fill="#fff" text-anchor="middle">🔥</text>
+                    <circle cx="65" cy="73" r="2.5" fill="#fff"/>
                     <text x="65" y="90" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="8.5" fill="#ffffff" text-anchor="middle">POYTUG</text>
                     <text x="65" y="112" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="8" fill="#ffedd5" text-anchor="middle" letter-spacing="1">10 KG</text>
                     <text x="65" y="122" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="6" fill="#fed7aa" text-anchor="middle" letter-spacing="1.5">ПРОПАН</text>
@@ -632,7 +618,7 @@
                     <rect x="58" y="15" width="14" height="4" rx="2" fill="#dc2626" stroke="#7f1d1d" stroke-width="0.6"/>
                     <!-- Stencil Badge & Typography -->
                     <polygon points="65,56 74,65 65,74 56,65" fill="#dc2626" stroke="#fff" stroke-width="0.8"/>
-                    <text x="65" y="68" font-size="6" font-weight="900" fill="#fff" text-anchor="middle">🔥</text>
+                    <circle cx="65" cy="65" r="2.5" fill="#fff"/>
                     <text x="65" y="82" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="9" fill="#ffffff" text-anchor="middle">POYTUG</text>
                     <text x="65" y="106" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="8.5" fill="#ffedd5" text-anchor="middle" letter-spacing="1">20 KG</text>
                     <text x="65" y="118" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="6" fill="#fca5a5" text-anchor="middle" letter-spacing="1.5">ПРОПАН-БУТАН</text>
@@ -644,34 +630,75 @@
                   <span class="info-pill" data-i18n="pillBestHome">Для дома и кухни</span>
                 </div>
               </div>
+
+              <!-- Item 3: 50 kg (Industrial / B2B) -->
+              <div class="carousel-card" data-type="50kg" data-price="165000" data-wholesale="140000">
+                <div class="card-badge purple">50 KG</div>
+                <div class="carousel-cylinder-wrapper">
+                  <svg class="carousel-cylinder-svg" viewBox="0 0 130 160" width="100" height="135" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="cyl50-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#3b0764"/>
+                        <stop offset="15%" stop-color="#581c87"/>
+                        <stop offset="35%" stop-color="#7e22ce"/>
+                        <stop offset="50%" stop-color="#d8b4fe"/>
+                        <stop offset="65%" stop-color="#7e22ce"/>
+                        <stop offset="85%" stop-color="#581c87"/>
+                        <stop offset="100%" stop-color="#2e1065"/>
+                      </linearGradient>
+                    </defs>
+                    <!-- Base Skirt -->
+                    <path d="M 40 140 L 41 154 Q 65 158 89 154 L 90 140 Q 65 144 40 140 Z" fill="url(#cyl50-grad)" stroke="#2e1065" stroke-width="1.2"/>
+                    <!-- Tall Heavy-duty Body (50 KG) -->
+                    <path d="M 34 38 C 34 12 96 12 96 38 L 96 138 C 96 152 34 152 34 138 Z" fill="url(#cyl50-grad)" stroke="#2e1065" stroke-width="1.5"/>
+                    <path d="M 42 28 L 42 140" stroke="rgba(255,255,255,0.4)" stroke-width="6" stroke-linecap="round"/>
+                    <ellipse cx="65" cy="85" rx="31" ry="2" fill="none" stroke="#581c87" stroke-width="1.5"/>
+                    <path d="M 41 24 C 41 6 89 6 89 24 L 92 28 L 38 28 Z" fill="url(#cyl50-grad)" stroke="#2e1065" stroke-width="1.2"/>
+                    <rect x="46" y="12" width="9" height="5" rx="2.5" fill="#090d16" stroke="#2e1065" stroke-width="0.8"/>
+                    <rect x="75" y="12" width="9" height="5" rx="2.5" fill="#090d16" stroke="#2e1065" stroke-width="0.8"/>
+                    <rect x="62" y="14" width="6" height="7" fill="url(#brass-grad-20)" stroke="#78350f" stroke-width="0.5"/>
+                    <rect x="58" y="8" width="14" height="4" rx="2" fill="#ef4444" stroke="#7f1d1d" stroke-width="0.6"/>
+                    <!-- Stencil Badge -->
+                    <polygon points="65,48 74,57 65,66 56,57" fill="#ef4444" stroke="#fff" stroke-width="0.8"/>
+                    <circle cx="65" cy="57" r="2.5" fill="#fff"/>
+                    <text x="65" y="74" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="9" fill="#ffffff" text-anchor="middle">POYTUG</text>
+                    <text x="65" y="98" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="8.5" fill="#f3e8ff" text-anchor="middle" letter-spacing="1">50 KG</text>
+                    <text x="65" y="110" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="6" fill="#e9d5ff" text-anchor="middle" letter-spacing="1.5">ПРОМЫШЛЕННЫЙ</text>
+                  </svg>
+                </div>
+                <div class="card-details">
+                  <h3>Баллон 50 КГ</h3>
+                  <p class="price-tag">165 000 UZS</p>
+                  <span class="info-pill" data-i18n="pillIndustrial">Рестораны и производство</span>
+                </div>
+              </div>
             </div>
           </div>
 
           <button class="carousel-nav-btn next-btn" id="carousel-next"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
 
-        <!-- Quantity Selector Widget for Bulk/Wholesale Order -->
-        <div class="cylinder-quantity-box glass-panel">
+        <!-- Quantity & Discount Selector -->
+        <div class="cylinder-quantity-box">
           <div class="qty-row">
             <span class="qty-title">Количество баллонов:</span>
             <div class="qty-counter-control">
-              <button class="qty-counter-btn" id="btn-qty-minus">-</button>
-              <input type="number" id="input-cyl-qty" value="1" min="1" max="100">
+              <button class="qty-counter-btn" id="btn-qty-minus">−</button>
+              <input type="number" id="input-cylinder-qty" value="1" min="1" max="20" readonly>
               <button class="qty-counter-btn" id="btn-qty-plus">+</button>
             </div>
           </div>
-          
-          <!-- B2B Wholesale Badge Notification -->
-          <div class="wholesale-discount-badge" id="wholesale-badge" style="display:none;">
-            🏷️ <strong>ОПТОВЫЙ ЗАКАЗ (от 10 шт.)</strong>
-            <p>Оптовая скидка до 15% + Доставка спец-транспортом + Е-Фактура</p>
+
+          <div class="wholesale-discount-badge" id="wholesale-badge" style="display: none;">
+            <span><i class="fa-solid fa-percent"></i> Оптовая скидка активирована!</span>
+            <p>Цена за баллон снижена при заказе от 3 шт</p>
           </div>
         </div>
 
         <div class="home-bottom-action">
-          <button class="primary-btn btn-large ripple-btn" id="btn-confirm-cylinder">
+          <button class="primary-btn btn-large ripple-btn" id="btn-confirm-cylinder-selection">
             <span data-i18n="btnConfirmSelection">Подтвердить выбор</span>
-            <i class="fa-solid fa-circle-check"></i>
+            <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
       </div>
@@ -679,33 +706,26 @@
       <!-- SUB-STAGE 3: ADDRESS SELECTION -->
       <div class="home-stage" id="home-stage-address">
         
-        <!-- SUB-VIEW 1: SAVED ADDRESSES LIST -->
-        <div id="address-view-list" class="address-subview">
+        <!-- SUB-VIEW 1: SAVED ADDRESS LIST -->
+        <div id="address-view-list" class="address-subview active">
           <div class="stage-header">
             <h2 data-i18n="addressSelectTitle">Адрес доставки</h2>
             <p data-i18n="addressSelectSub">Выберите сохраненный адрес или укажите новый</p>
           </div>
 
-          <div class="address-card-group" id="address-options-container">
-            <!-- Dynamic items -->
+          <div class="address-card-group" id="saved-address-options-list">
+            <!-- Rendered by JS -->
           </div>
 
-          <!-- Empty state if 0 saved addresses -->
-          <div class="address-empty-card glass-panel" id="address-empty-state" style="display:none;">
-            <i class="fa-solid fa-map-location-dot empty-addr-icon"></i>
-            <h4>Нет сохраненных адресов</h4>
-            <p>Добавьте адрес доставки для быстрого заказа</p>
-          </div>
-
-          <button class="secondary-btn btn-full add-new-address-btn" id="btn-show-add-address" type="button">
-            <i class="fa-solid fa-circle-plus"></i>
+          <button class="secondary-btn add-new-address-btn" id="btn-show-add-address-form" type="button">
+            <i class="fa-solid fa-plus"></i>
             <span data-i18n="btnAddAddress">Добавить адрес / Указать на карте</span>
           </button>
 
-          <div class="home-bottom-action" id="saved-address-bottom-action">
-            <button class="primary-btn btn-large ripple-btn" id="btn-goto-payment">
+          <div class="home-bottom-action">
+            <button class="primary-btn btn-large ripple-btn" id="btn-proceed-to-payment" type="button">
               <span data-i18n="btnProceedPayment">Перейти к оплате</span>
-              <i class="fa-solid fa-credit-card"></i>
+              <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
         </div>
@@ -726,10 +746,10 @@
 
           <!-- Quick Address Tags -->
           <div class="address-tag-chips" id="address-tag-chips">
-            <button type="button" class="tag-chip active" data-title="Дом" data-icon="🏠">🏠 Дом</button>
-            <button type="button" class="tag-chip" data-title="Дача" data-icon="🏡">🏡 Дача</button>
-            <button type="button" class="tag-chip" data-title="Работа" data-icon="🏢">🏢 Работа</button>
-            <button type="button" class="tag-chip" data-title="Другое" data-icon="📍">📍 Другое</button>
+            <button type="button" class="tag-chip active" data-title="Дом" data-icon="house"><i class="fa-solid fa-house"></i> <span>Дом</span></button>
+            <button type="button" class="tag-chip" data-title="Дача" data-icon="tree"><i class="fa-solid fa-tree"></i> <span>Дача</span></button>
+            <button type="button" class="tag-chip" data-title="Работа" data-icon="briefcase"><i class="fa-solid fa-briefcase"></i> <span>Работа</span></button>
+            <button type="button" class="tag-chip" data-title="Другое" data-icon="location-dot"><i class="fa-solid fa-location-dot"></i> <span>Другое</span></button>
           </div>
 
           <div class="custom-address-box">
@@ -919,7 +939,7 @@
           </div>
           <div class="courier-text">
             <h4>Фарход Рахимов</h4>
-            <p>🚚 Labo Auto • 01 A 777 AA</p>
+            <p><i class="fa-solid fa-truck"></i> Labo Auto • 01 A 777 AA</p>
           </div>
           <button class="icon-btn call-courier-btn" id="btn-call-courier">
             <i class="fa-solid fa-phone"></i>
@@ -956,13 +976,13 @@
           <div class="sheet-drag-handle"></div>
           <div class="station-card-info">
             <div class="station-header-row">
-              <h3 id="station-name-display">🔥 АГЗС #1 Poytug GNS — Чиланзар</h3>
+              <h3 id="station-name-display">АГЗС №1 Poytug GNS — Чиланзар</h3>
               <span class="badge-status open" data-i18n="openNow">Открыто</span>
             </div>
             <p class="station-address" id="station-address-display"><i class="fa-solid fa-location-dot"></i> Ташкент, ул. Катартал, 28 (1.2 км)</p>
             <div class="station-metrics">
-              <span>⛽ Пропан: <strong id="station-price-display">3 800 UZS / л</strong></span>
-              <span>⭐ 4.9 (128 отзывов)</span>
+              <span><i class="fa-solid fa-gas-pump"></i> Пропан: <strong id="station-price-display">3 800 UZS / л</strong></span>
+              <span><i class="fa-solid fa-star" style="color:var(--gold);"></i> 4.9 (128 отзывов)</span>
             </div>
             <div class="station-btn-row">
               <button class="primary-btn btn-sm ripple-btn" id="btn-build-route">
@@ -987,84 +1007,95 @@
 
       <div class="store-grid">
         <!-- Product 1: 20kg Cylinder -->
-        <div class="product-card glass-panel" data-product-id="store-20kg">
+        <div class="product-card" data-product-id="store-20kg">
           <div class="product-img-wrapper">
-            <img src="assets/cylinder_20kg.jpg" alt="Баллон 20 кг">
-            <span class="p-badge">ХИТ</span>
+            <span class="p-badge hit">ХИТ</span>
+            <img src="assets/cylinder_20kg.jpg" alt="Баллон 20 кг" class="product-thumb-img" onerror="this.style.display='none'">
+            <svg class="product-icon-svg" viewBox="0 0 40 60" width="26" height="40">
+              <rect x="8" y="16" width="24" height="38" rx="6" fill="none" stroke="#4E9EFF" stroke-width="2.5"/>
+              <path d="M 12 16 L 12 10 L 28 10 L 28 16" fill="none" stroke="#4E9EFF" stroke-width="2.5"/>
+            </svg>
           </div>
           <div class="product-body">
-            <h3>Газовый баллон 20 КГ (Новый)</h3>
+            <h3>Газовый баллон 20 кг (Новый)</h3>
             <p class="p-desc">Высокопрочный стальной баллон с предохранительным клапаном.</p>
             
-            <div class="product-qty-row">
-              <span class="qty-sublabel">Кол-во:</span>
-              <div class="qty-counter-control store-qty-ctrl">
-                <button class="qty-counter-btn btn-store-minus">-</button>
+            <div class="product-footer-row">
+              <div class="store-qty-ctrl">
+                <button class="qty-counter-btn btn-store-minus">−</button>
                 <input type="number" class="input-store-qty" value="1" min="1" max="50">
                 <button class="qty-counter-btn btn-store-plus">+</button>
               </div>
-            </div>
 
-            <div class="p-footer">
-              <span class="p-price">480 000 UZS</span>
-              <button class="primary-btn btn-sm btn-buy-product" data-product="Баллон 20 кг" data-price="480000">
-                <i class="fa-solid fa-cart-plus"></i> <span data-i18n="btnBuy">Купить</span>
-              </button>
+              <div class="store-price-action">
+                <span class="p-price">480 000 UZS</span>
+                <button class="primary-btn btn-buy-product" data-product="Баллон 20 кг" data-price="480000">
+                  <span data-i18n="btnBuy">Купить</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Product 2: 10kg Cylinder -->
-        <div class="product-card glass-panel" data-product-id="store-10kg">
+        <div class="product-card" data-product-id="store-10kg">
           <div class="product-img-wrapper">
-            <img src="assets/cylinder_10kg.jpg" alt="Баллон 10 кг">
-            <span class="p-badge orange">Компакт</span>
+            <span class="p-badge compact">Компакт</span>
+            <img src="assets/cylinder_10kg.jpg" alt="Баллон 10 кг" class="product-thumb-img" onerror="this.style.display='none'">
+            <svg class="product-icon-svg" viewBox="0 0 40 60" width="26" height="40">
+              <rect x="8" y="20" width="24" height="32" rx="5" fill="none" stroke="#FF7A45" stroke-width="2.5"/>
+              <path d="M 12 20 L 12 14 L 28 14 L 28 20" fill="none" stroke="#FF7A45" stroke-width="2.5"/>
+            </svg>
           </div>
           <div class="product-body">
-            <h3>Газовый баллон 10 КГ (Новый)</h3>
+            <h3>Газовый баллон 10 кг (Новый)</h3>
             <p class="p-desc">Удобный портативный баллон для дачи, гриля и походов.</p>
 
-            <div class="product-qty-row">
-              <span class="qty-sublabel">Кол-во:</span>
-              <div class="qty-counter-control store-qty-ctrl">
-                <button class="qty-counter-btn btn-store-minus">-</button>
+            <div class="product-footer-row">
+              <div class="store-qty-ctrl">
+                <button class="qty-counter-btn btn-store-minus">−</button>
                 <input type="number" class="input-store-qty" value="1" min="1" max="50">
                 <button class="qty-counter-btn btn-store-plus">+</button>
               </div>
-            </div>
 
-            <div class="p-footer">
-              <span class="p-price">340 000 UZS</span>
-              <button class="primary-btn btn-sm btn-buy-product" data-product="Баллон 10 кг" data-price="340000">
-                <i class="fa-solid fa-cart-plus"></i> <span data-i18n="btnBuy">Купить</span>
-              </button>
+              <div class="store-price-action">
+                <span class="p-price">340 000 UZS</span>
+                <button class="primary-btn btn-buy-product" data-product="Баллон 10 кг" data-price="340000">
+                  <span data-i18n="btnBuy">Купить</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Product 3: Regulator & Hose -->
-        <div class="product-card glass-panel" data-product-id="store-regulator">
+        <div class="product-card" data-product-id="store-regulator">
           <div class="product-img-wrapper">
-            <img src="assets/regulator.jpg" alt="Редуктор и Шланг">
+            <img src="assets/regulator.jpg" alt="Редуктор и шланг" class="product-thumb-img" onerror="this.style.display='none'">
+            <svg class="product-icon-svg" viewBox="0 0 50 50" width="30" height="30">
+              <circle cx="25" cy="25" r="9" fill="none" stroke="#9A9A9F" stroke-width="2.5"/>
+              <line x1="25" y1="6" x2="25" y2="16" stroke="#9A9A9F" stroke-width="2.5"/>
+              <line x1="25" y1="34" x2="25" y2="44" stroke="#9A9A9F" stroke-width="2.5"/>
+              <circle cx="25" cy="25" r="2.5" fill="#9A9A9F"/>
+            </svg>
           </div>
           <div class="product-body">
-            <h3>Комплект: Редуктор + Шланг 2м</h3>
+            <h3>Комплект: редуктор + шланг 2м</h3>
             <p class="p-desc">Итальянский редуктор давления газа и армированный шланг с манометром.</p>
 
-            <div class="product-qty-row">
-              <span class="qty-sublabel">Кол-во:</span>
-              <div class="qty-counter-control store-qty-ctrl">
-                <button class="qty-counter-btn btn-store-minus">-</button>
+            <div class="product-footer-row">
+              <div class="store-qty-ctrl">
+                <button class="qty-counter-btn btn-store-minus">−</button>
                 <input type="number" class="input-store-qty" value="1" min="1" max="50">
                 <button class="qty-counter-btn btn-store-plus">+</button>
               </div>
-            </div>
 
-            <div class="p-footer">
-              <span class="p-price">120 000 UZS</span>
-              <button class="primary-btn btn-sm btn-buy-product" data-product="Редуктор и шланг" data-price="120000">
-                <i class="fa-solid fa-cart-plus"></i> <span data-i18n="btnBuy">Купить</span>
-              </button>
+              <div class="store-price-action">
+                <span class="p-price">120 000 UZS</span>
+                <button class="primary-btn btn-buy-product" data-product="Редуктор и шланг" data-price="120000">
+                  <span data-i18n="btnBuy">Купить</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -1074,77 +1105,87 @@
 
     <!-- ==================== SCREEN 4: MY ACCOUNT ==================== -->
     <section class="app-screen" id="screen-account">
-      <div class="account-profile-header glass-panel">
+      <div class="account-profile-header">
         <div class="profile-avatar-large">
-          <i class="fa-solid fa-user-astronaut"></i>
+          <i class="fa-solid fa-user"></i>
         </div>
         <div class="profile-details">
-          <h3 id="acc-user-name">Алишер Каримов</h3>
-          <p id="acc-user-phone">+998 (90) 123-45-67</p>
-          <span class="status-pill-verified"><i class="fa-solid fa-shield-halved"></i> Подтвержденный клиент</span>
+          <h3 id="acc-user-name">Дилшод Каримов</h3>
+          <p id="acc-user-phone">+998 90 123 45 67</p>
+          <span class="status-pill-verified"><i class="fa-solid fa-certificate"></i> Подтверждённый клиент</span>
         </div>
       </div>
 
-      <div class="account-sections-list">
-        <div class="account-card-item clickable" id="btn-acc-balance-item">
-          <div class="acc-icon gold-bg"><i class="fa-solid fa-coins"></i></div>
-          <div class="acc-text">
-            <h4 data-i18n="myBalance">Мой баланс</h4>
-            <p>Бонусные баллы и кэшбэк</p>
-          </div>
-          <strong class="acc-val" id="acc-balance-display">25 000 UZS</strong>
-        </div>
+      <!-- Balance Card matching Screenshot 1 -->
+      <div class="account-balance-card" id="btn-acc-balance-item">
+        <span class="acc-bal-title">Мой баланс (кэшбэк)</span>
+        <div class="acc-bal-amount" id="acc-balance-display">25 000 UZS</div>
+        <span class="acc-bal-sub">Спишется автоматически при след. заказе</span>
+      </div>
 
+      <div class="account-sections-list">
         <div class="account-card-item clickable" id="btn-acc-cards">
-          <div class="acc-icon blue-bg"><i class="fa-solid fa-credit-card"></i></div>
+          <div class="acc-icon"><i class="fa-regular fa-credit-card"></i></div>
           <div class="acc-text">
-            <h4 data-i18n="savedCards">Привязанные карты</h4>
-            <p id="acc-cards-preview">Uzcard •••• 4412, Humo •••• 9821</p>
+            <h4>Мои карты</h4>
+            <p id="acc-cards-preview">1 привязанная карта</p>
           </div>
           <i class="fa-solid fa-chevron-right arr"></i>
         </div>
 
         <div class="account-card-item clickable" id="btn-acc-addresses">
-          <div class="acc-icon green-bg"><i class="fa-solid fa-map-location-dot"></i></div>
+          <div class="acc-icon"><i class="fa-solid fa-location-dot"></i></div>
           <div class="acc-text">
-            <h4 data-i18n="savedAddresses">Сохраненные адреса</h4>
+            <h4>Мои адреса</h4>
             <p id="acc-addresses-count">2 адреса доставки</p>
           </div>
           <i class="fa-solid fa-chevron-right arr"></i>
         </div>
 
         <div class="account-card-item clickable" id="btn-acc-history">
-          <div class="acc-icon orange-bg"><i class="fa-solid fa-receipt"></i></div>
+          <div class="acc-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
           <div class="acc-text">
-            <h4 data-i18n="orderHistory">История заказов</h4>
+            <h4>История заказов</h4>
             <p>Просмотр всех заправок</p>
           </div>
           <i class="fa-solid fa-chevron-right arr"></i>
         </div>
 
         <div class="account-card-item clickable" id="btn-acc-security">
-          <div class="acc-icon red-bg"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="acc-icon"><i class="fa-solid fa-shield-halved"></i></div>
           <div class="acc-text">
-            <h4 data-i18n="security2fa">Безопасность и 2FA</h4>
-            <p style="color:#00e676;"><i class="fa-solid fa-circle-check"></i> Пароль + СМС (Включено)</p>
+            <h4>Безопасность и 2FA</h4>
+            <p>Пароль + СМС включены</p>
+          </div>
+          <i class="fa-solid fa-chevron-right arr"></i>
+        </div>
+
+        <div class="account-card-item clickable" id="btn-acc-settings">
+          <div class="acc-icon"><i class="fa-solid fa-sliders"></i></div>
+          <div class="acc-text">
+            <h4 data-i18n="settings">Настройки и Язык</h4>
+            <p id="acc-lang-preview">Язык: Русский • Звук • Тема</p>
           </div>
           <i class="fa-solid fa-chevron-right arr"></i>
         </div>
 
         <div class="account-card-item clickable" id="btn-acc-about">
-          <div class="acc-icon purple-bg"><i class="fa-solid fa-circle-info"></i></div>
+          <div class="acc-icon"><i class="fa-regular fa-circle-question"></i></div>
           <div class="acc-text">
-            <h4 data-i18n="aboutCompany">О нашей компании</h4>
+            <h4>О компании</h4>
             <p>Лицензия, безопасность, контакты</p>
           </div>
           <i class="fa-solid fa-chevron-right arr"></i>
         </div>
 
-        <!-- Logout Action Button -->
-        <button class="secondary-btn btn-full" id="btn-logout" style="margin-top:14px; border-color:rgba(239,68,68,0.4); color:#ef4444;">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          <span data-i18n="btnLogout">Выйти из аккаунта</span>
-        </button>
+        <div class="account-card-item clickable" id="btn-logout" style="border-color: rgba(239, 68, 68, 0.3);">
+          <div class="acc-icon" style="background: rgba(239, 68, 68, 0.15); color: #ef4444;"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+          <div class="acc-text">
+            <h4 style="color: #ef4444;" data-i18n="btnLogout">Выйти из аккаунта</h4>
+            <p>Завершить текущую сессию</p>
+          </div>
+          <i class="fa-solid fa-chevron-right arr" style="color: #ef4444;"></i>
+        </div>
       </div>
     </section>
 
@@ -1213,22 +1254,31 @@
     <!-- ==================== BOTTOM NAVIGATION BAR ==================== -->
     <nav class="bottom-nav-bar" id="bottom-nav">
       <button class="nav-item active" data-target="screen-home">
-        <i class="fa-solid fa-gas-pump"></i>
+        <i class="fa-solid fa-house"></i>
         <span data-i18n="navHome">Главная</span>
       </button>
 
       <button class="nav-item" data-target="screen-map">
-        <i class="fa-solid fa-map-location-dot"></i>
+        <i class="fa-solid fa-location-dot"></i>
         <span data-i18n="navMap">Карта</span>
       </button>
 
+      <!-- Center Cart Button -->
+      <button class="nav-item nav-item-cart" id="btn-open-cart" data-target="screen-cart" title="Корзина">
+        <div class="nav-icon-wrap">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count-badge" id="cart-badge-count">0</span>
+        </div>
+        <span data-i18n="cartTitle">Корзина</span>
+      </button>
+
       <button class="nav-item" data-target="screen-store">
-        <i class="fa-solid fa-store"></i>
+        <i class="fa-solid fa-gas-pump"></i>
         <span data-i18n="navStore">Баллоны</span>
       </button>
 
       <button class="nav-item" data-target="screen-account">
-        <i class="fa-solid fa-circle-user"></i>
+        <i class="fa-solid fa-user"></i>
         <span data-i18n="navAccount">Аккаунт</span>
       </button>
     </nav>
@@ -1238,43 +1288,68 @@
 
     <!-- Emergency 104 Modal -->
     <div class="modal-backdrop" id="modal-emergency">
-      <div class="modal-dialog glass-panel emergency-border">
+      <div class="modal-dialog glass-panel emergency-modal-dialog">
         <button class="modal-close" data-close="modal-emergency" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
-          <div class="emergency-header-box">
-            <div class="emergency-icon-glow">
-              <i class="fa-solid fa-triangle-exclamation"></i>
-            </div>
-            <div class="emergency-title-row">
-              <h3 data-i18n="emergencyTitle">Аварийная служба газа</h3>
-              <span class="emergency-badge-104"><i class="fa-solid fa-phone"></i> 104</span>
-            </div>
-            <p class="modal-sub-desc" data-i18n="emergencySub">Инструкция по безопасности при обнаружении запаха газа СУГ:</p>
+          <div class="emergency-icon-header">
+            <i class="fa-solid fa-triangle-exclamation"></i>
           </div>
-          
-          <div class="safety-steps-list">
-            <div class="safety-step-item">
+          <h3 class="emergency-main-title" data-i18n="emergencyTitle">Аварийная служба газа</h3>
+          <p class="emergency-sub-title">Единая диспетчерская служба утечки и безопасности</p>
+
+          <div class="emergency-phone-hero">
+            <div class="emergency-phone-left">
+              <span class="emergency-phone-tag">Горячая линия</span>
+              <div class="emergency-phone-num">
+                <i class="fa-solid fa-phone-volume"></i>
+                <span>104</span>
+              </div>
+            </div>
+            <span class="emergency-status-badge">24/7 • Круглосуточно</span>
+          </div>
+
+          <div class="emergency-steps-container">
+            <div class="emergency-steps-heading">
+              <i class="fa-solid fa-bell-slash"></i>
+              <span>При запахе газа немедленно:</span>
+            </div>
+            <div class="emergency-step-card">
               <span class="step-num">1</span>
-              <span class="step-text" data-i18n="safetyStep1">Немедленно перекройте вентиль газового баллона.</span>
+              <div class="step-text">
+                <strong>Перекройте вентиль</strong>
+                <span>Закройте кран подачи газа на баллоне</span>
+              </div>
             </div>
-            <div class="safety-step-item">
+            <div class="emergency-step-card">
               <span class="step-num">2</span>
-              <span class="step-text" data-i18n="safetyStep2">Откройте все окна и двери для проветривания.</span>
+              <div class="step-text">
+                <strong>Проветрите помещение</strong>
+                <span>Откройте окна и двери для сквозняка</span>
+              </div>
             </div>
-            <div class="safety-step-item">
+            <div class="emergency-step-card">
               <span class="step-num">3</span>
-              <span class="step-text" data-i18n="safetyStep3">Не включайте выключатели света, выдерните приборы.</span>
+              <div class="step-text">
+                <strong>Не включайте свет и огонь</strong>
+                <span>Не трогайте выключатели и электроприборы</span>
+              </div>
             </div>
-            <div class="safety-step-item">
+            <div class="emergency-step-card">
               <span class="step-num">4</span>
-              <span class="step-text" data-i18n="safetyStep4">Покиньте помещение и вызовите службу 104.</span>
+              <div class="step-text">
+                <strong>Покиньте помещение</strong>
+                <span>Выйдите на улицу и позвоните в 104</span>
+              </div>
             </div>
           </div>
 
-          <button class="primary-btn btn-full btn-danger-call ripple-btn" id="btn-call-104-direct">
-            <i class="fa-solid fa-phone-volume"></i>
-            <span data-i18n="emergencyCallBtn">Вызвать Аварийную 104</span>
-          </button>
+          <div class="emergency-actions">
+            <a href="tel:104" class="primary-btn btn-full btn-danger ripple-btn emergency-call-btn" id="btn-call-104-direct">
+              <i class="fa-solid fa-phone-flip"></i>
+              <span>Позвонить в 104 (Бесплатно)</span>
+            </a>
+            <button class="secondary-btn btn-full" data-close="modal-emergency" data-i18n="closeBtn">Закрыть</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1285,7 +1360,7 @@
         <button class="modal-close" data-close="modal-receipt"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
           <div class="fiscal-receipt-paper">
-            <div class="receipt-header-logo">🔥 Poytug GNS</div>
+            <div class="receipt-header-logo"><i class="fa-solid fa-shield-halved"></i> Poytug GNS</div>
             <p class="receipt-sub">Электронный Фискальный Чек</p>
             <hr class="dashed-hr">
             
@@ -1319,30 +1394,29 @@
           <p class="modal-sub-desc" data-i18n="savedCardsSub">Управление привязанными картами Uzcard и Humo</p>
 
           <div class="cards-list-wrapper" id="cards-list-wrapper">
-            <!-- Dynamic cards -->
+            <!-- Populated via JS -->
           </div>
 
-          <div class="add-card-form glass-panel">
-            <div class="form-section-header">
-              <i class="fa-solid fa-circle-plus"></i>
-              <h4>Добавить новую карту</h4>
+          <!-- Add Card Sub-form -->
+          <div class="add-card-form-box">
+            <h4 data-i18n="addNewCardTitle">Добавить новую карту</h4>
+            <div class="card-input-group">
+              <div class="custom-input-wrapper">
+                <i class="fa-regular fa-credit-card input-icon-left"></i>
+                <input type="text" id="input-card-number" placeholder="8600 0000 0000 0000" maxlength="19">
+                <span class="card-logo-preview" id="card-logo-preview">Uzcard</span>
+              </div>
+
+              <div class="card-row-half">
+                <div class="custom-input-wrapper">
+                  <i class="fa-regular fa-calendar input-icon-left"></i>
+                  <input type="text" id="input-card-exp" placeholder="MM/YY" maxlength="5">
+                </div>
+                <button class="primary-btn btn-sm" id="btn-submit-new-card">
+                  <i class="fa-solid fa-plus"></i> <span data-i18n="btnAddCard">Привязать</span>
+                </button>
+              </div>
             </div>
-            <div class="interactive-card-preview" id="card-preview-box">
-              <div class="card-glare-overlay"></div>
-              <div class="card-chip"></div>
-              <span class="card-brand-logo" id="preview-card-logo">Uzcard</span>
-              <div class="card-number-display" id="preview-card-number">8600 •••• •••• ••••</div>
-              <div class="card-expiry-display" id="preview-card-expiry">12/28</div>
-            </div>
-            <div class="custom-input-wrapper">
-              <i class="fa-solid fa-credit-card input-field-icon"></i>
-              <input type="text" id="input-card-number" placeholder="Номер карты (8600... / 9860...)" maxlength="19">
-            </div>
-            <div class="custom-input-wrapper">
-              <i class="fa-regular fa-calendar-days input-field-icon"></i>
-              <input type="text" id="input-card-expiry" placeholder="Срок действия (ММ/ГГ)" maxlength="5">
-            </div>
-            <button class="primary-btn btn-full btn-sm ripple-btn" id="btn-save-new-card">Сохранить карту</button>
           </div>
         </div>
       </div>
@@ -1353,32 +1427,57 @@
       <div class="modal-dialog glass-panel">
         <button class="modal-close" data-close="modal-addresses" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
-          <div class="modal-icon-header red-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-          <h3 data-i18n="savedAddresses">Мои адреса</h3>
-          <p class="modal-sub-desc" data-i18n="savedAddressesSub">Список ваших сохраненных адресов доставки</p>
+          <div class="modal-icon-header"><i class="fa-solid fa-map-location-dot"></i></div>
+          <h3 data-i18n="savedAddresses">Мои адреса доставки</h3>
+          <p class="modal-sub-desc" data-i18n="savedAddressesSub">Быстрый выбор адреса при заказе газа</p>
 
-          <div class="address-manager-list" id="address-manager-list">
-            <!-- Dynamic addresses -->
+          <div class="addresses-manager-list" id="addresses-manager-list">
+            <!-- Populated via JS -->
           </div>
 
-          <!-- Add New Address Form Section -->
-          <div class="add-address-form-box glass-panel">
-            <div class="add-address-form-header">
-              <i class="fa-solid fa-circle-plus"></i>
-              <span>Добавить новый адрес</span>
+          <div class="add-address-mini-form">
+            <h4 data-i18n="addNewAddressTitle">Добавить адрес</h4>
+            <div class="custom-input-wrapper">
+              <i class="fa-solid fa-tag input-icon-left"></i>
+              <input type="text" id="input-mgr-addr-title" placeholder="Название: Дом / Дача / Офис">
             </div>
-            <div class="add-address-fields">
-              <div class="custom-input-wrapper">
-                <i class="fa-solid fa-tag input-field-icon"></i>
-                <input type="text" id="input-new-addr-title" placeholder="Название (например: Дом, Работа, Дача)">
-              </div>
-              <div class="custom-input-wrapper">
-                <i class="fa-solid fa-location-dot input-field-icon"></i>
-                <input type="text" id="input-new-addr-text" placeholder="Улица, дом, ориентир...">
-              </div>
-              <button class="primary-btn btn-full btn-sm ripple-btn" id="btn-save-new-address">
-                <i class="fa-solid fa-floppy-disk"></i>
-                <span>Сохранить адрес</span>
+            <div class="custom-input-wrapper">
+              <i class="fa-solid fa-location-dot input-icon-left"></i>
+              <input type="text" id="input-mgr-addr-text" placeholder="Улица, дом, квартира">
+            </div>
+            <button class="primary-btn btn-full btn-sm" id="btn-submit-mgr-addr">
+              <i class="fa-solid fa-plus"></i> <span data-i18n="btnSaveAddress">Сохранить адрес</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 4: Promocodes List -->
+    <div class="modal-backdrop" id="modal-promocodes">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-promocodes" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header"><i class="fa-solid fa-ticket"></i></div>
+          <h3 data-i18n="promocodesTitle">Промокоды и Скидки</h3>
+          <p class="modal-sub-desc" data-i18n="promocodesSub">Активируйте скидку на следующий заказ</p>
+
+          <div class="promocodes-list">
+            <div class="promocode-card">
+              <div class="promo-badge-tag">−10% СКИДКА</div>
+              <h4>GAS2026</h4>
+              <p>Скидка 10% на любую заправку баллона при первом заказе через приложение.</p>
+              <button class="primary-btn btn-sm btn-outline promo-copy-btn" data-code="GAS2026">
+                <i class="fa-regular fa-copy"></i> Скопировать
+              </button>
+            </div>
+
+            <div class="promocode-card">
+              <div class="promo-badge-tag">−15 000 UZS</div>
+              <h4>POYTUG50</h4>
+              <p>Скидка 15 000 UZS при заказе баллона 50 кг или оптового заказа от 3 шт.</p>
+              <button class="primary-btn btn-sm btn-outline promo-copy-btn" data-code="POYTUG50">
+                <i class="fa-regular fa-copy"></i> Скопировать
               </button>
             </div>
           </div>
@@ -1467,7 +1566,26 @@
         <div class="modal-body">
           <div class="modal-icon-header"><i class="fa-solid fa-sliders"></i></div>
           <h3 data-i18n="settings">Настройки приложения</h3>
-          <p class="modal-sub-desc">Управление параметрами отображения и звука</p>
+          <p class="modal-sub-desc">Управление языком, параметрами отображения и звука</p>
+
+          <!-- Language Selector in Settings -->
+          <div class="settings-lang-section">
+            <label class="settings-section-label"><i class="fa-solid fa-globe"></i> <span>Язык интерфейса / Til</span></label>
+            <div class="settings-lang-grid" id="settings-lang-selector">
+              <button class="lang-choice-btn" data-lang="uz">
+                <span class="lang-iso-badge">UZ</span>
+                <span class="lang-name">O'zbekcha</span>
+              </button>
+              <button class="lang-choice-btn active" data-lang="ru">
+                <span class="lang-iso-badge">RU</span>
+                <span class="lang-name">Русский</span>
+              </button>
+              <button class="lang-choice-btn" data-lang="en">
+                <span class="lang-iso-badge">EN</span>
+                <span class="lang-name">English</span>
+              </button>
+            </div>
+          </div>
 
           <div class="settings-toggle-row">
             <span>Звуковые эффекты (шипение газа)</span>
@@ -1482,6 +1600,68 @@
           <div class="settings-toggle-row">
             <span>Темная тема интерфейса</span>
             <input type="checkbox" id="toggle-dark-theme" checked>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Notifications Center -->
+    <div class="modal-backdrop" id="modal-notifications">
+      <div class="modal-dialog glass-panel">
+        <button class="modal-close" data-close="modal-notifications" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header"><i class="fa-solid fa-bell"></i></div>
+          <h3 data-i18n="notifTitle">Уведомления</h3>
+          <p class="modal-sub-desc" data-i18n="notifSub">Новости сервиса, акции и безопасность</p>
+
+          <div class="notifications-list">
+            <div class="notification-item unread">
+              <div class="notif-icon orange-bg"><i class="fa-solid fa-tag"></i></div>
+              <div class="notif-content">
+                <h4>Скидка 10% на заправку</h4>
+                <p>Используйте промокод <strong>GAS2026</strong> при оформлении заказа в корзине!</p>
+                <span class="notif-time">Сегодня, 11:30</span>
+              </div>
+            </div>
+
+            <div class="notification-item">
+              <div class="notif-icon green-bg"><i class="fa-solid fa-truck-fast"></i></div>
+              <div class="notif-content">
+                <h4>Экспресс-доставка газа 24/7</h4>
+                <p>Доставка баллонов LPG по всему Ташкенту и области в среднем за 25 минут.</p>
+                <span class="notif-time">Вчера</span>
+              </div>
+            </div>
+
+            <div class="notification-item">
+              <div class="notif-icon red-bg"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="notif-content">
+                <h4>Аварийная служба 104</h4>
+                <p>Круглосуточный прямой вызов газовой аварийной службы в один клик из шапки.</p>
+                <span class="notif-time">15 Авг 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Country Code Picker -->
+    <div class="modal-backdrop" id="modal-country-picker">
+      <div class="modal-dialog glass-panel country-modal-dialog">
+        <button class="modal-close" data-close="modal-country-picker" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header"><i class="fa-solid fa-globe"></i></div>
+          <h3 data-i18n="selectCountryTitle">Код страны</h3>
+          <p class="modal-sub-desc" data-i18n="selectCountrySub">СНГ, постсоветские страны и Польша</p>
+
+          <div class="country-search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="input-country-search" placeholder="Поиск по названию или коду...">
+          </div>
+
+          <div class="country-list-scroll" id="country-picker-list">
+            <!-- Populated via JS -->
           </div>
         </div>
       </div>
@@ -1509,6 +1689,100 @@
       </div>
     </div>
 
+    <!-- Modal: Security & 2FA -->
+    <div class="modal-backdrop" id="modal-security">
+      <div class="modal-dialog glass-panel security-modal-dialog">
+        <button class="modal-close" data-close="modal-security" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body">
+          <div class="modal-icon-header green-icon">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3 data-i18n="securityModalTitle">Безопасность и 2FA</h3>
+          <p class="modal-sub-desc" data-i18n="securityModalSub">Двухфакторная защита аккаунта и сессий</p>
+
+          <!-- Security Status Banner -->
+          <div class="security-status-banner">
+            <div class="sec-banner-left">
+              <div class="sec-shield-icon"><i class="fa-solid fa-lock"></i></div>
+              <div class="sec-banner-text">
+                <strong>Защита: Максимальная (100%)</strong>
+                <span>2FA + Пароль + SMS OTP активны</span>
+              </div>
+            </div>
+            <span class="sec-pill-active"><i class="fa-solid fa-check"></i> Активна</span>
+          </div>
+
+          <!-- Security Settings Cards -->
+          <div class="security-items-list">
+            <!-- Item 1: SMS OTP (2FA) -->
+            <div class="security-item-card">
+              <div class="sec-item-icon orange"><i class="fa-solid fa-comment-sms"></i></div>
+              <div class="sec-item-content">
+                <h4>СМС-код при входе (2FA OTP)</h4>
+                <p id="sec-phone-display">+998 (90) 123-45-67</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggle-sec-sms" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <!-- Item 2: Biometrics -->
+            <div class="security-item-card">
+              <div class="sec-item-icon blue"><i class="fa-solid fa-fingerprint"></i></div>
+              <div class="sec-item-content">
+                <h4>Биометрия (Touch ID / Face ID)</h4>
+                <p>Быстрый вход по отпечатку</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggle-sec-bio" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <!-- Item 3: Change Password -->
+            <div class="security-item-card clickable-sec-card" id="card-sec-password">
+              <div class="sec-item-icon purple"><i class="fa-solid fa-key"></i></div>
+              <div class="sec-item-content">
+                <h4>Пароль аккаунта</h4>
+                <p id="sec-pwd-status">Надёжный • Демо: 123456</p>
+              </div>
+              <button class="primary-btn btn-sm btn-outline" id="btn-open-change-pwd-box">Сменить</button>
+            </div>
+
+            <!-- In-modal Change Password Form (Hidden by default) -->
+            <div class="change-pwd-form-box" id="change-pwd-form-box" style="display: none;">
+              <h5><i class="fa-solid fa-lock"></i> Смена пароля</h5>
+              <div class="sec-pwd-field">
+                <input type="password" id="input-sec-current-pwd" placeholder="Текущий пароль">
+              </div>
+              <div class="sec-pwd-field">
+                <input type="password" id="input-sec-new-pwd" placeholder="Новый пароль (мин. 6 симв.)">
+              </div>
+              <button class="primary-btn btn-full btn-sm" id="btn-submit-change-pwd">Сохранить новый пароль</button>
+            </div>
+
+            <!-- Item 4: Active Sessions -->
+            <div class="security-item-card">
+              <div class="sec-item-icon green"><i class="fa-solid fa-laptop-code"></i></div>
+              <div class="sec-item-content">
+                <h4>Текущая сессия</h4>
+                <p>Ташкент, Узбекистан • Это устройство</p>
+              </div>
+              <span class="sec-online-indicator" title="В сети"></span>
+            </div>
+          </div>
+
+          <div class="security-bottom-actions">
+            <button class="secondary-btn btn-full" id="btn-terminate-sessions">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <span>Завершить другие сессии</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Modal 7: Live Support Chat -->
     <div class="modal-backdrop" id="modal-support">
       <div class="modal-dialog glass-panel">
@@ -1528,6 +1802,30 @@
           <div class="support-input-row">
             <input type="text" id="input-support-msg" placeholder="Введите ваш вопрос...">
             <button class="support-send-btn" id="btn-send-support" title="Отправить"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 8: Logout Confirmation Dialog -->
+    <div class="modal-backdrop" id="modal-logout-confirm">
+      <div class="modal-dialog glass-panel modal-dialog-compact">
+        <button class="modal-close" data-close="modal-logout-confirm" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-body text-center">
+          <div class="modal-icon-header red-icon logout-icon-pulsing">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </div>
+          <h3 data-i18n="logoutConfirmTitle">Выйти из аккаунта?</h3>
+          <p class="modal-sub-desc" data-i18n="logoutConfirmDesc">Вы действительно хотите выйти? Чтобы войти снова, потребуется повторный ввод пароля или SMS-кода.</p>
+
+          <div class="modal-confirm-actions">
+            <button type="button" class="secondary-btn btn-modal-half ripple-btn" id="btn-cancel-logout-modal">
+              <span data-i18n="btnCancel">Отмена</span>
+            </button>
+            <button type="button" class="primary-btn btn-danger-action btn-modal-half ripple-btn" id="btn-confirm-logout-action">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <span data-i18n="btnLogoutConfirm">Да, выйти</span>
+            </button>
           </div>
         </div>
       </div>
