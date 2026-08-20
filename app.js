@@ -31,6 +31,55 @@ document.addEventListener('DOMContentLoaded', () => {
   let appliedPromoDiscount = 0;
   let userBalance = parseInt(localStorage.getItem('lpg_balance') || '25000', 10);
 
+  // ==================== SECURITY & SANITIZATION ====================
+  function escapeHTML(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // Active interval manager to prevent memory leaks and duplicate timers
+  const activeTimers = {};
+  function startTimer(timerId, duration) {
+    if (activeTimers[timerId]) {
+      clearInterval(activeTimers[timerId]);
+    }
+    let sec = duration;
+    const timerEl = document.getElementById(timerId);
+    if (!timerEl) return;
+    timerEl.textContent = sec;
+    activeTimers[timerId] = setInterval(() => {
+      sec--;
+      if (timerEl) timerEl.textContent = sec;
+      if (sec <= 0) {
+        clearInterval(activeTimers[timerId]);
+        delete activeTimers[timerId];
+      }
+    }, 1000);
+  }
+
+  // Phone input formatting helper (+998 (XX) XXX-XX-XX)
+  function attachPhoneMask(input) {
+    if (!input) return;
+    input.addEventListener('input', () => {
+      let val = input.value.replace(/\D/g, '');
+      if (val.startsWith('998')) val = val.substring(3);
+      if (val.length > 9) val = val.substring(0, 9);
+
+      let formatted = '+998';
+      if (val.length > 0) formatted += ' (' + val.substring(0, 2);
+      if (val.length >= 2) formatted += ') ' + val.substring(2, 5);
+      if (val.length >= 5) formatted += '-' + val.substring(5, 7);
+      if (val.length >= 7) formatted += '-' + val.substring(7, 9);
+
+      input.value = val.length ? formatted : '';
+    });
+  }
+
   function updateBalanceDisplay() {
     const formatted = isAuth ? (userBalance.toLocaleString().replace(/,/g, ' ') + ' UZS') : '0 UZS';
     const menuEl = document.getElementById('menu-balance-amount');
@@ -690,6 +739,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnResendLoginOtp = document.getElementById('btn-resend-login-otp');
   const btnBackToLoginStep1 = document.getElementById('btn-back-to-login-step1');
 
+  if (inputLoginPhone) attachPhoneMask(inputLoginPhone);
+
   btnLoginNext.addEventListener('click', () => {
     const rawPhone = inputLoginPhone.value.trim();
     const password = inputLoginPwd.value.trim();
@@ -764,6 +815,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnVerifyRegOtp = document.getElementById('btn-verify-reg-otp');
   const btnResendRegOtp = document.getElementById('btn-resend-reg-otp');
   const btnBackToRegStep1 = document.getElementById('btn-back-to-reg-step1');
+
+  if (inputRegPhone) attachPhoneMask(inputRegPhone);
 
   btnRegisterNext.addEventListener('click', () => {
     const name = inputRegName.value.trim();
@@ -858,17 +911,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupOtpInputs('otp-login-digit');
   setupOtpInputs('otp-reg-digit');
 
-  function startTimer(timerId, duration) {
-    let sec = duration;
-    const timerEl = document.getElementById(timerId);
-    if (!timerEl) return;
-    timerEl.textContent = sec;
-    const interval = setInterval(() => {
-      sec--;
-      if (timerEl) timerEl.textContent = sec;
-      if (sec <= 0) clearInterval(interval);
-    }, 1000);
-  }
 
   // Forgot Password Hint
   document.getElementById('btn-forgot-pwd').addEventListener('click', () => {
@@ -1472,12 +1514,15 @@ document.addEventListener('DOMContentLoaded', () => {
     container.innerHTML = savedAddresses.map((addr, idx) => {
       const isActive = selectedAddress === addr.text || (!selectedAddress && idx === 0);
       if (isActive) selectedAddress = addr.text;
+      const safeIcon = escapeHTML(addr.icon);
+      const safeTitle = escapeHTML(addr.title);
+      const safeText = escapeHTML(addr.text);
       return `
-        <div class="address-option ${isActive ? 'active' : ''}" data-address="${addr.text}">
+        <div class="address-option ${isActive ? 'active' : ''}" data-address="${safeText}">
           <div class="radio-circle"></div>
           <div class="address-text">
-            <h4>${addr.icon} <span>${addr.title}</span></h4>
-            <p>${addr.text}</p>
+            <h4>${safeIcon} <span>${safeTitle}</span></h4>
+            <p>${safeText}</p>
           </div>
         </div>
       `;
@@ -1632,6 +1677,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnSaveAndUseAddress = document.getElementById('btn-save-and-use-address');
   if (btnSaveAndUseAddress) {
     btnSaveAndUseAddress.addEventListener('click', () => {
+      if (!isAuth) {
+        redirectToAuth("🔒 Для оформления заказа войдите в аккаунт");
+        return;
+      }
       const inputCustom = document.getElementById('input-custom-address');
       const addrText = inputCustom ? inputCustom.value.trim() : '';
       const finalAddress = addrText || currentPickedLocation.address;
@@ -1668,6 +1717,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   btnGotoPayment.addEventListener('click', () => {
+    if (!isAuth) {
+      redirectToAuth("🔒 Для перехода к оплате войдите в аккаунт");
+      return;
+    }
     const customAddr = document.getElementById('input-custom-address').value.trim();
     if (customAddr) selectedAddress = customAddr;
 
@@ -1712,6 +1765,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   btnSubmitOrder.addEventListener('click', () => {
+    if (!isAuth) {
+      redirectToAuth("🔒 Для подтверждения и оплаты заказа войдите в аккаунт");
+      return;
+    }
     if (selectedPayment === 'b2b_invoice') {
       companyInn = document.getElementById('input-company-inn').value.trim();
       if (companyInn.length < 9) {
@@ -1918,7 +1975,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isEmpty && list) {
       list.innerHTML = cart.map((item, i) => `
         <div class="item">
-          <span class="name">${item.name}</span>
+          <span class="name">${escapeHTML(item.name)}</span>
           <div class="stepper">
             <button type="button" onclick="changeQty(${i}, -1)">−</button>
             <span>${item.qty}</span>
@@ -1989,12 +2046,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderCards() {
     const wrapper = document.getElementById('cards-list-wrapper');
+    if (!wrapper) return;
+    if (!isAuth || savedCards.length === 0) {
+      wrapper.innerHTML = `
+        <div style="padding:20px; text-align:center; color:var(--text-2); font-size:13px;">
+          ${!isAuth ? '🔒 Войдите в аккаунт для управления банковскими картами' : 'Нет привязанных карт'}
+        </div>
+      `;
+      return;
+    }
     wrapper.innerHTML = savedCards.map(c => `
       <div class="account-card-item" style="margin-bottom:8px;">
         <div class="acc-icon blue-bg"><i class="fa-solid fa-credit-card"></i></div>
         <div class="acc-text">
-          <h4>${c.type} (${c.exp})</h4>
-          <p>${c.pan}</p>
+          <h4>${escapeHTML(c.type)} (${escapeHTML(c.exp)})</h4>
+          <p>${escapeHTML(c.pan)}</p>
         </div>
       </div>
     `).join('');
@@ -2006,20 +2072,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const previewExp = document.getElementById('preview-card-expiry');
   const previewLogo = document.getElementById('preview-card-logo');
 
-  inputCardNum.addEventListener('input', (e) => {
-    let val = e.target.value.replace(/\D/g, '');
-    if (val.startsWith('8600')) previewLogo.textContent = 'Uzcard';
-    else if (val.startsWith('9860')) previewLogo.textContent = 'Humo';
-    else previewLogo.textContent = 'Visa';
+  if (inputCardNum) {
+    inputCardNum.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, '').substring(0, 16);
+      e.target.value = val.replace(/(.{4})/g, '$1 ').trim();
 
-    previewNum.textContent = val.replace(/(.{4})/g, '$1 ').trim() || '8600 •••• •••• ••••';
-  });
+      if (val.startsWith('8600')) previewLogo.textContent = 'Uzcard';
+      else if (val.startsWith('9860')) previewLogo.textContent = 'Humo';
+      else previewLogo.textContent = 'Visa';
 
-  inputCardExp.addEventListener('input', (e) => {
-    previewExp.textContent = e.target.value || '12/28';
-  });
+      previewNum.textContent = val.replace(/(.{4})/g, '$1 ').trim() || '8600 •••• •••• ••••';
+    });
+  }
+
+  if (inputCardExp) {
+    inputCardExp.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, '').substring(0, 4);
+      if (val.length >= 2) {
+        val = val.substring(0, 2) + '/' + val.substring(2, 4);
+      }
+      e.target.value = val;
+      previewExp.textContent = val || '12/28';
+    });
+  }
 
   document.getElementById('btn-save-new-card').addEventListener('click', () => {
+    if (!isAuth) {
+      redirectToAuth("🔒 Для сохранения карты войдите в аккаунт");
+      return;
+    }
     const rawPan = inputCardNum.value.replace(/\D/g, '');
     if (rawPan.length < 16) {
       showToast("Введите корректный 16-значный номер карты!");
@@ -2041,18 +2122,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderAddressManager() {
     const list = document.getElementById('address-manager-list');
+    if (!list) return;
+    if (!isAuth || savedAddresses.length === 0) {
+      list.innerHTML = `
+        <div style="padding:20px; text-align:center; color:var(--text-2); font-size:13px;">
+          ${!isAuth ? '🔒 Войдите в аккаунт для управления адресами доставки' : 'Нет сохраненных адресов'}
+        </div>
+      `;
+      return;
+    }
     list.innerHTML = savedAddresses.map(a => `
       <div class="account-card-item" style="margin-bottom:8px;">
-        <div class="acc-icon green-bg">${a.icon}</div>
+        <div class="acc-icon green-bg">${escapeHTML(a.icon)}</div>
         <div class="acc-text">
-          <h4>${a.title}</h4>
-          <p>${a.text}</p>
+          <h4>${escapeHTML(a.title)}</h4>
+          <p>${escapeHTML(a.text)}</p>
         </div>
       </div>
     `).join('');
   }
 
   document.getElementById('btn-save-new-address').addEventListener('click', () => {
+    if (!isAuth) {
+      redirectToAuth("🔒 Для сохранения адреса войдите в аккаунт");
+      return;
+    }
     const title = document.getElementById('input-new-addr-title').value.trim();
     const text = document.getElementById('input-new-addr-text').value.trim();
     if (!text) {
@@ -2074,12 +2168,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderHistory() {
     const list = document.getElementById('history-items-list');
+    if (!list) return;
+    if (!isAuth) {
+      list.innerHTML = `
+        <div style="padding:28px 16px; text-align:center; color:var(--text-2); font-size:13.5px;">
+          <p style="margin-bottom:14px;">🔒 Войдите в аккаунт, чтобы просмотреть историю ваших заказов</p>
+          <button type="button" class="btn btn-primary" onclick="redirectToAuth('Вход в аккаунт')" style="font-size:13px; padding:10px 22px; border-radius:12px; margin:0 auto; cursor:pointer;">Войти в аккаунт</button>
+        </div>
+      `;
+      return;
+    }
     list.innerHTML = orderHistory.map(h => `
       <div class="account-card-item" style="margin-bottom:8px;">
         <div class="acc-icon orange-bg"><i class="fa-solid fa-gas-pump"></i></div>
         <div class="acc-text">
-          <h4>${h.title} (${h.code})</h4>
-          <p>${h.date} • <span style="color:#00e676;">${h.status}</span></p>
+          <h4>${escapeHTML(h.title)} (${escapeHTML(h.code)})</h4>
+          <p>${escapeHTML(h.date)} • <span style="color:#00e676;">${escapeHTML(h.status)}</span></p>
         </div>
         <strong>${h.price.toLocaleString()} UZS</strong>
       </div>
@@ -2095,7 +2199,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const msg = inputSupportMsg.value.trim();
     if (!msg) return;
 
-    chatMessages.innerHTML += `<div class="chat-msg user">${msg}</div>`;
+    const safeMsg = escapeHTML(msg);
+    chatMessages.innerHTML += `<div class="chat-msg user">${safeMsg}</div>`;
     inputSupportMsg.value = '';
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
@@ -2129,12 +2234,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== UTILS: MODALS & TOAST ====================
   function openModal(id) {
     const modal = document.getElementById(id);
-    if (modal) modal.classList.add('active');
+    if (modal) {
+      modal.classList.add('active');
+      document.body.classList.add('modal-open');
+    }
   }
 
   function closeModal(id) {
     const modal = document.getElementById(id);
-    if (modal) modal.classList.remove('active');
+    if (modal) {
+      modal.classList.remove('active');
+      if (!document.querySelector('.modal-backdrop.active')) {
+        document.body.classList.remove('modal-open');
+      }
+    }
   }
 
   document.querySelectorAll('.modal-close, [data-close]').forEach(btn => {
@@ -2148,7 +2261,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.modal-backdrop').forEach(bd => {
     bd.addEventListener('click', (e) => {
       if (e.target === bd) {
-        bd.classList.remove('active');
+        closeModal(bd.id);
       }
     });
   });
@@ -2156,11 +2269,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Keyboard accessibility: ESC closes any open modal or side drawer
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      document.querySelectorAll('.modal-backdrop.active').forEach(m => m.classList.remove('active'));
-      const sideDrawer = document.getElementById('side-drawer');
-      const menuBackdrop = document.getElementById('menu-backdrop');
-      if (sideDrawer) sideDrawer.classList.remove('active');
-      if (menuBackdrop) menuBackdrop.classList.remove('active');
+      document.querySelectorAll('.modal-backdrop.active').forEach(m => closeModal(m.id));
+      closeDrawer();
     }
   });
 

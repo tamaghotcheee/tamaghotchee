@@ -80,6 +80,23 @@
   pointer-events: none; z-index: 999;
 }
 
+/* Modal Open Scroll Locking */
+body.modal-open {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+/* 60fps GPU Hardware Acceleration & Smooth Rendering */
+.mobile-frame,
+.modal-dialog,
+.side-drawer,
+.animated-flame-svg,
+.cylinder-preview {
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+}
+
 /* Light Theme Overrides (Full Contrast & Razor-Sharp Details) */
 body.theme-light {
   --bg-dark: #f8fafc;
