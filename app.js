@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let companyInn = '';
   let countdownTimerInterval = null;
   let trackingCourierInterval = null;
+  let isHomeRefueling = false;
+  let percent = 0;
+  let mapInitialized = false;
+  let mainMap = null;
+  let embeddedAddressMap = null;
+  let embeddedAddressMarker = null;
 
   let cart = JSON.parse(localStorage.getItem('lpg_cart') || 'null');
   if (!cart) {
@@ -1703,8 +1709,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  let isHomeRefueling = false;
-
   // Step 1: Animate hose connection, then open cylinder selection
   function runHomeRigDockingAnimation() {
     if (isHomeRefueling) return;
@@ -1826,7 +1830,7 @@ document.addEventListener('DOMContentLoaded', () => {
     playGasFillingAudio();
     showToast(`⛽ Заправка: ${selectedCylinder.name} (${cylinderQuantity} шт)...`);
 
-    let percent = 0;
+    percent = 0;
     const fillInterval = setInterval(() => {
       percent += 2;
       const currentHeight = (percent / 100) * 190;
@@ -1986,8 +1990,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==================== EMBEDDED DIRECT PINPOINT ADDRESS MAP ====================
-  let embeddedAddressMap = null;
-  let embeddedAddressMarker = null;
   let currentPickedLocation = {
     lat: 41.2995,
     lng: 69.2401,
@@ -2315,9 +2317,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==================== MAP SCREEN (LEAFLET.JS) ====================
-  let mapInitialized = false;
-  let mainMap = null;
-
   function initLeafletMap() {
     mapInitialized = true;
     mainMap = L.map('interactive-map').setView([41.2995, 69.2401], 13);
