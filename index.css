@@ -1442,11 +1442,6 @@ body.theme-light .qty-counter-control {
 }
 
 
-/* STAGE 5: PAYMENT (APPLE OLED LUXURY - NO SCROLL FIT) */
-#home-stage-payment {
-  padding: 0;
-  display: none;
-  flex-direction: column;
 /* ==================== APPLE OLED PAYMENT SCREEN (Exact Screenshot Match) ==================== */
 #home-stage-payment {
   padding: 16px 20px 24px;
