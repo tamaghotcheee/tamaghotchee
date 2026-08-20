@@ -1447,186 +1447,214 @@ body.theme-light .qty-counter-control {
   padding: 0;
   display: none;
   flex-direction: column;
+/* ==================== APPLE OLED PAYMENT SCREEN (Exact Screenshot Match) ==================== */
+#home-stage-payment {
+  padding: 16px 20px 24px;
+  display: none;
+  flex-direction: column;
 }
 #home-stage-payment.active {
   display: flex;
 }
 #home-stage-payment .page-header {
   text-align: center;
-  padding: 0 0 8px;
+  padding: 0 0 16px;
 }
 #home-stage-payment .page-header h1 {
   margin: 0;
-  font-size: 20px;
-  font-weight: 750;
-  letter-spacing: -0.3px;
-  color: var(--text-1);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: #FFFFFF;
 }
 #home-stage-payment .page-header p {
-  margin: 2px 0 0;
-  font-size: 12.5px;
-  color: var(--text-2);
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #8E8E93;
 }
 
-.summary {
-  background: var(--bg-1);
-  border: 1px solid var(--sep);
-  border-radius: 14px;
-  padding: 10px 14px;
-  margin-bottom: 10px;
+#home-stage-payment .summary {
+  background: #1C1C1E;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
 }
-.summary-row {
+#home-stage-payment .summary-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 3px 0;
+  padding: 4px 0;
 }
-.summary-row .l {
-  font-size: 13px;
-  color: var(--text-2);
+#home-stage-payment .summary-row .l {
+  font-size: 14.5px;
+  color: #8E8E93;
+  font-weight: 500;
 }
-.summary-row .v {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-1);
-}
-.summary-row .v.free {
-  color: var(--green);
-}
-.summary-div {
-  height: 1px;
-  background: var(--sep);
-  margin: 4px 0 5px;
-}
-.summary-total .l {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--brand);
-}
-.summary-total .v {
+#home-stage-payment .summary-row .v {
   font-size: 15.5px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+#home-stage-payment .summary-row .v.free {
+  color: #32D74B;
+}
+#home-stage-payment .summary-div {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 12px 0 14px;
+}
+#home-stage-payment .summary-total .l {
+  font-size: 15px;
+  font-weight: 700;
+  color: #FF4438;
+}
+#home-stage-payment .summary-total .v {
+  font-size: 20px;
   font-weight: 800;
-  color: var(--brand);
+  color: #FF4438;
+  letter-spacing: -0.3px;
 }
 
-.section-label {
-  font-size: 11.5px;
+#home-stage-payment .section-label {
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
-  color: var(--text-3);
-  margin: 0 2px 6px;
+  letter-spacing: 0.6px;
+  color: #8E8E93;
+  margin: 0 4px 12px;
 }
 
-.methods {
+#home-stage-payment .methods {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 10px;
+  gap: 10px;
+  margin-bottom: 22px;
 }
-.method {
+#home-stage-payment .method {
   display: flex;
   align-items: center;
-  gap: 11px;
-  background: var(--bg-1);
-  border: 1px solid var(--sep);
-  border-radius: 13px;
-  padding: 9px 12px;
+  gap: 14px;
+  background: #1C1C1E;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 13px 16px;
   position: relative;
   cursor: pointer;
-  transition: border-color var(--transition-fast), background var(--transition-fast);
+  transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
 }
-.method:hover {
-  background: var(--bg-2);
+#home-stage-payment .method:hover {
+  background: #252528;
+  border-color: rgba(255, 255, 255, 0.14);
 }
-.method.selected {
-  border-color: var(--brand);
-  background: rgba(255, 68, 56, 0.05);
+#home-stage-payment .method.selected {
+  border-color: #FF4438;
+  background: #1C1C1E;
 }
 
-.method .logo {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  flex: 0 0 auto;
+#home-stage-payment .method .logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  flex: 0 0 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: #FFFFFF;
   font-weight: 800;
-  font-size: 12px;
+  font-size: 12.5px;
 }
-.logo.cash { background: var(--bg-2); color: var(--text-1); }
-.logo.cash svg { width: 18px; height: 18px; }
-.logo.click { background: #1877F2; }
-.logo.payme { background: #00CDBA; }
-.logo.efact { background: #F2A93B; color: #3a2400; }
-.logo.efact svg { width: 18px; height: 18px; }
+#home-stage-payment .logo.cash {
+  background: #2C2C2E;
+  color: #FFFFFF;
+}
+#home-stage-payment .logo.cash svg {
+  width: 22px;
+  height: 22px;
+}
+#home-stage-payment .logo.click {
+  background: #1877F2;
+  font-size: 12px;
+  font-weight: 800;
+}
+#home-stage-payment .logo.payme {
+  background: #00CDBA;
+  font-size: 12px;
+  font-weight: 800;
+}
+#home-stage-payment .logo.efact {
+  background: #F2A93B;
+  color: #1C1C1E;
+}
+#home-stage-payment .logo.efact svg {
+  width: 22px;
+  height: 22px;
+}
 
-.method .info {
+#home-stage-payment .method .info {
   flex: 1;
   min-width: 0;
 }
-.method .info h3 {
+#home-stage-payment .method .info h3 {
   margin: 0;
-  font-size: 13.5px;
+  font-size: 15px;
   font-weight: 700;
-  color: var(--text-1);
-  line-height: 1.2;
+  color: #FFFFFF;
+  line-height: 1.25;
 }
-.method .info p {
-  margin: 1px 0 0;
-  font-size: 11px;
-  color: var(--text-2);
-  line-height: 1.2;
+#home-stage-payment .method .info p {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  color: #8E8E93;
+  line-height: 1.3;
 }
 
-.radio {
-  width: 20px;
-  height: 20px;
+#home-stage-payment .radio {
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  border: 1.5px solid var(--sep);
-  flex: 0 0 auto;
+  border: 2px solid #3A3A3C;
+  flex: 0 0 22px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background var(--transition-fast), border-color var(--transition-fast);
 }
-.method.selected .radio {
-  background: var(--brand);
-  border-color: var(--brand);
+#home-stage-payment .method.selected .radio {
+  background: #FF4438;
+  border-color: #FF4438;
 }
-.radio svg {
+#home-stage-payment .radio svg {
   display: none;
 }
-.method.selected .radio svg {
+#home-stage-payment .method.selected .radio svg {
   display: block;
 }
 
-.cta {
-  height: 48px;
-  margin-top: 2px;
-  background: var(--brand);
+#home-stage-payment .cta {
+  height: 56px;
+  margin-top: 0;
+  background: #FF4438;
   border: none;
-  border-radius: 14px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 750;
   font-family: inherit;
   cursor: pointer;
-  box-shadow: 0 10px 20px -8px rgba(255, 68, 56, 0.55);
+  box-shadow: 0 12px 28px -6px rgba(255, 68, 56, 0.6);
   width: 100%;
   transition: transform var(--transition-fast), opacity var(--transition-fast);
 }
-.cta:hover {
+#home-stage-payment .cta:hover {
   transform: translateY(-1px);
   opacity: 0.95;
 }
-.cta:active {
+#home-stage-payment .cta:active {
   transform: translateY(1px);
 }
 
