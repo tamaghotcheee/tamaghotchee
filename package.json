@@ -6,10 +6,7 @@
   "scripts": {
     "start": "npx serve -l 3000 .",
     "dev": "npx serve -l 3000 .",
-    "build": "mkdir -p www && cp -R index.html index.css app.js assets www/",
-    "cap:add": "npm run build && npx cap add ios",
-    "cap:sync": "npm run build && npx cap sync ios",
-    "cap:open": "npx cap open ios"
+    "build": "mkdir -p www && cp -R index.html index.css app.js assets www/"
   },
   "repository": {
     "type": "git",
@@ -21,10 +18,5 @@
   "bugs": {
     "url": "https://github.com/tamaghotcheee/tamaghotchee/issues"
   },
-  "homepage": "https://github.com/tamaghotcheee/tamaghotchee#readme",
-  "dependencies": {
-    "@capacitor/cli": "^8.5.0",
-    "@capacitor/core": "^8.5.0",
-    "@capacitor/ios": "^8.5.0"
-  }
+  "homepage": "https://github.com/tamaghotcheee/tamaghotchee#readme"
 }
