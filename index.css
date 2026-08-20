@@ -294,34 +294,122 @@ body.theme-light #home-stage-payment .method .info p {
 }
 body.theme-light #modal-cart .sheet,
 body.theme-light #modal-topup .sheet,
-body.theme-light .modal-content {
+body.theme-light .modal-dialog.glass-panel {
   background: #ffffff;
   border-color: rgba(60, 60, 67, 0.14);
   color: #1c1c1e;
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.25);
 }
 body.theme-light #modal-cart .close-btn,
-body.theme-light #modal-topup .close-btn {
+body.theme-light #modal-topup .close-btn,
+body.theme-light .modal-close {
   background: #f2f2f7;
-  color: #6c6c70;
+  color: #1c1c1e;
+  border: 1px solid rgba(60, 60, 67, 0.12);
 }
-body.theme-light #modal-cart .cart-item-row {
-  background: #f8fafc;
-  border-color: rgba(60, 60, 67, 0.1);
-}
-body.theme-light #modal-cart .cart-item-title {
+body.theme-light #modal-cart .sheet-header h1,
+body.theme-light #modal-topup h1,
+body.theme-light .modal-body h3 {
   color: #1c1c1e;
 }
-body.theme-light #modal-cart .cart-item-price {
+body.theme-light #modal-cart .item {
+  background: #f2f2f7;
+  border: 1px solid rgba(60, 60, 67, 0.12);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+body.theme-light #modal-cart .item .name {
   color: #1c1c1e;
 }
-body.theme-light #modal-cart .promo-row input {
+body.theme-light #modal-cart .item .price {
+  color: #ff4438;
+}
+body.theme-light #modal-cart .stepper {
+  background: #ffffff;
+  border: 1px solid rgba(60, 60, 67, 0.14);
+}
+body.theme-light #modal-cart .stepper button {
+  color: #1c1c1e;
+}
+body.theme-light #modal-cart .stepper button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+body.theme-light #modal-cart .stepper span {
+  color: #1c1c1e;
+}
+body.theme-light #modal-cart .promo-input {
   background: #f2f2f7;
   border-color: rgba(60, 60, 67, 0.14);
   color: #1c1c1e;
 }
-body.theme-light #modal-cart .promo-btn {
-  background: #e5e5ea;
+body.theme-light #modal-cart .promo-input::placeholder {
+  color: #8e8e93;
+}
+body.theme-light #modal-cart .promo-apply {
+  background: #1c1c1e;
+  color: #ffffff;
+  border: none;
+}
+body.theme-light #modal-cart .promo-apply:hover {
+  background: #2c2c2e;
+}
+body.theme-light #modal-cart .empty h2 {
+  color: #1c1c1e;
+}
+body.theme-light #modal-cart .empty p {
+  color: #6c6c70;
+}
+body.theme-light #modal-topup .topup-input {
+  background: #f2f2f7;
+  border-color: rgba(60, 60, 67, 0.14);
+  color: #1c1c1e;
+}
+body.theme-light #modal-topup .topup-chip {
+  background: #f2f2f7;
+  border-color: rgba(60, 60, 67, 0.12);
+  color: #1c1c1e;
+}
+body.theme-light #modal-topup .topup-chip.active {
+  background: rgba(255, 68, 56, 0.12);
+  border-color: #ff4438;
+  color: #ff4438;
+}
+body.theme-light #modal-topup .topup-method-card {
+  background: #f2f2f7;
+  border-color: rgba(60, 60, 67, 0.12);
+  color: #1c1c1e;
+}
+body.theme-light #modal-topup .topup-method-card.active {
+  background: #ffffff;
+  border-color: #ff4438;
+}
+body.theme-light .cards-list-wrapper .saved-card-item,
+body.theme-light .address-manager-list .addr-mgr-item,
+body.theme-light .history-list .history-item-card {
+  background: #f2f2f7;
+  border-color: rgba(60, 60, 67, 0.12);
+  color: #1c1c1e;
+}
+body.theme-light .add-card-form {
+  background: #f8fafc;
+  border-color: rgba(60, 60, 67, 0.14);
+}
+body.theme-light .add-card-form input {
+  background: #ffffff;
+  border-color: rgba(60, 60, 67, 0.14);
+  color: #1c1c1e;
+}
+body.theme-light .add-address-form-box input {
+  background: #ffffff;
+  border-color: rgba(60, 60, 67, 0.14);
+  color: #1c1c1e;
+}
+body.theme-light .support-chat-box {
+  background: #f2f2f7;
+  border-color: rgba(60, 60, 67, 0.12);
+}
+body.theme-light .support-input-row input {
+  background: #ffffff;
+  border-color: rgba(60, 60, 67, 0.14);
   color: #1c1c1e;
 }
 body.theme-light .phone-input-wrapper,
