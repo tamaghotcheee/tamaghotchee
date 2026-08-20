@@ -92,6 +92,99 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   updateBalanceDisplay();
 
+  // ==================== CORE UI & DOM CONTROLS ====================
+  const navItems = document.querySelectorAll('.nav-item');
+  const screens = document.querySelectorAll('.app-screen');
+  const sideDrawer = document.getElementById('side-drawer');
+  const drawerBackdrop = document.getElementById('menu-backdrop');
+  const btnSideMenu = document.getElementById('btn-side-menu');
+  const btnCloseDrawer = document.getElementById('btn-close-drawer');
+  const btnOpenCart = document.getElementById('btn-open-cart');
+  const btnCloseAuth = document.getElementById('btn-close-auth');
+  const bottomNav = document.getElementById('bottom-nav');
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast-notif');
+    const toastText = document.getElementById('toast-text');
+    if (!toast || !toastText) return;
+    toastText.textContent = msg;
+    toast.classList.add('active');
+    setTimeout(() => {
+      toast.classList.remove('active');
+    }, 2800);
+  }
+
+  function openModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.add('active');
+      document.body.classList.add('modal-open');
+    }
+  }
+
+  function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.remove('active');
+      if (!document.querySelector('.modal-backdrop.active')) {
+        document.body.classList.remove('modal-open');
+      }
+    }
+  }
+
+  function openDrawer() {
+    if (sideDrawer) sideDrawer.classList.add('active');
+    if (drawerBackdrop) drawerBackdrop.classList.add('active');
+  }
+
+  function closeDrawer() {
+    if (sideDrawer) sideDrawer.classList.remove('active');
+    if (drawerBackdrop) drawerBackdrop.classList.remove('active');
+  }
+
+  function switchScreen(targetId) {
+    const isAuthScreen = targetId === 'screen-auth';
+    if (btnSideMenu) btnSideMenu.style.display = isAuthScreen ? 'none' : 'flex';
+    if (btnOpenCart) btnOpenCart.style.display = isAuthScreen ? 'none' : 'flex';
+    if (bottomNav) bottomNav.style.display = isAuthScreen ? 'none' : 'flex';
+    if (btnCloseAuth) btnCloseAuth.style.display = isAuthScreen ? 'flex' : 'none';
+
+    navItems.forEach(n => {
+      n.classList.toggle('active', n.dataset.target === targetId);
+    });
+
+    screens.forEach(s => {
+      const isTarget = s.id === targetId;
+      s.classList.toggle('active', isTarget);
+      if (isTarget) s.scrollTop = 0;
+    });
+
+    if (targetId === 'screen-map') {
+      if (!mapInitialized) {
+        initLeafletMap();
+      } else if (mainMap) {
+        setTimeout(() => mainMap.invalidateSize(), 150);
+      }
+    }
+  }
+
+  window.switchScreen = switchScreen;
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+  window.showToast = showToast;
+  window.openDrawer = openDrawer;
+  window.closeDrawer = closeDrawer;
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      switchScreen(item.dataset.target);
+    });
+  });
+
+  if (btnSideMenu) btnSideMenu.addEventListener('click', openDrawer);
+  if (btnCloseDrawer) btnCloseDrawer.addEventListener('click', closeDrawer);
+  if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
+
   let savedCards = [
     { type: 'UZCARD', pan: '8600 •••• •••• 4412', exp: '12/28' },
     { type: 'HUMO', pan: '9860 •••• •••• 9821', exp: '08/29' }
@@ -1065,50 +1158,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // ==================== NAVIGATION ROUTER ====================
-  const navItems = document.querySelectorAll('.nav-item');
-  const screens = document.querySelectorAll('.app-screen');
-
-  function switchScreen(targetId) {
-    const isAuthScreen = targetId === 'screen-auth';
-    const btnSideMenu = document.getElementById('btn-side-menu');
-    const btnOpenCart = document.getElementById('btn-open-cart');
-    const btnCloseAuth = document.getElementById('btn-close-auth');
-    const bottomNav = document.getElementById('bottom-nav');
-
-    if (btnSideMenu) btnSideMenu.style.display = isAuthScreen ? 'none' : 'flex';
-    if (btnOpenCart) btnOpenCart.style.display = isAuthScreen ? 'none' : 'flex';
-    if (bottomNav) bottomNav.style.display = isAuthScreen ? 'none' : 'flex';
-    if (btnCloseAuth) btnCloseAuth.style.display = isAuthScreen ? 'flex' : 'none';
-
-    navItems.forEach(n => {
-      n.classList.toggle('active', n.dataset.target === targetId);
-    });
-
-    screens.forEach(s => {
-      const isTarget = s.id === targetId;
-      s.classList.toggle('active', isTarget);
-      if (isTarget) s.scrollTop = 0;
-    });
-
-    if (targetId === 'screen-map') {
-      if (!mapInitialized) {
-        initLeafletMap();
-      } else if (mainMap) {
-        setTimeout(() => mainMap.invalidateSize(), 150);
-      }
-    }
-  }
-
-  window.switchScreen = switchScreen;
-
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      switchScreen(item.dataset.target);
-    });
-  });
-
-
   // ==================== EMERGENCY 104 & SIDE DRAWER ====================
   const btnOpenEmergency = document.getElementById('btn-open-emergency');
   const btnMenuEmergency = document.getElementById('btn-menu-emergency');
@@ -1121,33 +1170,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnOpenEmergency) {
     btnOpenEmergency.addEventListener('click', openEmergencyModal);
   }
-  btnMenuEmergency.addEventListener('click', () => {
-    closeDrawer();
-    openEmergencyModal();
-  });
-
-  btnCall104Direct.addEventListener('click', () => {
-    showToast("Вызов аварийной газовой службы 104...");
-  });
-
-  const btnSideMenu = document.getElementById('btn-side-menu');
-  const btnCloseDrawer = document.getElementById('btn-close-drawer');
-  const drawerBackdrop = document.getElementById('menu-backdrop');
-  const sideDrawer = document.getElementById('side-drawer');
-
-  function openDrawer() {
-    sideDrawer.classList.add('active');
-    drawerBackdrop.classList.add('active');
+  if (btnMenuEmergency) {
+    btnMenuEmergency.addEventListener('click', () => {
+      closeDrawer();
+      openEmergencyModal();
+    });
   }
 
-  function closeDrawer() {
-    sideDrawer.classList.remove('active');
-    drawerBackdrop.classList.remove('active');
+  if (btnCall104Direct) {
+    btnCall104Direct.addEventListener('click', () => {
+      showToast("Вызов аварийной газовой службы 104...");
+    });
   }
-
-  btnSideMenu.addEventListener('click', openDrawer);
-  btnCloseDrawer.addEventListener('click', closeDrawer);
-  drawerBackdrop.addEventListener('click', closeDrawer);
 
   document.getElementById('btn-menu-balance').addEventListener('click', () => {
     closeDrawer();
@@ -1942,7 +1976,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==================== SHOPPING CART ENGINE ====================
-  const btnOpenCart = document.getElementById('btn-open-cart');
   const cartBadgeCount = document.getElementById('cart-badge-count');
 
   function updateCartUI() {
@@ -2231,25 +2264,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // ==================== UTILS: MODALS & TOAST ====================
-  function openModal(id) {
-    const modal = document.getElementById(id);
-    if (modal) {
-      modal.classList.add('active');
-      document.body.classList.add('modal-open');
-    }
-  }
-
-  function closeModal(id) {
-    const modal = document.getElementById(id);
-    if (modal) {
-      modal.classList.remove('active');
-      if (!document.querySelector('.modal-backdrop.active')) {
-        document.body.classList.remove('modal-open');
-      }
-    }
-  }
-
+  // ==================== MODAL & BACKDROP EVENT LISTENERS ====================
   document.querySelectorAll('.modal-close, [data-close]').forEach(btn => {
     btn.addEventListener('click', () => {
       const modalId = btn.dataset.close;
@@ -2273,15 +2288,5 @@ document.addEventListener('DOMContentLoaded', () => {
       closeDrawer();
     }
   });
-
-  function showToast(msg) {
-    const toast = document.getElementById('toast-notif');
-    const toastText = document.getElementById('toast-text');
-    toastText.textContent = msg;
-    toast.classList.add('active');
-    setTimeout(() => {
-      toast.classList.remove('active');
-    }, 2800);
-  }
 
 });
