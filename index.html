@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <!-- App Styles -->
-  <link rel="stylesheet" href="index.css?v=5.2">
+  <link rel="stylesheet" href="index.css?v=5.3">
 </head>
 <body class="theme-dark">
 
@@ -1351,7 +1351,7 @@
       </div>
     </div>
 
-    <!-- Modal 1: Shopping Cart (Apple OLED Luxury from poytug_cart_screen.html) -->
+    <!-- Modal 1: Shopping Cart (Apple OLED Luxury with Clear All & Detailed Breakdown) -->
     <div class="modal-backdrop" id="modal-cart">
       <div class="modal-dialog sheet">
         <button type="button" class="close-btn modal-close" data-close="modal-cart" aria-label="Закрыть">
@@ -1359,10 +1359,16 @@
         </button>
 
         <div class="sheet-header">
-          <div class="cart-mark">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <div style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:6px;">
+            <div class="cart-mark" style="margin:0;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </div>
+            <button type="button" class="btn-clear-cart-all" id="btn-clear-cart-all" title="Очистить корзину">
+              <i class="fa-solid fa-trash-can"></i>
+              <span data-i18n="clearCart">Очистить всё</span>
+            </button>
           </div>
-          <h1 data-i18n="cartTitle">Корзина покупок</h1>
+          <h1 data-i18n="cartTitle" style="margin-top:6px;">Корзина покупок</h1>
         </div>
 
         <!-- Items list when cart is filled -->
@@ -1379,6 +1385,18 @@
         <div class="promo-row" id="cart-promo-row">
           <input type="text" class="promo-input" id="input-promocode" placeholder="Промокод (напр. GAS2026)">
           <button type="button" class="promo-apply" id="btn-apply-promo">Применить</button>
+        </div>
+
+        <!-- Detailed price breakdown -->
+        <div class="cart-summary-breakdown" id="cart-summary-breakdown">
+          <div class="summary-line" id="cart-subtotal-row">
+            <span class="l">Сумма товаров</span>
+            <span class="v" id="cart-subtotal-amount">0 UZS</span>
+          </div>
+          <div class="summary-line" id="cart-discount-row" style="display:none;">
+            <span class="l" style="color:var(--success);">Скидка по промокоду</span>
+            <span class="v" id="cart-discount-amount" style="color:var(--success); font-weight:700;">-0 UZS</span>
+          </div>
         </div>
 
         <div class="total-row" id="cart-total-row">
@@ -1466,6 +1484,73 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5v14M5 12h14"/></svg>
           <span id="btn-topup-label">Пополнить на 50 000 UZS</span>
         </button>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL: LOYALTY BALANCE & POYTUG CLUB ==================== -->
+    <div class="modal-backdrop" id="modal-balance">
+      <div class="modal-dialog sheet">
+        <button type="button" class="close-btn modal-close" data-close="modal-balance" aria-label="Закрыть">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+
+        <div class="sheet-header">
+          <div class="cart-mark" style="background: rgba(255, 214, 10, 0.16); color: #FFD60A;">
+            <i class="fa-solid fa-crown" style="font-size: 22px;"></i>
+          </div>
+          <h1 data-i18n="myBalanceModalTitle">Бонусы Poytug Club</h1>
+          <p style="font-size: 13px; color: var(--text-2); margin: 4px 0 0;" data-i18n="myBalanceModalSub">Бонусная программа лояльности и кэшбэк</p>
+        </div>
+
+        <div class="balance-card-showcase">
+          <div class="balance-badge-gold">
+            <i class="fa-solid fa-crown"></i>
+            <span data-i18n="goldLevelCashback">Золотой уровень • 2% Кэшбэк</span>
+          </div>
+          <div class="balance-main-amount">
+            <span class="balance-num" id="modal-balance-display">25 000</span>
+            <span class="balance-currency">UZS</span>
+          </div>
+          <p class="balance-hint" data-i18n="balanceHintText">1 бонус = 1 сум. Оплачивайте бонусами до 50% стоимости заправки и покупки баллонов!</p>
+        </div>
+
+        <div class="bonus-history-box">
+          <h4 class="bonus-history-title"><i class="fa-solid fa-clock-rotate-left"></i> <span data-i18n="bonusHistoryTitle">История начислений</span></h4>
+          <div class="bonus-history-list">
+            <div class="bonus-history-row">
+              <div class="bonus-row-info">
+                <strong>Кэшбэк за заказ LPG-8821</strong>
+                <span>14 Авг 2026 • 2% кэшбэк</span>
+              </div>
+              <span class="bonus-plus-tag">+1 500 UZS</span>
+            </div>
+            <div class="bonus-history-row">
+              <div class="bonus-row-info">
+                <strong>Приветственный бонус</strong>
+                <span>При регистрации в приложении</span>
+              </div>
+              <span class="bonus-plus-tag">+5 000 UZS</span>
+            </div>
+            <div class="bonus-history-row">
+              <div class="bonus-row-info">
+                <strong>Пополнение счета</strong>
+                <span>Через платежную систему Payme</span>
+              </div>
+              <span class="bonus-plus-tag">+18 500 UZS</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px;">
+          <button class="cta" id="btn-use-balance-now" type="button">
+            <i class="fa-solid fa-gas-pump" style="margin-right:6px;"></i>
+            <span>Заправить газ со скидкой</span>
+          </button>
+          <button class="add-address-dashed-btn" id="btn-open-topup-from-loyalty" type="button" style="margin-top:0; height:48px;">
+            <i class="fa-solid fa-plus-circle" style="color:var(--brand);"></i>
+            <span>Пополнить баланс</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -1600,18 +1685,20 @@
     <!-- Modal 6: About Company -->
     <div class="modal-backdrop" id="modal-about">
       <div class="modal-dialog glass-panel">
-        <button class="modal-close" data-close="modal-about"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" data-close="modal-about" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-body">
           <div class="modal-icon-header red-icon"><i class="fa-solid fa-building-shield"></i></div>
-          <h3>Poytug GNS Uzbekistan</h3>
+          <h3 data-i18n="aboutCompanyTitle">О компании «Poytug GNS»</h3>
+          <p class="modal-sub-desc" data-i18n="aboutCompanySub">Официальный сертифицированный поставщик LPG в Узбекистане</p>
           <p class="company-desc">
-            Официальный сертифицированный поставщик сжиженного углеводородного газа (СУГ / LPG) в Узбекистане. 
-            Мы обеспечиваем безопасную заправку, регулярную проверку баллонов и доставку до двери в течение 30 минут.
+            ООО «Poytug' GNS» — надежный поставщик сжиженного углеводородного газа (СУГ / Пропан-Бутан) для населения и предприятий Узбекистана. 
+            Мы гарантируем 100% точность заправки, регулярное освидетельствование баллонов и экспресс-доставку до двери в течение 30 минут.
           </p>
           <div class="company-badges">
-            <span>🛡️ Сертификат ISO 9001</span>
-            <span>⚡ Доставка 24/7</span>
-            <span>📞 Колл-центр: +998 71 200-00-00</span>
+            <span><i class="fa-solid fa-shield-halved" style="color:var(--success);"></i> Государственный сертификат ISO 9001:2026</span>
+            <span><i class="fa-solid fa-bolt" style="color:var(--primary-flame);"></i> Круглосуточная заправка и доставка 24/7</span>
+            <span><i class="fa-solid fa-phone" style="color:var(--primary-flame);"></i> Единый колл-центр: +998 71 200-00-00</span>
+            <span><i class="fa-solid fa-location-dot" style="color:var(--primary-flame);"></i> Центральный офис: г. Ташкент, ул. Катартал, 28</span>
           </div>
         </div>
       </div>
@@ -1652,6 +1739,6 @@
   <!-- Leaflet JS for Map -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- App JS -->
-  <script src="app.js?v=5.2"></script>
+  <script src="app.js?v=5.3"></script>
 </body>
 </html>

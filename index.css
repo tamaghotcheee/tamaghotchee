@@ -2864,6 +2864,50 @@ body.theme-light .qty-counter-control {
   background: #3A3A3C;
 }
 
+/* ---------- clear all button ---------- */
+.btn-clear-cart-all {
+  background: transparent;
+  border: 1px solid var(--sep);
+  color: var(--text-3);
+  font-size: 12.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+.btn-clear-cart-all:hover {
+  color: var(--brand);
+  background: var(--brand-dim);
+  border-color: var(--brand-dim-strong);
+}
+
+/* ---------- price breakdown ---------- */
+.cart-summary-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 4px 10px;
+  border-bottom: 1px solid var(--sep);
+  margin-bottom: 14px;
+}
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13.5px;
+}
+.summary-line .l {
+  color: var(--text-2);
+}
+.summary-line .v {
+  color: var(--text-1);
+  font-weight: 600;
+}
+
 /* ---------- total ---------- */
 #modal-cart .total-row {
   display: flex;
@@ -2882,6 +2926,114 @@ body.theme-light .qty-counter-control {
   font-weight: 800;
   color: #FF4438;
   letter-spacing: -0.3px;
+}
+
+/* ==================== POYTUG CLUB LOYALTY MODAL ==================== */
+.balance-card-showcase {
+  background: linear-gradient(135deg, rgba(255, 214, 10, 0.12), rgba(255, 68, 56, 0.08));
+  border: 1.5px solid rgba(255, 214, 10, 0.35);
+  border-radius: 20px;
+  padding: 18px 16px;
+  text-align: center;
+  margin-bottom: 16px;
+  position: relative;
+}
+body.theme-light .balance-card-showcase {
+  background: linear-gradient(135deg, #fffbeb, #fef2f2);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+.balance-badge-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 214, 10, 0.18);
+  border: 1px solid rgba(255, 214, 10, 0.45);
+  color: #f59e0b;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.balance-main-amount {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+}
+.balance-num {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-1);
+  letter-spacing: -0.5px;
+}
+.balance-currency {
+  font-size: 16px;
+  font-weight: 800;
+  color: #f59e0b;
+}
+.balance-hint {
+  font-size: 12px;
+  color: var(--text-2);
+  margin: 8px 0 0;
+  line-height: 1.4;
+}
+.bonus-history-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.bonus-history-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 2px 2px;
+}
+.bonus-history-title i {
+  color: var(--text-2);
+  font-size: 12px;
+}
+.bonus-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+.bonus-history-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--bg-2);
+  border: 1px solid var(--sep);
+  border-radius: 12px;
+}
+.bonus-row-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bonus-row-info strong {
+  font-size: 13px;
+  color: var(--text-1);
+  font-weight: 600;
+}
+.bonus-row-info span {
+  font-size: 11px;
+  color: var(--text-2);
+}
+.bonus-plus-tag {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--success);
+  background: var(--success-dim);
+  padding: 3px 8px;
+  border-radius: 8px;
 }
 
 #modal-cart .cta {

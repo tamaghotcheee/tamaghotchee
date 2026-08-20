@@ -85,9 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuEl = document.getElementById('menu-balance-amount');
     const accEl = document.getElementById('acc-balance-display');
     const topupEl = document.getElementById('topup-current-balance');
+    const loyaltyEl = document.getElementById('modal-balance-display');
     if (menuEl) menuEl.textContent = formatted;
     if (accEl) accEl.textContent = formatted;
     if (topupEl) topupEl.textContent = formatted;
+    if (loyaltyEl) loyaltyEl.textContent = isAuth ? userBalance.toLocaleString().replace(/,/g, ' ') : '0';
     if (isAuth) localStorage.setItem('lpg_balance', userBalance.toString());
   }
   updateBalanceDisplay();
@@ -296,7 +298,15 @@ document.addEventListener('DOMContentLoaded', () => {
       orderHistory: "История заказов",
       openNow: "Открыто",
       btnBuildRoute: "Построить маршрут",
-      cartTitle: "Корзина покупок"
+      cartTitle: "Корзина покупок",
+      clearCart: "Очистить всё",
+      myBalanceModalTitle: "Бонусы Poytug Club",
+      myBalanceModalSub: "Бонусная программа лояльности и кэшбэк",
+      goldLevelCashback: "Золотой уровень • 2% Кэшбэк",
+      balanceHintText: "1 бонус = 1 сум. Оплачивайте бонусами до 50% стоимости заправки и покупки баллонов!",
+      bonusHistoryTitle: "История начислений",
+      aboutCompanyTitle: "О компании «Poytug GNS»",
+      aboutCompanySub: "Официальный сертифицированный поставщик LPG в Узбекистане"
     },
     uz: {
       auth2faTitle: "Kirish",
@@ -386,7 +396,15 @@ document.addEventListener('DOMContentLoaded', () => {
       orderHistory: "Buyurtmalar tarixi",
       openNow: "Ochiq",
       btnBuildRoute: "Yo'nalish tuzish",
-      cartTitle: "Haridlar savatchasi"
+      cartTitle: "Haridlar savatchasi",
+      clearCart: "Tozalash",
+      myBalanceModalTitle: "Poytug Club bonuslari",
+      myBalanceModalSub: "Sodiqlik dasturi va keshbek",
+      goldLevelCashback: "Oltin daraja • 2% Keshbek",
+      balanceHintText: "1 bonus = 1 so'm. To'lovning 50% gacha qismini bonuslar bilan to'lang!",
+      bonusHistoryTitle: "Bonuslar tarixi",
+      aboutCompanyTitle: "«Poytug GNS» kompaniyasi haqida",
+      aboutCompanySub: "O'zbekistonda sertifikatlangan LPG yetkazib beruvchi"
     },
     en: {
       auth2faTitle: "Sign In",
@@ -476,7 +494,15 @@ document.addEventListener('DOMContentLoaded', () => {
       orderHistory: "Order History",
       openNow: "Open Now",
       btnBuildRoute: "Get Directions",
-      cartTitle: "Shopping Cart"
+      cartTitle: "Shopping Cart",
+      clearCart: "Clear all",
+      myBalanceModalTitle: "Poytug Club Bonuses",
+      myBalanceModalSub: "Loyalty Program & Cashback",
+      goldLevelCashback: "Gold Level • 2% Cashback",
+      balanceHintText: "1 point = 1 UZS. Pay up to 50% of your refuel with bonus points!",
+      bonusHistoryTitle: "Bonus History",
+      aboutCompanyTitle: "About «Poytug GNS»",
+      aboutCompanySub: "Certified LPG provider in Uzbekistan"
     }
   };
 
@@ -1073,6 +1099,15 @@ document.addEventListener('DOMContentLoaded', () => {
     openModal('modal-topup');
   }
 
+  function openLoyaltyModal() {
+    if (!isAuth) {
+      redirectToAuth("🔒 Для просмотра бонусов Poytug Club необходимо войти в аккаунт");
+      return;
+    }
+    updateBalanceDisplay();
+    openModal('modal-balance');
+  }
+
   const btnTopupBalance = document.getElementById('btn-topup-balance');
   if (btnTopupBalance) {
     btnTopupBalance.addEventListener('click', (e) => {
@@ -1084,6 +1119,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnAccBalanceItem = document.getElementById('btn-acc-balance-item');
   if (btnAccBalanceItem) {
     btnAccBalanceItem.addEventListener('click', () => {
+      openLoyaltyModal();
+    });
+  }
+
+  const btnUseBalanceNow = document.getElementById('btn-use-balance-now');
+  if (btnUseBalanceNow) {
+    btnUseBalanceNow.addEventListener('click', () => {
+      closeModal('modal-balance');
+      switchScreen('screen-home');
+      showToast("Выберите объем заправки для применения бонусов");
+    });
+  }
+
+  const btnOpenTopupFromLoyalty = document.getElementById('btn-open-topup-from-loyalty');
+  if (btnOpenTopupFromLoyalty) {
+    btnOpenTopupFromLoyalty.addEventListener('click', () => {
+      closeModal('modal-balance');
       openTopupModal();
     });
   }
@@ -1185,7 +1237,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('btn-menu-balance').addEventListener('click', () => {
     closeDrawer();
-    openTopupModal();
+    openLoyaltyModal();
   });
   document.getElementById('btn-menu-settings').addEventListener('click', () => {
     closeDrawer();
@@ -2011,6 +2063,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutBtn = document.getElementById('btn-cart-checkout');
     const promoInput = document.getElementById('input-promocode');
     const promoBtn = document.getElementById('btn-apply-promo');
+    const btnClearCart = document.getElementById('btn-clear-cart-all');
+    const subtotalEl = document.getElementById('cart-subtotal-amount');
+    const discountRow = document.getElementById('cart-discount-row');
+    const discountAmountEl = document.getElementById('cart-discount-amount');
     const totalAmountEl = document.getElementById('cart-total-amount');
 
     const isEmpty = cart.length === 0;
@@ -2025,6 +2081,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (checkoutBtn) checkoutBtn.disabled = isEmpty;
     if (promoInput) promoInput.disabled = isEmpty;
     if (promoBtn) promoBtn.disabled = isEmpty;
+    if (btnClearCart) btnClearCart.style.display = isEmpty ? 'none' : 'inline-flex';
 
     if (!isEmpty && list) {
       list.innerHTML = cart.map((item, i) => `
@@ -2041,8 +2098,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let rawTotal = isEmpty ? 0 : cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    let finalTotal = Math.round(rawTotal * (1 - appliedPromoDiscount / 100));
+    let discountVal = Math.round(rawTotal * (appliedPromoDiscount / 100));
+    let finalTotal = rawTotal - discountVal;
+
+    if (subtotalEl) subtotalEl.textContent = `${rawTotal.toLocaleString().replace(/,/g, ' ')} UZS`;
+    if (discountRow) {
+      if (appliedPromoDiscount > 0 && discountVal > 0) {
+        discountRow.style.display = 'flex';
+        if (discountAmountEl) discountAmountEl.textContent = `-${discountVal.toLocaleString().replace(/,/g, ' ')} UZS (${appliedPromoDiscount}%)`;
+      } else {
+        discountRow.style.display = 'none';
+      }
+    }
     if (totalAmountEl) totalAmountEl.textContent = `${finalTotal.toLocaleString().replace(/,/g, ' ')} UZS`;
+  }
+
+  const btnClearCartAll = document.getElementById('btn-clear-cart-all');
+  if (btnClearCartAll) {
+    btnClearCartAll.addEventListener('click', () => {
+      if (cart.length === 0) return;
+      cart = [];
+      appliedPromoDiscount = 0;
+      const promoInp = document.getElementById('input-promocode');
+      if (promoInp) promoInp.value = '';
+      updateCartUI();
+      showToast("Корзина очищена");
+    });
   }
 
   window.changeQty = function(idx, delta) {
