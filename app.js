@@ -993,7 +993,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnQtyPlus = document.getElementById('btn-qty-plus');
   const inputCylQty = document.getElementById('input-cyl-qty');
   const wholesaleBadge = document.getElementById('wholesale-badge');
-  const displayCylPrice = document.getElementById('display-cyl-price');
 
   function updateQuantityAndWholesaleState() {
     let qty = parseInt(inputCylQty.value) || 1;
